@@ -1,0 +1,330 @@
+{
+  "FacturaCyC": {
+    "FileHeader": {
+      "SchemaVersion": "3.2.1",
+      "Modality": "I",
+      "InvoiceIssuerType": "TE",
+      "ThirdParty": {
+        "TaxIdentification": {
+          "PersonTypeCode": "J",
+          "ResidenceTypeCode": "R",
+          "TaxIdentificationNumber": "T12345678"
+        },
+        "LegalEntity": {
+          "CorporateName": "Third Party",
+          "RegistrationData": {
+            "Book": "14829/2001-12-26",
+            "RegisterOfCompaniesLocation": "Madrid",
+            "Sheet": "44",
+            "Folio": "343",
+            "Section": "3a",
+            "Volume": "5895",
+            "additionalRegistrationData": ""
+          },
+          "AddressInSpain": {
+            "Address": "Calle Third Party",
+            "PostCode": "12345",
+            "Town": "Ciudad Third Party",
+            "Province": "Provincia TP",
+            "CountryCode": "ES"
+          },
+          "ContactDetails": {
+            "Telephone": "+34 12345678",
+            "TeleFax": "+34 12345678",
+            "WebAddress": "http://www.ThirdParty.com/",
+            "ElectronicMail": "electronicMail@thirdparty.com",
+            "ContactPersons": "Contacto Third Party"
+          }
+        }
+      },
+        "Batch": {
+        "BatchIdentifier": "LOTE1",
+        "InvoicesCount": 1,
+        "TotalInvoicesAmount": { "TotalAmount": 1296.49 },
+        "TotalOutstandingAmount": { "TotalAmount": 1296.49 },
+        "TotalExecutableAmount": { "TotalAmount": 1296.49 },
+        "InvoiceCurrencyCode": "EUR"
+      }
+    },
+    "Invoices": [
+      {
+        "Parties": {
+          "SellerParty": {
+            "TaxIdentification": {
+              "PersonTypeCode": "J",
+              "ResidenceTypeCode": "R",
+              "TaxIdentificationNumber": "S12345678"
+            },
+            "PartyIdentification": "S12345678",
+            "AdministrativeCentre": {
+              "CentreCode": "S12345678",
+              "RoleTypeCode": "01",
+              "AddressInSpain": {
+                "Address": "Calle del Centro Seller",
+                "PostCode": "12345",
+                "Town": "Ciudad Centro Seller",
+                "Province": "Provincia ACS",
+                "CountryCode": "ES"
+              },
+              "CentreDescription": "Centro Seller Party"
+            },
+            "LegalEntity": {
+              "CorporateName": "Seller Party",
+              "AddressInSpain": {
+                "Address": "Calle Seller Party",
+                "PostCode": "12345",
+                "Town": "Ciudad Seller Party",
+                "Province": "Provincia SP",
+                "CountryCode": "ES"
+              },
+              "ContactDetails": {
+                "Telephone": "+34 12345678",
+                "TeleFax": "+34 12345678",
+                "WebAddress": "http://www.SellerParty.com/",
+                "ElectronicMail": "electronicMail@sellerparty.com",
+                "ContactPersons": "Contacto Seller Party"
+              }
+            }
+          },
+          "BuyerParty": {
+            "TaxIdentification": {
+              "PersonTypeCode": "J",
+              "ResidenceTypeCode": "R",
+              "TaxIdentificationNumber": "B12345678"
+            },
+            "PartyIdentification": "B12345678",
+            "AdministrativeCentre": {
+              "CentreCode": "B12345678",
+              "RoleTypeCode": "01",
+              "AddressInSpain": {
+                "Address": "Calle del Centro Buyer",
+                "PostCode": "12345",
+                "Town": "Ciudad Centro Buyer",
+                "Province": "Provincia ACB",
+                "CountryCode": "ES"
+              },
+              "CentreDescription": "Centro Buyer Party"
+            },
+            "LegalEntity": {
+              "CorporateName": "Buyer Party",
+              "AddressInSpain": {
+                "Address": "Calle Buyer Party",
+                "PostCode": "12345",
+                "Town": "Ciudad Buyer Party",
+                "Province": "Provincia BP",
+                "CountryCode": "ES"
+              },
+              "ContactDetails": {
+                "Telephone": "+34 12345678",
+                "TeleFax": "+34 12345678",
+                "WebAddress": "http://www.BuyerParty.com/",
+                "ElectronicMail": "electronicMail@buyerparty.com",
+                "ContactPersons": "Contacto Buyer Party"
+              }
+            }
+          }
+        },
+        "Invoice": {
+          "InvoiceHeader": {
+            "InvoiceNumber": "INV00000001",
+            "InvoiceDocumentType": "FC",
+            "InvoiceClass": "OO"
+          },
+          "InvoiceIssueData": {
+            "IssueDate": "2024-10-03T23:12:03",
+            "InvoicingPeriod": {
+              "StartDate": "2024-10-03T23:12:03",
+              "EndDate": "2024-11-03T23:12:03"
+            },
+            "InvoiceCurrencyCode": "EUR",
+            "TaxCurrencyCode": "EUR",
+            "LanguageName": "es"
+          },
+          "TaxesOutputs": [
+            {
+              "Tax": {
+                "TaxTypeCode": "01",
+                "TaxRate": 21.0,
+                "TaxableBase": { "TotalAmount": 1071.48 },
+                "TaxAmount": { "TotalAmount": 225.01 }
+              }
+            }
+          ],
+          "InvoiceTotals": {
+            "TotalGrossAmount": 7257.5,
+            "GeneralDiscounts": [
+              {
+                "Discount": {
+                  "DiscountReason": "Descuento General",
+                  "DiscountRate": 10.0,
+                  "DiscountAmount": 725.25
+                }
+              }
+            ],
+            "GeneralSurcharges": [
+              {
+                "Charge": {
+                  "chargeReason": "Cargo General",
+                  "ChargeRate": 20.0,
+                  "ChargeAmount": 1451.5
+                }
+              }
+            ],
+            "TotalGeneralDiscounts": 725.25,
+            "TotalGeneralSurcharges": 1451.5,
+            "TotalGrossAmountBeforeTaxes": 5750.0,
+            "TotalTaxOutputs": 1207.5,
+            "TotalTaxesWithheld": 0.0,
+            "InvoiceTotal": 7983.25,
+            "TotalOutstandingAmount": 7983.25,
+            "TotalExecutableAmount": 7983.25
+          },
+          "Items": [
+            {
+              "InvoiceLine": {
+                "IssuerContractReference": "12345678",
+                "IssuerTransactionReference": "12345678",
+                "SequenceNumber": 1,
+                "DeliveryNotesReferences": [
+                  {
+                    "DeliveryNote": {
+                      "DeliveryNoteNumber": "1234567",
+                      "DeliveryNoteDate": "2024-11-03T23:12:03"
+                    }
+                  }
+                ],
+                "ItemDescription": "Item 1",
+                "Quantity": 10000,
+                "UnitOfMeasure": "UOM I1",
+                "UnitPriceWithoutTax": 0.10,
+                "TotalCost": 1000.00,
+                "DiscountsAndRebates": [
+                  {
+                    "Discount": {
+                      "DiscountReason": "Descuento I1",
+                      "DiscountRate": 10.0,
+                      "DiscountAmount": 100.0
+                    }
+                  }
+                ],
+                "Charges": [
+                  {
+                    "Charge": {
+                      "ChargeReason": "Cargo I1",
+                      "ChargeRate": 25.0,
+                      "ChargeAmount": 250.0
+                    }
+                  }
+                ],
+                "GrossAmount": 1150.00,
+                "TaxesOutputs": [
+                  {
+                    "Tax": {
+                      "TaxTypeCode": "01",
+                      "TaxRate": 21.0,
+                      "TaxableBase": {
+                        "TotalAmount": 1150.0
+                      },
+                      "TaxAmount": {
+                        "TotalAmount": 241.5
+                      }
+                    }
+                  }
+                ],
+                "LineItemPeriod": {
+                  "StartDate": "2024-11-03T23:12:03",
+                  "EndDate": "2024-11-10T23:12:03"
+                },
+                "ArticleCode": "12345"
+              }
+            },
+            {
+              "InvoiceLine": {
+                "IssuerContractReference": "12345678",
+                "IssuerTransactionReference": "12345678",
+                "SequenceNumber": 2,
+                "DeliveryNotesReferences": [
+                  {
+                    "DeliveryNote": {
+                      "DeliveryNoteNumber": "1234567",
+                      "DeliveryNoteDate": "2024-11-03T23:12:03"
+                    }
+                  }
+                ],
+                "ItemDescription": "Item 2",
+                "Quantity": 20000,
+                "UnitOfMeasure": "UOM I2",
+                "UnitPriceWithoutTax": 0.20,
+                "TotalCost": 4000.0,
+                "DiscountsAndRebates": [
+                  {
+                    "Discount": {
+                      "DiscountReason": "Descuento I2",
+                      "DiscountRate": 10.0,
+                      "DiscountAmount": 400.0
+                    }
+                  }
+                ],
+                "Charges": [
+                  {
+                    "Charge": {
+                      "ChargeReason": "Cargo I2",
+                      "ChargeRate": 25.0,
+                      "ChargeAmount": 1000.0
+                    }
+                  }
+                ],
+                "GrossAmount": 4600.0,
+                "TaxesOutputs": [
+                  {
+                    "Tax": {
+                      "TaxTypeCode": "01",
+                      "TaxRate": 21.0,
+                      "TaxableBase": {
+                        "TotalAmount": 4600.0
+                      },
+                      "TaxAmount": {
+                        "TotalAmount": 966.0
+                      }
+                    }
+                  }
+                ],
+                "LineItemPeriod": {
+                  "StartDate": "2024-11-03T23:12:03",
+                  "EndDate": "2024-11-10T23:12:03"
+                },
+                "ArticleCode": "12345"
+              }
+            }
+          ],
+          "PaymentDetails": [
+            {
+              "Installment": {
+                "InstallmentDueDate": "2024-11-03T23:12:03",
+                "InstallmentAmount": 7983.25,
+                "PaymentMeans": "04",
+                "AccountToBeCredited": {
+                  "IBAN": "ES8123456789123456"
+                },
+                "BankCode": "ABCD"
+              }
+            }
+          ],
+          "AdditionalData": {
+            "RelatedDocuments": [
+              {
+                "Attachment": {
+                  "AttachmentCompressionAlgorithm": "NONE",
+                  "AttachmentFormat": "pdf",
+                  "AttachmentEncoding": "BASE64",
+                  "AttachmentDescription": "PDF FACTURA",
+                  "AttachmentData": ""
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
