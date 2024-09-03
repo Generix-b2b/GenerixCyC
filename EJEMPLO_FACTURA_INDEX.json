@@ -36,15 +36,15 @@
             "ContactPersons": "Contacto Third Party"
           }
         }
-      },
-        "Batch": {
-        "BatchIdentifier": "LOTE1",
-        "InvoicesCount": 1,
-        "TotalInvoicesAmount": { "TotalAmount": 1296.49 },
-        "TotalOutstandingAmount": { "TotalAmount": 1296.49 },
-        "TotalExecutableAmount": { "TotalAmount": 1296.49 },
-        "InvoiceCurrencyCode": "EUR"
       }
+    },
+    "Batch": {
+      "BatchIdentifier": "LOTE1",
+      "InvoicesCount": 1,
+      "TotalInvoicesAmount": { "TotalAmount": 1296.49 },
+      "TotalOutstandingAmount": { "TotalAmount": 1296.49 },
+      "TotalExecutableAmount": { "TotalAmount": 1296.49 },
+      "InvoiceCurrencyCode": "EUR"
     },
     "Invoices": [
       {
