@@ -104,6 +104,7 @@
 													"description": "Otros datos registrales.",
                                                     "maxLength": 20
 												}
+												
 											}
 										},
 										"AddressInSpain": {
@@ -186,78 +187,79 @@
 								"TaxIdentification",
 								"LegalEntity"
 							]
+						},
+						"Batch": {
+							"type": "object",
+							"description": "Lote",
+							"properties": {
+								"BatchIdentifier": {
+									"type": "string",
+									"description": "Identificador del lote. Concatenación del nº del emisor con el número de la primera factura y el número de serie",
+									"maxLength": 70
+								},
+								"InvoicesCount": {
+									"type": "integer",
+									"description": "Número total de facturas. Refleja, cuando es lote, el número de facturas del mismo. Siempre será valor '1'' cuando el campo Modality (Modalidad) tenga el valor 'I'."
+								},
+								"TotalInvoicesAmount": {
+									"type": "object",
+									"description": "Total facturas. Suma de los importes InvoiceTotal del Fichero. Para más información, leer la documentación.",
+									"properties": {
+										"TotalAmount": {
+											"type": "number",
+											"description": "Importe en la moneda original de la facturación. Para más información, leer la documentación."
+										}
+									},
+									"required": [
+										"TotalAmount"
+									]
+								},
+								"TotalOutstandingAmount": {
+									"type": "object",
+									"description": "Total a pagar. Para más información, leer la documentación",
+									"properties": {
+										"TotalAmount": {
+											"type": "number",
+											"description": "Importe en la moneda original de la facturación. Para más información, leer la documentación."
+										}
+									},
+									"required": [
+										"TotalAmount"
+									]
+								},
+								"TotalExecutableAmount": {
+									"type": "object",
+									"description": "Total a Ejecutar.",
+									"properties": {
+										"TotalAmount": {
+											"type": "number",
+											"description": "Importe en la moneda original de facturación. Para más información, leer la documentación."
+										}
+									},
+									"required": [
+										"TotalAmount"
+									]
+								},
+								"InvoiceCurrencyCode": {
+									"type": "string",
+									"description": "Código ISO 4217:2001 Alpha-3 de la moneda en la que se emite la factura. Para más infromación, leer la documentación"
+								}
+							},
+							"required": [
+								"BatchIdentifier",
+								"InvoicesCount",
+								"TotalInvoicesAmount",
+								"TotalOutstandingAmount",
+								"TotalExecutableAmount",
+								"InvoiceCurrencyCode"
+							]
 						}
 					},
 					"required": [
 						"SchemaVersion",
 						"Modality",
-						"InvoiceIssuerType"
-					]
-				},
-				"Batch": {
-					"type": "object",
-					"description": "Lote",
-					"properties": {
-						"BatchIdentifier": {
-							"type": "string",
-							"description": "Identificador del lote. Concatenación del nº del emisor con el número de la primera factura y el número de serie",
-							"maxLength": 70
-						},
-						"InvoicesCount": {
-							"type": "integer",
-							"description": "Número total de facturas. Refleja, cuando es lote, el número de facturas del mismo. Siempre será valor '1'' cuando el campo Modality (Modalidad) tenga el valor 'I'."
-						},
-						"TotalInvoicesAmount": {
-							"type": "object",
-							"description": "Total facturas. Suma de los importes InvoiceTotal del Fichero. Para más información, leer la documentación.",
-							"properties": {
-								"TotalAmount": {
-									"type": "number",
-									"description": "Importe en la moneda original de la facturación. Para más información, leer la documentación."
-								}
-							},
-							"required": [
-								"TotalAmount"
-							]
-						},
-						"TotalOutstandingAmount": {
-							"type": "object",
-							"description": "Total a pagar. Para más información, leer la documentación",
-							"properties": {
-								"TotalAmount": {
-									"type": "number",
-									"description": "Importe en la moneda original de la facturación. Para más información, leer la documentación."
-								}
-							},
-							"required": [
-								"TotalAmount"
-							]
-						},
-						"TotalExecutableAmount": {
-							"type": "object",
-							"description": "Total a Ejecutar.",
-							"properties": {
-								"TotalAmount": {
-									"type": "number",
-									"description": "Importe en la moneda original de facturación. Para más información, leer la documentación."
-								}
-							},
-							"required": [
-								"TotalAmount"
-							]
-						},
-						"InvoiceCurrencyCode": {
-							"type": "string",
-							"description": "Código ISO 4217:2001 Alpha-3 de la moneda en la que se emite la factura. Para más infromación, leer la documentación"
-						}
-					},
-					"required": [
-						"BatchIdentifier",
-						"InvoicesCount",
-						"TotalInvoicesAmount",
-						"TotalOutstandingAmount",
-						"TotalExecutableAmount",
-						"InvoiceCurrencyCode"
+						"InvoiceIssuerType",
+						"Batch"
 					]
 				},
 				"Invoices": {
@@ -1250,7 +1252,6 @@
 			},
 			"required": [
 				"FileHeader",
-				"Batch",
 				"Invoices"
 			]
 		}
