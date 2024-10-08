@@ -70,6 +70,15 @@
             },
             "LegalEntity": {
               "CorporateName": "Seller Party",
+              "RegistrationData": {
+                "Book": "14829/2001-12-26",
+                "RegisterOfCompaniesLocation": "Madrid",
+                "Sheet": "44",
+                "Folio": "343",
+                "Section": "3a",
+                "Volume": "5895",
+                "AdditionalRegistrationData": ""
+              },
               "AddressInSpain": {
                 "Address": "Calle Seller Party",
                 "PostCode": "12345",
@@ -128,7 +137,19 @@
           "InvoiceHeader": {
             "InvoiceNumber": "INV00000001",
             "InvoiceDocumentType": "FC",
-            "InvoiceClass": "OO"
+            "InvoiceClass": "OO",
+            "Corrective": {
+              "InvoiceNumber": "INV00000001",
+              "ReasonCode": "12",
+              "ReasonDescription": "Número de la factura",
+              "TaxPeriod": {
+                "StartDate": "2024-10-03T23:12:03",
+                "EndDate": "2024-10-03T23:12:03"
+              },
+              "CorrectionMethod": "01",
+              "CorrectionMethodDescription": "01",
+              "InvoiceIssueDate": "2024-10-03T23:12:03"
+            }
           },
           "InvoiceIssueData": {
             "IssueDate": "2024-10-03T23:12:03",
@@ -196,8 +217,8 @@
                 "ItemDescription": "Item 1",
                 "Quantity": 10000,
                 "UnitOfMeasure": "UOM I1",
-                "UnitPriceWithoutTax": 0.10,
-                "TotalCost": 1000.00,
+                "UnitPriceWithoutTax": 0.1,
+                "TotalCost": 1000.0,
                 "DiscountsAndRebates": [
                   {
                     "Discount": {
@@ -216,7 +237,7 @@
                     }
                   }
                 ],
-                "GrossAmount": 1150.00,
+                "GrossAmount": 1150.0,
                 "TaxesOutputs": [
                   {
                     "Tax": {
@@ -254,7 +275,7 @@
                 "ItemDescription": "Item 2",
                 "Quantity": 20000,
                 "UnitOfMeasure": "UOM I2",
-                "UnitPriceWithoutTax": 0.20,
+                "UnitPriceWithoutTax": 0.2,
                 "TotalCost": 4000.0,
                 "DiscountsAndRebates": [
                   {
