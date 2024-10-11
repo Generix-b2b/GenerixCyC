@@ -1,7 +1,7 @@
 {
   "FacturaCyC": {
     "FileHeader": {
-      "SchemaVersion": "3.2.1",
+      "SchemaVersion": "3.2.2",
       "Modality": "I",
       "InvoiceIssuerType": "TE",
       "ThirdParty": {
@@ -26,7 +26,7 @@
             "PostCode": "12345",
             "Town": "Ciudad Third Party",
             "Province": "Provincia TP",
-            "CountryCode": "ES"
+            "CountryCode": "ESP"
           },
           "ContactDetails": {
             "Telephone": "+34 12345678",
@@ -64,12 +64,13 @@
                 "PostCode": "12345",
                 "Town": "Ciudad Centro Seller",
                 "Province": "Provincia ACS",
-                "CountryCode": "ES"
+                "CountryCode": "ESP"
               },
               "CentreDescription": "Centro Seller Party"
             },
             "LegalEntity": {
               "CorporateName": "Seller Party",
+              "TradeName": "Seller Party",
               "RegistrationData": {
                 "Book": "14829/2001-12-26",
                 "RegisterOfCompaniesLocation": "Madrid",
@@ -84,7 +85,7 @@
                 "PostCode": "12345",
                 "Town": "Ciudad Seller Party",
                 "Province": "Provincia SP",
-                "CountryCode": "ES"
+                "CountryCode": "ESP"
               },
               "ContactDetails": {
                 "Telephone": "+34 12345678",
@@ -110,7 +111,7 @@
                 "PostCode": "12345",
                 "Town": "Ciudad Centro Buyer",
                 "Province": "Provincia ACB",
-                "CountryCode": "ES"
+                "CountryCode": "ESP"
               },
               "CentreDescription": "Centro Buyer Party"
             },
@@ -121,7 +122,7 @@
                 "PostCode": "12345",
                 "Town": "Ciudad Buyer Party",
                 "Province": "Provincia BP",
-                "CountryCode": "ES"
+                "CountryCode": "ESP"
               },
               "ContactDetails": {
                 "Telephone": "+34 12345678",
@@ -325,9 +326,12 @@
                 "InstallmentAmount": 7983.25,
                 "PaymentMeans": "04",
                 "AccountToBeCredited": {
-                  "IBAN": "ES8123456789123456"
+                  "IBAN": "ES8123456789123456",
+                  "AccountNumber": "",
+                  "BankCode": "ABCD",
+                  "BIC": ""
                 },
-                "BankCode": "ABCD"
+                "PaymentReconciliationReference": "Lorem Ipsum"
               }
             }
           ],
