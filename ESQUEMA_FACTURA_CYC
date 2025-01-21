@@ -152,7 +152,7 @@
                           "type": "string",
                           "description": "Código país. Según la ISO 3166-1:2006. Al ser un domicilio ubicado en España siempre será 'ES'",
                           "enum": [
-                            "ES"
+                            "ESP"
                           ]
                         }
                       },
@@ -372,7 +372,7 @@
                                   "type": "string",
                                   "description": "Código país. Según la ISO 3166-1:2006. Al ser un domicilio en España siempre será 'ES'",
                                   "enum": [
-                                    "ES"
+                                    "ESP"
                                   ]
                                 }
                               },
@@ -402,6 +402,11 @@
                               "type": "string",
                               "description": "Razón social.",
                               "maxLength": 80
+                            },
+                            "TradeName": {
+                              "type": "string",
+                              "description": "Nombre Comercial.",
+                              "maxLength": 40
                             },
                             "RegistrationData": {
                               "type": "object",
@@ -472,7 +477,7 @@
                                   "type": "string",
                                   "description": "Código país. Según la ISO 3166-1:2006. Al ser un domicilio en España siempre será 'ES'",
                                   "enum": [
-                                    "ES"
+                                    "ESP"
                                   ]
                                 }
                               },
@@ -611,7 +616,7 @@
                                   "type": "string",
                                   "description": "Código país. Según la ISO 3166-1:2006. Al ser un domicilio en España siempre será 'ES'",
                                   "enum": [
-                                    "ES"
+                                    "ESP"
                                   ]
                                 }
                               },
@@ -669,7 +674,7 @@
                                   "type": "string",
                                   "description": "Código país. Según la ISO 3166-1:2006. al ser un domicilio ubicado en España siempre será 'ES'",
                                   "enum": [
-                                    "ES"
+                                    "ESP"
                                   ]
                                 }
                               },
@@ -799,12 +804,20 @@
                                   "description": "Fecha final. date yyyy-MM-ddThh:mm:ss (2024-11-03T24:12:03)"
                                 }
                               },
-                              "required": ["StartDate", "EndDate"]
+                              "required": [
+                                "StartDate",
+                                "EndDate"
+                              ]
                             },
                             "CorrectionMethod": {
                               "type": "string",
                               "description": "Código numérico que identifica el criterio empleado en cada caso para una rectificación / '01' - Se reflejan todos los detalles a rectificar de la factura original. '02' - Solo se anotan los detalles ya rectificados. '03' - Rectificación por descuento por volumen de operaciones durante un periodo. '04' - Autorizadas por la Agencia Tributaria.",
-                              "enum": ["01", "02", "03", "04"]
+                              "enum": [
+                                "01",
+                                "02",
+                                "03",
+                                "04"
+                              ]
                             },
                             "CorrectionMethodDescription": {
                               "type": "string",
@@ -1311,34 +1324,75 @@
                                   "type": "string",
                                   "description": "Cada vencimiento/importe podrá tener un medio de pago concreto."
                                 },
-                                "AccountToBeCredited": {
-                                  "type": "object",
-                                  "description": "Cuenta de abono. Único formato admitido. Cuando la forma de pago sea transferencia este dato será obligatorio.",
-                                  "properties": {
-                                    "IBAN": {
-                                      "type": "string",
-                                      "description": "IBAN. Único formato admitido para identificar la cuenta. (Recomendado)"
+                                {
+                                  "oneOf": [
+                                    "AccountToBeCredited": {
+                                      "type": "object",
+                                      "description": "Cuenta de abono. Único formato admitido. Cuando la forma de pago sea transferencia este dato será obligatorio.",
+                                      "properties": {
+                                        {
+                                          "oneOf": [
+                                            "IBAN": {
+                                              "type": "string",
+                                              "description": "IBAN. Único formato admitido para identificar la cuenta. (Recomendado)"
+                                            },
+                                            "AccountNumber": {
+                                              "type": "string",
+                                              "description": "Número de cuenta"
+                                            }
+                                          ]
+                                        },
+                                        "BankCode": {
+                                          "type": "string",
+                                          "description": "Código de la entidad financiera.",
+                                          "maxLength": 60
+                                        },
+                                        "BIC": {
+                                          "type": "string",
+                                          "description": "Código SWIFT. Será obligatorio rellenar las 11 posiciones, utilizando los caracteres XXX cuando no se informe de la sucursal.",
+                                          "minLength": 11,
+                                          "maxLength": 11
+                                        }
+                                      },
+                                      "required": [
+                                        "IBAN"
+                                      ]
                                     },
-                                    "AccountNumber": {
-                                      "type": "string",
-                                      "description": "Número de cuenta"
-                                    },
-                                    "BankCode": {
-                                      "type": "string",
-                                      "description": "Código de la entidad financiera.",
-                                      "maxLength": 60
-                                    },
-                                    "BIC": {
-                                      "type": "string",
-                                      "description": "Código SWIFT. Será obligatorio rellenar las 11 posiciones, utilizando los caracteres XXX cuando no se informe de la sucursal.",
-                                      "minLength": 11,
-                                      "maxLength": 11
+                                    "AccountToBeDebited": {
+                                      "type": "object",
+                                      "description": "Cuenta de cargo. Único formato admitido. Cuando la forma de pago sea transferencia este dato será obligatorio.",
+                                      "properties": {
+                                        {
+                                          "oneOf": [
+                                            "IBAN": {
+                                              "type": "string",
+                                              "description": "IBAN. Único formato admitido para identificar la cuenta. (Recomendado)"
+                                            },
+                                            "AccountNumber": {
+                                              "type": "string",
+                                              "description": "Número de cuenta"
+                                            }
+                                          ]
+                                        },
+                                        "BankCode": {
+                                          "type": "string",
+                                          "description": "Código de la entidad financiera.",
+                                          "maxLength": 60
+                                        },
+                                        "BIC": {
+                                          "type": "string",
+                                          "description": "Código SWIFT. Será obligatorio rellenar las 11 posiciones, utilizando los caracteres XXX cuando no se informe de la sucursal.",
+                                          "minLength": 11,
+                                          "maxLength": 11
+                                        }
+                                      },
+                                      "required": [
+                                        "IBAN"
+                                      ]
                                     }
-                                  },
-                                  "required": [
-                                    "IBAN"
-                                  ]
-                                },
+                                  ]  
+                                }
+                                ,
                                 "PaymentReconciliationReference": {
                                   "type": "string",
                                   "description": "Referencia expresa del pago. Dato que precisa el Emisor para conciliar los pagos con cada factura.",
@@ -1356,6 +1410,22 @@
                           "required": [
                             "Installment"
                           ]
+                        }
+                      ]
+                    },
+                    "LegalLiterals": {
+                      "type": "object",
+                      "description": "Literales legales.",
+                      "array": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "LegalReference": {
+                              "type": "string",
+                              "description": "Textos literales que deben figurar obligatoriamete en determinadas facturas. Para más información, leer la documentación.",
+                              "maxLength": 250
+                            }
+                          }
                         }
                       ]
                     },
