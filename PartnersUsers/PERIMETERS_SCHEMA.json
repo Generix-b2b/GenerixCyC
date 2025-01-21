@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "perimeters": {
+        "type": "array",
+        "description": "",
+        "items": {
+            "type": "object",
+            "description": "Objeto que denomina un usuario y sus distintos perimetros",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "Email del usuario al que vamos a dar perímetros."
+                },
+                "partnerID": {
+                    "type": "array",
+                    "description": "Array que contiene los identificadores de los partner cuyas facturas el usuario deba ver.",
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "email",
+                "partnerID"
+            ]
+        },
+        "minItems": 1
+      }
+    }
+}

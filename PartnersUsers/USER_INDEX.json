@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "user": {
+        "partnerID": "48151623420000",
+        "lastName": "Apellido",
+        "firstName": "Nombre",
+        "phone": "+34 912345678",
+        "email": "nombre.update@partnerejemplo.com",
+        "locale": "es",
+        "mobile": "+34 612345678",
+        "disabled": "no",
+        "notification": "yes",
+        "generatePwd": "yes"
+      }
+    },
+    {
+      "user": {
+        "partnerID": "48151623420000",
+        "lastName": "Apellido2",
+        "firstName": "Nombre2",
+        "phone": "+34 912345678",
+        "email": "nombre.update2@partnerejemplo.com",
+        "locale": "es",
+        "mobile": "+34 912345678",
+        "disabled": "no",
+        "notification": "yes",
+        "generatePwd": "yes"
+      }
+    }
+  ]
+}

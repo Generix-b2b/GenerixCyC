@@ -1,0 +1,19 @@
+{
+  "partner": {
+    "partnerID": "1234567890123",
+    "vatCode": "ES12345678Z",
+    "name": "Partner Ejemplo S.A.",
+    "address": {
+      "addressLines": ["Calle Ejemplo 123", "Piso 4"],
+      "zipCode": "28001",
+      "city": "Madrid",
+      "countryCode": "ES",
+      "contact": "Luis Fernandez",
+      "phoneNumber": "+34 912999980",
+      "faxNumber": "+34 912349999",
+      "emailAddress": "contacto@partnerejemplo.com"
+    },
+    "disabled": "no",
+    "freeText01": "EMBOU"
+  }
+}

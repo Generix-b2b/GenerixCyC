@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "partner": {
+      "type": "object",
+      "description": "Objeto Partner",
+      "properties": {
+        "partnerID": {
+          "type": "string",
+          "description": "Identificador unico del partner. Esta información se utiliza en los intercambios con el cliente y en los documentos asociados con el partner.",
+          "maxLength": 128
+        },
+        "gcnId": {
+          "type": "string",
+          "description": "Identificación del socio en el conjunto del ecosistema Generix.",
+          "maxLength": 225
+        },
+        "subscriberCode": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "vatCode": {
+          "type": "string",
+          "description": "Numero de identificacon fiscal, NIF o DNI",
+          "maxLength": 255
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre del socio, tal y como debe mostrarse en la interfaz para cada documento asociado a el. ",
+          "maxLength": 255
+        },
+        "address": {
+          "type": "object",
+          "description": "Direccion.",
+          "properties": {
+            "addressLines": {
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "type": "string",
+                "description": "Líneas de la direccion.",
+                "maxLength": 38
+              }
+            },
+            "zipCode": {
+              "type": "string",
+              "description": "Codigo Postal.",
+              "maxLength": 16
+            },
+            "city": {
+              "type": "string",
+              "description": "Nombre de la ciudad.",
+              "maxLength": 128
+            },
+            "countryCode": {
+              "type": "string",
+              "description": "Codigo de pais en mayusculas.",
+              "maxLength": 2
+            },
+            "contact": {
+              "type": "string",
+              "description": "Datos de contacto de una persona asignada",
+              "maxLength": 256
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "Datos de contacto de una persona asignada",
+              "maxLength": 64
+            },
+            "faxNumber": {
+              "type": "string",
+              "description": "Datos de contacto de una persona asignada",
+              "maxLength": 64
+            },
+            "emailAddress": {
+              "type": "string",
+              "description": "Datos de contacto de una persona asignada",
+              "maxLength": 128
+            }
+          },
+          "required": ["addressLines"]
+        },
+        "disabled": {
+          "type": "string",
+          "description": "Activación y desactivación de usuario.",
+          "enum": ["yes", "no"]
+        },
+        "freeText01": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText02": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText03": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText04": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText05": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText06": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText07": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText08": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeText09": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "freeLongText01": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "freeLongText02": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "freeBoolean1": {
+          "type": "boolean"
+        },
+        "freeBoolean2": {
+          "type": "boolean"
+        },
+        "freeDate01": {
+          "type": "string",
+          "description": "YYYY-MM-DD (2024-01-01)",
+          "maxLength": 255
+        },
+        "freeDate02": {
+          "type": "string",
+          "description": "YYYY-MM-DD (2024-01-01)",
+          "maxLength": 255
+        }
+      },
+      "required": ["partnerID", "name", "address"]
+    }
+  }
+}

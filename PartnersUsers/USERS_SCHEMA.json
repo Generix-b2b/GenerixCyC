@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "users": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "description": "Objeto usuario",
+            "properties": {
+              "partnerID": {
+                "type": "string",
+                "description": "Identificador unico del partner. Esta información se utiliza en los intercambios con el cliente y en los documentos asociados con el partner.",
+                "maxLength": 128
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Primer apellido del contacto.",
+                "maxLength": 64
+              },
+              "firstName": {
+                "type": "string",
+                "description": "Nombre del contacto.",
+                "maxLength": 64
+              },
+              "phone": {
+                "type": "string",
+                "description": "Numero de telefono del contacto.",
+                "maxLength": 128
+              },
+              "email": {
+                "type": "string",
+                "description": "Direccion de email del contacto. Esta direccion es usada para enviar la informacion del login.",
+                "maxLength": 512
+              },
+              "locale": {
+                "type": "string",
+                "description": "Lenguaje de contacto Introduzca el codigo correspondiente al idioma. ISO 639 alpha 2 code. (es).",
+                "maxLength": 2
+              },
+              "mobile": {
+                "type": "string",
+                "description": "Numero de telefono movil del contacto.",
+                "maxLength": 128
+              },
+              "disabled": {
+                "type": "string",
+                "description": "Impedir que el usuario acceda al portal en su próxima conexión.",
+                "enum": ["yes", "no"]
+              },
+              "notification": {
+                "type": "string",
+                "description": "Asigna el rol de Notificacion al usuario",
+                "enum": ["yes", "no"]
+              },
+              "generatePwd": {
+                "type": "string",
+                "description": "Generar un enlace de renovación de contraseña. no => no hacer nada. yes => eenviar un correo electrónico, datos no almacenados.",
+                "enum": ["yes", "no"]
+              }
+            },
+            "required": [
+              "partnerID",
+              "lastName",
+              "firstName",
+              "email",
+              "locale",
+              "disabled"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
