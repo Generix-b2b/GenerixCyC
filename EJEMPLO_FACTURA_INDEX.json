@@ -19,7 +19,7 @@
             "Folio": "343",
             "Section": "3a",
             "Volume": "5895",
-            "additionalRegistrationData": ""
+            "AdditionalRegistrationData": ""
           },
           "AddressInSpain": {
             "Address": "Calle Third Party",
@@ -134,231 +134,233 @@
             }
           }
         },
-        "Invoice": {
-          "InvoiceHeader": {
-            "InvoiceNumber": "INV00000001",
-            "InvoiceDocumentType": "FC",
-            "InvoiceClass": "OO",
-            "Corrective": {
+        "Invoice": [
+          {
+            "InvoiceHeader": {
               "InvoiceNumber": "INV00000001",
-              "ReasonCode": "12",
-              "ReasonDescription": "NÃºmero de la factura",
-              "TaxPeriod": {
-                "StartDate": "2024-10-03T23:12:03",
-                "EndDate": "2024-10-03T23:12:03"
+              "InvoiceDocumentType": "FC",
+              "InvoiceClass": "OO",
+              "Corrective": {
+                "InvoiceNumber": "INV00000001",
+                "ReasonCode": "12",
+                "ReasonDescription": "NÃºmero de la factura",
+                "TaxPeriod": {
+                  "StartDate": "2024-10-03T23:59:59",
+                  "EndDate": "2024-10-03T23:59:59"
+                },
+                "CorrectionMethod": "01",
+                "CorrectionMethodDescription": "Rectificación modelo íntegro",
+                "InvoiceIssueDate": "2024-10-03T23:59:59"
+              }
+            },
+            "InvoiceIssueData": {
+              "IssueDate": "2024-10-03T23:59:59",
+              "InvoicingPeriod": {
+                "StartDate": "2024-10-03T23:59:59",
+                "EndDate": "2024-11-03T23:59:59"
               },
-              "CorrectionMethod": "01",
-              "CorrectionMethodDescription": "01",
-              "InvoiceIssueDate": "2024-10-03T23:12:03"
-            }
-          },
-          "InvoiceIssueData": {
-            "IssueDate": "2024-10-03T23:12:03",
-            "InvoicingPeriod": {
-              "StartDate": "2024-10-03T23:12:03",
-              "EndDate": "2024-11-03T23:12:03"
+              "InvoiceCurrencyCode": "EUR",
+              "TaxCurrencyCode": "EUR",
+              "LanguageName": "es"
             },
-            "InvoiceCurrencyCode": "EUR",
-            "TaxCurrencyCode": "EUR",
-            "LanguageName": "es"
-          },
-          "TaxesOutputs": [
-            {
-              "Tax": {
-                "TaxTypeCode": "01",
-                "TaxRate": 21.0,
-                "TaxableBase": { "TotalAmount": 1071.48 },
-                "TaxAmount": { "TotalAmount": 225.01 }
-              }
-            }
-          ],
-          "InvoiceTotals": {
-            "TotalGrossAmount": 7257.5,
-            "GeneralDiscounts": [
+            "TaxesOutputs": [
               {
-                "Discount": {
-                  "DiscountReason": "Descuento General",
-                  "DiscountRate": 10.0,
-                  "DiscountAmount": 725.25
+                "Tax": {
+                  "TaxTypeCode": "01",
+                  "TaxRate": 21.0,
+                  "TaxableBase": { "TotalAmount": 1071.48 },
+                  "TaxAmount": { "TotalAmount": 225.01 }
                 }
               }
             ],
-            "GeneralSurcharges": [
+            "InvoiceTotals": {
+              "TotalGrossAmount": 7257.5,
+              "GeneralDiscounts": [
+                {
+                  "Discount": {
+                    "DiscountReason": "Descuento General",
+                    "DiscountRate": 10.0,
+                    "DiscountAmount": 725.25
+                  }
+                }
+              ],
+              "GeneralSurcharges": [
+                {
+                  "Charge": {
+                    "ChargeReason": "Cargo General",
+                    "ChargeRate": 20.0,
+                    "ChargeAmount": 1451.5
+                  }
+                }
+              ],
+              "TotalGeneralDiscounts": 725.25,
+              "TotalGeneralSurcharges": 1451.5,
+              "TotalGrossAmountBeforeTaxes": 5750.0,
+              "TotalTaxOutputs": 1207.5,
+              "TotalTaxesWithheld": 0.0,
+              "InvoiceTotal": 7983.25,
+              "TotalOutstandingAmount": 7983.25,
+              "TotalExecutableAmount": 7983.25
+            },
+            "Items": [
               {
-                "Charge": {
-                  "chargeReason": "Cargo General",
-                  "ChargeRate": 20.0,
-                  "ChargeAmount": 1451.5
+                "InvoiceLine": {
+                  "IssuerContractReference": "12345678",
+                  "IssuerTransactionReference": "12345678",
+                  "SequenceNumber": 1,
+                  "DeliveryNotesReferences": [
+                    {
+                      "DeliveryNote": {
+                        "DeliveryNoteNumber": "1234567",
+                        "DeliveryNoteDate": "2024-11-03T23:59:59"
+                      }
+                    }
+                  ],
+                  "ItemDescription": "Item 1",
+                  "Quantity": 10000,
+                  "UnitOfMeasure": "UOM I1",
+                  "UnitPriceWithoutTax": 0.1,
+                  "TotalCost": 1000.0,
+                  "DiscountsAndRebates": [
+                    {
+                      "Discount": {
+                        "DiscountReason": "Descuento I1",
+                        "DiscountRate": 10.0,
+                        "DiscountAmount": 100.0
+                      }
+                    }
+                  ],
+                  "Charges": [
+                    {
+                      "Charge": {
+                        "ChargeReason": "Cargo I1",
+                        "ChargeRate": 25.0,
+                        "ChargeAmount": 250.0
+                      }
+                    }
+                  ],
+                  "GrossAmount": 1150.0,
+                  "TaxesOutputs": [
+                    {
+                      "Tax": {
+                        "TaxTypeCode": "01",
+                        "TaxRate": 21.0,
+                        "TaxableBase": {
+                          "TotalAmount": 1150.0
+                        },
+                        "TaxAmount": {
+                          "TotalAmount": 241.5
+                        }
+                      }
+                    }
+                  ],
+                  "LineItemPeriod": {
+                    "StartDate": "2024-11-03T23:59:59",
+                    "EndDate": "2024-11-10T23:59:59"
+                  },
+                  "ArticleCode": "12345"
+                }
+              },
+              {
+                "InvoiceLine": {
+                  "IssuerContractReference": "12345678",
+                  "IssuerTransactionReference": "12345678",
+                  "SequenceNumber": 2,
+                  "DeliveryNotesReferences": [
+                    {
+                      "DeliveryNote": {
+                        "DeliveryNoteNumber": "1234567",
+                        "DeliveryNoteDate": "2024-11-03T23:59:59"
+                      }
+                    }
+                  ],
+                  "ItemDescription": "Item 2",
+                  "Quantity": 20000,
+                  "UnitOfMeasure": "UOM I2",
+                  "UnitPriceWithoutTax": 0.2,
+                  "TotalCost": 4000.0,
+                  "DiscountsAndRebates": [
+                    {
+                      "Discount": {
+                        "DiscountReason": "Descuento I2",
+                        "DiscountRate": 10.0,
+                        "DiscountAmount": 400.0
+                      }
+                    }
+                  ],
+                  "Charges": [
+                    {
+                      "Charge": {
+                        "ChargeReason": "Cargo I2",
+                        "ChargeRate": 25.0,
+                        "ChargeAmount": 1000.0
+                      }
+                    }
+                  ],
+                  "GrossAmount": 4600.0,
+                  "TaxesOutputs": [
+                    {
+                      "Tax": {
+                        "TaxTypeCode": "01",
+                        "TaxRate": 21.0,
+                        "TaxableBase": {
+                          "TotalAmount": 4600.0
+                        },
+                        "TaxAmount": {
+                          "TotalAmount": 966.0
+                        }
+                      }
+                    }
+                  ],
+                  "LineItemPeriod": {
+                    "StartDate": "2024-11-03T23:59:59",
+                    "EndDate": "2024-11-10T23:59:59"
+                  },
+                  "ArticleCode": "12345"
                 }
               }
             ],
-            "TotalGeneralDiscounts": 725.25,
-            "TotalGeneralSurcharges": 1451.5,
-            "TotalGrossAmountBeforeTaxes": 5750.0,
-            "TotalTaxOutputs": 1207.5,
-            "TotalTaxesWithheld": 0.0,
-            "InvoiceTotal": 7983.25,
-            "TotalOutstandingAmount": 7983.25,
-            "TotalExecutableAmount": 7983.25
-          },
-          "Items": [
-            {
-              "InvoiceLine": {
-                "IssuerContractReference": "12345678",
-                "IssuerTransactionReference": "12345678",
-                "SequenceNumber": 1,
-                "DeliveryNotesReferences": [
-                  {
-                    "DeliveryNote": {
-                      "DeliveryNoteNumber": "1234567",
-                      "DeliveryNoteDate": "2024-11-03T23:12:03"
-                    }
-                  }
-                ],
-                "ItemDescription": "Item 1",
-                "Quantity": 10000,
-                "UnitOfMeasure": "UOM I1",
-                "UnitPriceWithoutTax": 0.1,
-                "TotalCost": 1000.0,
-                "DiscountsAndRebates": [
-                  {
-                    "Discount": {
-                      "DiscountReason": "Descuento I1",
-                      "DiscountRate": 10.0,
-                      "DiscountAmount": 100.0
-                    }
-                  }
-                ],
-                "Charges": [
-                  {
-                    "Charge": {
-                      "ChargeReason": "Cargo I1",
-                      "ChargeRate": 25.0,
-                      "ChargeAmount": 250.0
-                    }
-                  }
-                ],
-                "GrossAmount": 1150.0,
-                "TaxesOutputs": [
-                  {
-                    "Tax": {
-                      "TaxTypeCode": "01",
-                      "TaxRate": 21.0,
-                      "TaxableBase": {
-                        "TotalAmount": 1150.0
-                      },
-                      "TaxAmount": {
-                        "TotalAmount": 241.5
-                      }
-                    }
-                  }
-                ],
-                "LineItemPeriod": {
-                  "StartDate": "2024-11-03T23:12:03",
-                  "EndDate": "2024-11-10T23:12:03"
-                },
-                "ArticleCode": "12345"
-              }
-            },
-            {
-              "InvoiceLine": {
-                "IssuerContractReference": "12345678",
-                "IssuerTransactionReference": "12345678",
-                "SequenceNumber": 2,
-                "DeliveryNotesReferences": [
-                  {
-                    "DeliveryNote": {
-                      "DeliveryNoteNumber": "1234567",
-                      "DeliveryNoteDate": "2024-11-03T23:12:03"
-                    }
-                  }
-                ],
-                "ItemDescription": "Item 2",
-                "Quantity": 20000,
-                "UnitOfMeasure": "UOM I2",
-                "UnitPriceWithoutTax": 0.2,
-                "TotalCost": 4000.0,
-                "DiscountsAndRebates": [
-                  {
-                    "Discount": {
-                      "DiscountReason": "Descuento I2",
-                      "DiscountRate": 10.0,
-                      "DiscountAmount": 400.0
-                    }
-                  }
-                ],
-                "Charges": [
-                  {
-                    "Charge": {
-                      "ChargeReason": "Cargo I2",
-                      "ChargeRate": 25.0,
-                      "ChargeAmount": 1000.0
-                    }
-                  }
-                ],
-                "GrossAmount": 4600.0,
-                "TaxesOutputs": [
-                  {
-                    "Tax": {
-                      "TaxTypeCode": "01",
-                      "TaxRate": 21.0,
-                      "TaxableBase": {
-                        "TotalAmount": 4600.0
-                      },
-                      "TaxAmount": {
-                        "TotalAmount": 966.0
-                      }
-                    }
-                  }
-                ],
-                "LineItemPeriod": {
-                  "StartDate": "2024-11-03T23:12:03",
-                  "EndDate": "2024-11-10T23:12:03"
-                },
-                "ArticleCode": "12345"
-              }
-            }
-          ],
-          "PaymentDetails": [
-            {
-              "Installment": {
-                "InstallmentDueDate": "2024-11-03T23:12:03",
-                "InstallmentAmount": 7983.25,
-                "PaymentMeans": "04",
-                "AccountToBeCredited": {
-                  "IBAN": "ES8123456789123456",
-                  "AccountNumber": "AccountNumberToBeCredited",
-                  "BankCode": "ABCD",
-                  "BIC": "ES12 1234 1234 12 1234567890"
-                },
-                "AccountToBeDebited": {
-                  "IBAN": "ES8123456789123456",
-                  "AccountNumber": "AccountNumberToBeDebited",
-                  "BankCode": "ABCD",
-                  "BIC": "ES12 1234 1234 12 1234567890"
-                },
-                "CollectionAdditionalInformation": "Lorem Ipsum",
-                "PaymentReconciliationReference": "Lorem Ipsum"
-              }
-            }
-          ],
-          "LegalLiterals": {
-            "LegalReference": "Lorem Ipsum"
-          },
-          "AdditionalData": {
-            "RelatedDocuments": [
+            "PaymentDetails": [
               {
-                "Attachment": {
-                  "AttachmentCompressionAlgorithm": "NONE",
-                  "AttachmentFormat": "pdf",
-                  "AttachmentEncoding": "BASE64",
-                  "AttachmentDescription": "PDF FACTURA",
-                  "AttachmentData": ""
+                "Installment": {
+                  "InstallmentDueDate": "2024-11-03T23:59:59",
+                  "InstallmentAmount": 7983.25,
+                  "PaymentMeans": "04",
+                  "AccountToBeCredited": {
+                    "IBAN": "ES8123456789123456",
+                    "AccountNumber": "AccountNumberToBeCredited",
+                    "BankCode": "ABCD",
+                    "BIC": "ES12 1234 1234 12 1234567890"
+                  },
+                  "AccountToBeDebited": {
+                    "IBAN": "ES8123456789123456",
+                    "AccountNumber": "AccountNumberToBeDebited",
+                    "BankCode": "ABCD",
+                    "BIC": "ES12 1234 1234 12 1234567890"
+                  },
+                  "CollectionAdditionalInformation": "Lorem Ipsum",
+                  "PaymentReconciliationReference": "Lorem Ipsum"
                 }
               }
-            ]
+            ],
+            "LegalLiterals": {
+              "LegalReference": "Lorem Ipsum"
+            },
+            "AdditionalData": {
+              "RelatedDocuments": [
+                {
+                  "Attachment": {
+                    "AttachmentCompressionAlgorithm": "NONE",
+                    "AttachmentFormat": "pdf",
+                    "AttachmentEncoding": "BASE64",
+                    "AttachmentDescription": "PDF FACTURA",
+                    "AttachmentData": ""
+                  }
+                }
+              ]
+            }
           }
-        }
+        ]
       }
     ]
   }
