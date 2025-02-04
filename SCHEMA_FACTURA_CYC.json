@@ -753,7 +753,7 @@
                             },
                             "InvoiceDocumentType": {
                               "type": "string",
-                              "ESP_description": "Tipo documento Factura / (FC) = Factura completa u ordinaria, (FA) = Factura simplificada, (AF) = Antifactura (DEPRECATED)",
+                              "ESP_description": "Tipo documento Factura / (FC) = Factura completa u ordinaria, (FA) = Factura simplificada, (AF) = Autofactura(DEPRECATED)",
                               "enum": ["FC", "FA", "AF"]
                             },
                             "InvoiceClass": {
