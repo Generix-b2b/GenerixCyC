@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generix · E-Invoicing España · Ley Crea y Crece</title>
+<title>Generix · E-Invoicing · Developer Documentation</title>
 <style>
   /* ============ COLORES OFICIALES GENERIX ============ */
   :root {
@@ -55,27 +55,18 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
     text-decoration: none;
-    color: var(--generix-dark);
   }
-  .logo-mark {
-    width: 38px;
+  .logo img {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .footer-logo img {
     height: 38px;
-    background: var(--generix-dark);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--generix-orange);
-    font-weight: 800;
-    font-size: 1.3rem;
-    letter-spacing: -1px;
-  }
-  .logo-text {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    width: auto;
+    display: block;
+    margin-bottom: 14px;
   }
   .nav {
     display: flex;
@@ -307,7 +298,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.7rem;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -1px;
     margin-bottom: 22px;
     transition: all 0.3s;
     color: var(--generix-orange);
@@ -421,14 +415,14 @@
 <!-- ============ TOP BAR ============ -->
 <header class="topbar">
   <div class="topbar-inner">
-    <a href="#" class="logo">
-      <div class="logo-mark">G</div>
-      <span class="logo-text">generix</span>
+    <a href="#" class="logo" aria-label="Generix">
+      <img src="generix-dark.svg" alt="Generix">
     </a>
     <nav class="nav">
-      <a href="#recursos">Recursos</a>
-      <a href="#bloques">E-Invoicing</a>
-      <a href="#" class="btn-contact">Contactar</a>
+      <a href="#bloques">Formatos</a>
+      <a href="#bloques">Integración</a>
+      <a href="#bloques">Normativa</a>
+      <a href="#" class="btn-contact">Soporte técnico</a>
     </nav>
   </div>
 </header>
@@ -436,12 +430,12 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tagline">Connecting Businesses Together</div>
-    <h1>Facturación electrónica B2B<br>conforme a la <span class="accent">Ley Crea y Crece</span></h1>
-    <p class="hero-subtitle">Convierte en valor cada conexión digital. Recursos, guías y normativa para acompañar a nuestros clientes en la transición al estándar UBL CIUS-ES-SPFE 1.0.0 establecido por la Ley 18/2022.</p>
+    <div class="hero-tagline">Developer Documentation Portal</div>
+    <h1>Documentación técnica de<br><span class="accent">facturación electrónica</span></h1>
+    <p class="hero-subtitle">Especificaciones de formato, esquemas y guías de integración para los estándares Generix de e-invoicing: UBL, Facturae, CFDI, Peppol BIS, EDIFACT, JSON y CSV.</p>
     <div class="cta-row">
-      <a href="#bloques" class="btn btn-primary">Explorar recursos</a>
-      <a href="#" class="btn btn-secondary">Hablar con un experto</a>
+      <a href="#bloques" class="btn btn-primary">Explorar documentación</a>
+      <a href="#" class="btn btn-secondary">Ver changelog</a>
     </div>
   </div>
 </section>
@@ -450,20 +444,20 @@
 <section class="stats">
   <div class="stats-inner">
     <div>
-      <div class="stat-number">+3.500</div>
-      <div class="stat-label">Clientes en todo el mundo</div>
+      <div class="stat-number">12+</div>
+      <div class="stat-label">Formatos soportados</div>
     </div>
     <div>
-      <div class="stat-number">+60</div>
-      <div class="stat-label">Países con presencia</div>
+      <div class="stat-number">60+</div>
+      <div class="stat-label">Países cubiertos</div>
     </div>
     <div>
-      <div class="stat-number">+30</div>
-      <div class="stat-label">Años de experiencia SaaS</div>
+      <div class="stat-number">UBL 2.1</div>
+      <div class="stat-label">Estándar base</div>
     </div>
     <div>
-      <div class="stat-number">100%</div>
-      <div class="stat-label">Cumplimiento normativo</div>
+      <div class="stat-number">REST · SFTP · AS2</div>
+      <div class="stat-label">Canales de integración</div>
     </div>
   </div>
 </section>
@@ -472,83 +466,83 @@
 <section class="section" id="bloques">
 
   <div class="section-header">
-    <span class="section-eyebrow">Centro de recursos · E-Invoicing España</span>
-    <h2>Todo lo que tu empresa necesita saber sobre la nueva normativa</h2>
-    <p>Información estructurada por temáticas para entender y aplicar con seguridad la facturación electrónica obligatoria entre empresarios y profesionales.</p>
+    <span class="section-eyebrow">Centro de documentación · E-Invoicing</span>
+    <h2>Especificaciones técnicas y guías de integración</h2>
+    <p>Documentación estructurada por tema: formatos de datos, esquemas, mappings, validaciones y normativas de los distintos países cubiertos por la plataforma Generix.</p>
   </div>
 
   <div class="grid">
 
     <!-- BLOQUE 1 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de marco legal -->
-      <div class="card-icon">⚖️</div>
-      <h3>Marco Legal</h3>
-      <p>Ley 18/2022 Crea y Crece, Real Decreto 238/2026 y normativa de desarrollo aplicable.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página XML / UBL -->
+      <div class="card-icon">&lt;/&gt;</div>
+      <h3>XML &amp; UBL</h3>
+      <p>Estructura UBL 2.1, perfiles CIUS-ES-SPFE, Peppol BIS Billing 3.0 y Facturae. Esquemas XSD y XPath de referencia.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 2 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de plazos y obligados -->
-      <div class="card-icon">📅</div>
-      <h3>Plazos y Obligados</h3>
-      <p>Calendario de entrada en vigor por tipo de empresa y perfil del obligado a emitir.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página JSON -->
+      <div class="card-icon">{ }</div>
+      <h3>JSON Schema</h3>
+      <p>Modelo de datos JSON canónico de Generix para facturas e-invoicing. Esquemas, ejemplos y reglas de validación.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 3 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de estándar técnico -->
-      <div class="card-icon">⚙️</div>
-      <h3>Estándar Técnico</h3>
-      <p>UBL 2.1, perfil CIUS-ES-SPFE 1.0.0, campos BT/BG y rutas XML.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página CSV / Flat files -->
+      <div class="card-icon">▦</div>
+      <h3>CSV &amp; Flat files</h3>
+      <p>Layouts de carga masiva, separadores, codificación de caracteres y mapping a los campos del modelo canónico.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 4 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de tipos de factura -->
-      <div class="card-icon">📄</div>
-      <h3>Tipos de Factura</h3>
-      <p>Lista L1: ordinaria, rectificativa, autofactura y supuestos especiales.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página EDIFACT / X12 -->
+      <div class="card-icon">⇄</div>
+      <h3>EDIFACT &amp; X12</h3>
+      <p>Mensajes INVOIC D.96A / D.01B, X12 810 y mapping de segmentos al modelo Generix.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 5 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de IVA y regímenes -->
-      <div class="card-icon">💶</div>
-      <h3>IVA y Regímenes</h3>
-      <p>Categorías de IVA (L4), claves de régimen (L3A/L3B/L3C) y retenciones.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página API & Integración -->
+      <div class="card-icon">⚙</div>
+      <h3>API &amp; Integración</h3>
+      <p>Endpoints REST, autenticación OAuth2, canales SFTP / AS2 / Peppol y patrones de orquestación.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 6 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de validaciones -->
-      <div class="card-icon">✅</div>
+      <!-- TODO: enlazar a la página de Validaciones -->
+      <div class="card-icon">✓</div>
       <h3>Validaciones</h3>
-      <p>Reglas de coherencia, listas cerradas y errores frecuentes en la generación UBL.</p>
-      <span class="card-link">Ver más</span>
+      <p>Reglas de negocio, listas cerradas, schematron y errores frecuentes en la generación y recepción.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 7 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de sanciones -->
-      <div class="card-icon">⚠️</div>
-      <h3>Sanciones</h3>
-      <p>Régimen sancionador, importes y supuestos de incumplimiento.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página de Normativa por país -->
+      <div class="card-icon">⌖</div>
+      <h3>Normativa por país</h3>
+      <p>Especificidades por país: España (Crea y Crece, Facturae, VERI*FACTU), Francia (Factur-X, PPF), Italia (SdI), México (CFDI), Peppol.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 8 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de FAQ -->
-      <div class="card-icon">❓</div>
-      <h3>FAQ</h3>
-      <p>Preguntas frecuentes de clientes y respuestas claras a las dudas más comunes.</p>
-      <span class="card-link">Ver más</span>
+      <!-- TODO: enlazar a la página de Changelog & Releases -->
+      <div class="card-icon">⟳</div>
+      <h3>Changelog &amp; Releases</h3>
+      <p>Historial de versiones del estándar Generix, cambios breaking, deprecaciones y notas de migración.</p>
+      <span class="card-link">Ver documentación</span>
     </a>
 
   </div>
@@ -558,21 +552,21 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">
+      <div class="footer-brand footer-logo">
+        <img src="generix.svg" alt="Generix">
         <div class="tagline">Connecting Businesses Together</div>
-        <h3>Generix · E-Invoicing España</h3>
-        <p>Soluciones SaaS de facturación electrónica, EDI y automatización financiera para impulsar la economía en red.</p>
+        <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
       </div>
       <div>
         <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
           <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
-          Supply Chain · Commerce
+          EDI · API · Peppol · Compliance
         </p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span class="accent">Generix</span> · Recursos de facturación electrónica B2B España</p>
-      <p>Software avanzado para la cadena de suministro</p>
+      <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+      <p>Especificaciones técnicas e integración B2B</p>
     </div>
   </div>
 </footer>
