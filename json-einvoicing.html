@@ -526,248 +526,266 @@
           <p>Explora la estructura completa del esquema JSON para e-Invoicing.
             Cada bloque se muestra a continuación con su código y
             descripción.</p>
-          <a href="JsonSchema.json" target="_blank"
+          <p><a href="JsonSchema.json" target="_blank"
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            JsonSchema.json completo</a>
+            JsonSchema.json completo</a></p>
           <div id="schemaBlocksContainer"></div>
         </div>
       </div>
 
       <script>
-    let schemaData = null;
-    
-    // Diccionario de descripciones para cada bloque
-    const descriptions = {
-      InvoiceGNX: {
+        let schemaData = null;
+
+        // Diccionario de descripciones para cada bloque
+        const descriptions = {
+          InvoiceGNX: {
         title: '📄 Raíz: InvoiceGNX',
         esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
         eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
       },
-      Batch: {
+          Batch: {
         title: '📦 Batch - Lote de Facturas',
         esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
         eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
       },
-      InvoiceWrapper: {
+          InvoiceWrapper: {
         title: '📦 InvoiceWrapper - Envoltura de Factura',
         esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
         eng: 'Container that wraps the invoice with control and processing information.'
       },
-      Parties: {
+          Parties: {
         title: '👥 Parties - Partes Múltiples',
         esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
         eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
       },
-      Party: {
+          Party: {
         title: '👤 Party - Parte/Actor',
         esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
         eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
       },
-      TaxIdentification: {
+          TaxIdentification: {
         title: '🧾 TaxIdentification - Identificación Fiscal',
         esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
         eng: 'Tax data: person type (natural/legal), residence and identification number.'
       },
-      LegalEntity: {
+          LegalEntity: {
         title: '🏢 LegalEntity - Persona Jurídica',
         esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
         eng: 'Legal entity data: company name, registration data and other legal information.'
       },
-      RegistrationData: {
+          RegistrationData: {
         title: '📋 RegistrationData - Datos Registrales',
         esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
         eng: 'Commercial registry information: book, folio, registration sheet.'
       },
-      Address: {
+          Address: {
         title: '📍 Address - Dirección',
         esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
         eng: 'Fiscal address information: street, city, postal code, province and country.'
       },
-      ContactDetails: {
+          ContactDetails: {
         title: '📞 ContactDetails - Datos de Contacto',
         esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
         eng: 'Contact information: phone, email and other communication data.'
       },
-      Invoice: {
+          Invoice: {
         title: '📄 Invoice - Factura Individual',
         esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
         eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
       },
-      InvoiceHeader: {
+          InvoiceHeader: {
         title: '📋 InvoiceHeader - Encabezado de Factura',
         esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
         eng: 'Invoice metadata: number, series, document type, issuance mode.'
       },
-      Corrective: {
+          Corrective: {
         title: '✏️ Corrective - Información Correctiva',
         esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
         eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
       },
-      InvoiceIssueData: {
+          InvoiceIssueData: {
         title: '📅 InvoiceIssueData - Datos de Emisión',
         esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
         eng: 'Issue information: date, time, place and other issue moment data.'
       },
-      TaxWrapper: {
+          TaxWrapper: {
         title: '💼 TaxWrapper - Información Fiscal',
         esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
         eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
       },
-      InvoiceTotals: {
+          InvoiceTotals: {
         title: '🧮 InvoiceTotals - Totales de Factura',
         esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
         eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
       },
-      ItemWrapper: {
+          ItemWrapper: {
         title: '📦 ItemWrapper - Envoltura de Línea',
         esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
         eng: 'Container for an invoice line with product/service details, quantities and amounts.'
       },
-      PaymentWrapper: {
+          PaymentWrapper: {
         title: '💳 PaymentWrapper - Información de Pago',
         esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
         eng: 'Payment data: payment method, terms, due dates and bank references.'
       },
-      AdditionalData:{
+          AdditionalData:{
         title: '� AdditionalData - Datos Adicionales',
         esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
         eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
       },
-      AmountContainer: {
+          AmountContainer: {
         title: '💰 AmountContainer - Contenedor de Importes',
         esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
         eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
       }
-    };
+        };
 
-    // Orden de bloques a mostrar
-    const blockOrder = [
-      'InvoiceGNX',
-      'Batch',
-      'InvoiceWrapper',
-      'Parties',
-      'Party',
-      'TaxIdentification',
-      'LegalEntity',
-      'RegistrationData',
-      'Address',
-      'ContactDetails',
-      'Invoice',
-      'InvoiceHeader',
-      'Corrective',
-      'InvoiceIssueData',
-      'TaxWrapper',
-      'InvoiceTotals',
-      'ItemWrapper',
-      'PaymentWrapper',
-      'AmountContainer'
-    ];
+        // Orden de bloques a mostrar
+        const blockOrder = [
+          'InvoiceGNX',
+          'Batch',
+          'InvoiceWrapper',
+          'Parties',
+          'Party',
+          'TaxIdentification',
+          'LegalEntity',
+          'RegistrationData',
+          'Address',
+          'ContactDetails',
+          'Invoice',
+          'InvoiceHeader',
+          'Corrective',
+          'InvoiceIssueData',
+          'TaxWrapper',
+          'InvoiceTotals',
+          'ItemWrapper',
+          'PaymentWrapper',
+          'AmountContainer'
+        ];
 
-    // Cargar el schema JSON
-    fetch('JsonSchema.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        // Cargar el schema JSON
+        fetch('JsonSchema.json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            schemaData = data;
+            renderAllBlocks();
+          })
+          .catch(error => {
+            console.error('Error cargando el schema:', error);
+            document.getElementById('schemaBlocksContainer').innerHTML = 
+              '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
+          });
+
+        function getBlockContent(blockName) {
+          if (blockName === 'root') {
+            return { $schema: schemaData.$schema, type: schemaData.type };
+          } else if (blockName === 'properties') {
+            return schemaData.properties;
+          } else if (schemaData.definitions && schemaData.definitions[blockName]) {
+            return schemaData.definitions[blockName];
+          }
+          return null;
         }
-        return response.json();
-      })
-      .then(data => {
-        schemaData = data;
-        renderAllBlocks();
-      })
-      .catch(error => {
-        console.error('Error cargando el schema:', error);
-        document.getElementById('schemaBlocksContainer').innerHTML = 
-          '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
-      });
 
-    function getBlockContent(blockName) {
-      if (blockName === 'root') {
-        return { $schema: schemaData.$schema, type: schemaData.type };
-      } else if (blockName === 'properties') {
-        return schemaData.properties;
-      } else if (schemaData.definitions && schemaData.definitions[blockName]) {
-        return schemaData.definitions[blockName];
-      }
-      return null;
-    }
+        function renderAllBlocks() {
+          const container = document.getElementById('schemaBlocksContainer');
+          let html = '';
 
-    function renderAllBlocks() {
-      const container = document.getElementById('schemaBlocksContainer');
-      let html = '';
+          blockOrder.forEach(blockName => {
+            const blockContent = getBlockContent(blockName);
+            if (!blockContent) return;
 
-      blockOrder.forEach(blockName => {
-        const blockContent = getBlockContent(blockName);
-        if (!blockContent) return;
+            const desc = descriptions[blockName];
 
-        const desc = descriptions[blockName];
-        
-        // Crear el JSON con el nombre del bloque como clave
-        let blockWithName;
-        if (blockName === 'root' || blockName === 'properties') {
-          // Para root y properties, mostrar como está
-          blockWithName = blockContent;
-        } else {
-          // Para las definiciones, envolver en el nombre del bloque
-          blockWithName = { [blockName]: blockContent };
+            // Crear el JSON con el nombre del bloque como clave
+            let blockWithName;
+            if (blockName === 'root' || blockName === 'properties') {
+              // Para root y properties, mostrar como está
+              blockWithName = blockContent;
+            } else {
+              // Para las definiciones, envolver en el nombre del bloque
+              blockWithName = { [blockName]: blockContent };
+            }
+
+            const jsonCode = JSON.stringify(blockWithName, null, 2);
+
+            html += `
+              <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="block-${blockName}">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
+                  <!-- Panel izquierdo: Código -->
+                  <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+                    <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
+                      <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
+                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                    </div>
+                    <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
+                  </div>
+
+                  <!-- Panel derecho: Explicación -->
+                  <div>
+                    <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
+                      <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
+                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                        <strong>Español:</strong> ${desc.esp}
+                      </p>
+                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
+                        <strong>English:</strong> ${desc.eng}
+                      </p>
+                    </div>
+
+                    <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
+                      <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
+                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
+                      </p>
+                      ${blockContent.properties 
+                        ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                            <strong>Propiedades:</strong> 
+                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;"> 
+                              ${Object.keys(blockContent.properties).join(', ')}
+                            </span>
+                          </p>` : ''}
+                      ${blockContent.required && blockContent.required.length > 0
+                        ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                            <strong>Requeridos:</strong> 
+                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                ${blockContent.required.join(', ')}
+                            </span>
+                          </p>` 
+                        : `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                            <strong>Requeridos:</strong> 
+                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                No required data in this segment
+                            </span>
+                          </p>`}
+                      ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
+                    </div>
+                  </div>
+                </div>
+                <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
         }
-        
-        const jsonCode = JSON.stringify(blockWithName, null, 2);
 
-        html += `
-          <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="block-${blockName}">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
-              <!-- Panel izquierdo: Código -->
-              <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-                <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
-                  <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
-                  <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
-                </div>
-                <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
-              </div>
-
-              <!-- Panel derecho: Explicación -->
-              <div>
-                <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
-                  <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
-                  <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
-                    <strong>Español:</strong> ${desc.esp}
-                  </p>
-                  <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
-                    <strong>English:</strong> ${desc.eng}
-                  </p>
-                </div>
-
-                <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
-                  <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
-                  <p style="color: var(--gray-700); margin: 0 0 8px 0;">
-                    <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
-                  </p>
-                  ${blockContent.properties ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Propiedades:</strong> <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;"> ${Object.keys(blockContent.properties).join(', ')}</span></p>` : ''}
-                  ${blockContent.required ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Requeridos:</strong> <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.required.join(', ') || 'No required data in this segment'}</span></p>` : ''}
-                  ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
-                </div>
-              </div>
-            </div>
-            <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-    }
-
-    function escapeHtml(text) {
-      const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      };
-      return text.replace(/[&<>"']/g, m => map[m]);
-    }
-  </script>
+        function escapeHtml(text) {
+          const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+          };
+          return text.replace(/[&<>"']/g, m => map[m]);
+        }
+      </script>
 
       <!-- ============ TAB 3: CAMPOS OBLIGATORIOS ============ -->
       <div id="campos" class="tab-content">
