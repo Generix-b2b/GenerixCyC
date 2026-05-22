@@ -435,6 +435,9 @@
         font-size: 0.75rem;
         padding: 16px;
       }
+      #schemaBlocksContainer > div > div {
+        grid-template-columns: 1fr !important;
+      }
     }
   </style>
 </head>
@@ -505,129 +508,236 @@
   <div id="estructura" class="tab-content">
     <div class="content-section">
       <h2>Estructura del Schema JSON</h2>
-      <p>Explora la estructura completa del esquema JSON para e-Invoicing. A continuación puedes ver el código del esquema en la izquierda y la explicación detallada de cada componente a la derecha.</p>
+      <p>Explora la estructura completa del esquema JSON para e-Invoicing. Cada bloque se muestra a continuación con su código y descripción.</p>
 
-      <div class="code-explanation-wrapper">
-        <!-- Panel izquierdo: Código -->
-       <div class="code-panel">
-          <div style="margin-bottom: 16px;">
-            <label for="schemaSelector" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--generix-dark);">Selecciona un bloque:</label>
-            <select id="schemaSelector" style="width: 100%; padding: 8px; border: 1px solid var(--gray-300); border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9rem;">
-              <option value="root">📄 Raíz (InvoiceGNX)</option>
-              <option value="properties">🔍 Propiedades principales</option>
-              <option value="">--- DEFINICIONES ---</option>
-              <option value="Batch">📦 Batch</option>
-              <option value="AmountContainer">💰 AmountContainer</option>
-              <option value="Address">📍 Address</option>
-              <option value="ContactDetails">📞 ContactDetails</option>
-              <option value="RegistrationData">📋 RegistrationData</option>
-              <option value="LegalEntity">🏢 LegalEntity</option>
-              <option value="TaxIdentification">🧾 TaxIdentification</option>
-              <option value="Party">👤 Party</option>
-              <option value="Parties">👥 Parties</option>
-              <option value="Invoice">📄 Invoice</option>
-              <option value="InvoiceWrapper">📦 InvoiceWrapper</option>
-              <option value="InvoiceHeader">📋 InvoiceHeader</option>
-              <option value="InvoiceIssueData">📅 InvoiceIssueData</option>
-              <option value="Corrective">✏️ Corrective</option>
-              <option value="TaxWrapper">💼 TaxWrapper</option>
-              <option value="InvoiceTotals">🧮 InvoiceTotals</option>
-              <option value="ItemWrapper">📦 ItemWrapper</option>
-              <option value="PaymentWrapper">💳 PaymentWrapper</option>
-              <option value="">--- ENUMS ---</option>
-              <option value="InvoiceIssuerTypeEnum">EM/RE/TE</option>
-              <option value="PersonTypeCodeEnum">F/J</option>
-              <option value="ResidenceTypeCodeEnum">E/R/U</option>
-              <option value="DateTime">🕐 DateTime</option>
-            </select>
-          </div>
-          <pre><code id="schemaCode"></code></pre>
-        </div>
-
-        <!-- Panel derecho: Explicación -->
-        <div class="explanation-panel">
-          <div class="explanation-block">
-            <h4>🏗️ <span class="code-ref">$schema</span> y <span class="code-ref">type</span></h4>
-            <p>Define que este es un JSON Schema draft-04 que valida un objeto. El schema utiliza la especificación JSON Schema para documentar la estructura de las facturas.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>📄 Elemento Raíz: <span class="code-ref">FacturaCyC</span></h4>
-            <p>El objeto principal que contiene toda la información de la factura. Es el contenedor de nivel superior que agrupa todos los datos relacionados con una factura de Crea y Crece.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>📋 <span class="code-ref">FileHeader</span> - Cabecera del Fichero</h4>
-            <p>Contiene metadatos sobre el archivo de factura: versión del schema, modalidad de emisión (individual o lote), tipo de emisor y datos de terceros si aplica.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>🔢 <span class="code-ref">SchemaVersion</span></h4>
-            <p>Indica la versión del esquema utilizado (3.2, 3.2.1 o 3.2.2). Permite compatibilidad con diferentes versiones del estándar. Selecciona la versión según tus necesidades de validación.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>📦 <span class="code-ref">Modality</span></h4>
-            <p><span class="code-ref">I</span> (Individual) para una sola factura, o <span class="code-ref">L</span> (Lote) para procesar múltiples facturas en un mismo fichero. Define cómo se estructura el envío.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>👤 <span class="code-ref">InvoiceIssuerType</span></h4>
-            <p><span class="code-ref">EM</span> (Emisor/Proveedor), <span class="code-ref">RE</span> (Receptor/Cliente) o <span class="code-ref">TE</span> (Tercero). Define quién genera la factura en la transacción comercial.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>🤝 <span class="code-ref">ThirdParty</span> - Terceros</h4>
-            <p>Información sobre un tercero que participa en la emisión de la factura. Incluye identificación fiscal, entidad legal y datos de contacto. Se rellena solo cuando <span class="code-ref">InvoiceIssuerType</span> es TE.</p>
-          </div>
-
-          <div class="explanation-block">
-            <h4>🎯 Campos Requeridos en Tercero</h4>
-            <p>El identificador fiscal es obligatorio cuando se incluye un tercero. Debe especificarse el tipo de persona (Física/Jurídica), tipo de residencia y número de identificación fiscal válido.</p>
-    </div>
-
-          <div class="explanation-block">
-            <h4>✓ MinLength y MaxLength</h4>
-            <p>Define restricciones de longitud en campos de texto. Por ejemplo, <span class="code-ref">minLength: 3</span> significa mínimo 3 caracteres, <span class="code-ref">maxLength: 30</span> significa máximo 30 caracteres.</p>
-  </div>
-
-          <div class="explanation-block">
-            <h4>📌 Enum (Enumeraciones)</h4>
-            <p>Define valores permitidos para un campo. Por ejemplo, <span class="code-ref">"enum": ["3.2", "3.2.1", "3.2.2"]</span> significa que solo se aceptan estas tres versiones específicas.</p>
-          </div>
-        </div>
-      </div>
+      <div id="schemaBlocksContainer"></div>
     </div>
   </div>
 
   <script>
-    // Cargar el schema JSON desde el archivo externo
+    let schemaData = null;
+
+    // Diccionario de descripciones para cada bloque
+    const descriptions = {
+      root: {
+        title: '📄 Raíz: InvoiceGNX',
+        esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX.',
+        eng: 'Root element of the schema. Represents the main structure of a GNX invoice.'
+      },
+      properties: {
+        title: '🔍 Propiedades Principales',
+        esp: 'Las propiedades principales del objeto InvoiceGNX que contiene toda la información de la factura.',
+        eng: 'Main properties of the InvoiceGNX object containing all invoice information.'
+      },
+      Batch: {
+        title: '📦 Batch - Lote de Facturas',
+        esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
+        eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
+      },
+      AmountContainer: {
+        title: '💰 AmountContainer - Contenedor de Importes',
+        esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
+        eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
+      },
+      Address: {
+        title: '📍 Address - Dirección',
+        esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
+        eng: 'Fiscal address information: street, city, postal code, province and country.'
+      },
+      ContactDetails: {
+        title: '📞 ContactDetails - Datos de Contacto',
+        esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
+        eng: 'Contact information: phone, email and other communication data.'
+      },
+      RegistrationData: {
+        title: '📋 RegistrationData - Datos Registrales',
+        esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
+        eng: 'Commercial registry information: book, folio, registration sheet.'
+      },
+      LegalEntity: {
+        title: '🏢 LegalEntity - Persona Jurídica',
+        esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
+        eng: 'Legal entity data: company name, registration data and other legal information.'
+      },
+      TaxIdentification: {
+        title: '🧾 TaxIdentification - Identificación Fiscal',
+        esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
+        eng: 'Tax data: person type (natural/legal), residence and identification number.'
+      },
+      Party: {
+        title: '👤 Party - Parte/Actor',
+        esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
+        eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
+      },
+      Parties: {
+        title: '👥 Parties - Partes Múltiples',
+        esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
+        eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
+      },
+      Invoice: {
+        title: '📄 Invoice - Factura Individual',
+        esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
+        eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
+      },
+      InvoiceWrapper: {
+        title: '📦 InvoiceWrapper - Envoltura de Factura',
+        esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
+        eng: 'Container that wraps the invoice with control and processing information.'
+      },
+      InvoiceHeader: {
+        title: '📋 InvoiceHeader - Encabezado de Factura',
+        esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
+        eng: 'Invoice metadata: number, series, document type, issuance mode.'
+      },
+      InvoiceIssueData: {
+        title: '📅 InvoiceIssueData - Datos de Emisión',
+        esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
+        eng: 'Issue information: date, time, place and other issue moment data.'
+      },
+      Corrective: {
+        title: '✏️ Corrective - Información Correctiva',
+        esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
+        eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
+      },
+      TaxWrapper: {
+        title: '💼 TaxWrapper - Información Fiscal',
+        esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
+        eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
+      },
+      InvoiceTotals: {
+        title: '🧮 InvoiceTotals - Totales de Factura',
+        esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
+        eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
+      },
+      ItemWrapper: {
+        title: '📦 ItemWrapper - Envoltura de Línea',
+        esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
+        eng: 'Container for an invoice line with product/service details, quantities and amounts.'
+      },
+      PaymentWrapper: {
+        title: '💳 PaymentWrapper - Información de Pago',
+        esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
+        eng: 'Payment data: payment method, terms, due dates and bank references.'
+      }
+    };
+
+    // Orden de bloques a mostrar
+    const blockOrder = [
+      'root',
+      'properties',
+      'Batch',
+      'AmountContainer',
+      'Address',
+      'ContactDetails',
+      'RegistrationData',
+      'LegalEntity',
+      'TaxIdentification',
+      'Party',
+      'Parties',
+      'InvoiceWrapper',
+      'InvoiceHeader',
+      'InvoiceIssueData',
+      'Invoice',
+      'Corrective',
+      'TaxWrapper',
+      'InvoiceTotals',
+      'ItemWrapper',
+      'PaymentWrapper'
+    ];
+
+    // Cargar el schema JSON
     fetch('JsonSchema.json')
       .then(response => {
-        console.log('Status:', response.status);
-        console.log('Content-Type:', response.headers.get('content-type'));
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text(); // Usar text() para ver el contenido exacto
+        return response.json();
       })
-      .then(text => {
-        console.log('Contenido recibido, longitud:', text.length);
-        try {
-          const data = JSON.parse(text);
-          const codeElement = document.getElementById('schemaCode');
-          const prettyJson = JSON.stringify(data, null, 2);
-          codeElement.textContent = prettyJson;
-          console.log('Schema cargado exitosamente');
-        } catch (parseError) {
-          console.error('Error al parsear JSON:', parseError);
-          document.getElementById('schemaCode').textContent = 'Error al parsear JSON: ' + parseError.message;
-        }
+      .then(data => {
+        schemaData = data;
+        renderAllBlocks();
       })
       .catch(error => {
         console.error('Error cargando el schema:', error);
-        document.getElementById('schemaCode').textContent = 'Error al cargar JsonSchema.json: ' + error.message;
+        document.getElementById('schemaBlocksContainer').innerHTML = 
+          '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
       });
+
+    function getBlockContent(blockName) {
+      if (blockName === 'root') {
+        return { $schema: schemaData.$schema, type: schemaData.type };
+      } else if (blockName === 'properties') {
+        return schemaData.properties;
+      } else if (schemaData.definitions && schemaData.definitions[blockName]) {
+        return schemaData.definitions[blockName];
+      }
+      return null;
+    }
+
+    function renderAllBlocks() {
+      const container = document.getElementById('schemaBlocksContainer');
+      let html = '';
+
+      blockOrder.forEach(blockName => {
+        const blockContent = getBlockContent(blockName);
+        if (!blockContent) return;
+
+        const desc = descriptions[blockName];
+        const jsonCode = JSON.stringify(blockContent, null, 2);
+
+        html += `
+          <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="block-${blockName}">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
+              <!-- Panel izquierdo: Código -->
+              <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+                <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
+                  <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                </div>
+                <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
+              </div>
+
+              <!-- Panel derecho: Explicación -->
+              <div>
+                <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
+                  <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
+                  <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                    <strong>Español:</strong> ${desc.esp}
+                  </p>
+                  <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
+                    <strong>English:</strong> ${desc.eng}
+                  </p>
+                </div>
+
+                <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
+                  <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
+                  <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                    <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
+                  </p>
+                  ${blockContent.properties ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Propiedades:</strong> ${Object.keys(blockContent.properties).length}</p>` : ''}
+                  ${blockContent.required ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Requeridos:</strong> ${blockContent.required.length}</p>` : ''}
+                  ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
+                </div>
+              </div>
+            </div>
+            <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
   </script>
 
   <!-- ============ TAB 3: CAMPOS OBLIGATORIOS ============ -->
