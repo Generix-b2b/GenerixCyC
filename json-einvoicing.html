@@ -620,23 +620,23 @@
     const blockOrder = [
       'InvoiceGNX',
       'Batch',
-      'AmountContainer',
+      'InvoiceWrapper',
+      'Parties',
+      'Party',
+      'TaxIdentification',
+      'LegalEntity',
+      'RegistrationData',
       'Address',
       'ContactDetails',
-      'RegistrationData',
-      'LegalEntity',
-      'TaxIdentification',
-      'Party',
-      'Parties',
-      'InvoiceWrapper',
-      'InvoiceHeader',
-      'InvoiceIssueData',
       'Invoice',
+      'InvoiceHeader',
       'Corrective',
+      'InvoiceIssueData',
       'TaxWrapper',
       'InvoiceTotals',
       'ItemWrapper',
-      'PaymentWrapper'
+      'PaymentWrapper',
+      'AmountContainer'
     ];
 
     // Cargar el schema JSON
@@ -719,7 +719,7 @@
                   <p style="color: var(--gray-700); margin: 0 0 8px 0;">
                     <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
                   </p>
-                  ${blockContent.properties ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Propiedades:</strong> ${Object.keys(blockContent.properties).length}</p>` : ''}
+                  ${blockContent.properties ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Propiedades:</strong> <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;"> ${blockContent.properties.join(', ')}</span></p>` : ''}
                   ${blockContent.required ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Requeridos:</strong> <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.required.join(', ')}</span></p>` : ''}
                   ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
                 </div>
