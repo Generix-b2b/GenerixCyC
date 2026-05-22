@@ -108,8 +108,8 @@
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     background-image:
-      radial-gradient(circle at 80% 20%, rgba(242,138,72,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 20% 80%, rgba(242,138,72,0.08) 0%, transparent 40%);
+      radial-gradient(circle at 80% 20%, rgba(241, 184, 148, 0.35) 0%, transparent 40%),
+      radial-gradient(circle at 20% 80%, rgba(241, 184, 148,0.15) 0%, transparent 40%);
     pointer-events: none;
   }
   .hero::after {
@@ -127,6 +127,27 @@
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-content {
+    flex: 1;
+  }
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-icon {
+    width: 280px;
+    height: 280px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
   }
   .hero-tagline {
     color: var(--generix-orange);
@@ -399,8 +420,10 @@
   /* ============ RESPONSIVE ============ */
   @media (max-width: 768px) {
     .hero { padding: 70px 24px 80px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
     .hero h1 { font-size: 2.2rem; }
     .hero-subtitle { font-size: 1.05rem; }
+    .hero-icon { width: 200px; height: 200px; font-size: 80px; }
     .nav { gap: 16px; }
     .nav a:not(.btn-contact) { display: none; }
     .section { padding: 70px 24px; }
@@ -427,12 +450,34 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tagline">Developer Documentation Portal</div>
-    <h1>Facturación electrónica B2B<br><span class="accent">Spain e-Invoicing</span></h1>
-    <p class="hero-subtitle">Convierte en valor cada conexión digital. Recursos, guías y normativa para acompañar a nuestros clientes en la transición hacia la facturación electrónica.</p>
-    <div class="cta-row">
-      <a href="#bloques" class="btn btn-primary">Explorar documentación</a>
-      <a href="https://www.generixgroup.com/es/datos-y-facturacion/facturacion-electronica" class="btn btn-secondary">Ver catálogo</a>
+    <div class="hero-content">
+      <div class="hero-tagline">Developer Documentation Portal</div>
+      <h1>Facturación electrónica B2B<br><span class="accent">Spain e-Invoicing</span></h1>
+      <p class="hero-subtitle">Convierte en valor cada conexión digital. Recursos, guías y normativa para acompañar a nuestros clientes en la transición hacia la facturación electrónica.</p>
+      <div class="cta-row">
+        <a href="#bloques" class="btn btn-primary">Explorar documentación</a>
+        <a href="https://www.generixgroup.com/es/datos-y-facturacion/facturacion-electronica" class="btn btn-secondary" target="_blank">Ver catálogo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="hero-icon" xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 88 88" fill="none">
+        <path d="M23 14H3V64H85V14H81.5H70" stroke="#003B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M36 64H52L56 79H32L36 64Z" stroke="#003B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 84C24 81.2386 26.2386 79 29 79H59C61.7614 79 64 81.2386 64 84V85H24V84Z" stroke="#003B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 56H85" stroke="#003B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 49H73" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 39H58" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 44H58" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="80" cy="60" r="1" fill="#003B57"/>
+        <circle cx="76" cy="60" r="1" fill="#003B57"/>
+        <circle cx="72" cy="60" r="1" fill="#003B57"/>
+        <path d="M65 49V3H23V49" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="44" cy="21" r="13" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M39 25.3077V25.3077C39 27.3469 40.6531 29 42.6923 29H45.8417C47.586 29 49 27.586 49 25.8417V25.8417C49 24.745 48.431 23.7268 47.497 23.152L44 21" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M49 16.6923V16.6923C49 14.6531 47.3469 13 45.3077 13H42.1583C40.414 13 39 14.414 39 16.1583V16.1583C39 17.255 39.569 18.2732 40.503 18.848L44 21" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 11L44 20" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 24L44 31" stroke="#F28A48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </div>
 </section>
@@ -472,27 +517,27 @@
     <!-- BLOQUE 1 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página XML / UBL -->
-      <div class="card-icon">&lt;/&gt;</div>
-      <h3>e-Invoicing Standard</h3>
-      <p>Estructura JSON Standard for Generix Spain e-Invoicing.</p>
+      <div class="card-icon">{ }</div>
+      <h3>JSON e-Invoicing Standard</h3>
+      <p>Estructura JSON Standard de Generix Spain para e-Invoicing.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 2 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página JSON -->
-      <div class="card-icon">{ }</div>
-      <h3>JSON Schema</h3>
-      <p>Modelo de datos JSON canónico de Generix para facturas e-invoicing. Esquemas, ejemplos y reglas de validación.</p>
+      <div class="card-icon">&lt;/&gt;</div>
+      <h3>XML e-Invoicing Standard</h3>
+      <p>Estructura XML Standard de Generix Spain para e-Invoicing.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 3 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página CSV / Flat files -->
-      <div class="card-icon">▦</div>
-      <h3>CSV &amp; Flat files</h3>
-      <p>Layouts de carga masiva, separadores, codificación de caracteres y mapping a los campos del modelo canónico.</p>
+      <div class="card-icon">✓</div>
+      <h3>Validaciones</h3>
+      <p>Respuestas de validación de las diferentes facturas.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
@@ -500,42 +545,63 @@
     <a href="#" class="card">
       <!-- TODO: enlazar a la página EDIFACT / X12 -->
       <div class="card-icon">⇄</div>
-      <h3>EDIFACT &amp; X12</h3>
-      <p>Mensajes INVOIC D.96A / D.01B, X12 810 y mapping de segmentos al modelo Generix.</p>
+      <h3>Crea & Crece</h3>
+      <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 5 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página API & Integración -->
-      <div class="card-icon">⚙</div>
-      <h3>API &amp; Integración</h3>
-      <p>Endpoints REST, autenticación OAuth2, canales SFTP / AS2 / Peppol y patrones de orquestación.</p>
+      <div class="card-icon">⇄</div>
+      <h3>VERI*FACTU</h3>
+      <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 6 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página de Validaciones -->
-      <div class="card-icon">✓</div>
-      <h3>Validaciones</h3>
-      <p>Reglas de negocio, listas cerradas, schematron y errores frecuentes en la generación y recepción.</p>
+      <div class="card-icon">⇄</div>
+      <h3>Sistema Inmediato de Información (SII)</h3>
+      <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 7 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página de Normativa por país -->
-      <div class="card-icon">⌖</div>
-      <h3>Normativa por país</h3>
-      <p>Especificidades por país: España (Crea y Crece, Facturae, VERI*FACTU), Francia (Factur-X, PPF), Italia (SdI), México (CFDI), Peppol.</p>
+      <svg class="card-icon" style="padding: 5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" fill="none">
+        <path d="M4 43C4 23.67 19.67 8 39 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M49.0001 80C67.3195 80 82.3516 65.9256 83.8733 48" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M56 19.5L56 3H85V44L79 39L75 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 18V71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M70 44L17 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 71C58.9117 71 71 58.9117 71 44C71 29.0883 58.9117 17 44 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 71C42.2916 71 40.6203 70.8413 39 70.5379M44 17C29.0883 17 17 29.0883 17 44C17 45.3591 17.1004 46.6948 17.2943 48" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 71C51.732 71 58 58.9117 58 44C58 29.0883 51.732 17 44 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 71C51.732 71 58 58.9117 58 44C58 29.0883 51.732 17 44 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M44 17C36.268 17 30 29.0883 30 44C30 47.5329 30.3518 50.9073 30.9916 54" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="19" cy="69" r="16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 73.8462V73.8462C13 76.1403 14.8597 78 17.1538 78H21.4892C23.4282 78 25 76.4282 25 74.4892V74.4892C25 73.2346 24.3304 72.0752 23.2436 71.4483L19 69" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M25 64.1538V64.1538C25 61.8597 23.1403 60 20.8462 60H16.5108C14.5718 60 13 61.5718 13 63.5108V63.5108C13 64.7654 13.6696 65.9248 14.7564 66.5517L19 69" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19 56L19 68" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19 72L19 82" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M62 9H79" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M62 17H79" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M69 25L79 25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M35.5283 3L40.2925 7.76416L35.5283 12.5283" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M52.7642 84.5283L48 79.7642L52.7642 75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Normativas otros países</h3>
+      <p>Especificidades por país: <br>Francia (Factur-X, PPF), Polonia (Kasef), <br>Belgica (Peppol)...</p>
       <span class="card-link">Ver documentación</span>
     </a>
 
     <!-- BLOQUE 8 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página de Changelog & Releases -->
-      <div class="card-icon">⟳</div>
+      <div class="card-icon">⌖ ⟳ ⚙</div>
       <h3>Changelog &amp; Releases</h3>
       <p>Historial de versiones del estándar Generix, cambios breaking, deprecaciones y notas de migración.</p>
       <span class="card-link">Ver documentación</span>
