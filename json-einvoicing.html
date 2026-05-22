@@ -509,30 +509,45 @@
     <div class="content-section">
       <h2>Estructura del Schema JSON</h2>
       <p>Explora la estructura completa del esquema JSON para e-Invoicing. Cada bloque se muestra a continuación con su código y descripción.</p>
-
+      <a href="JsonSchema.json" target="_blank" style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver JsonSchema.json completo</a>
       <div id="schemaBlocksContainer"></div>
     </div>
   </div>
 
   <script>
     let schemaData = null;
-
+    
     // Diccionario de descripciones para cada bloque
     const descriptions = {
-      root: {
+      InvoiceGNX: {
         title: '📄 Raíz: InvoiceGNX',
-        esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX.',
-        eng: 'Root element of the schema. Represents the main structure of a GNX invoice.'
-      },
-      properties: {
-        title: '🔍 Propiedades Principales',
-        esp: 'Las propiedades principales del objeto InvoiceGNX que contiene toda la información de la factura.',
-        eng: 'Main properties of the InvoiceGNX object containing all invoice information.'
+        esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
+        eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
       },
       Batch: {
         title: '📦 Batch - Lote de Facturas',
         esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
         eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
+      },
+      InvoiceWrapper: {
+        title: '📦 InvoiceWrapper - Envoltura de Factura',
+        esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
+        eng: 'Container that wraps the invoice with control and processing information.'
+      },
+      Parties: {
+        title: '👥 Parties - Partes Múltiples',
+        esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
+        eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
+      },
+      Invoice: {
+        title: '📄 Invoice - Factura Individual',
+        esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
+        eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
+      },
+      Party: {
+        title: '👤 Party - Parte/Actor',
+        esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
+        eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
       },
       AmountContainer: {
         title: '💰 AmountContainer - Contenedor de Importes',
@@ -563,26 +578,6 @@
         title: '🧾 TaxIdentification - Identificación Fiscal',
         esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
         eng: 'Tax data: person type (natural/legal), residence and identification number.'
-      },
-      Party: {
-        title: '👤 Party - Parte/Actor',
-        esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
-        eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
-      },
-      Parties: {
-        title: '👥 Parties - Partes Múltiples',
-        esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
-        eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
-      },
-      Invoice: {
-        title: '📄 Invoice - Factura Individual',
-        esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
-        eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
-      },
-      InvoiceWrapper: {
-        title: '📦 InvoiceWrapper - Envoltura de Factura',
-        esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
-        eng: 'Container that wraps the invoice with control and processing information.'
       },
       InvoiceHeader: {
         title: '📋 InvoiceHeader - Encabezado de Factura',
@@ -623,8 +618,7 @@
 
     // Orden de bloques a mostrar
     const blockOrder = [
-      'root',
-      'properties',
+      'InvoiceGNX',
       'Batch',
       'AmountContainer',
       'Address',
@@ -683,7 +677,18 @@
         if (!blockContent) return;
 
         const desc = descriptions[blockName];
-        const jsonCode = JSON.stringify(blockContent, null, 2);
+        
+        // Crear el JSON con el nombre del bloque como clave
+        let blockWithName;
+        if (blockName === 'root' || blockName === 'properties') {
+          // Para root y properties, mostrar como está
+          blockWithName = blockContent;
+        } else {
+          // Para las definiciones, envolver en el nombre del bloque
+          blockWithName = { [blockName]: blockContent };
+        }
+        
+        const jsonCode = JSON.stringify(blockWithName, null, 2);
 
         html += `
           <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="block-${blockName}">
@@ -715,7 +720,7 @@
                     <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
                   </p>
                   ${blockContent.properties ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Propiedades:</strong> ${Object.keys(blockContent.properties).length}</p>` : ''}
-                  ${blockContent.required ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Requeridos:</strong> ${blockContent.required.length}</p>` : ''}
+                  ${blockContent.required ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;"><strong>Requeridos:</strong> <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.required.join(', ')}</span></p>` : ''}
                   ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
                 </div>
               </div>
