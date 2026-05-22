@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON e-Invoicing Standard · Generix Developer Documentation</title>
+  <style>
+    /* ============ COLORES OFICIALES GENERIX ============ */
+    :root {
+      --generix-dark: #002333;
+      --generix-dark-soft: #0a3447;
+      --generix-orange: #F28A48;
+      --generix-orange-hover: #e07535;
+      --generix-orange-soft: #FDF0E7;
+      --white: #FFFFFF;
+      --gray-50: #FAFBFC;
+      --gray-100: #F2F5F8;
+      --gray-200: #E1E8EE;
+      --gray-300: #C5D2DC;
+      --gray-500: #6B7E8C;
+      --gray-700: #3A4A56;
+      --gray-900: #0F1B24;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+      color: var(--generix-dark);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,35,51,0.04);
+    }
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav a {
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--generix-orange); }
+    .breadcrumb {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+    .breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============ PAGE HEADER ============ */
+    .page-header {
+      background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
+      color: var(--white);
+      padding: 60px 32px;
+    }
+    .page-header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .page-header-breadcrumb {
+      margin-bottom: 20px;
+    }
+    .page-header-breadcrumb a,
+    .page-header-breadcrumb span {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+    .page-header-breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+    }
+    .page-header-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .page-header-breadcrumb span { margin: 0 8px; }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* ============ TAB NAVIGATION ============ */
+    .tab-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .tab-navigation {
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      margin-bottom: 50px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .tab-navigation::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tab-navigation::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .tab-navigation::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .tab-button {
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      color: var(--gray-700);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      position: relative;
+    }
+    .tab-button:hover {
+      color: var(--generix-orange);
+      background: var(--generix-orange-soft);
+    }
+    .tab-button.active {
+      color: var(--generix-orange);
+      border-bottom-color: var(--generix-orange);
+    }
+
+    /* ============ TAB CONTENT ============ */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ============ CONTENT SECTIONS ============ */
+    .content-section {
+      margin-bottom: 60px;
+    }
+    .content-section h2 {
+      font-size: 1.8rem;
+      color: var(--generix-dark);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--generix-orange-soft);
+    }
+    .content-section h3 {
+      font-size: 1.3rem;
+      color: var(--generix-dark);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .content-section p {
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .content-section ul {
+      margin: 16px 0 16px 24px;
+      color: var(--gray-700);
+    }
+    .content-section li {
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    /* ============ CODE BLOCK ============ */
+    .code-block {
+      background: var(--gray-900);
+      color: #e0e0e0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--generix-orange);
+    }
+    .code-block code {
+      color: inherit;
+    }
+
+    /* ============ HIGHLIGHT BOX ============ */
+    .highlight-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+    .highlight-box strong {
+      color: var(--generix-dark);
+    }
+
+    /* ============ TABLE ============ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    th {
+      font-weight: 600;
+      border-bottom-color: var(--gray-300);
+    }
+    tbody tr:hover {
+      background: var(--gray-50);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ============ CARD GRID ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      border-color: var(--generix-orange);
+    }
+    .info-card h4 {
+      color: var(--generix-orange);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .info-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 50px 32px;
+      margin-top: 80px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-section h4 {
+      color: var(--white);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .footer-section a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-section a:hover {
+      color: var(--generix-orange);
+    }
+    .footer-bottom {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+
+    /* ============ CODE-EXPLANATION LAYOUT ============ */
+    .code-explanation-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 40px 0;
+      align-items: start;
+    }
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,35,51,0.15);
+      position: sticky;
+      top: 100px;
+    }
+    .code-panel pre {
+      margin: 0;
+      padding: 24px;
+      overflow-x: auto;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .code-panel code {
+      color: inherit;
+    }
+    .explanation-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .explanation-block {
+      background: var(--gray-50);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .explanation-block:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      transform: translateX(4px);
+    }
+    .explanation-block h4 {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .explanation-block .code-ref {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .explanation-block p {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 8px 0 0 0;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 768px) {
+      .page-header { padding: 40px 24px; }
+      .page-header h1 { font-size: 1.8rem; }
+      .tab-container { padding: 0 24px; }
+      .tab-button { padding: 12px 16px; font-size: 0.9rem; }
+      .content-section h2 { font-size: 1.5rem; }
+      .footer-top { flex-direction: column; gap: 30px; }
+      .code-explanation-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .code-panel {
+        position: static;
+      }
+      .code-panel pre {
+        font-size: 0.75rem;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="logo" aria-label="Generix">
+      <img src="generix-dark.svg" alt="Generix">
+    </a>
+  </div>
+</header>
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-breadcrumb">
+      <a href="index.html">Documentación</a>
+      <span>/</span>
+      <span>JSON e-Invoicing Standard</span>
+    </div>
+    <h1>JSON e-Invoicing Standard</h1>
+    <p>Especificación técnica completa de la estructura JSON para facturación electrónica B2B en España.</p>
+  </div>
+</section>
+
+<!-- ============ TAB NAVIGATION ============ -->
+<div class="tab-container">
+  <div class="tab-navigation">
+    <button class="tab-button active" data-tab="general">Descripción General</button>
+    <button class="tab-button" data-tab="estructura">Estructura</button>
+    <button class="tab-button" data-tab="campos">Campos Obligatorios</button>
+    <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
+    <button class="tab-button" data-tab="validaciones">Validaciones</button>
+    <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
+  </div>
+
+  <!-- ============ TAB 1: GENERAL ============ -->
+  <div id="general" class="tab-content active">
+    <div class="content-section">
+      <h2>Descripción General</h2>
+      <p>El estándar JSON e-Invoicing de Generix Spain proporciona una estructura unificada y modular para la representación de facturas electrónicas en formato JSON. Este estándar está diseñado para cumplir con la normativa española de facturación electrónica y facilitar la integración con sistemas B2B.</p>
+
+      <h3>Características Principales</h3>
+      <ul>
+        <li><strong>Compatibilidad:</strong> Cumple con los requisitos de la Ley 3/2023 de Facturación Electrónica y normativa fiscal española.</li>
+        <li><strong>Modularidad:</strong> Estructura flexible que permite incluir solo los campos necesarios para cada tipo de factura.</li>
+        <li><strong>Validación:</strong> Incluye reglas de validación integradas para garantizar la integridad de los datos.</li>
+        <li><strong>Escalabilidad:</strong> Diseñado para soportar grandes volúmenes de facturas sin degradación de rendimiento.</li>
+        <li><strong>Interoperabilidad:</strong> Compatible con sistemas EDI, APIs REST y otros estándares de intercambio de datos.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>Nota importante:</strong> Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica. Se recomienda revisar la documentación completa antes de implementar.
+      </div>
+
+      <h3>Versiones Soportadas</h3>
+      <ul>
+        <li>Versión 2.0 - Versión actual (recomendada)</li>
+        <li>Versión 1.5 - Mantenimiento hasta 2025</li>
+        <li>Versión 1.0 - Deprecada (no se recomienda su uso)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ TAB 2: ESTRUCTURA ============ -->
+  <div id="estructura" class="tab-content">
+    <div class="content-section">
+      <h2>Estructura del Schema JSON</h2>
+      <p>Explora la estructura completa del esquema JSON para e-Invoicing. A continuación puedes ver el código del esquema en la izquierda y la explicación detallada de cada componente a la derecha.</p>
+
+      <div class="code-explanation-wrapper">
+        <!-- Panel izquierdo: Código -->
+        <div class="code-panel">
+          <pre><code id="schemaCode"></code></pre>
+        </div>
+
+        <!-- Panel derecho: Explicación -->
+        <div class="explanation-panel">
+          <div class="explanation-block">
+            <h4>🏗️ <span class="code-ref">$schema</span> y <span class="code-ref">type</span></h4>
+            <p>Define que este es un JSON Schema draft-04 que valida un objeto. El schema utiliza la especificación JSON Schema para documentar la estructura de las facturas.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>📄 Elemento Raíz: <span class="code-ref">FacturaCyC</span></h4>
+            <p>El objeto principal que contiene toda la información de la factura. Es el contenedor de nivel superior que agrupa todos los datos relacionados con una factura de Crea y Crece.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>📋 <span class="code-ref">FileHeader</span> - Cabecera del Fichero</h4>
+            <p>Contiene metadatos sobre el archivo de factura: versión del schema, modalidad de emisión (individual o lote), tipo de emisor y datos de terceros si aplica.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>🔢 <span class="code-ref">SchemaVersion</span></h4>
+            <p>Indica la versión del esquema utilizado (3.2, 3.2.1 o 3.2.2). Permite compatibilidad con diferentes versiones del estándar. Selecciona la versión según tus necesidades de validación.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>📦 <span class="code-ref">Modality</span></h4>
+            <p><span class="code-ref">I</span> (Individual) para una sola factura, o <span class="code-ref">L</span> (Lote) para procesar múltiples facturas en un mismo fichero. Define cómo se estructura el envío.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>👤 <span class="code-ref">InvoiceIssuerType</span></h4>
+            <p><span class="code-ref">EM</span> (Emisor/Proveedor), <span class="code-ref">RE</span> (Receptor/Cliente) o <span class="code-ref">TE</span> (Tercero). Define quién genera la factura en la transacción comercial.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>🤝 <span class="code-ref">ThirdParty</span> - Terceros</h4>
+            <p>Información sobre un tercero que participa en la emisión de la factura. Incluye identificación fiscal, entidad legal y datos de contacto. Se rellena solo cuando <span class="code-ref">InvoiceIssuerType</span> es TE.</p>
+          </div>
+
+          <div class="explanation-block">
+            <h4>🎯 Campos Requeridos en Tercero</h4>
+            <p>El identificador fiscal es obligatorio cuando se incluye un tercero. Debe especificarse el tipo de persona (Física/Jurídica), tipo de residencia y número de identificación fiscal válido.</p>
+    </div>
+
+          <div class="explanation-block">
+            <h4>✓ MinLength y MaxLength</h4>
+            <p>Define restricciones de longitud en campos de texto. Por ejemplo, <span class="code-ref">minLength: 3</span> significa mínimo 3 caracteres, <span class="code-ref">maxLength: 30</span> significa máximo 30 caracteres.</p>
+  </div>
+
+          <div class="explanation-block">
+            <h4>📌 Enum (Enumeraciones)</h4>
+            <p>Define valores permitidos para un campo. Por ejemplo, <span class="code-ref">"enum": ["3.2", "3.2.1", "3.2.2"]</span> significa que solo se aceptan estas tres versiones específicas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cargar el schema JSON desde el archivo externo
+    fetch('SCHEMA_FACTURA_CYC.json')
+      .then(response => response.json())
+      .then(data => {
+        const codeElement = document.getElementById('schemaCode');
+        const prettyJson = JSON.stringify(data, null, 2);
+        // Limitar a los primeros 80 líneas aproximadamente para que sea visible
+        const lines = prettyJson.split('\n');
+        const displayLines = lines.slice(0, 100);
+        codeElement.textContent = displayLines.join('\n');
+        if (lines.length > 100) {
+          codeElement.textContent += '\n... (más contenido - ver archivo completo) ...';
+        }
+      })
+      .catch(error => {
+        console.error('Error cargando el schema:', error);
+        document.getElementById('schemaCode').textContent = 'Error al cargar el archivo SCHEMA_FACTURA_CYC.json';
+      });
+  </script>
+
+  <!-- ============ TAB 3: CAMPOS OBLIGATORIOS ============ -->
+  <div id="campos" class="tab-content">
+    <div class="content-section">
+      <h2>Campos Obligatorios y Opcionales</h2>
+
+      <h3>Campos a Nivel de Factura (Obligatorios)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>version</strong></td>
+              <td>String</td>
+              <td>Versión del esquema</td>
+              <td>2.0</td>
+            </tr>
+            <tr>
+              <td><strong>tipoDocumento</strong></td>
+              <td>String</td>
+              <td>Tipo: FACTURA, FACTURA_RECTIFICATIVA, ABONO</td>
+              <td>FACTURA</td>
+            </tr>
+            <tr>
+              <td><strong>numero</strong></td>
+              <td>String</td>
+              <td>Número único de la factura</td>
+              <td>000001</td>
+            </tr>
+            <tr>
+              <td><strong>fecha</strong></td>
+              <td>Date (YYYY-MM-DD)</td>
+              <td>Fecha de emisión</td>
+              <td>2024-05-22</td>
+            </tr>
+            <tr>
+              <td><strong>emisor</strong></td>
+              <td>Object</td>
+              <td>Datos de la empresa emisora</td>
+              <td>Vea estructura arriba</td>
+            </tr>
+            <tr>
+              <td><strong>receptor</strong></td>
+              <td>Object</td>
+              <td>Datos del cliente receptor</td>
+              <td>Vea estructura arriba</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Campos en Emisor/Receptor (Obligatorios)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Tipo</th>
+              <th>Obligatorio</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>nif</strong></td>
+              <td>String</td>
+              <td>Sí</td>
+              <td>NIF/CIF de la empresa (formato: A12345678)</td>
+            </tr>
+            <tr>
+              <td><strong>nombre</strong></td>
+              <td>String</td>
+              <td>Sí</td>
+              <td>Nombre comercial</td>
+            </tr>
+            <tr>
+              <td><strong>razonSocial</strong></td>
+              <td>String</td>
+              <td>Sí</td>
+              <td>Razón social oficial</td>
+            </tr>
+            <tr>
+              <td><strong>direccion</strong></td>
+              <td>Object</td>
+              <td>Sí</td>
+              <td>Dirección fiscal</td>
+            </tr>
+            <tr>
+              <td><strong>contacto</strong></td>
+              <td>Object</td>
+              <td>No</td>
+              <td>Datos de contacto (email, teléfono)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Campos en Líneas de Factura (Obligatorios)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Tipo</th>
+              <th>Obligatorio</th>
+              <th>Validación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>numeroLinea</strong></td>
+              <td>Integer</td>
+              <td>Sí</td>
+              <td>&gt;= 1</td>
+            </tr>
+            <tr>
+              <td><strong>descripcion</strong></td>
+              <td>String</td>
+              <td>Sí</td>
+              <td>Min. 3 caracteres, máx. 500</td>
+            </tr>
+            <tr>
+              <td><strong>cantidad</strong></td>
+              <td>Decimal</td>
+              <td>Sí</td>
+              <td>&gt; 0, máx. 2 decimales</td>
+            </tr>
+            <tr>
+              <td><strong>precioUnitario</strong></td>
+              <td>Decimal</td>
+              <td>Sí</td>
+              <td>&gt;= 0, máx. 2 decimales</td>
+            </tr>
+            <tr>
+              <td><strong>tipoIVA</strong></td>
+              <td>String</td>
+              <td>Sí</td>
+              <td>0, 4, 10, 21</td>
+            </tr>
+            <tr>
+              <td><strong>importe</strong></td>
+              <td>Decimal</td>
+              <td>Sí (calculado)</td>
+              <td>cantidad × precioUnitario - descuento</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TAB 4: EJEMPLOS ============ -->
+  <div id="ejemplos" class="tab-content">
+    <div class="content-section">
+      <h2>Ejemplos Prácticos</h2>
+
+      <h3>Ejemplo 1: Factura Simple</h3>
+      <p>Factura básica con una línea de producto:</p>
+
+      <div class="code-block"><code>{
+  "factura": {
+    "version": "2.0",
+    "tipoDocumento": "FACTURA",
+    "serie": "2024",
+    "numero": "0001",
+    "fecha": "2024-05-22",
+    "fechaVencimiento": "2024-06-21",
+    "emisor": {
+      "nif": "A12345678",
+      "nombre": "Tech Solutions S.L.",
+      "razonSocial": "Tech Solutions Sociedad Limitada",
+      "direccion": {
+        "calle": "Paseo de la Castellana, 123",
+        "municipio": "Madrid",
+        "provincia": "Madrid",
+        "codigoPostal": "28046",
+        "pais": "ES"
+      }
+    },
+    "receptor": {
+      "nif": "B87654321",
+      "nombre": "Cliente Empresa S.A.",
+      "razonSocial": "Cliente Empresa Sociedad Anónima",
+      "direccion": {
+        "calle": "Calle Principal, 456",
+        "municipio": "Barcelona",
+        "provincia": "Barcelona",
+        "codigoPostal": "08002",
+        "pais": "ES"
+      }
+    },
+    "lineas": [
+      {
+        "numeroLinea": 1,
+        "descripcion": "Licencia software Premium - Anual",
+        "cantidad": 1,
+        "unidad": "ud",
+        "precioUnitario": 1000.00,
+        "descuento": 0,
+        "tipoIVA": "21",
+        "importe": 1000.00
+      }
+    ],
+    "totales": {
+      "baseImponible": 1000.00,
+      "totalIVA": 210.00,
+      "importeTotal": 1210.00,
+      "retencion": 0,
+      "descuentoGlobal": 0
+    }
+  }
+}</code></div>
+
+      <h3>Ejemplo 2: Factura con Múltiples Líneas y Descuentos</h3>
+
+      <div class="code-block"><code>{
+  "factura": {
+    "version": "2.0",
+    "tipoDocumento": "FACTURA",
+    "serie": "2024",
+    "numero": "0002",
+    "fecha": "2024-05-22",
+    "emisor": { ... },
+    "receptor": { ... },
+    "lineas": [
+      {
+        "numeroLinea": 1,
+        "descripcion": "Servicios de consultoría - 40 horas",
+        "cantidad": 40,
+        "unidad": "h",
+        "precioUnitario": 150.00,
+        "descuento": 10,
+        "tipoIVA": "21",
+        "importe": 5400.00
+      },
+      {
+        "numeroLinea": 2,
+        "descripcion": "Soporte técnico - Mes de mayo",
+        "cantidad": 1,
+        "unidad": "mes",
+        "precioUnitario": 500.00,
+        "descuento": 0,
+        "tipoIVA": "21",
+        "importe": 500.00
+      }
+    ],
+    "totales": {
+      "baseImponible": 5900.00,
+      "totalIVA": 1239.00,
+      "importeTotal": 7139.00,
+      "retencion": 0,
+      "descuentoGlobal": 0
+    }
+  }
+}</code></div>
+
+      <h3>Ejemplo 3: Factura Rectificativa</h3>
+      <p>Factura que corrige una anterior:</p>
+
+      <div class="code-block"><code>{
+  "factura": {
+    "version": "2.0",
+    "tipoDocumento": "FACTURA_RECTIFICATIVA",
+    "serie": "2024",
+    "numero": "0001R",
+    "fecha": "2024-05-23",
+    "facturaOriginal": {
+      "numero": "0001",
+      "fecha": "2024-05-22",
+      "serie": "2024"
+    },
+    "motivo": "Corrección de cantidad en línea 1",
+    ...
+  }
+}</code></div>
+    </div>
+  </div>
+
+  <!-- ============ TAB 5: VALIDACIONES ============ -->
+  <div id="validaciones" class="tab-content">
+    <div class="content-section">
+      <h2>Reglas de Validación</h2>
+
+      <h3>Validaciones Estructurales</h3>
+      <div class="card-grid">
+        <div class="info-card">
+          <h4>Estructura JSON</h4>
+          <p>El JSON debe ser válido y bien formado. Se rechazarán documentos con errores de sintaxis.</p>
+        </div>
+        <div class="info-card">
+          <h4>Campos Requeridos</h4>
+          <p>Todos los campos marcados como obligatorios deben estar presentes y no vacíos.</p>
+        </div>
+        <div class="info-card">
+          <h4>Tipos de Datos</h4>
+          <p>Cada campo debe cumplir con el tipo especificado (String, Integer, Decimal, Date, Object, Array).</p>
+        </div>
+      </div>
+
+      <h3>Validaciones de Negocio</h3>
+
+      <h4>NIF/CIF</h4>
+      <ul>
+        <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
+        <li>La letra debe corresponder al código de validación NIF</li>
+        <li>CIF válidos también aceptados (B87654321)</li>
+      </ul>
+
+      <h4>Fechas</h4>
+      <ul>
+        <li>Formato requerido: YYYY-MM-DD</li>
+        <li>La fecha de emisión no puede ser futura</li>
+        <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
+      </ul>
+
+      <h4>Importes</h4>
+      <ul>
+        <li>Cantidad y precioUnitario deben ser positivos</li>
+        <li>Máximo 2 decimales en importes</li>
+        <li>El importe de línea = cantidad × precioUnitario - descuento</li>
+        <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
+      </ul>
+
+      <h4>IVA</h4>
+      <ul>
+        <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
+        <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
+        <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
+      </ul>
+
+      <h3>Respuestas de Validación</h3>
+
+      <div class="code-block"><code>{
+  "valido": true,
+  "errores": [],
+  "advertencias": [],
+  "timestamp": "2024-05-22T15:37:48Z"
+}
+
+// En caso de error:
+{
+  "valido": false,
+  "errores": [
+    {
+      "codigo": "CAMPO_REQUERIDO",
+      "campo": "factura.numero",
+      "mensaje": "El campo número es obligatorio"
+    },
+    {
+      "codigo": "FORMATO_INVALIDO",
+      "campo": "factura.emisor.nif",
+      "mensaje": "El NIF debe tener formato A12345678"
+    }
+  ]
+}</code></div>
+    </div>
+  </div>
+
+  <!-- ============ TAB 6: FAQ ============ -->
+  <div id="faq" class="tab-content">
+    <div class="content-section">
+      <h2>Preguntas Frecuentes</h2>
+
+      <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
+      <p>Una factura rectificativa se utiliza para corregir errores en una factura ya emitida. Debe incluir referencia a la factura original y el motivo de la rectificación. A nivel fiscal es una factura independiente que se emite junto a la original.</p>
+
+      <h3>¿Cómo manejar descuentos?</h3>
+      <p>Los descuentos se aplican a nivel de línea (campo <code>descuento</code>) o pueden agregarse a nivel de factura (campo <code>descuentoGlobal</code> en totales). El importe final de línea se calcula como: <code>(cantidad × precioUnitario) - descuento</code>.</p>
+
+      <h3>¿Se pueden incluir retenciones?</h3>
+      <p>Sí, a través del campo <code>retencion</code> en el objeto <code>totales</code>. Las retenciones se aplican al importeTotal y generalmente son del 19% para prestación de servicios en actividades profesionales.</p>
+
+      <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
+      <p>Use la dirección fiscal oficial de la empresa en el campo <code>emisor.direccion</code>. Si necesita incluir una dirección diferente para envío, puede agregarse en un campo adicional <code>direccionEnvio</code>.</p>
+
+      <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
+      <p>No hay límite técnico establecido, pero se recomienda mantener facturas manejables. Para volúmenes muy grandes, considere fragmentar en múltiples facturas.</p>
+
+      <h3>¿Cómo integro esto con mi sistema actual?</h3>
+      <p>Generix proporciona:</p>
+      <ul>
+        <li>APIs REST para validación y transformación</li>
+        <li>Librerías client para JavaScript, Python y Java</li>
+        <li>Conectores directos para ERP populares (SAP, Dynamics, etc.)</li>
+      </ul>
+      <p>Consulte con nuestro equipo de soporte técnico para opciones específicas a su tecnología.</p>
+
+      <h3>¿Dónde puedo ver ejemplos reales de facturas validadas?</h3>
+      <p>Consulte la pestaña "Ejemplos" arriba, o descargue el archivo <code>EJEMPLO_FACTURA_INDEX.json</code> incluido en la documentación.</p>
+
+      <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
+      <p>Contáctenos en <a href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a> o a través del portal de soporte de Generix.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-section">
+        <h4>Documentación</h4>
+        <a href="index.html">Volver al inicio</a>
+        <a href="#bloques">Todos los estándares</a>
+        <a href="#">XML e-Invoicing</a>
+        <a href="#">Validaciones</a>
+      </div>
+      <div class="footer-section">
+        <h4>Recursos</h4>
+        <a href="#">Descargar Schema</a>
+        <a href="#">Ejemplos JSON</a>
+        <a href="#">API Documentation</a>
+        <a href="#">SDK Clients</a>
+      </div>
+      <div class="footer-section">
+        <h4>Soporte</h4>
+        <a href="mailto:facturacion@generixgroup.com">Email de Soporte</a>
+        <a href="#">Centro de Ayuda</a>
+        <a href="#">Status Page</a>
+        <a href="#">Reportar Problema</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Generix Group. Todos los derechos reservados. | <a href="#" style="color: var(--generix-orange);">Términos de Uso</a> | <a href="#" style="color: var(--generix-orange);">Política de Privacidad</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SCRIPT ============ -->
+<script>
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const tabName = button.getAttribute('data-tab');
+
+      // Remove active class from all buttons and contents
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+      // Add active class to clicked button and corresponding content
+      button.classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
