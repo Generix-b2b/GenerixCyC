@@ -509,7 +509,38 @@
 
       <div class="code-explanation-wrapper">
         <!-- Panel izquierdo: Código -->
-        <div class="code-panel">
+       <div class="code-panel">
+          <div style="margin-bottom: 16px;">
+            <label for="schemaSelector" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--generix-dark);">Selecciona un bloque:</label>
+            <select id="schemaSelector" style="width: 100%; padding: 8px; border: 1px solid var(--gray-300); border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+              <option value="root">📄 Raíz (InvoiceGNX)</option>
+              <option value="properties">🔍 Propiedades principales</option>
+              <option value="">--- DEFINICIONES ---</option>
+              <option value="Batch">📦 Batch</option>
+              <option value="AmountContainer">💰 AmountContainer</option>
+              <option value="Address">📍 Address</option>
+              <option value="ContactDetails">📞 ContactDetails</option>
+              <option value="RegistrationData">📋 RegistrationData</option>
+              <option value="LegalEntity">🏢 LegalEntity</option>
+              <option value="TaxIdentification">🧾 TaxIdentification</option>
+              <option value="Party">👤 Party</option>
+              <option value="Parties">👥 Parties</option>
+              <option value="Invoice">📄 Invoice</option>
+              <option value="InvoiceWrapper">📦 InvoiceWrapper</option>
+              <option value="InvoiceHeader">📋 InvoiceHeader</option>
+              <option value="InvoiceIssueData">📅 InvoiceIssueData</option>
+              <option value="Corrective">✏️ Corrective</option>
+              <option value="TaxWrapper">💼 TaxWrapper</option>
+              <option value="InvoiceTotals">🧮 InvoiceTotals</option>
+              <option value="ItemWrapper">📦 ItemWrapper</option>
+              <option value="PaymentWrapper">💳 PaymentWrapper</option>
+              <option value="">--- ENUMS ---</option>
+              <option value="InvoiceIssuerTypeEnum">EM/RE/TE</option>
+              <option value="PersonTypeCodeEnum">F/J</option>
+              <option value="ResidenceTypeCodeEnum">E/R/U</option>
+              <option value="DateTime">🕐 DateTime</option>
+            </select>
+          </div>
           <pre><code id="schemaCode"></code></pre>
         </div>
 
@@ -571,22 +602,31 @@
 
   <script>
     // Cargar el schema JSON desde el archivo externo
-    fetch('SCHEMA_FACTURA_CYC.json')
-      .then(response => response.json())
-      .then(data => {
-        const codeElement = document.getElementById('schemaCode');
-        const prettyJson = JSON.stringify(data, null, 2);
-        // Limitar a los primeros 80 líneas aproximadamente para que sea visible
-        const lines = prettyJson.split('\n');
-        const displayLines = lines.slice(0, 100);
-        codeElement.textContent = displayLines.join('\n');
-        if (lines.length > 100) {
-          codeElement.textContent += '\n... (más contenido - ver archivo completo) ...';
+    fetch('JsonSchema.json')
+      .then(response => {
+        console.log('Status:', response.status);
+        console.log('Content-Type:', response.headers.get('content-type'));
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text(); // Usar text() para ver el contenido exacto
+      })
+      .then(text => {
+        console.log('Contenido recibido, longitud:', text.length);
+        try {
+          const data = JSON.parse(text);
+          const codeElement = document.getElementById('schemaCode');
+          const prettyJson = JSON.stringify(data, null, 2);
+          codeElement.textContent = prettyJson;
+          console.log('Schema cargado exitosamente');
+        } catch (parseError) {
+          console.error('Error al parsear JSON:', parseError);
+          document.getElementById('schemaCode').textContent = 'Error al parsear JSON: ' + parseError.message;
         }
       })
       .catch(error => {
         console.error('Error cargando el schema:', error);
-        document.getElementById('schemaCode').textContent = 'Error al cargar el archivo SCHEMA_FACTURA_CYC.json';
+        document.getElementById('schemaCode').textContent = 'Error al cargar JsonSchema.json: ' + error.message;
       });
   </script>
 
