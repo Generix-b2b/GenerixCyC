@@ -472,8 +472,7 @@
         <button class="tab-button active" data-tab="general">Descripción
           General</button>
         <button class="tab-button" data-tab="estructura">Estructura</button>
-        <button class="tab-button" data-tab="campos">Campos
-          Obligatorios</button>
+        <button class="tab-button" data-tab="campos">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
         <button class="tab-button" data-tab="validaciones">Validaciones</button>
         <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
@@ -539,105 +538,105 @@
         // Diccionario de descripciones para cada bloque
         const descriptions = {
           InvoiceGNX: {
-        title: '📄 Raíz: InvoiceGNX',
-        esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
-        eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
-      },
+            title: '📄 Raíz: InvoiceGNX',
+            esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
+            eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
+          },
           Batch: {
-        title: '📦 Batch - Lote de Facturas',
-        esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
-        eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
-      },
-          InvoiceWrapper: {
-        title: '📦 InvoiceWrapper - Envoltura de Factura',
-        esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
-        eng: 'Container that wraps the invoice with control and processing information.'
-      },
-          Parties: {
-        title: '👥 Parties - Partes Múltiples',
-        esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
-        eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
-      },
-          Party: {
-        title: '👤 Party - Parte/Actor',
-        esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
-        eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
-      },
-          TaxIdentification: {
-        title: '🧾 TaxIdentification - Identificación Fiscal',
-        esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
-        eng: 'Tax data: person type (natural/legal), residence and identification number.'
-      },
-          LegalEntity: {
-        title: '🏢 LegalEntity - Persona Jurídica',
-        esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
-        eng: 'Legal entity data: company name, registration data and other legal information.'
-      },
-          RegistrationData: {
-        title: '📋 RegistrationData - Datos Registrales',
-        esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
-        eng: 'Commercial registry information: book, folio, registration sheet.'
-      },
-          Address: {
-        title: '📍 Address - Dirección',
-        esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
-        eng: 'Fiscal address information: street, city, postal code, province and country.'
-      },
-          ContactDetails: {
-        title: '📞 ContactDetails - Datos de Contacto',
-        esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
-        eng: 'Contact information: phone, email and other communication data.'
-      },
-          Invoice: {
-        title: '📄 Invoice - Factura Individual',
-        esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
-        eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
-      },
-          InvoiceHeader: {
-        title: '📋 InvoiceHeader - Encabezado de Factura',
-        esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
-        eng: 'Invoice metadata: number, series, document type, issuance mode.'
-      },
-          Corrective: {
-        title: '✏️ Corrective - Información Correctiva',
-        esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
-        eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
-      },
-          InvoiceIssueData: {
-        title: '📅 InvoiceIssueData - Datos de Emisión',
-        esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
-        eng: 'Issue information: date, time, place and other issue moment data.'
-      },
-          TaxWrapper: {
-        title: '💼 TaxWrapper - Información Fiscal',
-        esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
-        eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
-      },
-          InvoiceTotals: {
-        title: '🧮 InvoiceTotals - Totales de Factura',
-        esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
-        eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
-      },
-          ItemWrapper: {
-        title: '📦 ItemWrapper - Envoltura de Línea',
-        esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
-        eng: 'Container for an invoice line with product/service details, quantities and amounts.'
-      },
-          PaymentWrapper: {
-        title: '💳 PaymentWrapper - Información de Pago',
-        esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
-        eng: 'Payment data: payment method, terms, due dates and bank references.'
-      },
-          AdditionalData:{
-        title: '� AdditionalData - Datos Adicionales',
-        esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
-        eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
-      },
-          AmountContainer: {
-        title: '💰 AmountContainer - Contenedor de Importes',
-        esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
-        eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
-      }
+            title: '📦 Batch - Lote de Facturas',
+            esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
+            eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
+          },
+              InvoiceWrapper: {
+            title: '📦 InvoiceWrapper - Envoltura de Factura',
+            esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
+            eng: 'Container that wraps the invoice with control and processing information.'
+          },
+              Parties: {
+            title: '👥 Parties - Partes Múltiples',
+            esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
+            eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
+          },
+              Party: {
+            title: '👤 Party - Parte/Actor',
+            esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
+            eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
+          },
+              TaxIdentification: {
+            title: '🧾 TaxIdentification - Identificación Fiscal',
+            esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
+            eng: 'Tax data: person type (natural/legal), residence and identification number.'
+          },
+              LegalEntity: {
+            title: '🏢 LegalEntity - Persona Jurídica',
+            esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
+            eng: 'Legal entity data: company name, registration data and other legal information.'
+          },
+              RegistrationData: {
+            title: '📋 RegistrationData - Datos Registrales',
+            esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
+            eng: 'Commercial registry information: book, folio, registration sheet.'
+          },
+              Address: {
+            title: '📍 Address - Dirección',
+            esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
+            eng: 'Fiscal address information: street, city, postal code, province and country.'
+          },
+              ContactDetails: {
+            title: '📞 ContactDetails - Datos de Contacto',
+            esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
+            eng: 'Contact information: phone, email and other communication data.'
+          },
+              Invoice: {
+            title: '📄 Invoice - Factura Individual',
+            esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
+            eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
+          },
+              InvoiceHeader: {
+            title: '📋 InvoiceHeader - Encabezado de Factura',
+            esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
+            eng: 'Invoice metadata: number, series, document type, issuance mode.'
+          },
+              Corrective: {
+            title: '✏️ Corrective - Información Correctiva',
+            esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
+            eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
+          },
+              InvoiceIssueData: {
+            title: '📅 InvoiceIssueData - Datos de Emisión',
+            esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
+            eng: 'Issue information: date, time, place and other issue moment data.'
+          },
+              TaxWrapper: {
+            title: '💼 TaxWrapper - Información Fiscal',
+            esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
+            eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
+          },
+              InvoiceTotals: {
+            title: '🧮 InvoiceTotals - Totales de Factura',
+            esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
+            eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
+          },
+              ItemWrapper: {
+            title: '📦 ItemWrapper - Envoltura de Línea',
+            esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
+            eng: 'Container for an invoice line with product/service details, quantities and amounts.'
+          },
+              PaymentWrapper: {
+            title: '💳 PaymentWrapper - Información de Pago',
+            esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
+            eng: 'Payment data: payment method, terms, due dates and bank references.'
+          },
+              AdditionalData:{
+            title: '� AdditionalData - Datos Adicionales',
+            esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
+            eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
+          },
+              AmountContainer: {
+            title: '💰 AmountContainer - Contenedor de Importes',
+            esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
+            eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
+          }
         };
 
         // Orden de bloques a mostrar
@@ -674,12 +673,230 @@
           .then(data => {
             schemaData = data;
             renderAllBlocks();
+            renderAllEnums();
           })
           .catch(error => {
             console.error('Error cargando el schema:', error);
             document.getElementById('schemaBlocksContainer').innerHTML = 
               '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
+            const enumsEl = document.getElementById('enumsContainer');
+            if (enumsEl) {
+              enumsEl.innerHTML =
+                '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
+            }
           });
+
+        // ============ ENUMERACIONES ============
+        // Diccionario de descripciones por enum
+        const enumDescriptions = {
+          InvoiceIssuerTypeEnum: {
+            title: '🪪 InvoiceIssuerType - Tipo de Emisor',
+            esp: 'Indica quién emite la factura: emisor habitual (EM), receptor en autofactura (RE) o tercero en nombre del emisor (TE).',
+            eng: 'Indicates who issues the invoice: regular issuer (EM), recipient self-billing (RE) or third party on behalf of issuer (TE).',
+            usedIn: ['FileHeader.InvoiceIssuerType']
+          },
+          PersonTypeCodeEnum: {
+            title: '👤 PersonTypeCode - Tipo de Persona',
+            esp: 'Tipo de persona en la identificación fiscal: F = persona física, J = persona jurídica.',
+            eng: 'Person type for tax identification: F = natural person, J = legal entity.',
+            usedIn: ['TaxIdentification.PersonTypeCode']
+          },
+          ResidenceTypeCodeEnum: {
+            title: '🌐 ResidenceTypeCode - Tipo de Residencia',
+            esp: 'Tipo de residencia fiscal: E = extranjero (no UE), R = residente, U = residente en la UE no español.',
+            eng: 'Tax residence type: E = foreign (non-EU), R = resident, U = EU resident non-Spanish.',
+            usedIn: ['TaxIdentification.ResidenceTypeCode']
+          },
+          InvoiceDocumentTypeEnum: {
+            title: '📄 InvoiceDocumentType - Tipo de Documento',
+            esp: 'Tipo de documento de factura emitido (factura completa, simplificada, rectificativa, etc.).',
+            eng: 'Type of invoice document issued (complete, simplified, corrective, etc.).',
+            usedIn: ['InvoiceHeader.InvoiceDocumentType']
+          },
+          InvoiceClassEnum: {
+            title: '📑 InvoiceClass - Clase de Factura',
+            esp: 'Clase de factura según su naturaleza dentro del flujo de facturación (original, copia, duplicado, etc.).',
+            eng: 'Invoice class according to its nature within the invoicing flow (original, copy, duplicate, etc.).',
+            usedIn: ['InvoiceHeader.InvoiceClass']
+          },
+          ReasonCodeEnum: {
+            title: '✏️ ReasonCode - Motivo de Rectificación',
+            esp: 'Código del motivo por el que se emite una factura rectificativa.',
+            eng: 'Code identifying the reason for issuing a corrective invoice.',
+            usedIn: ['Corrective.ReasonCode']
+          },
+          CorrectionMethodEnum: {
+            title: '🔧 CorrectionMethod - Método de Corrección',
+            esp: 'Método utilizado para la corrección en una factura rectificativa (sustitución, diferencias, etc.).',
+            eng: 'Method used for correction in a corrective invoice (substitution, differences, etc.).',
+            usedIn: ['Corrective.CorrectionMethod']
+          },
+          TaxTypeCodeEnum: {
+            title: '💼 TaxTypeCode - Tipo de Impuesto',
+            esp: 'Código del tipo de impuesto aplicado (IVA, IGIC, IPSI, etc.).',
+            eng: 'Code identifying the type of tax applied (VAT, IGIC, IPSI, etc.).',
+            usedIn: ['Tax.TaxTypeCode', 'DiscountTax.TaxTypeCode', 'ChargeTax.TaxTypeCode']
+          },
+          TaxRegimeCodeEnum: {
+            title: '🏛️ TaxRegimeCode - Régimen Fiscal',
+            esp: 'Código del régimen fiscal aplicable a la operación (general, simplificado, REBU, REAGYP, etc.).',
+            eng: 'Code of the tax regime applicable to the operation (general, simplified, REBU, REAGYP, etc.).',
+            usedIn: ['Tax.TaxRegimeCode']
+          },
+          TaxOperationTypeEnum: {
+            title: '⚙️ TaxOperationType - Tipo de Operación',
+            esp: 'Tipo de operación fiscal: sujeta y no exenta, no sujeta, exenta, etc.',
+            eng: 'Tax operation type: subject and non-exempt, not subject, exempt, etc.',
+            usedIn: ['Tax.TaxOperationType']
+          },
+          TaxExceptionReasonCodeEnum: {
+            title: '🚫 TaxExceptionReasonCode - Motivo de Exención',
+            esp: 'Código del motivo por el que la operación está exenta o no sujeta al impuesto.',
+            eng: 'Code identifying why the operation is exempt or not subject to the tax.',
+            usedIn: ['Tax.TaxExemptionReasonCode']
+          },
+          DiscountTypeCodeEnum: {
+            title: '🏷️ DiscountTypeCode - Tipo de Descuento',
+            esp: 'Código que identifica el tipo de descuento aplicado a nivel global o de línea.',
+            eng: 'Code identifying the type of discount applied at global or line level.',
+            usedIn: ['Discount.DiscountTypeCode']
+          },
+          ChargeTypeCodeEnum: {
+            title: '➕ ChargeTypeCode - Tipo de Cargo',
+            esp: 'Código que identifica el tipo de cargo o suplemento aplicado a la factura.',
+            eng: 'Code identifying the type of charge or surcharge applied to the invoice.',
+            usedIn: ['Charge.ChargeTypeCode']
+          },
+          UnitOfMeasureEnum: {
+            title: '📏 UnitOfMeasure - Unidad de Medida',
+            esp: 'Unidad de medida para la cantidad de cada línea (unidades, horas, kg, litros, etc.).',
+            eng: 'Unit of measure for the quantity of each line (units, hours, kg, liters, etc.).',
+            usedIn: ['InvoiceLine.UnitOfMeasure']
+          },
+          PaymentMeansEnum: {
+            title: '💳 PaymentMeans - Medio de Pago',
+            esp: 'Código del medio de pago utilizado (transferencia, domiciliación, tarjeta, efectivo, etc.).',
+            eng: 'Code of the payment method used (transfer, direct debit, card, cash, etc.).',
+            usedIn: ['Installment.PaymentMeans']
+          },
+          AttachmentFormatEnum: {
+            title: '📎 AttachmentFormat - Formato de Anexo',
+            esp: 'Formato del fichero adjunto a la factura (PDF, XML, JPG, PNG, etc.).',
+            eng: 'Format of the file attached to the invoice (PDF, XML, JPG, PNG, etc.).',
+            usedIn: ['Attachment.AttachmentFormat']
+          }
+        };
+
+        // Orden de enumeraciones a mostrar
+        const enumOrder = [
+          'InvoiceIssuerTypeEnum',
+          'PersonTypeCodeEnum',
+          'ResidenceTypeCodeEnum',
+          'InvoiceDocumentTypeEnum',
+          'InvoiceClassEnum',
+          'ReasonCodeEnum',
+          'CorrectionMethodEnum',
+          'TaxTypeCodeEnum',
+          'TaxRegimeCodeEnum',
+          'TaxOperationTypeEnum',
+          'TaxExceptionReasonCodeEnum',
+          'DiscountTypeCodeEnum',
+          'ChargeTypeCodeEnum',
+          'UnitOfMeasureEnum',
+          'PaymentMeansEnum',
+          'AttachmentFormatEnum'
+        ];
+
+        function renderAllEnums() {
+          const container = document.getElementById('enumsContainer');
+          if (!container) return;
+          if (!schemaData || !schemaData.definitions || !schemaData.definitions.Enums) {
+            container.innerHTML = '<p style="color: var(--gray-500);">No se ha encontrado la sección <code>definitions.Enums</code> en el schema.</p>';
+            return;
+          }
+
+          const enums = schemaData.definitions.Enums;
+          let html = '';
+
+          enumOrder.forEach(enumName => {
+            const enumContent = enums[enumName];
+            if (!enumContent) return;
+
+            const desc = enumDescriptions[enumName] || {
+              title: '🔖 ' + enumName,
+              esp: 'Enumeración del schema.',
+              eng: 'Schema enumeration.',
+              usedIn: []
+            };
+
+            const enumWithName = { [enumName]: enumContent };
+            const jsonCode = JSON.stringify(enumWithName, null, 2);
+
+            const values = Array.isArray(enumContent.enum) ? enumContent.enum : [];
+            const hasValues = values.length > 0;
+
+            const valuesHtml = hasValues
+              ? values.map(v =>
+                  `<span style="display: inline-block; background: var(--generix-orange); color: var(--generix-dark); padding: 4px 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 600; margin: 4px 6px 4px 0;">${escapeHtml(String(v))}</span>`
+                ).join('')
+              : `<span style="display: inline-block; background: var(--white); color: var(--gray-500); padding: 4px 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-style: italic; border: 1px dashed var(--gray-300);">No values defined yet</span>`;
+
+            const usedInHtml = (desc.usedIn && desc.usedIn.length > 0)
+              ? desc.usedIn.map(f =>
+                  `<span style="display: inline-block; background: var(--gray-100); color: var(--generix-dark); padding: 2px 8px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.8rem; margin: 2px 4px 2px 0; border: 1px solid var(--gray-200);">${escapeHtml(f)}</span>`
+                ).join('')
+              : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
+
+            html += `
+              <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="enum-${enumName}">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
+                  <!-- Panel izquierdo: Código -->
+                  <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+                    <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
+                      <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
+                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                    </div>
+                    <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
+                  </div>
+
+                  <!-- Panel derecho: Explicación -->
+                  <div>
+                    <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
+                      <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
+                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                        <strong>Español:</strong> ${desc.esp}
+                      </p>
+                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
+                        <strong>English:</strong> ${desc.eng}
+                      </p>
+                    </div>
+
+                    <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
+                      <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
+                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        <strong>Tipo:</strong>
+                        <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                          ${escapeHtml(enumContent.type || 'string')}
+                        </span>
+                      </p>
+                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
+                      </p>
+                      <div style="margin: 0 0 12px 0;">${valuesHtml}</div>
+                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        <strong>Usado en:</strong>
+                      </p>
+                      <div>${usedInHtml}</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+        }
 
         function getBlockContent(blockName) {
           if (blockName === 'root') {
@@ -741,7 +958,10 @@
                     <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
                       <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
                       <p style="color: var(--gray-700); margin: 0 0 8px 0;">
-                        <strong>Tipo:</strong> <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${blockContent.type || 'N/A'}</span>
+                        <strong>Tipo:</strong> 
+                        <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                          ${blockContent.type || 'N/A'}
+                        </span>
                       </p>
                       ${blockContent.properties 
                         ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
@@ -753,13 +973,13 @@
                       ${blockContent.required && blockContent.required.length > 0
                         ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
                             <strong>Requeridos:</strong> 
-                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                            <span style="background: var(--generix-orange); color: var(--generix-dark); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
                                 ${blockContent.required.join(', ')}
                             </span>
                           </p>` 
                         : `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
                             <strong>Requeridos:</strong> 
-                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                            <span style="background: var(--white); color: var(--generix-dark); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
                                 No required data in this segment
                             </span>
                           </p>`}
@@ -787,10 +1007,18 @@
         }
       </script>
 
-      <!-- ============ TAB 3: CAMPOS OBLIGATORIOS ============ -->
+      <!-- ============ TAB 3: Enumeraciones ============ -->
       <div id="campos" class="tab-content">
         <div class="content-section">
-          <h2>Campos Obligatorios y Opcionales</h2>
+          <h2>Enumeraciones</h2>
+          <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing.
+            Cada enumeración se carga dinámicamente desde
+            <code>definitions.Enums</code> del schema y muestra su tipo,
+            descripción y los valores válidos.</p>
+          <p><a href="JsonSchema.json" target="_blank"
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
+            JsonSchema.json completo</a></p>
+
 
           <h3>Campos a Nivel de Factura (Obligatorios)</h3>
           <div class="table-wrapper">
@@ -941,6 +1169,7 @@
               </tbody>
             </table>
           </div>
+          <div id="enumsContainer"></div>
         </div>
       </div>
 
