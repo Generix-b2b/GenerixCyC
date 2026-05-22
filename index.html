@@ -10,7 +10,7 @@
     --generix-dark: #002333;        /* Daintree - color principal */
     --generix-dark-soft: #0a3447;
     --generix-orange: #F28A48;      /* Jaffa - acento corporativo */
-    --generix-orange-hover: #E07535;
+    --generix-orange-hover: #e07535;
     --generix-orange-soft: #FDF0E7;
     --white: #FFFFFF;
     --gray-50: #FAFBFC;
@@ -58,7 +58,7 @@
     text-decoration: none;
   }
   .logo img {
-    height: 34px;
+    height: 50px;
     width: auto;
     display: block;
   }
@@ -97,8 +97,13 @@
   /* ============ HERO ============ */
   .hero {
     background: var(--generix-dark);
+    background-image: url('hero-bg.svg');    
+    background-size: 130%;
+    background-position: 65% 61%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--white);
-    padding: 100px 32px 120px;
+    padding: 170px 32px 170px;
     position: relative;
     overflow: hidden;
   }
@@ -108,17 +113,14 @@
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     background-image:
-      radial-gradient(circle at 80% 20%, rgba(241, 184, 148, 0.35) 0%, transparent 40%),
-      radial-gradient(circle at 20% 80%, rgba(241, 184, 148,0.15) 0%, transparent 40%);
+      radial-gradient(circle at 76%, rgba(221, 199, 186, 0.4) 0%, transparent 20%),
+      radial-gradient(circle at 20%, rgba(0, 35, 51,0.15) 0%, transparent 40%);
     pointer-events: none;
   }
   .hero::after {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
   }
@@ -128,7 +130,7 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 0.8fr;
     gap: 60px;
     align-items: center;
   }
@@ -138,7 +140,7 @@
   .hero-visual {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
   .hero-icon {
     width: 280px;
@@ -148,6 +150,7 @@
     align-items: center;
     justify-content: center;
     font-size: 120px;
+    filter: drop-shadow(0 20px 60px rgba(241, 184, 148, 0.15));
   }
   .hero-tagline {
     color: var(--generix-orange);
@@ -516,7 +519,7 @@
 
     <!-- BLOQUE 1 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página XML / UBL -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">{ }</div>
       <h3>JSON e-Invoicing Standard</h3>
       <p>Estructura JSON Standard de Generix Spain para e-Invoicing.</p>
@@ -525,7 +528,7 @@
 
     <!-- BLOQUE 2 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página JSON -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">&lt;/&gt;</div>
       <h3>XML e-Invoicing Standard</h3>
       <p>Estructura XML Standard de Generix Spain para e-Invoicing.</p>
@@ -534,7 +537,7 @@
 
     <!-- BLOQUE 3 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página CSV / Flat files -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">✓</div>
       <h3>Validaciones</h3>
       <p>Respuestas de validación de las diferentes facturas.</p>
@@ -543,7 +546,7 @@
 
     <!-- BLOQUE 4 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página EDIFACT / X12 -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">⇄</div>
       <h3>Crea & Crece</h3>
       <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
@@ -552,7 +555,7 @@
 
     <!-- BLOQUE 5 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página API & Integración -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">⇄</div>
       <h3>VERI*FACTU</h3>
       <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
@@ -561,7 +564,7 @@
 
     <!-- BLOQUE 6 -->
     <a href="#" class="card">
-      <!-- TODO: enlazar a la página de Validaciones -->
+      <!-- TODO: enlazar a la página -->
       <div class="card-icon">⇄</div>
       <h3>Sistema Inmediato de Información (SII)</h3>
       <p>Guías y recursos para la implementación de soluciones de facturación electrónica en España.</p>
@@ -601,7 +604,8 @@
     <!-- BLOQUE 8 -->
     <a href="#" class="card">
       <!-- TODO: enlazar a la página de Changelog & Releases -->
-      <div class="card-icon">⌖ ⟳ ⚙</div>
+      <!-- <div class="card-icon">⌖ ⟳ ⚙</div> -->
+       <div class="card-icon">⟳</div>
       <h3>Changelog &amp; Releases</h3>
       <p>Historial de versiones del estándar Generix, cambios breaking, deprecaciones y notas de migración.</p>
       <span class="card-link">Ver documentación</span>
