@@ -46,6 +46,144 @@
 			},
 			"additionalProperties": false
 		},
+		"InvoiceWrapper": {
+			"type": "object",
+			"properties": {
+				"Parties": { "$ref": "#/definitions/Parties" },
+				"Legislacion": { "type": "object" },
+				"Invoice": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/Invoice" }
+				}
+			},
+			"required": ["Parties", "Invoice"],
+			"additionalProperties": false
+		},
+		"Parties": {
+			"type": "object",
+			"properties": {
+				"SellerParty": { "$ref": "#/definitions/Party" },
+				"BuyerParty": { "$ref": "#/definitions/Party" },
+				"ThirdParty": { "$ref": "#/definitions/Party" }
+			},
+            "required": ["SellerParty", "BuyerParty"],
+			"additionalProperties": false
+		},
+		"Invoice": {
+			"type": "object",
+			"properties": {
+				"InvoiceHeader": { "$ref": "#/definitions/InvoiceHeader" },
+				"InvoiceIssueData": { "$ref": "#/definitions/InvoiceIssueData" },
+				"TaxesOutputs": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/TaxWrapper" }
+				},
+				"TaxesWithheld": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/TaxWrapper" }
+				},
+				"InvoiceTotals": { "$ref": "#/definitions/InvoiceTotals" },
+				"Items": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/ItemWrapper" }
+				},
+				"PaymentDetails": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/PaymentWrapper" }
+				},
+				"LegalLiterals": {
+					"type": "object",
+					"properties": {
+						"LegalReference": { "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				"AdditionalData": { "$ref": "#/definitions/AdditionalData" }
+			},
+			"required": ["InvoiceHeader", "InvoiceIssueData"]
+		},
+		"InvoiceHeader": {
+			"type": "object",
+			"properties": {
+				"InvoiceNumber": { "type": "string" },
+				"InvoiceDocumentType": { "$ref": "#/definitions/Enums/InvoiceDocumentTypeEnum" },
+				"InvoiceClass": { "$ref": "#/definitions/Enums/InvoiceClassEnum" },
+				"InvoiceDescription": { "type": "string" },
+				"PreviousInvoiceNumber": { "type": "string" },
+				"Corrective": { "$ref": "#/definitions/Corrective" }
+			},
+            "required": ["InvoiceNumber", "InvoiceDocumentType", "InvoiceClass", "InvoiceDescription"],
+			"additionalProperties": false
+		},
+		"InvoiceIssueData": {
+			"type": "object",
+			"properties": {
+				"IssueDate": { "$ref": "#/definitions/DateTime" },
+				"PreviousInvoiceDate": { "$ref": "#/definitions/DateTime" },
+				"InvoicingPeriod": {
+					"type": "object",
+					"properties": {
+						"StartDate": { "$ref": "#/definitions/DateTime" },
+						"EndDate": { "$ref": "#/definitions/DateTime" }
+					},
+					"additionalProperties": false
+				},
+				"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"TaxCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"LanguageName": { "type": "string", "minLength": 2, "maxLength": 2 }
+			},
+            "required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
+			"additionalProperties": false
+		},
+		"AdditionalData": {
+			"type": "object",
+			"properties": {
+				"RelatedDocuments": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Attachment": {
+								"type": "object",
+								"properties": {
+									"AttachmentCompressionAlgorithm": { "type": "string" },
+									"AttachmentFormat": { "type": "string" },
+									"AttachmentEncoding": { "type": "string" },
+									"AttachmentDescription": { "type": "string" },
+									"AttachmentData": { "type": "string" }
+								},
+								"additionalProperties": false
+							},
+							"QRAttachment": {
+								"type": "object",
+								"properties": {
+									"URL": { "type": "string" },
+									"HASHCode": { "type": "string" },
+									"PrevoiusHASHCode": { "type": "string" },
+									"eSignature": { "type": "string" },
+									"PlaceholderOthers": { "type": "string" }
+								},
+								"additionalProperties": false
+							}
+						},
+						"additionalProperties": false
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"Party": {
+			"type": "object",
+			"properties": {
+				"TaxIdentification": {
+					"$ref": "#/definitions/TaxIdentification"
+				},
+				"PartyIdentification": { "type": "string" },
+				"LegalEntity": { "$ref": "#/definitions/LegalEntity" }
+			},
+            "required": ["TaxIdentification", "LegalEntity"],
+			"additionalProperties": false
+		},
 		"AmountContainer": {
 			"type": "object",
 			"properties": {
@@ -116,155 +254,6 @@
 			},
             "required": ["PersonTypeCode", "ResidenceTypeCode", "TaxIdentificationNumber"],
 			"additionalProperties": false
-		},
-		"Party": {
-			"type": "object",
-			"properties": {
-				"TaxIdentification": {
-					"$ref": "#/definitions/TaxIdentification"
-				},
-				"PartyIdentification": { "type": "string" },
-				"LegalEntity": { "$ref": "#/definitions/LegalEntity" }
-			},
-            "required": ["TaxIdentification", "LegalEntity"],
-			"additionalProperties": false
-		},
-		"Parties": {
-			"type": "object",
-			"properties": {
-				"SellerParty": { "$ref": "#/definitions/Party" },
-				"BuyerParty": { "$ref": "#/definitions/Party" },
-				"ThirdParty": { "$ref": "#/definitions/Party" }
-			},
-            "required": ["SellerParty", "BuyerParty"],
-			"additionalProperties": false
-		},
-		"InvoiceWrapper": {
-			"type": "object",
-			"properties": {
-				"Parties": { "$ref": "#/definitions/Parties" },
-				"Legislacion": { "type": "object" },
-				"Invoice": {
-					"type": "array",
-					"items": { "$ref": "#/definitions/Invoice" }
-				}
-			},
-			"required": ["Parties", "Invoice"],
-			"additionalProperties": false
-		},
-		"Invoice": {
-			"type": "object",
-			"properties": {
-				"InvoiceHeader": {
-					"type": "object",
-					"properties": {
-						"InvoiceNumber": { "type": "string" },
-						"InvoiceDocumentType": { "$ref": "#/definitions/Enums/InvoiceDocumentTypeEnum" },
-						"InvoiceClass": { "$ref": "#/definitions/Enums/InvoiceClassEnum" },
-						"InvoiceDescription": { "type": "string" },
-						"PreviousInvoiceNumber": { "type": "string" },
-						"Corrective": { "$ref": "#/definitions/Corrective" }
-					},
-                    "required": ["InvoiceNumber", "InvoiceDocumentType", "InvoiceClass", "InvoiceDescription"],
-					"additionalProperties": false
-				},
-				"InvoiceIssueData": {
-					"type": "object",
-					"properties": {
-						"IssueDate": { "$ref": "#/definitions/DateTime" },
-						"PreviousInvoiceDate": { "$ref": "#/definitions/DateTime" },
-						"InvoicingPeriod": {
-							"type": "object",
-							"properties": {
-								"StartDate": { "$ref": "#/definitions/DateTime" },
-								"EndDate": { "$ref": "#/definitions/DateTime" }
-							},
-							"additionalProperties": false
-						},
-						"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
-						"TaxCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
-						"LanguageName": { "type": "string", "minLength": 2, "maxLength": 2 }
-					},
-                    "required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
-					"additionalProperties": false
-				},
-				"TaxesOutputs": {
-					"type": "array",
-					"items": { "$ref": "#/definitions/TaxWrapper" }
-				},
-				"TaxesWithheld": {
-					"type": "array",
-					"items": { "$ref": "#/definitions/TaxWrapper" }
-				},
-				"InvoiceTotals": { "$ref": "#/definitions/InvoiceTotals" },
-				"Items": {
-					"type": "array",
-					"items": { "$ref": "#/definitions/ItemWrapper" }
-				},
-				"PaymentDetails": {
-					"type": "array",
-					"items": { "$ref": "#/definitions/PaymentWrapper" }
-				},
-				"LegalLiterals": {
-					"type": "object",
-					"properties": {
-						"LegalReference": { "type": "string" }
-					},
-					"additionalProperties": false
-				},
-				"AdditionalData": {
-					"type": "object",
-					"properties": {
-						"RelatedDocuments": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"Attachment": {
-										"type": "object",
-										"properties": {
-											"AttachmentCompressionAlgorithm": {
-												"type": "string"
-											},
-											"AttachmentFormat": {
-												"type": "string"
-											},
-											"AttachmentEncoding": {
-												"type": "string"
-											},
-											"AttachmentDescription": {
-												"type": "string"
-											},
-											"AttachmentData": {
-												"type": "string"
-											}
-										},
-										"additionalProperties": false
-									},
-									"QRAttachment": {
-										"type": "object",
-										"properties": {
-											"URL": { "type": "string" },
-											"HASHCode": { "type": "string" },
-											"PrevoiusHASHCode": {
-												"type": "string"
-											},
-											"eSignature": { "type": "string" },
-											"PlaceholderOthers": {
-												"type": "string"
-											}
-										},
-										"additionalProperties": false
-									}
-								},
-								"additionalProperties": false
-							}
-						}
-					},
-					"additionalProperties": false
-				}
-			},
-			"required": ["InvoiceHeader", "InvoiceIssueData"]
 		},
         "Corrective": {
             "type": "object",
