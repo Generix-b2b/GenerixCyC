@@ -1080,8 +1080,8 @@
         function getBlockContent(blockName) {
           if (blockName === 'root') {
             return { $schema: schemaData.$schema, type: schemaData.type };
-          } else if (blockName === 'properties') {
-            return schemaData.properties;
+          } else if (schemaData.properties && schemaData.properties[blockName]) {
+            return schemaData.properties[blockName];
           } else if (schemaData.definitions && schemaData.definitions[blockName]) {
             return schemaData.definitions[blockName];
           }
@@ -1116,7 +1116,7 @@
             const emoji = desc.title.split(' ')[0];
             const label = desc.title.substring(desc.title.indexOf(' ') + 1);
             navHtml += `
-              <a href="#block-${blockName}" style="
+              <a href="#block-${blockName}" class="schema-nav-btn" data-block="${blockName}" style="
                 display: inline-block;
                 padding: 8px 12px;
                 background: var(--white);
@@ -1128,8 +1128,7 @@
                 font-weight: 500;
                 transition: all 0.2s;
                 white-space: nowrap;
-              " onmouseover="this.style.background='var(--generix-orange)'; this.style.color='var(--white)'; this.style.borderColor='var(--generix-orange)';"
-                 onmouseout="this.style.background='var(--white)'; this.style.color='var(--generix-dark)'; this.style.borderColor='var(--gray-300)';">
+              " onclick="setActiveNavButton(this, event);">
                 ${emoji} ${label}
               </a>
             `;
@@ -1199,6 +1198,25 @@
           if (navContainer) {
             navContainer.innerHTML = navHtml;
           }
+        }
+        function setActiveNavButton(clickedBtn, event) {
+          event.preventDefault();
+          
+          // Remover color naranja de todos los botones
+          document.querySelectorAll('.schema-nav-btn').forEach(btn => {
+            btn.style.background = 'var(--white)';
+            btn.style.color = 'var(--generix-dark)';
+            btn.style.borderColor = 'var(--gray-300)';
+          });
+          
+          // Aplicar naranja al botón clickeado
+          clickedBtn.style.background = 'var(--generix-orange)';
+          clickedBtn.style.color = 'var(--white)';
+          clickedBtn.style.borderColor = 'var(--generix-orange)';
+          
+          // Navegar al bloque
+          const blockId = clickedBtn.getAttribute('href');
+          window.location.hash = blockId;
         }
 
         function escapeHtml(text) {
