@@ -532,7 +532,184 @@
         </div>
       </div>
 
-      <script>
+      <!-- ============ TAB 3: Enumeraciones ============ -->
+      <div id="campos" class="tab-content">
+        <div class="content-section">
+          <h2>Enumeraciones</h2>
+          <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing.
+            Cada enumeración se carga dinámicamente desde
+            <code>definitions.Enums</code> del schema y muestra su tipo,
+            descripción y los valores válidos.</p>
+          <p><a href="GNX_Schema_Json.json" target="_blank"
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
+            GNX_Schema_Json.json completo</a></p>
+
+          <div id="enumsContainer"></div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 4: EJEMPLOS ============ -->
+      <div id="ejemplos" class="tab-content">
+        <div class="content-section">
+          <h2>Ejemplos Prácticos</h2>
+
+          <p>A continuación se muestra un ejemplo completo de factura en formato JSON estándar Generix e-Invoicing, basado en el esquema normativo español.</p>
+          <p><a href="GNX_Invoice_Json.json" target="_blank"
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a></p>
+
+          <h3>Estructura Completa de Factura Ejemplo</h3>
+          <div id="examplesContainer"></div>
+        </div>
+      </div>
+      
+      <!-- ============ TAB 5: VALIDACIONES ============ -->
+      <div id="validaciones" class="tab-content">
+        <div class="content-section">
+          <h2>Reglas de Validación</h2>
+
+          <h3>Validaciones Estructurales</h3>
+          <div class="card-grid">
+            <div class="info-card">
+              <h4>Estructura JSON</h4>
+              <p>El JSON debe ser válido y bien formado. Se rechazarán
+                documentos con errores de sintaxis.</p>
+            </div>
+            <div class="info-card">
+              <h4>Campos Requeridos</h4>
+              <p>Todos los campos marcados como obligatorios deben estar
+                presentes y no vacíos.</p>
+            </div>
+            <div class="info-card">
+              <h4>Tipos de Datos</h4>
+              <p>Cada campo debe cumplir con el tipo especificado (String,
+                Integer, Decimal, Date, Object, Array).</p>
+            </div>
+          </div>
+
+          <h3>Validaciones de Negocio</h3>
+
+          <h4>NIF/CIF</h4>
+          <ul>
+            <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
+            <li>La letra debe corresponder al código de validación NIF</li>
+            <li>CIF válidos también aceptados (B87654321)</li>
+          </ul>
+
+          <h4>Fechas</h4>
+          <ul>
+            <li>Formato requerido: YYYY-MM-DD</li>
+            <li>La fecha de emisión no puede ser futura</li>
+            <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
+          </ul>
+
+          <h4>Importes</h4>
+          <ul>
+            <li>Cantidad y precioUnitario deben ser positivos</li>
+            <li>Máximo 2 decimales en importes</li>
+            <li>El importe de línea = cantidad × precioUnitario - descuento</li>
+            <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
+          </ul>
+
+          <h4>IVA</h4>
+          <ul>
+            <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
+            <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
+            <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
+          </ul>
+
+          <h3>Respuestas de Validación</h3>
+
+          <div class="code-block"><code>{
+              "valido": true,
+              "errores": [],
+              "advertencias": [],
+              "timestamp": "2024-05-22T15:37:48Z"
+              }
+
+              // En caso de error:
+              {
+              "valido": false,
+              "errores": [
+              {
+              "codigo": "CAMPO_REQUERIDO",
+              "campo": "factura.numero",
+              "mensaje": "El campo número es obligatorio"
+              },
+              {
+              "codigo": "FORMATO_INVALIDO",
+              "campo": "factura.emisor.nif",
+              "mensaje": "El NIF debe tener formato A12345678"
+              }
+              ]
+              }</code></div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 6: FAQ ============ -->
+      <div id="faq" class="tab-content">
+        <div class="content-section">
+          <h2>Preguntas Frecuentes</h2>
+
+          <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
+          <p>Una factura rectificativa se utiliza para corregir errores en una
+            factura ya emitida. Debe incluir referencia a la factura original y
+            el motivo de la rectificación. A nivel fiscal es una factura
+            independiente que se emite junto a la original.</p>
+
+          <h3>¿Cómo manejar descuentos?</h3>
+          <p>Los descuentos se aplican a nivel de línea (campo
+            <code>descuento</code>) o pueden agregarse a nivel de factura (campo
+            <code>descuentoGlobal</code> en totales). El importe final de línea
+            se calcula como: <code>(cantidad × precioUnitario) -
+              descuento</code>.</p>
+
+          <h3>¿Se pueden incluir retenciones?</h3>
+          <p>Sí, a través del campo <code>retencion</code> en el objeto
+            <code>totales</code>. Las retenciones se aplican al importeTotal y
+            generalmente son del 19% para prestación de servicios en actividades
+            profesionales.</p>
+
+          <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
+          <p>Use la dirección fiscal oficial de la empresa en el campo
+            <code>emisor.direccion</code>. Si necesita incluir una dirección
+            diferente para envío, puede agregarse en un campo adicional
+            <code>direccionEnvio</code>.</p>
+
+          <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
+          <p>No hay límite técnico establecido, pero se recomienda mantener
+            facturas manejables. Para volúmenes muy grandes, considere
+            fragmentar en múltiples facturas.</p>
+
+          <h3>¿Cómo integro esto con mi sistema actual?</h3>
+          <p>Generix proporciona:</p>
+          <ul>
+            <li>APIs REST para validación y transformación</li>
+            <li>Librerías client para JavaScript, Python y Java</li>
+            <li>Conectores directos para ERP populares (SAP, Dynamics,
+              etc.)</li>
+          </ul>
+          <p>Consulte con nuestro equipo de soporte técnico para opciones
+            específicas a su tecnología.</p>
+
+          <h3>¿Dónde puedo ver ejemplos reales de facturas validadas?</h3>
+          <p>Consulte la pestaña "Ejemplos" arriba, o descargue el archivo
+            <code>EJEMPLO_FACTURA_INDEX.json</code> incluido en la
+            documentación.</p>
+
+          <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
+          <p>Contáctenos en <a
+              href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a>
+            o a través del portal de soporte de Generix.</p>
+        </div>
+      </div>
+
+    </div>
+
+   <!-- ============ FOOTER ============ -->
+    <div id="footer-container"></div>
+
+    <!-- ============ SCRIPT ============ -->
+    <script>
         let schemaData = null;
 
         // Diccionario de descripciones para cada bloque
@@ -1005,8 +1182,9 @@
           };
           return text.replace(/[&<>"']/g, m => map[m]);
         }
-      </script>
+    </script>
 
+<<<<<<< Updated upstream
       <!-- ============ TAB 3: Enumeraciones ============ -->
       <div id="campos" class="tab-content">
         <div class="content-section">
@@ -1480,21 +1658,141 @@
     </footer>
 
     <!-- ============ SCRIPT ============ -->
+=======
+>>>>>>> Stashed changes
     <script>
-  document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-      const tabName = button.getAttribute('data-tab');
+      // Cargar el JSON de ejemplo desde GNX_Invoice_Json.json
+      async function loadExampleJSON() {
+        try {
+          const response = await fetch('GNX_Invoice_Json.json');
+          const exampleData = await response.json();
+          renderExampleJSON(exampleData);
+        } catch (error) {
+          console.error('Error loading example JSON:', error);
+          document.getElementById('examplesContainer').innerHTML = 
+            '<p style="color: var(--generix-orange);">Error al cargar el ejemplo JSON. Verifique que el archivo GNX_Invoice_Json.json existe.</p>';
+        }
+      }
 
-      // Remove active class from all buttons and contents
-      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      function renderExampleJSON(data) {
+        const container = document.getElementById('examplesContainer');
+        
+        // Mostrar el JSON completo
+        const jsonCode = JSON.stringify(data, null, 2);
+        
+        let html = `
+          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
+            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+              <!-- Header del bloque de código -->
+              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+                <span style="font-size: 1.1rem;">📋 Factura Completa - Ejemplo JSON Estándar</span>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+              </div>
+              <!-- Código JSON -->
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+            </div>
 
-      // Add active class to clicked button and corresponding content
-      button.classList.add('active');
-      document.getElementById(tabName).classList.add('active');
-    });
-  });
-</script>
+            <!-- Panel de información -->
+            <div style="margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+              <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px;">
+                <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">📌 Estructura Principal</h4>
+                <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                  Este ejemplo incluye la estructura completa con:
+                </p>
+                <ul style="color: var(--gray-700); font-size: 0.95rem; margin: 12px 0 0 0; padding-left: 20px;">
+                  <li><strong>FileHeader:</strong> Información del lote y versión del esquema</li>
+                  <li><strong>Parties:</strong> Datos de vendedor, comprador y terceros</li>
+                  <li><strong>Legislación:</strong> Configuración según normativa (CreaYCrece, VeriFactu, FACe, SII)</li>
+                  <li><strong>Invoice:</strong> Datos completos de la factura con líneas y detalles fiscales</li>
+                </ul>
+              </div>
+
+              <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
+                <h4 style="color: var(--gray-700); font-size: 1.1rem; margin-bottom: 12px;">💡 Detalles Técnicos</h4>
+                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
+                  <strong>Versión Schema:</strong> 
+                  <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                    ${data.InvoiceGNX?.FileHeader?.SchemaVersion || 'N/A'}
+                  </span>
+                </p>
+                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
+                  <strong>Moneda:</strong> 
+                  <span style="background: var(--white); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                    ${data.InvoiceGNX?.FileHeader?.Batch?.InvoiceCurrencyCode || 'N/A'}
+                  </span>
+                </p>
+                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
+                  <strong>Importe Total:</strong> 
+                  <span style="background: var(--generix-orange); color: var(--generix-dark); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 600;">
+                    ${formatCurrency(data.InvoiceGNX?.FileHeader?.Batch?.TotalInvoicesAmount?.TotalAmount || 0)}
+                  </span>
+                </p>
+                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0;">
+                  <strong>Facturas en lote:</strong> 
+                  <span style="background: var(--white); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                    ${data.InvoiceGNX?.FileHeader?.Batch?.InvoicesCount || 0}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = html;
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+      }
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
+      }
+
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('exampleJsonCode');
+        const text = codeElement.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.innerText;
+          button.innerText = '✓ Copiado';
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
+        });
+      }
+
+      // Cargar el JSON cuando el documento esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+      } else {
+        loadExampleJSON();
+      }
+    </script>
+
+    <script>
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const tabName = button.getAttribute('data-tab');
+        
+          // Remove active class from all buttons and contents
+          document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+          // Add active class to clicked button and corresponding content
+          button.classList.add('active');
+          document.getElementById(tabName).classList.add('active');
+        });
+      });
+    </script>
+
+    <script src="load-footer.js"></script>
 
   </body>
 </html>
