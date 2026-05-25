@@ -608,8 +608,6 @@
                     <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
                   </ul>
               </div>
-            </div>
-            <div class="card-grid">
               <div class="info-card">
                 <h4>Importes</h4>
                 <ul>
@@ -619,47 +617,12 @@
                   <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
                 </ul>
               </div>
-
-              <div class="info-card">
-                <h4>IVA</h4>
-                <ul>
-                  <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
-                  <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
-                  <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
-                </ul>
-              </div>
             </div>
           
-
-          
-
-          
-
           <h3>Respuestas de Validación</h3>
-
-          <div class="code-block"><code>{
-              "valido": true,
-              "errores": [],
-              "advertencias": [],
-              "timestamp": "2024-05-22T15:37:48Z"
-              }
-
-              // En caso de error:
-              {
-              "valido": false,
-              "errores": [
-              {
-              "codigo": "CAMPO_REQUERIDO",
-              "campo": "factura.numero",
-              "mensaje": "El campo número es obligatorio"
-              },
-              {
-              "codigo": "FORMATO_INVALIDO",
-              "campo": "factura.emisor.nif",
-              "mensaje": "El NIF debe tener formato A12345678"
-              }
-              ]
-              }</code></div>
+          <div id="responseContainer"></div>
+          <div id="responseSchemaContainer"></div>
+          
         </div>
       </div>
 
@@ -727,6 +690,7 @@
     <div id="footer-container"></div>
 
     <!-- ============ SCRIPT ============ -->
+    <!-- GNX_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
     <script>
         let schemaData = null;
 
@@ -1202,8 +1166,8 @@
         }
     </script>
 
+    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -->
     <script>
-      // Cargar el JSON de ejemplo desde GNX_Invoice_Json.json
       async function loadExampleJSON() {
         try {
           const response = await fetch('GNX_Invoice_Json.json');
@@ -1317,6 +1281,151 @@
         loadExampleJSON();
       }
     </script>
+
+
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -->
+    <script>
+      async function loadExampleJSON() {
+        try {
+          const response = await fetch('GNX_Response_Invoice_Json.json');
+          const exampleData = await response.json();
+          renderExampleJSON(exampleData);
+        } catch (error) {
+          console.error('Error loading example JSON:', error);
+          document.getElementById('responseContainer').innerHTML = 
+            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Json.json: ' + error.message + '</p>';
+        }
+      }
+
+      function renderExampleJSON(data) {
+        const container = document.getElementById('responseContainer');
+        
+        // Mostrar el JSON completo
+        const jsonCode = JSON.stringify(data, null, 2);
+        
+        let html = `
+          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
+            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+              <!-- Header del bloque de código -->
+              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+                <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+              </div>
+              <!-- Código JSON -->
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = html;
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+      }
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
+      }
+
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('exampleJsonCode');
+        const text = codeElement.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.innerText;
+          button.innerText = '✓ Copiado';
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
+        });
+      }
+
+      // Cargar el JSON cuando el documento esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+      } else {
+        loadExampleJSON();
+      }
+    </script>
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Schema_Json.json -->
+    <script>
+      async function loadExampleJSON() {
+        try {
+          const response = await fetch('GNX_Response_Invoice_Schema_Json.json');
+          const exampleData = await response.json();
+          renderExampleJSON(exampleData);
+        } catch (error) {
+          console.error('Error loading example JSON:', error);
+          document.getElementById('responseSchemaContainer').innerHTML = 
+            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
+        }
+      }
+
+      function renderExampleJSON(data) {
+        const container = document.getElementById('responseSchemaContainer');
+        
+        // Mostrar el JSON completo
+        const jsonCode = JSON.stringify(data, null, 2);
+        
+        let html = `
+          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
+            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+              <!-- Header del bloque de código -->
+              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+                <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+              </div>
+              <!-- Código JSON -->
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = html;
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+      }
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
+      }
+
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('exampleJsonCode');
+        const text = codeElement.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.innerText;
+          button.innerText = '✓ Copiado';
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
+        });
+      }
+
+      // Cargar el JSON cuando el documento esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+      } else {
+        loadExampleJSON();
+      }
+    </script>
+
 
     <script>
       document.querySelectorAll('.tab-button').forEach(button => {
