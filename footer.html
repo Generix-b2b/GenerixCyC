@@ -1,0 +1,116 @@
+<!-- ============ FOOTER REUTILIZABLE ============ -->
+<footer>
+  <style>
+    /* ============ COLORES OFICIALES GENERIX ============ */
+    :root {
+      --generix-dark: #002333;        /* Daintree - color principal */
+      --generix-dark-soft: #0a3447;
+      --generix-orange: #F28A48;      /* Jaffa - acento corporativo */
+      --generix-orange-hover: #e07535;
+      --generix-orange-soft: #FDF0E7;
+      --white: #FFFFFF;
+      --gray-50: #FAFBFC;
+      --gray-100: #F2F5F8;
+      --gray-200: #E1E8EE;
+      --gray-300: #C5D2DC;
+      --gray-500: #6B7E8C;
+      --gray-700: #3A4A56;
+      --gray-900: #0F1B24;
+    }
+
+    /* ============ FOOTER STYLES ============ */
+    footer {
+      background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
+      color: var(--white);
+      padding: 60px 32px 40px;
+    }
+
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 48px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-logo img {
+      height: 32px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 380px;
+    }
+
+    .footer-brand .tagline {
+      color: var(--generix-orange);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+
+    footer .accent { 
+      color: var(--generix-orange); 
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 768px) {
+      footer {
+        padding: 40px 24px 30px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+      }
+
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand footer-logo">
+        <img src="generix.svg" alt="Generix">
+        <div class="tagline">Connecting Businesses Together</div>
+        <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+      </div>
+      <div>
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
+          <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
+          EDI · API · Peppol · Compliance
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+      <p>Especificaciones técnicas e integración B2B</p>
+    </div>
+  </div>
+</footer>
