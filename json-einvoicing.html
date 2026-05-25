@@ -133,18 +133,22 @@
       padding: 0 32px;
     }
     .tab-navigation {
+      position: sticky; 
+      top: 87px;
       display: flex;
       border-bottom: 1px solid var(--gray-200);
       margin-bottom: 50px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
+      z-index: 99;
+      background: var(--white);
     }
     .tab-navigation::-webkit-scrollbar {
       height: 6px;
     }
     .tab-navigation::-webkit-scrollbar-track {
-      background: transparent;
+      background: var(--generix-orange);
     }
     .tab-navigation::-webkit-scrollbar-thumb {
       background: var(--gray-300);
@@ -195,7 +199,7 @@
     
     .sidebar-nav {
       position: sticky;
-      top: 0;
+      top: 87px;
       height: fit-content;
       background: var(--gray-100);
       border-radius: 0 6px 6px 0;
