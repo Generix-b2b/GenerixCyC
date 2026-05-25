@@ -1,0 +1,521 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Json_Standard",
+	"type": "object",
+	"properties": {
+		"InvoiceGNX": {
+			"type": "object",
+			"properties": {
+				"FileHeader": {
+					"type": "object",
+					"properties": {
+						"SchemaVersion": { "type": "string" },
+						"Modality": { "type": "string" },
+						"InvoiceIssuerType": { "$ref": "#/definitions/Enums/InvoiceIssuerTypeEnum" },
+						"Batch": {
+							"$ref": "#/definitions/Batch"
+						}
+					},
+					"required": ["SchemaVersion", "Modality", "InvoiceIssuerType"]
+				},
+				"Invoices": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/InvoiceWrapper" }
+				}
+			},
+			"required": ["FileHeader", "Invoices"]
+		}
+	},
+	"required": ["InvoiceGNX"],
+	"definitions": {
+		"Batch": {
+			"type": "object",
+			"properties": {
+				"BatchIdentifier": { "type": "string" },
+				"InvoicesCount": { "type": "integer" },
+				"TotalInvoicesAmount": {
+					"$ref": "#/definitions/AmountContainer"
+				},
+				"TotalOutstandingAmount": {
+					"$ref": "#/definitions/AmountContainer"
+				},
+				"TotalExecutableAmount": {
+					"$ref": "#/definitions/AmountContainer"
+				},
+				"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" }
+			},
+			"additionalProperties": false
+		},
+		"InvoiceWrapper": {
+			"type": "object",
+			"properties": {
+				"Parties": { "$ref": "#/definitions/Parties" },
+				"Legislacion": { "type": "object" },
+				"Invoice": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/Invoice" }
+				}
+			},
+			"required": ["Parties", "Invoice"],
+			"additionalProperties": false
+		},
+		"Parties": {
+			"type": "object",
+			"properties": {
+				"SellerParty": { "$ref": "#/definitions/Party" },
+				"BuyerParty": { "$ref": "#/definitions/Party" },
+				"ThirdParty": { "$ref": "#/definitions/Party" }
+			},
+            "required": ["SellerParty", "BuyerParty"],
+			"additionalProperties": false
+		},
+		"Party": {
+			"type": "object",
+			"properties": {
+				"TaxIdentification": {
+					"$ref": "#/definitions/TaxIdentification"
+				},
+				"PartyIdentification": { "type": "string" },
+				"LegalEntity": { "$ref": "#/definitions/LegalEntity" }
+			},
+            "required": ["TaxIdentification", "LegalEntity"],
+			"additionalProperties": false
+		},
+		"TaxIdentification": {
+			"type": "object",
+			"properties": {
+				"PersonTypeCode": { "$ref": "#/definitions/Enums/PersonTypeCodeEnum" },
+				"ResidenceTypeCode": { "$ref": "#/definitions/Enums/ResidenceTypeCodeEnum" },
+				"TaxIdentificationNumber": { "type": "string" }
+			},
+            "required": ["PersonTypeCode", "ResidenceTypeCode", "TaxIdentificationNumber"],
+			"additionalProperties": false
+		},
+		"LegalEntity": {
+			"type": "object",
+			"properties": {
+				"CorporateName": { "type": "string" },
+				"TradeName": { "type": "string" },
+				"RegistrationData": {
+					"$ref": "#/definitions/RegistrationData"
+				},
+				"Address": { "$ref": "#/definitions/Address" },
+				"ContactDetails": { "$ref": "#/definitions/ContactDetails" }
+			},
+            "required": ["CorporateName"],
+			"additionalProperties": false
+		},
+		"RegistrationData": {
+			"type": "object",
+			"properties": {
+				"Book": { "type": "string" },
+				"RegisterOfCompaniesLocation": { "type": "string" },
+				"Sheet": { "type": "string" },
+				"Folio": { "type": "string" },
+				"Section": { "type": "string" },
+				"Volume": { "type": "string" },
+				"AdditionalRegistrationData": { "type": "string" }
+			},
+			"additionalProperties": false
+		},
+		"Address": {
+			"type": "object",
+			"properties": {
+				"Address": { "type": "string" },
+				"AdditionalAddress": { "type": "string" },
+				"PostCode": { "type": "string" },
+				"Town": { "type": "string" },
+				"Province": { "type": "string" },
+				"CountryCode": { "type": "string", "minLength": 3, "maxLength": 3 }
+			},
+            "required": ["Address", "PostCode", "Town", "CountryCode"],
+			"additionalProperties": false
+		},
+		"ContactDetails": {
+			"type": "object",
+			"properties": {
+				"Telephone": { "type": "string" },
+				"Telephone2": { "type": "string" },
+				"WebAddress": { "type": "string", "format": "uri" },
+				"ElectronicMail": { "type": "string", "format": "email" },
+				"LastName": { "type": "string" },
+				"FirstName": { "type": "string" }
+			},
+			"additionalProperties": false
+		},
+		"Invoice": {
+			"type": "object",
+			"properties": {
+				"InvoiceHeader": { "$ref": "#/definitions/InvoiceHeader" },
+				"InvoiceIssueData": { "$ref": "#/definitions/InvoiceIssueData" },
+				"TaxesOutputs": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/TaxWrapper" }
+				},
+				"TaxesWithheld": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/TaxWrapper" }
+				},
+				"InvoiceTotals": { "$ref": "#/definitions/InvoiceTotals" },
+				"Items": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/ItemWrapper" }
+				},
+				"PaymentDetails": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/PaymentWrapper" }
+				},
+				"LegalLiterals": {
+					"type": "object",
+					"properties": {
+						"LegalReference": { "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				"AdditionalData": { "$ref": "#/definitions/AdditionalData" }
+			},
+			"required": ["InvoiceHeader", "InvoiceIssueData"]
+		},
+		"InvoiceHeader": {
+			"type": "object",
+			"properties": {
+				"InvoiceNumber": { "type": "string" },
+				"InvoiceDocumentType": { "$ref": "#/definitions/Enums/InvoiceDocumentTypeEnum" },
+				"InvoiceClass": { "$ref": "#/definitions/Enums/InvoiceClassEnum" },
+				"InvoiceDescription": { "type": "string" },
+				"PreviousInvoiceNumber": { "type": "string" },
+				"Corrective": { "$ref": "#/definitions/Corrective" }
+			},
+            "required": ["InvoiceNumber", "InvoiceDocumentType", "InvoiceClass", "InvoiceDescription"],
+			"additionalProperties": false
+		},
+        "Corrective": {
+            "type": "object",
+            "properties": {
+                "InvoiceNumber": { "type": "string" },
+                "ReasonCode": { "$ref": "#/definitions/Enums/ReasonCodeEnum" },
+                "ReasonDescription": { "type": "string" },
+                "InvoiceIssueDate": { "$ref": "#/definitions/DateTime" },
+                "CorrectionMethod": { "$ref": "#/definitions/Enums/CorrectionMethodEnum" },
+                "CorrectionMethodDescription": { "type": "string" },
+                "CorrectiveAmounts": {
+                    "type": "object",
+                    "properties": {
+                        "GrossAmount": { "type": "number" },
+                        "TaxAmount": { "type": "number" },
+                        "ChargeAmount": { "type": "number" }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": ["InvoiceNumber", "ReasonCode", "InvoiceIssueDate", "CorrectionMethod"],
+            "additionalProperties": false
+        },
+		"InvoiceIssueData": {
+			"type": "object",
+			"properties": {
+				"IssueDate": { "$ref": "#/definitions/DateTime" },
+				"PreviousInvoiceDate": { "$ref": "#/definitions/DateTime" },
+				"InvoicingPeriod": {
+					"type": "object",
+					"properties": {
+						"StartDate": { "$ref": "#/definitions/DateTime" },
+						"EndDate": { "$ref": "#/definitions/DateTime" }
+					},
+					"additionalProperties": false
+				},
+				"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"TaxCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"LanguageName": { "type": "string", "minLength": 2, "maxLength": 2 }
+			},
+            "required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
+			"additionalProperties": false
+		},
+		"TaxWrapper": {
+			"type": "object",
+			"properties": {
+				"Tax": {
+					"type": "object",
+					"properties": {
+						"TaxTypeCode": { "$ref": "#/definitions/Enums/TaxTypeCodeEnum" },
+						"TaxRegimeCode": { "$ref": "#/definitions/Enums/TaxRegimeCodeEnum" },
+						"TaxOperationType": { "$ref": "#/definitions/Enums/TaxOperationTypeEnum" },
+						"TaxExemptionReasonCode": { "$ref": "#/definitions/Enums/TaxExceptionReasonCodeEnum" },
+						"TaxRate": { "type": "number" },
+						"TaxableBase": { "$ref": "#/definitions/AmountContainer" },
+						"TaxAmount": { "$ref": "#/definitions/AmountContainer" }
+					},
+                    "required": ["TaxTypeCode", "TaxRegimeCode", "TaxRate", "TaxableBase", "TaxAmount"],
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"InvoiceTotals": {
+			"type": "object",
+			"properties": {
+				"GeneralDiscounts": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Discount": {
+								"type": "object",
+								"properties": {
+									"DiscountReason": { "type": "string" },
+									"DiscountTypeCode": { "$ref": "#/definitions/Enums/DiscountTypeCodeEnum" },
+									"DiscountRate": { "type": "number" },
+									"DiscountAmount": { "type": "number" },
+									"DiscountTax": {
+										"type": "object",
+										"properties": {
+											"TaxTypeCode": { "$ref": "#/definitions/Enums/TaxTypeCodeEnum" },
+											"TaxRate": { "type": "number" }
+										},
+                                        "required": ["TaxTypeCode", "TaxRate"],
+										"additionalProperties": false
+									}
+								},
+                                "required": ["DiscountReason", "DiscountTypeCode", "DiscountAmount", "DiscountTax"],
+								"additionalProperties": false
+							}
+						},
+                        "required": ["Discount"],
+						"additionalProperties": false
+					}
+				},
+				"GeneralCharges": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Charge": {
+								"type": "object",
+								"properties": {
+									"ChargeReason": { "type": "string" },
+									"ChargeTypeCode": { "$ref": "#/definitions/Enums/ChargeTypeCodeEnum" },
+									"ChargeRate": { "type": "number" },
+									"ChargeAmount": { "type": "number" },
+									"ChargeTax": {
+										"type": "object",
+										"properties": {
+											"TaxTypeCode": { "$ref": "#/definitions/Enums/TaxTypeCodeEnum" },
+											"TaxRate": { "type": "number" }
+										},
+                                        "required": ["TaxTypeCode", "TaxRate"],
+										"additionalProperties": false
+									}
+								},
+                                "required": ["ChargeReason", "ChargeTypeCode", "ChargeAmount", "ChargeTax"],
+								"additionalProperties": false
+							}
+						},
+                        "required": ["Charge"],
+						"additionalProperties": false
+					}
+				},
+				"TotalGeneralDiscounts": { "type": "number" },
+				"TotalGeneralCharges": { "type": "number" },
+				"TotalNetAmount": { "type": "number" },
+				"TotalGrossAmount": { "type": "number" },
+				"TotalTaxOutputs": { "type": "number" },
+				"TotalTaxesWithheld": { "type": "number" },
+				"InvoiceTotal": { "type": "number" },
+				"TotalPayableAmount": { "type": "number" },
+				"TotalPayedAmount": { "type": "number" }
+			},
+            "required": ["TotalGeneralDiscounts", "TotalGeneralCharges", "TotalNetAmount", "TotalGrossAmount", "TotalTaxOutputs", "TotalTaxesWithheld", "InvoiceTotal", "TotalPayableAmount"],
+			"additionalProperties": false
+		},
+		"ItemWrapper": {
+			"type": "object",
+			"properties": {
+				"InvoiceLine": {
+					"type": "object",
+					"properties": {
+						"SequenceNumber": { "type": "integer" },
+						"ItemCode": { "type": "string" },
+						"ItemDescription": { "type": "string" },
+						"Quantity": { "type": "number" },
+						"UnitOfMeasure": { "type": "string" },
+						"NotesReferences": {
+							"type": "array",
+							"items": { "type": "object" }
+						},
+						"LineItemPeriod": {
+							"type": "object",
+							"properties": {
+								"StartDate": { "$ref": "#/definitions/DateTime" },
+								"EndDate": { "$ref": "#/definitions/DateTime" }
+							},
+							"additionalProperties": false
+						},
+						"Discounts": {
+							"type": "array",
+							"items": { "type": "object" }
+						},
+						"Charges": {
+							"type": "array",
+							"items": { "type": "object" }
+						},
+						"TaxesOutputs": {
+							"type": "array",
+							"items": { "$ref": "#/definitions/TaxWrapper" }
+						},
+						"NetUnitPrice": { "type": "number" },
+						"NetPrice": { "type": "number" },
+						"TotalCost": { "type": "number" },
+						"GrossAmount": { "type": "number" }
+					},
+					"required": ["SequenceNumber", "ItemDescription"],
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"PaymentWrapper": {
+			"type": "object",
+			"properties": {
+				"Installment": {
+					"type": "object",
+					"properties": {
+						"InstallmentDueDate": { "$ref": "#/definitions/DateTime" },
+						"InstallmentAmount": { "type": "number" },
+						"PaymentMeans": { "type": "string" },
+						"Account": {
+							"type": "object",
+							"properties": {
+								"IBAN": { "type": "string" },
+								"AccountNumber": { "type": "string" },
+								"BankCode": { "type": "string" },
+								"BIC": { "type": "string" }
+							},
+							"additionalProperties": false
+						},
+						"CollectionAdditionalInformation": { "type": "string" },
+						"PaymentReconciliationReference": { "type": "string" }
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"AdditionalData": {
+			"type": "object",
+			"properties": {
+				"RelatedDocuments": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Attachment": {
+								"type": "object",
+								"properties": {
+									"AttachmentCompressionAlgorithm": { "type": "string" },
+									"AttachmentFormat": { "type": "string" },
+									"AttachmentEncoding": { "type": "string" },
+									"AttachmentDescription": { "type": "string" },
+									"AttachmentData": { "type": "string" }
+								},
+								"additionalProperties": false
+							},
+							"QRAttachment": {
+								"type": "object",
+								"properties": {
+									"URL": { "type": "string" },
+									"HASHCode": { "type": "string" },
+									"PrevoiusHASHCode": { "type": "string" },
+									"eSignature": { "type": "string" },
+									"PlaceholderOthers": { "type": "string" }
+								},
+								"additionalProperties": false
+							}
+						},
+						"additionalProperties": false
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"AmountContainer": {
+			"type": "object",
+			"properties": {
+				"TotalAmount": { "type": "number" },
+				"EquivalentInEuros": { "type": "number" }
+			},
+            "required": ["TotalAmount"],
+			"additionalProperties": false
+		},
+        "Enums": {
+            "InvoiceIssuerTypeEnum": {
+                "type": "string",
+                "enum": ["EM", "RE", "TE"]
+            },
+            "PersonTypeCodeEnum": {
+                "type": "string",
+                "enum": ["F", "J"]
+            },
+            "ResidenceTypeCodeEnum": {
+                "type": "string",
+                "enum": ["E", "R", "U"]
+            },
+            "InvoiceDocumentTypeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "InvoiceClassEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "ReasonCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "CorrectionMethodEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "TaxTypeCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "TaxRegimeCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "TaxOperationTypeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "TaxExceptionReasonCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "DiscountTypeCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "ChargeTypeCodeEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "UnitOfMeasureEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "PaymentMeansEnum": {
+                "type": "string",
+                "enum": []
+            },
+            "AttachmentFormatEnum": {
+                "type": "string",
+                "enum": []
+            }
+        },
+        "DateTime": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$"
+        }
+	},
+	"additionalProperties": false
+}
