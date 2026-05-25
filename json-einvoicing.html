@@ -525,9 +525,9 @@
           <p>Explora la estructura completa del esquema JSON para e-Invoicing.
             Cada bloque se muestra a continuación con su código y
             descripción.</p>
-          <p><a href="JsonSchema.json" target="_blank"
+          <p><a href="GNX_Schema_Json.json" target="_blank"
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            JsonSchema.json completo</a></p>
+            GNX_Schema_Json.json completo</a></p>
           <div id="schemaBlocksContainer"></div>
         </div>
       </div>
@@ -663,7 +663,7 @@
         ];
 
         // Cargar el schema JSON
-        fetch('JsonSchema.json')
+        fetch('GNX_Schema_Json.json')
           .then(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
@@ -678,11 +678,11 @@
           .catch(error => {
             console.error('Error cargando el schema:', error);
             document.getElementById('schemaBlocksContainer').innerHTML = 
-              '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
+              '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
             const enumsEl = document.getElementById('enumsContainer');
             if (enumsEl) {
               enumsEl.innerHTML =
-                '<p style="color: red;">Error al cargar JsonSchema.json: ' + error.message + '</p>';
+                '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
             }
           });
 
@@ -1015,9 +1015,9 @@
             Cada enumeración se carga dinámicamente desde
             <code>definitions.Enums</code> del schema y muestra su tipo,
             descripción y los valores válidos.</p>
-          <p><a href="JsonSchema.json" target="_blank"
+          <p><a href="GNX_Schema_Json.json" target="_blank"
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            JsonSchema.json completo</a></p>
+            GNX_Schema_Json.json completo</a></p>
 
 
           <h3>Campos a Nivel de Factura (Obligatorios)</h3>
