@@ -185,6 +185,75 @@
       to { opacity: 1; }
     }
 
+    /* ============ THREE COLUMN LAYOUT ============ */
+    .tab-wrapper {
+      display: grid;
+      grid-template-columns: 0px 1fr 0px;
+      gap: 0;
+      align-items: start;
+    }
+    
+    .sidebar-nav {
+      position: sticky;
+      top: 0;
+      height: fit-content;
+      background: var(--gray-100);
+      border-radius: 0 6px 6px 0;
+      border-left: 4px solid var(--generix-orange);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+      z-index: 40;
+    }
+    
+    .sidebar-nav-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--generix-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .sidebar-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .sidebar-nav-btn {
+      display: block;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--generix-dark);
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    
+    .sidebar-nav-btn:hover {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    
+    .sidebar-nav-btn.active {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    
+    .tab-content-middle {
+      padding: 0 32px;
+    }
+    
+    .sidebar-right {
+      /* Columna derecha en blanco */
+    }
+
     /* ============ CONTENT SECTIONS ============ */
     .content-section {
       margin-bottom: 60px;
@@ -220,7 +289,7 @@
       position: sticky;
       left: 0;
       top: 0;
-      width: 180px;
+      width: 280px;
       height: fit-content;
       background: var(--gray-100);
       border-radius: 0 6px 6px 0;
@@ -228,7 +297,7 @@
       padding: 16px;
       box-shadow: 0 2px 8px rgba(0,35,51,0.1);
       z-index: 40;
-      margin-left: -216px;
+      margin-left: -316px;
     }
     .sidebar-nav-title {
       font-weight: 600;
@@ -573,23 +642,31 @@
 
       <!-- ============ TAB 2: ESTRUCTURA ============ -->
       <div id="estructura" class="tab-content">
-        <div class="content-section">
-          <h2>Estructura del Schema JSON</h2>
-          <p>Explora la estructura completa del esquema JSON para e-Invoicing.
-            Cada bloque se muestra a continuación con su código y
-            descripción.</p>
-          <p><a href="GNX_Schema_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
+        <div class="tab-wrapper">
           
-          <!-- ============ NAVIGATION BAR ============ -->
-          <!-- SIDEBAR EN EL MARGEN -->
-            <div class="sidebar-nav">
-              <div class="sidebar-nav-title">Ir a</div>
-              <div id="navButtons" class="sidebar-nav-buttons"></div>
+          <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
+          <div class="sidebar-nav">
+            <div class="sidebar-nav-title">Ir a</div>
+            <div id="navButtons" class="sidebar-nav-buttons"></div>
+          </div>
+          
+          <!-- COLUMNA 2: CONTENIDO CENTRAL -->
+          <div class="tab-content-middle">
+            <div class="content-section">
+              <h2>Estructura del Schema JSON</h2>
+              <p>Explora la estructura completa del esquema JSON para e-Invoicing.
+                Cada bloque se muestra a continuación con su código y
+                descripción.</p>
+              <p><a href="GNX_Schema_Json.json" target="_blank"
+                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
+              
+              <div id="schemaBlocksContainer"></div>
             </div>
-
-            <!-- CONTENIDO PRINCIPAL -->
-            <div id="schemaBlocksContainer"></div>
+          </div>
+          
+          <!-- COLUMNA 3: ESPACIO EN BLANCO -->
+          <div class="sidebar-right"></div>
+          
         </div>
       </div>
 
