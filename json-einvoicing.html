@@ -469,8 +469,7 @@
     <!-- ============ TAB NAVIGATION ============ -->
     <div class="tab-container">
       <div class="tab-navigation">
-        <button class="tab-button active" data-tab="general">Descripción
-          General</button>
+        <button class="tab-button active" data-tab="general">Descripción General</button>
         <button class="tab-button" data-tab="estructura">Estructura</button>
         <button class="tab-button" data-tab="campos">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
@@ -526,8 +525,7 @@
             Cada bloque se muestra a continuación con su código y
             descripción.</p>
           <p><a href="GNX_Schema_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            GNX_Schema_Json.json completo</a></p>
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
           <div id="schemaBlocksContainer"></div>
         </div>
       </div>
@@ -541,8 +539,7 @@
             <code>definitions.Enums</code> del schema y muestra su tipo,
             descripción y los valores válidos.</p>
           <p><a href="GNX_Schema_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            GNX_Schema_Json.json completo</a></p>
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
 
           <div id="enumsContainer"></div>
         </div>
@@ -555,7 +552,7 @@
 
           <p>A continuación se muestra un ejemplo completo de factura en formato JSON estándar Generix e-Invoicing, basado en el esquema normativo español.</p>
           <p><a href="GNX_Invoice_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a></p>
+            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a></p>
 
           <h3>Estructura Completa de Factura Ejemplo</h3>
           <div id="examplesContainer"></div>
@@ -571,51 +568,72 @@
           <div class="card-grid">
             <div class="info-card">
               <h4>Estructura JSON</h4>
-              <p>El JSON debe ser válido y bien formado. Se rechazarán
-                documentos con errores de sintaxis.</p>
+              <p>
+                El JSON debe ser válido y bien formado. </br>
+                Se rechazarán documentos con errores de sintaxis.
+              </p>
             </div>
             <div class="info-card">
               <h4>Campos Requeridos</h4>
-              <p>Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.</p>
+              <p>
+                Todos los campos marcados como obligatorios deben estar
+                presentes y no vacíos.
+              </p>
             </div>
             <div class="info-card">
               <h4>Tipos de Datos</h4>
-              <p>Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array).</p>
+              <p>
+                Cada campo debe cumplir con el tipo especificado (String,
+                Integer, Decimal, Date, Object, Array, Enums).
+              </p>
             </div>
           </div>
 
           <h3>Validaciones de Negocio</h3>
+            <div class="card-grid">
+              <div class="info-card">
+                <h4>NIF/CIF</h4>
+                <ul>
+                  <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
+                  <li>La letra debe corresponder al código de validación NIF</li>
+                  <li>CIF válidos también aceptados (B87654321)</li>
+                </ul>
+              </div>
 
-          <h4>NIF/CIF</h4>
-          <ul>
-            <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
-            <li>La letra debe corresponder al código de validación NIF</li>
-            <li>CIF válidos también aceptados (B87654321)</li>
-          </ul>
+              <div class="info-card">
+                <h4>Fechas</h4>
+                  <ul>
+                    <li>Formato requerido: YYYY-MM-DD</li>
+                    <li>La fecha de emisión no puede ser futura</li>
+                    <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
+                  </ul>
+              </div>
+            </div>
+            <div class="card-grid">
+              <div class="info-card">
+                <h4>Importes</h4>
+                <ul>
+                  <li>Cantidad y precioUnitario deben ser positivos</li>
+                  <li>Máximo 2 decimales en importes</li>
+                  <li>El importe de línea = cantidad × precioUnitario - descuento</li>
+                  <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
+                </ul>
+              </div>
 
-          <h4>Fechas</h4>
-          <ul>
-            <li>Formato requerido: YYYY-MM-DD</li>
-            <li>La fecha de emisión no puede ser futura</li>
-            <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
-          </ul>
+              <div class="info-card">
+                <h4>IVA</h4>
+                <ul>
+                  <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
+                  <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
+                  <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
+                </ul>
+              </div>
+            </div>
+          
 
-          <h4>Importes</h4>
-          <ul>
-            <li>Cantidad y precioUnitario deben ser positivos</li>
-            <li>Máximo 2 decimales en importes</li>
-            <li>El importe de línea = cantidad × precioUnitario - descuento</li>
-            <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
-          </ul>
+          
 
-          <h4>IVA</h4>
-          <ul>
-            <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
-            <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
-            <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
-          </ul>
+          
 
           <h3>Respuestas de Validación</h3>
 
@@ -724,92 +742,92 @@
             esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
             eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
           },
-              InvoiceWrapper: {
+          InvoiceWrapper: {
             title: '📦 InvoiceWrapper - Envoltura de Factura',
             esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
             eng: 'Container that wraps the invoice with control and processing information.'
           },
-              Parties: {
+          Parties: {
             title: '👥 Parties - Partes Múltiples',
             esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
             eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
           },
-              Party: {
+          Party: {
             title: '👤 Party - Parte/Actor',
             esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
             eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
           },
-              TaxIdentification: {
+          TaxIdentification: {
             title: '🧾 TaxIdentification - Identificación Fiscal',
             esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
             eng: 'Tax data: person type (natural/legal), residence and identification number.'
           },
-              LegalEntity: {
+          LegalEntity: {
             title: '🏢 LegalEntity - Persona Jurídica',
             esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
             eng: 'Legal entity data: company name, registration data and other legal information.'
           },
-              RegistrationData: {
+          RegistrationData: {
             title: '📋 RegistrationData - Datos Registrales',
             esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
             eng: 'Commercial registry information: book, folio, registration sheet.'
           },
-              Address: {
+          Address: {
             title: '📍 Address - Dirección',
             esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
             eng: 'Fiscal address information: street, city, postal code, province and country.'
           },
-              ContactDetails: {
+          ContactDetails: {
             title: '📞 ContactDetails - Datos de Contacto',
             esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
             eng: 'Contact information: phone, email and other communication data.'
           },
-              Invoice: {
+          Invoice: {
             title: '📄 Invoice - Factura Individual',
             esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
             eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
           },
-              InvoiceHeader: {
+          InvoiceHeader: {
             title: '📋 InvoiceHeader - Encabezado de Factura',
             esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
             eng: 'Invoice metadata: number, series, document type, issuance mode.'
           },
-              Corrective: {
+          Corrective: {
             title: '✏️ Corrective - Información Correctiva',
             esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
             eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
           },
-              InvoiceIssueData: {
+          InvoiceIssueData: {
             title: '📅 InvoiceIssueData - Datos de Emisión',
             esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
             eng: 'Issue information: date, time, place and other issue moment data.'
           },
-              TaxWrapper: {
+          TaxWrapper: {
             title: '💼 TaxWrapper - Información Fiscal',
             esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
             eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
           },
-              InvoiceTotals: {
+          InvoiceTotals: {
             title: '🧮 InvoiceTotals - Totales de Factura',
             esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
             eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
           },
-              ItemWrapper: {
+          ItemWrapper: {
             title: '📦 ItemWrapper - Envoltura de Línea',
             esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
             eng: 'Container for an invoice line with product/service details, quantities and amounts.'
           },
-              PaymentWrapper: {
+          PaymentWrapper: {
             title: '💳 PaymentWrapper - Información de Pago',
             esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
             eng: 'Payment data: payment method, terms, due dates and bank references.'
           },
-              AdditionalData:{
+          AdditionalData:{
             title: '� AdditionalData - Datos Adicionales',
             esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
             eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
           },
-              AmountContainer: {
+          AmountContainer: {
             title: '💰 AmountContainer - Contenedor de Importes',
             esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
             eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
@@ -1184,482 +1202,6 @@
         }
     </script>
 
-<<<<<<< Updated upstream
-      <!-- ============ TAB 3: Enumeraciones ============ -->
-      <div id="campos" class="tab-content">
-        <div class="content-section">
-          <h2>Enumeraciones</h2>
-          <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing.
-            Cada enumeración se carga dinámicamente desde
-            <code>definitions.Enums</code> del schema y muestra su tipo,
-            descripción y los valores válidos.</p>
-          <p><a href="GNX_Schema_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">Ver
-            GNX_Schema_Json.json completo</a></p>
-
-
-          <h3>Campos a Nivel de Factura (Obligatorios)</h3>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Campo</th>
-                  <th>Tipo</th>
-                  <th>Descripción</th>
-                  <th>Ejemplo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>version</strong></td>
-                  <td>String</td>
-                  <td>Versión del esquema</td>
-                  <td>2.0</td>
-                </tr>
-                <tr>
-                  <td><strong>tipoDocumento</strong></td>
-                  <td>String</td>
-                  <td>Tipo: FACTURA, FACTURA_RECTIFICATIVA, ABONO</td>
-                  <td>FACTURA</td>
-                </tr>
-                <tr>
-                  <td><strong>numero</strong></td>
-                  <td>String</td>
-                  <td>Número único de la factura</td>
-                  <td>000001</td>
-                </tr>
-                <tr>
-                  <td><strong>fecha</strong></td>
-                  <td>Date (YYYY-MM-DD)</td>
-                  <td>Fecha de emisión</td>
-                  <td>2024-05-22</td>
-                </tr>
-                <tr>
-                  <td><strong>emisor</strong></td>
-                  <td>Object</td>
-                  <td>Datos de la empresa emisora</td>
-                  <td>Vea estructura arriba</td>
-                </tr>
-                <tr>
-                  <td><strong>receptor</strong></td>
-                  <td>Object</td>
-                  <td>Datos del cliente receptor</td>
-                  <td>Vea estructura arriba</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Campos en Emisor/Receptor (Obligatorios)</h3>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Campo</th>
-                  <th>Tipo</th>
-                  <th>Obligatorio</th>
-                  <th>Descripción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>nif</strong></td>
-                  <td>String</td>
-                  <td>Sí</td>
-                  <td>NIF/CIF de la empresa (formato: A12345678)</td>
-                </tr>
-                <tr>
-                  <td><strong>nombre</strong></td>
-                  <td>String</td>
-                  <td>Sí</td>
-                  <td>Nombre comercial</td>
-                </tr>
-                <tr>
-                  <td><strong>razonSocial</strong></td>
-                  <td>String</td>
-                  <td>Sí</td>
-                  <td>Razón social oficial</td>
-                </tr>
-                <tr>
-                  <td><strong>direccion</strong></td>
-                  <td>Object</td>
-                  <td>Sí</td>
-                  <td>Dirección fiscal</td>
-                </tr>
-                <tr>
-                  <td><strong>contacto</strong></td>
-                  <td>Object</td>
-                  <td>No</td>
-                  <td>Datos de contacto (email, teléfono)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Campos en Líneas de Factura (Obligatorios)</h3>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Campo</th>
-                  <th>Tipo</th>
-                  <th>Obligatorio</th>
-                  <th>Validación</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>numeroLinea</strong></td>
-                  <td>Integer</td>
-                  <td>Sí</td>
-                  <td>&gt;= 1</td>
-                </tr>
-                <tr>
-                  <td><strong>descripcion</strong></td>
-                  <td>String</td>
-                  <td>Sí</td>
-                  <td>Min. 3 caracteres, máx. 500</td>
-                </tr>
-                <tr>
-                  <td><strong>cantidad</strong></td>
-                  <td>Decimal</td>
-                  <td>Sí</td>
-                  <td>&gt; 0, máx. 2 decimales</td>
-                </tr>
-                <tr>
-                  <td><strong>precioUnitario</strong></td>
-                  <td>Decimal</td>
-                  <td>Sí</td>
-                  <td>&gt;= 0, máx. 2 decimales</td>
-                </tr>
-                <tr>
-                  <td><strong>tipoIVA</strong></td>
-                  <td>String</td>
-                  <td>Sí</td>
-                  <td>0, 4, 10, 21</td>
-                </tr>
-                <tr>
-                  <td><strong>importe</strong></td>
-                  <td>Decimal</td>
-                  <td>Sí (calculado)</td>
-                  <td>cantidad × precioUnitario - descuento</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-            JsonSchema.json completo</a></p>
-          <div id="enumsContainer"></div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 4: EJEMPLOS ============ -->
-      <div id="ejemplos" class="tab-content">
-        <div class="content-section">
-          <h2>Ejemplos Prácticos</h2>
-
-          <h3>Ejemplo 1: Factura Simple</h3>
-          <p>Factura básica con una línea de producto:</p>
-
-          <div class="code-block"><code>{
-              "factura": {
-              "version": "2.0",
-              "tipoDocumento": "FACTURA",
-              "serie": "2024",
-              "numero": "0001",
-              "fecha": "2024-05-22",
-              "fechaVencimiento": "2024-06-21",
-              "emisor": {
-              "nif": "A12345678",
-              "nombre": "Tech Solutions S.L.",
-              "razonSocial": "Tech Solutions Sociedad Limitada",
-              "direccion": {
-              "calle": "Paseo de la Castellana, 123",
-              "municipio": "Madrid",
-              "provincia": "Madrid",
-              "codigoPostal": "28046",
-              "pais": "ES"
-              }
-              },
-              "receptor": {
-              "nif": "B87654321",
-              "nombre": "Cliente Empresa S.A.",
-              "razonSocial": "Cliente Empresa Sociedad Anónima",
-              "direccion": {
-              "calle": "Calle Principal, 456",
-              "municipio": "Barcelona",
-              "provincia": "Barcelona",
-              "codigoPostal": "08002",
-              "pais": "ES"
-              }
-              },
-              "lineas": [
-              {
-              "numeroLinea": 1,
-              "descripcion": "Licencia software Premium - Anual",
-              "cantidad": 1,
-              "unidad": "ud",
-              "precioUnitario": 1000.00,
-              "descuento": 0,
-              "tipoIVA": "21",
-              "importe": 1000.00
-              }
-              ],
-              "totales": {
-              "baseImponible": 1000.00,
-              "totalIVA": 210.00,
-              "importeTotal": 1210.00,
-              "retencion": 0,
-              "descuentoGlobal": 0
-              }
-              }
-              }</code></div>
-
-          <h3>Ejemplo 2: Factura con Múltiples Líneas y Descuentos</h3>
-
-          <div class="code-block"><code>{
-              "factura": {
-              "version": "2.0",
-              "tipoDocumento": "FACTURA",
-              "serie": "2024",
-              "numero": "0002",
-              "fecha": "2024-05-22",
-              "emisor": { ... },
-              "receptor": { ... },
-              "lineas": [
-              {
-              "numeroLinea": 1,
-              "descripcion": "Servicios de consultoría - 40 horas",
-              "cantidad": 40,
-              "unidad": "h",
-              "precioUnitario": 150.00,
-              "descuento": 10,
-              "tipoIVA": "21",
-              "importe": 5400.00
-              },
-              {
-              "numeroLinea": 2,
-              "descripcion": "Soporte técnico - Mes de mayo",
-              "cantidad": 1,
-              "unidad": "mes",
-              "precioUnitario": 500.00,
-              "descuento": 0,
-              "tipoIVA": "21",
-              "importe": 500.00
-              }
-              ],
-              "totales": {
-              "baseImponible": 5900.00,
-              "totalIVA": 1239.00,
-              "importeTotal": 7139.00,
-              "retencion": 0,
-              "descuentoGlobal": 0
-              }
-              }
-              }</code></div>
-
-          <h3>Ejemplo 3: Factura Rectificativa</h3>
-          <p>Factura que corrige una anterior:</p>
-
-          <div class="code-block"><code>{
-              "factura": {
-              "version": "2.0",
-              "tipoDocumento": "FACTURA_RECTIFICATIVA",
-              "serie": "2024",
-              "numero": "0001R",
-              "fecha": "2024-05-23",
-              "facturaOriginal": {
-              "numero": "0001",
-              "fecha": "2024-05-22",
-              "serie": "2024"
-              },
-              "motivo": "Corrección de cantidad en línea 1",
-              ...
-              }
-              }</code></div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 5: VALIDACIONES ============ -->
-      <div id="validaciones" class="tab-content">
-        <div class="content-section">
-          <h2>Reglas de Validación</h2>
-
-          <h3>Validaciones Estructurales</h3>
-          <div class="card-grid">
-            <div class="info-card">
-              <h4>Estructura JSON</h4>
-              <p>El JSON debe ser válido y bien formado. Se rechazarán
-                documentos con errores de sintaxis.</p>
-            </div>
-            <div class="info-card">
-              <h4>Campos Requeridos</h4>
-              <p>Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.</p>
-            </div>
-            <div class="info-card">
-              <h4>Tipos de Datos</h4>
-              <p>Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array).</p>
-            </div>
-          </div>
-
-          <h3>Validaciones de Negocio</h3>
-
-          <h4>NIF/CIF</h4>
-          <ul>
-            <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
-            <li>La letra debe corresponder al código de validación NIF</li>
-            <li>CIF válidos también aceptados (B87654321)</li>
-          </ul>
-
-          <h4>Fechas</h4>
-          <ul>
-            <li>Formato requerido: YYYY-MM-DD</li>
-            <li>La fecha de emisión no puede ser futura</li>
-            <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
-          </ul>
-
-          <h4>Importes</h4>
-          <ul>
-            <li>Cantidad y precioUnitario deben ser positivos</li>
-            <li>Máximo 2 decimales en importes</li>
-            <li>El importe de línea = cantidad × precioUnitario - descuento</li>
-            <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
-          </ul>
-
-          <h4>IVA</h4>
-          <ul>
-            <li>Valores permitidos: 0, 4, 10, 21 (porcentaje)</li>
-            <li>El IVA se calcula: baseImponible × (tipoIVA / 100)</li>
-            <li>Para tipo IVA 0, debe justificarse (exportación, etc.)</li>
-          </ul>
-
-          <h3>Respuestas de Validación</h3>
-
-          <div class="code-block"><code>{
-              "valido": true,
-              "errores": [],
-              "advertencias": [],
-              "timestamp": "2024-05-22T15:37:48Z"
-              }
-
-              // En caso de error:
-              {
-              "valido": false,
-              "errores": [
-              {
-              "codigo": "CAMPO_REQUERIDO",
-              "campo": "factura.numero",
-              "mensaje": "El campo número es obligatorio"
-              },
-              {
-              "codigo": "FORMATO_INVALIDO",
-              "campo": "factura.emisor.nif",
-              "mensaje": "El NIF debe tener formato A12345678"
-              }
-              ]
-              }</code></div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 6: FAQ ============ -->
-      <div id="faq" class="tab-content">
-        <div class="content-section">
-          <h2>Preguntas Frecuentes</h2>
-
-          <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
-          <p>Una factura rectificativa se utiliza para corregir errores en una
-            factura ya emitida. Debe incluir referencia a la factura original y
-            el motivo de la rectificación. A nivel fiscal es una factura
-            independiente que se emite junto a la original.</p>
-
-          <h3>¿Cómo manejar descuentos?</h3>
-          <p>Los descuentos se aplican a nivel de línea (campo
-            <code>descuento</code>) o pueden agregarse a nivel de factura (campo
-            <code>descuentoGlobal</code> en totales). El importe final de línea
-            se calcula como: <code>(cantidad × precioUnitario) -
-              descuento</code>.</p>
-
-          <h3>¿Se pueden incluir retenciones?</h3>
-          <p>Sí, a través del campo <code>retencion</code> en el objeto
-            <code>totales</code>. Las retenciones se aplican al importeTotal y
-            generalmente son del 19% para prestación de servicios en actividades
-            profesionales.</p>
-
-          <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
-          <p>Use la dirección fiscal oficial de la empresa en el campo
-            <code>emisor.direccion</code>. Si necesita incluir una dirección
-            diferente para envío, puede agregarse en un campo adicional
-            <code>direccionEnvio</code>.</p>
-
-          <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
-          <p>No hay límite técnico establecido, pero se recomienda mantener
-            facturas manejables. Para volúmenes muy grandes, considere
-            fragmentar en múltiples facturas.</p>
-
-          <h3>¿Cómo integro esto con mi sistema actual?</h3>
-          <p>Generix proporciona:</p>
-          <ul>
-            <li>APIs REST para validación y transformación</li>
-            <li>Librerías client para JavaScript, Python y Java</li>
-            <li>Conectores directos para ERP populares (SAP, Dynamics,
-              etc.)</li>
-          </ul>
-          <p>Consulte con nuestro equipo de soporte técnico para opciones
-            específicas a su tecnología.</p>
-
-          <h3>¿Dónde puedo ver ejemplos reales de facturas validadas?</h3>
-          <p>Consulte la pestaña "Ejemplos" arriba, o descargue el archivo
-            <code>EJEMPLO_FACTURA_INDEX.json</code> incluido en la
-            documentación.</p>
-
-          <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
-          <p>Contáctenos en <a
-              href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a>
-            o a través del portal de soporte de Generix.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ============ FOOTER ============ -->
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-top">
-          <div class="footer-section">
-            <h4>Documentación</h4>
-            <a href="index.html">Volver al inicio</a>
-            <a href="#bloques">Todos los estándares</a>
-            <a href="#">XML e-Invoicing</a>
-            <a href="#">Validaciones</a>
-          </div>
-          <div class="footer-section">
-            <h4>Recursos</h4>
-            <a href="#">Descargar Schema</a>
-            <a href="#">Ejemplos JSON</a>
-            <a href="#">API Documentation</a>
-            <a href="#">SDK Clients</a>
-          </div>
-          <div class="footer-section">
-            <h4>Soporte</h4>
-            <a href="mailto:facturacion@generixgroup.com">Email de Soporte</a>
-            <a href="#">Centro de Ayuda</a>
-            <a href="#">Status Page</a>
-            <a href="#">Reportar Problema</a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2024 Generix Group. Todos los derechos reservados. | <a
-              href="#" style="color: var(--generix-orange);">Términos de Uso</a>
-            | <a href="#" style="color: var(--generix-orange);">Política de
-              Privacidad</a></p>
-        </div>
-      </div>
-    </footer>
-
-    <!-- ============ SCRIPT ============ -->
-=======
->>>>>>> Stashed changes
     <script>
       // Cargar el JSON de ejemplo desde GNX_Invoice_Json.json
       async function loadExampleJSON() {
@@ -1670,7 +1212,7 @@
         } catch (error) {
           console.error('Error loading example JSON:', error);
           document.getElementById('examplesContainer').innerHTML = 
-            '<p style="color: var(--generix-orange);">Error al cargar el ejemplo JSON. Verifique que el archivo GNX_Invoice_Json.json existe.</p>';
+            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Invoice_Json.json: ' + error.message + '</p>';
         }
       }
 
@@ -1793,6 +1335,5 @@
     </script>
 
     <script src="load-footer.js"></script>
-
   </body>
 </html>
