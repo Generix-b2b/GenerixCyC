@@ -1213,7 +1213,7 @@
         }
     </script>
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -- examplesContainer -->
     <script>
       async function loadExampleJSON() {
         try {
@@ -1330,21 +1330,21 @@
     </script>
 
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -- responseContainer -->
     <script>
-      async function loadExampleJSON() {
+      async function loadResponseJSON() {
         try {
           const response = await fetch('GNX_Response_Invoice_Json.json');
-          const exampleData = await response.json();
-          renderExampleJSON(exampleData);
+          const responseData = await response.json();
+          renderResponseJSON(responseData);
         } catch (error) {
-          console.error('Error loading example JSON:', error);
+          console.error('Error loading Response JSON:', error);
           document.getElementById('responseContainer').innerHTML = 
             '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Json.json: ' + error.message + '</p>';
         }
       }
 
-      function renderExampleJSON(data) {
+      function renderResponseJSON(data) {
         const container = document.getElementById('responseContainer');
         
         // Mostrar el JSON completo
@@ -1383,7 +1383,7 @@
       }
 
       function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('exampleJsonCode');
+        const codeElement = document.getElementById('responseJsonCode');
         const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
@@ -1396,26 +1396,26 @@
 
       // Cargar el JSON cuando el documento esté listo
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+        document.addEventListener('DOMContentLoaded', loadResponseJSON);
       } else {
-        loadExampleJSON();
+        loadResponseJSON();
       }
     </script>
     <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Schema_Json.json -->
     <script>
-      async function loadExampleJSON() {
+      async function loadResponseSchemaJSON() {
         try {
           const response = await fetch('GNX_Response_Invoice_Schema_Json.json');
-          const exampleData = await response.json();
-          renderExampleJSON(exampleData);
+          const responseSchemaData = await response.json();
+          renderResponseSchemaJSON(responseSchemaData);
         } catch (error) {
-          console.error('Error loading example JSON:', error);
+          console.error('Error loading response Schema JSON:', error);
           document.getElementById('responseSchemaContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
         }
       }
 
-      function renderExampleJSON(data) {
+      function renderResponseSchemaJSON(data) {
         const container = document.getElementById('responseSchemaContainer');
         
         // Mostrar el JSON completo
@@ -1426,11 +1426,11 @@
             <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
+                <span style="font-size: 1.1rem;">📋 Esquema de Respuesta</span>
                 <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="responseSchemaJsonCode">${escapeHtml(jsonCode)}</code></pre>
             </div>
           </div>
         `;
@@ -1454,7 +1454,7 @@
       }
 
       function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('exampleJsonCode');
+        const codeElement = document.getElementById('responseSchemaJsonCode');
         const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
@@ -1467,9 +1467,9 @@
 
       // Cargar el JSON cuando el documento esté listo
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+        document.addEventListener('DOMContentLoaded', loadResponseSchemaJSON);
       } else {
-        loadExampleJSON();
+        loadResponseSchemaJSON();
       }
     </script>
 
