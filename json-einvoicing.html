@@ -528,31 +528,21 @@
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
           
           <!-- ============ NAVIGATION BAR ============ -->
-          <div id="schemaNavBar" style="
-            margin: 32px 0;
-            padding: 16px;
-            background: var(--gray-100);
-            border-radius: 8px;
-            border-left: 4px solid var(--generix-orange);
-            overflow-x: auto;
-            position: sticky;
-            top: 100px;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,35,51,0.1);
-          ">
-            <div style="
-              display: flex;
-              gap: 8px;
-              flex-wrap: wrap;
-              align-items: center;
-            ">
-              <span style="
-                font-weight: 600;
-                color: var(--generix-dark);
-                margin-right: 12px;
-                white-space: nowrap;
-              ">Ir a:</span>
-              <div id="navButtons" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+          <div id="schemaNavBar" 
+            style="margin: 24px 0; padding: 10px 12px;background: var(--gray-100); border-radius: 6px; 
+            border-left: 4px solid var(--generix-orange); position: sticky; 
+            top: 100px; z-index: 50; box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+            transition: opacity 0.3s, max-height 0.3s; max-height: 80px; 
+            overflow: hidden;">
+            <div 
+              style="display: flex; gap: 6px; flex-wrap: nowrap; 
+              align-items: center; overflow-x: auto; padding: 2px;">
+              <span 
+                style="font-weight: 600;font-size: 0.85rem; color: var(--generix-dark); 
+                margin-right: 8px; white-space: nowrap; flex-shrink: 0;">Ir a:
+              </span>
+              <div id="navButtons" 
+                style="display: flex; gap: 5px; flex-wrap: nowrap;"></div>
             </div>
           </div>
           
