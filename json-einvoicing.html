@@ -216,24 +216,20 @@
       line-height: 1.8;
     }
      /* ============ SIDEBAR NAVIGATION ============ */
-    .content-with-sidebar {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 32px;
-      align-items: start;
-    }
-    
     .sidebar-nav {
       position: sticky;
-      top: 100px;
+      left: 0;
+      top: 0;
+      width: 180px;
       height: fit-content;
       background: var(--gray-100);
-      border-radius: 6px;
+      border-radius: 0 6px 6px 0;
       border-left: 4px solid var(--generix-orange);
       padding: 16px;
       box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+      z-index: 40;
+      margin-left: -216px;
     }
-    
     .sidebar-nav-title {
       font-weight: 600;
       font-size: 0.9rem;
@@ -242,13 +238,11 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
     .sidebar-nav-buttons {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    
     .sidebar-nav-btn {
       display: block;
       padding: 10px 12px;
@@ -262,13 +256,11 @@
       transition: all 0.2s;
       text-align: left;
     }
-    
     .sidebar-nav-btn:hover {
       background: var(--generix-orange);
       color: var(--white);
       border-color: var(--generix-orange);
     }
-    
     .sidebar-nav-btn.active {
       background: var(--generix-orange);
       color: var(--white);
@@ -276,6 +268,9 @@
     }
 
     /* ============ CODE BLOCK ============ */
+    .tab-content {
+      position: relative;
+    }
     .code-block {
       background: var(--gray-900);
       color: #e0e0e0;
@@ -587,14 +582,13 @@
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
           
           <!-- ============ NAVIGATION BAR ============ -->
-          <div class="content-with-sidebar">
-            <!-- SIDEBAR IZQUIERDA -->
+          <!-- SIDEBAR EN EL MARGEN -->
             <div class="sidebar-nav">
               <div class="sidebar-nav-title">Ir a</div>
               <div id="navButtons" class="sidebar-nav-buttons"></div>
             </div>
 
-            <!-- CONTENIDO DERECHA -->
+            <!-- CONTENIDO PRINCIPAL -->
             <div id="schemaBlocksContainer"></div>
         </div>
       </div>
@@ -755,7 +749,7 @@
 
     </div>
 
-   <!-- ============ FOOTER ============ -->
+    <!-- ============ FOOTER ============ -->
     <div id="footer-container"></div>
 
     <!-- ============ SCRIPT ============ -->
