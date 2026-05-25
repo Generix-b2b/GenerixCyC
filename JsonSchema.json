@@ -69,6 +69,80 @@
             "required": ["SellerParty", "BuyerParty"],
 			"additionalProperties": false
 		},
+		"Party": {
+			"type": "object",
+			"properties": {
+				"TaxIdentification": {
+					"$ref": "#/definitions/TaxIdentification"
+				},
+				"PartyIdentification": { "type": "string" },
+				"LegalEntity": { "$ref": "#/definitions/LegalEntity" }
+			},
+            "required": ["TaxIdentification", "LegalEntity"],
+			"additionalProperties": false
+		},
+		"TaxIdentification": {
+			"type": "object",
+			"properties": {
+				"PersonTypeCode": { "$ref": "#/definitions/Enums/PersonTypeCodeEnum" },
+				"ResidenceTypeCode": { "$ref": "#/definitions/Enums/ResidenceTypeCodeEnum" },
+				"TaxIdentificationNumber": { "type": "string" }
+			},
+            "required": ["PersonTypeCode", "ResidenceTypeCode", "TaxIdentificationNumber"],
+			"additionalProperties": false
+		},
+		"LegalEntity": {
+			"type": "object",
+			"properties": {
+				"CorporateName": { "type": "string" },
+				"TradeName": { "type": "string" },
+				"RegistrationData": {
+					"$ref": "#/definitions/RegistrationData"
+				},
+				"Address": { "$ref": "#/definitions/Address" },
+				"ContactDetails": { "$ref": "#/definitions/ContactDetails" }
+			},
+            "required": ["CorporateName"],
+			"additionalProperties": false
+		},
+		"RegistrationData": {
+			"type": "object",
+			"properties": {
+				"Book": { "type": "string" },
+				"RegisterOfCompaniesLocation": { "type": "string" },
+				"Sheet": { "type": "string" },
+				"Folio": { "type": "string" },
+				"Section": { "type": "string" },
+				"Volume": { "type": "string" },
+				"AdditionalRegistrationData": { "type": "string" }
+			},
+			"additionalProperties": false
+		},
+		"Address": {
+			"type": "object",
+			"properties": {
+				"Address": { "type": "string" },
+				"AdditionalAddress": { "type": "string" },
+				"PostCode": { "type": "string" },
+				"Town": { "type": "string" },
+				"Province": { "type": "string" },
+				"CountryCode": { "type": "string", "minLength": 3, "maxLength": 3 }
+			},
+            "required": ["Address", "PostCode", "Town", "CountryCode"],
+			"additionalProperties": false
+		},
+		"ContactDetails": {
+			"type": "object",
+			"properties": {
+				"Telephone": { "type": "string" },
+				"Telephone2": { "type": "string" },
+				"WebAddress": { "type": "string", "format": "uri" },
+				"ElectronicMail": { "type": "string", "format": "email" },
+				"LastName": { "type": "string" },
+				"FirstName": { "type": "string" }
+			},
+			"additionalProperties": false
+		},
 		"Invoice": {
 			"type": "object",
 			"properties": {
@@ -115,146 +189,6 @@
             "required": ["InvoiceNumber", "InvoiceDocumentType", "InvoiceClass", "InvoiceDescription"],
 			"additionalProperties": false
 		},
-		"InvoiceIssueData": {
-			"type": "object",
-			"properties": {
-				"IssueDate": { "$ref": "#/definitions/DateTime" },
-				"PreviousInvoiceDate": { "$ref": "#/definitions/DateTime" },
-				"InvoicingPeriod": {
-					"type": "object",
-					"properties": {
-						"StartDate": { "$ref": "#/definitions/DateTime" },
-						"EndDate": { "$ref": "#/definitions/DateTime" }
-					},
-					"additionalProperties": false
-				},
-				"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
-				"TaxCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
-				"LanguageName": { "type": "string", "minLength": 2, "maxLength": 2 }
-			},
-            "required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
-			"additionalProperties": false
-		},
-		"AdditionalData": {
-			"type": "object",
-			"properties": {
-				"RelatedDocuments": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"Attachment": {
-								"type": "object",
-								"properties": {
-									"AttachmentCompressionAlgorithm": { "type": "string" },
-									"AttachmentFormat": { "type": "string" },
-									"AttachmentEncoding": { "type": "string" },
-									"AttachmentDescription": { "type": "string" },
-									"AttachmentData": { "type": "string" }
-								},
-								"additionalProperties": false
-							},
-							"QRAttachment": {
-								"type": "object",
-								"properties": {
-									"URL": { "type": "string" },
-									"HASHCode": { "type": "string" },
-									"PrevoiusHASHCode": { "type": "string" },
-									"eSignature": { "type": "string" },
-									"PlaceholderOthers": { "type": "string" }
-								},
-								"additionalProperties": false
-							}
-						},
-						"additionalProperties": false
-					}
-				}
-			},
-			"additionalProperties": false
-		},
-		"Party": {
-			"type": "object",
-			"properties": {
-				"TaxIdentification": {
-					"$ref": "#/definitions/TaxIdentification"
-				},
-				"PartyIdentification": { "type": "string" },
-				"LegalEntity": { "$ref": "#/definitions/LegalEntity" }
-			},
-            "required": ["TaxIdentification", "LegalEntity"],
-			"additionalProperties": false
-		},
-		"AmountContainer": {
-			"type": "object",
-			"properties": {
-				"TotalAmount": { "type": "number" },
-				"EquivalentInEuros": { "type": "number" }
-			},
-            "required": ["TotalAmount"],
-			"additionalProperties": false
-		},
-		"Address": {
-			"type": "object",
-			"properties": {
-				"Address": { "type": "string" },
-				"AdditionalAddress": { "type": "string" },
-				"PostCode": { "type": "string" },
-				"Town": { "type": "string" },
-				"Province": { "type": "string" },
-				"CountryCode": { "type": "string", "minLength": 3, "maxLength": 3 }
-			},
-            "required": ["Address", "PostCode", "Town", "CountryCode"],
-			"additionalProperties": false
-		},
-		"ContactDetails": {
-			"type": "object",
-			"properties": {
-				"Telephone": { "type": "string" },
-				"Telephone2": { "type": "string" },
-				"WebAddress": { "type": "string", "format": "uri" },
-				"ElectronicMail": { "type": "string", "format": "email" },
-				"LastName": { "type": "string" },
-				"FirstName": { "type": "string" }
-			},
-			"additionalProperties": false
-		},
-		"RegistrationData": {
-			"type": "object",
-			"properties": {
-				"Book": { "type": "string" },
-				"RegisterOfCompaniesLocation": { "type": "string" },
-				"Sheet": { "type": "string" },
-				"Folio": { "type": "string" },
-				"Section": { "type": "string" },
-				"Volume": { "type": "string" },
-				"AdditionalRegistrationData": { "type": "string" }
-			},
-			"additionalProperties": false
-		},
-		"LegalEntity": {
-			"type": "object",
-			"properties": {
-				"CorporateName": { "type": "string" },
-				"TradeName": { "type": "string" },
-				"RegistrationData": {
-					"$ref": "#/definitions/RegistrationData"
-				},
-				"Address": { "$ref": "#/definitions/Address" },
-				"ContactDetails": { "$ref": "#/definitions/ContactDetails" }
-			},
-            "required": ["CorporateName"],
-			"additionalProperties": false
-		},
-		"TaxIdentification": {
-			"type": "object",
-			"properties": {
-				"PersonTypeCode": { "$ref": "#/definitions/Enums/PersonTypeCodeEnum" },
-				"ResidenceTypeCode": { "$ref": "#/definitions/Enums/ResidenceTypeCodeEnum" },
-				"TaxIdentificationNumber": { "type": "string" }
-			},
-            "required": ["PersonTypeCode", "ResidenceTypeCode", "TaxIdentificationNumber"],
-			"additionalProperties": false
-		},
         "Corrective": {
             "type": "object",
             "properties": {
@@ -277,6 +211,26 @@
             "required": ["InvoiceNumber", "ReasonCode", "InvoiceIssueDate", "CorrectionMethod"],
             "additionalProperties": false
         },
+		"InvoiceIssueData": {
+			"type": "object",
+			"properties": {
+				"IssueDate": { "$ref": "#/definitions/DateTime" },
+				"PreviousInvoiceDate": { "$ref": "#/definitions/DateTime" },
+				"InvoicingPeriod": {
+					"type": "object",
+					"properties": {
+						"StartDate": { "$ref": "#/definitions/DateTime" },
+						"EndDate": { "$ref": "#/definitions/DateTime" }
+					},
+					"additionalProperties": false
+				},
+				"InvoiceCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"TaxCurrencyCode": { "type": "string", "minLength": 3, "maxLength": 3, "default": "EUR" },
+				"LanguageName": { "type": "string", "minLength": 2, "maxLength": 2 }
+			},
+            "required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
+			"additionalProperties": false
+		},
 		"TaxWrapper": {
 			"type": "object",
 			"properties": {
@@ -444,6 +398,52 @@
 					"additionalProperties": false
 				}
 			},
+			"additionalProperties": false
+		},
+		"AdditionalData": {
+			"type": "object",
+			"properties": {
+				"RelatedDocuments": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Attachment": {
+								"type": "object",
+								"properties": {
+									"AttachmentCompressionAlgorithm": { "type": "string" },
+									"AttachmentFormat": { "type": "string" },
+									"AttachmentEncoding": { "type": "string" },
+									"AttachmentDescription": { "type": "string" },
+									"AttachmentData": { "type": "string" }
+								},
+								"additionalProperties": false
+							},
+							"QRAttachment": {
+								"type": "object",
+								"properties": {
+									"URL": { "type": "string" },
+									"HASHCode": { "type": "string" },
+									"PrevoiusHASHCode": { "type": "string" },
+									"eSignature": { "type": "string" },
+									"PlaceholderOthers": { "type": "string" }
+								},
+								"additionalProperties": false
+							}
+						},
+						"additionalProperties": false
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"AmountContainer": {
+			"type": "object",
+			"properties": {
+				"TotalAmount": { "type": "number" },
+				"EquivalentInEuros": { "type": "number" }
+			},
+            "required": ["TotalAmount"],
 			"additionalProperties": false
 		},
         "Enums": {
