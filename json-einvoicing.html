@@ -526,7 +526,37 @@
             descripción.</p>
           <p><a href="GNX_Schema_Json.json" target="_blank"
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
-          <div id="schemaBlocksContainer"></div>
+          
+          <!-- ============ NAVIGATION BAR ============ -->
+          <div id="schemaNavBar" style="
+            margin: 32px 0;
+            padding: 16px;
+            background: var(--gray-100);
+            border-radius: 8px;
+            border-left: 4px solid var(--generix-orange);
+            overflow-x: auto;
+            position: sticky;
+            top: 100px;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+          ">
+            <div style="
+              display: flex;
+              gap: 8px;
+              flex-wrap: wrap;
+              align-items: center;
+            ">
+              <span style="
+                font-weight: 600;
+                color: var(--generix-dark);
+                margin-right: 12px;
+                white-space: nowrap;
+              ">Ir a:</span>
+              <div id="navButtons" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+            </div>
+          </div>
+          
+            <div id="schemaBlocksContainer"></div>
         </div>
       </div>
 
@@ -1070,7 +1100,9 @@
 
         function renderAllBlocks() {
           const container = document.getElementById('schemaBlocksContainer');
+          const navContainer = document.getElementById('navButtons');
           let html = '';
+          let navHtml = '';
 
           blockOrder.forEach(blockName => {
             const blockContent = getBlockContent(blockName);
@@ -1089,6 +1121,28 @@
             }
 
             const jsonCode = JSON.stringify(blockWithName, null, 2);
+
+            // Generar botón de navegación
+            const emoji = desc.title.split(' ')[0];
+            const label = desc.title.substring(desc.title.indexOf(' ') + 1);
+            navHtml += `
+              <a href="#block-${blockName}" style="
+                display: inline-block;
+                padding: 8px 12px;
+                background: var(--white);
+                color: var(--generix-dark);
+                border: 1px solid var(--gray-300);
+                border-radius: 4px;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                transition: all 0.2s;
+                white-space: nowrap;
+              " onmouseover="this.style.background='var(--generix-orange)'; this.style.color='var(--white)'; this.style.borderColor='var(--generix-orange)';"
+                 onmouseout="this.style.background='var(--white)'; this.style.color='var(--generix-dark)'; this.style.borderColor='var(--gray-300)';">
+                ${emoji} ${label}
+              </a>
+            `;
 
             html += `
               <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="block-${blockName}">
@@ -1152,6 +1206,9 @@
           });
 
           container.innerHTML = html;
+          if (navContainer) {
+            navContainer.innerHTML = navHtml;
+          }
         }
 
         function escapeHtml(text) {
