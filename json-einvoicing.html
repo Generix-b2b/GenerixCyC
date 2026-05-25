@@ -215,6 +215,65 @@
       margin-bottom: 12px;
       line-height: 1.8;
     }
+     /* ============ SIDEBAR NAVIGATION ============ */
+    .content-with-sidebar {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    
+    .sidebar-nav {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: var(--gray-100);
+      border-radius: 6px;
+      border-left: 4px solid var(--generix-orange);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+    }
+    
+    .sidebar-nav-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--generix-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .sidebar-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .sidebar-nav-btn {
+      display: block;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--generix-dark);
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    
+    .sidebar-nav-btn:hover {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    
+    .sidebar-nav-btn.active {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
 
     /* ============ CODE BLOCK ============ */
     .code-block {
@@ -528,24 +587,14 @@
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
           
           <!-- ============ NAVIGATION BAR ============ -->
-          <div id="schemaNavBar" 
-            style="margin: 24px 0; padding: 10px 12px;background: var(--gray-100); border-radius: 6px; 
-            border-left: 4px solid var(--generix-orange); position: sticky; 
-            top: 100px; z-index: 50; box-shadow: 0 2px 8px rgba(0,35,51,0.1);
-            transition: opacity 0.3s, max-height 0.3s; max-height: 80px; 
-            overflow: hidden;">
-            <div 
-              style="display: flex; gap: 6px; flex-wrap: nowrap; 
-              align-items: center; overflow-x: auto; padding: 2px;">
-              <span 
-                style="font-weight: 600;font-size: 0.85rem; color: var(--generix-dark); 
-                margin-right: 8px; white-space: nowrap; flex-shrink: 0;">Ir a:
-              </span>
-              <div id="navButtons" 
-                style="display: flex; gap: 5px; flex-wrap: nowrap;"></div>
+          <div class="content-with-sidebar">
+            <!-- SIDEBAR IZQUIERDA -->
+            <div class="sidebar-nav">
+              <div class="sidebar-nav-title">Ir a</div>
+              <div id="navButtons" class="sidebar-nav-buttons"></div>
             </div>
-          </div>
-          
+
+            <!-- CONTENIDO DERECHA -->
             <div id="schemaBlocksContainer"></div>
         </div>
       </div>
@@ -1116,7 +1165,7 @@
             const emoji = desc.title.split(' ')[0];
             const label = desc.title.substring(desc.title.indexOf(' ') + 1);
             navHtml += `
-              <a href="#block-${blockName}" class="schema-nav-btn" data-block="${blockName}" style="
+              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" style="
                 display: inline-block;
                 padding: 8px 12px;
                 background: var(--white);
@@ -1202,17 +1251,13 @@
         function setActiveNavButton(clickedBtn, event) {
           event.preventDefault();
           
-          // Remover color naranja de todos los botones
-          document.querySelectorAll('.schema-nav-btn').forEach(btn => {
-            btn.style.background = 'var(--white)';
-            btn.style.color = 'var(--generix-dark)';
-            btn.style.borderColor = 'var(--gray-300)';
+           // Remover clase activa de todos los botones
+          document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
           });
           
-          // Aplicar naranja al botón clickeado
-          clickedBtn.style.background = 'var(--generix-orange)';
-          clickedBtn.style.color = 'var(--white)';
-          clickedBtn.style.borderColor = 'var(--generix-orange)';
+          // Añadir clase activa al botón clickeado
+          clickedBtn.classList.add('active');
           
           // Navegar al bloque
           const blockId = clickedBtn.getAttribute('href');
