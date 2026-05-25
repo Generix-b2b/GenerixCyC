@@ -215,8 +215,62 @@
       margin-bottom: 12px;
       line-height: 1.8;
     }
+     /* ============ SIDEBAR NAVIGATION ============ */
+    .sidebar-nav {
+      position: sticky;
+      left: 0;
+      top: 0;
+      width: 180px;
+      height: fit-content;
+      background: var(--gray-100);
+      border-radius: 0 6px 6px 0;
+      border-left: 4px solid var(--generix-orange);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+      z-index: 40;
+      margin-left: -216px;
+    }
+    .sidebar-nav-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--generix-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-nav-btn {
+      display: block;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--generix-dark);
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .sidebar-nav-btn:hover {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    .sidebar-nav-btn.active {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
 
     /* ============ CODE BLOCK ============ */
+    .tab-content {
+      position: relative;
+    }
     .code-block {
       background: var(--gray-900);
       color: #e0e0e0;
@@ -528,34 +582,13 @@
             style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
           
           <!-- ============ NAVIGATION BAR ============ -->
-          <div id="schemaNavBar" style="
-            margin: 32px 0;
-            padding: 16px;
-            background: var(--gray-100);
-            border-radius: 8px;
-            border-left: 4px solid var(--generix-orange);
-            overflow-x: auto;
-            position: sticky;
-            top: 100px;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,35,51,0.1);
-          ">
-            <div style="
-              display: flex;
-              gap: 8px;
-              flex-wrap: wrap;
-              align-items: center;
-            ">
-              <span style="
-                font-weight: 600;
-                color: var(--generix-dark);
-                margin-right: 12px;
-                white-space: nowrap;
-              ">Ir a:</span>
-              <div id="navButtons" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+          <!-- SIDEBAR EN EL MARGEN -->
+            <div class="sidebar-nav">
+              <div class="sidebar-nav-title">Ir a</div>
+              <div id="navButtons" class="sidebar-nav-buttons"></div>
             </div>
-          </div>
-          
+
+            <!-- CONTENIDO PRINCIPAL -->
             <div id="schemaBlocksContainer"></div>
         </div>
       </div>
@@ -716,7 +749,7 @@
 
     </div>
 
-   <!-- ============ FOOTER ============ -->
+    <!-- ============ FOOTER ============ -->
     <div id="footer-container"></div>
 
     <!-- ============ SCRIPT ============ -->
@@ -1090,8 +1123,8 @@
         function getBlockContent(blockName) {
           if (blockName === 'root') {
             return { $schema: schemaData.$schema, type: schemaData.type };
-          } else if (blockName === 'properties') {
-            return schemaData.properties;
+          } else if (schemaData.properties && schemaData.properties[blockName]) {
+            return schemaData.properties[blockName];
           } else if (schemaData.definitions && schemaData.definitions[blockName]) {
             return schemaData.definitions[blockName];
           }
@@ -1126,7 +1159,7 @@
             const emoji = desc.title.split(' ')[0];
             const label = desc.title.substring(desc.title.indexOf(' ') + 1);
             navHtml += `
-              <a href="#block-${blockName}" style="
+              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" style="
                 display: inline-block;
                 padding: 8px 12px;
                 background: var(--white);
@@ -1138,8 +1171,7 @@
                 font-weight: 500;
                 transition: all 0.2s;
                 white-space: nowrap;
-              " onmouseover="this.style.background='var(--generix-orange)'; this.style.color='var(--white)'; this.style.borderColor='var(--generix-orange)';"
-                 onmouseout="this.style.background='var(--white)'; this.style.color='var(--generix-dark)'; this.style.borderColor='var(--gray-300)';">
+              " onclick="setActiveNavButton(this, event);">
                 ${emoji} ${label}
               </a>
             `;
@@ -1210,6 +1242,21 @@
             navContainer.innerHTML = navHtml;
           }
         }
+        function setActiveNavButton(clickedBtn, event) {
+          event.preventDefault();
+          
+           // Remover clase activa de todos los botones
+          document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // Añadir clase activa al botón clickeado
+          clickedBtn.classList.add('active');
+          
+          // Navegar al bloque
+          const blockId = clickedBtn.getAttribute('href');
+          window.location.hash = blockId;
+        }
 
         function escapeHtml(text) {
           const map = {
@@ -1223,7 +1270,7 @@
         }
     </script>
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -- examplesContainer -->
     <script>
       async function loadExampleJSON() {
         try {
@@ -1340,21 +1387,21 @@
     </script>
 
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -- responseContainer -->
     <script>
-      async function loadExampleJSON() {
+      async function loadResponseJSON() {
         try {
           const response = await fetch('GNX_Response_Invoice_Json.json');
-          const exampleData = await response.json();
-          renderExampleJSON(exampleData);
+          const responseData = await response.json();
+          renderResponseJSON(responseData);
         } catch (error) {
-          console.error('Error loading example JSON:', error);
+          console.error('Error loading Response JSON:', error);
           document.getElementById('responseContainer').innerHTML = 
             '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Json.json: ' + error.message + '</p>';
         }
       }
 
-      function renderExampleJSON(data) {
+      function renderResponseJSON(data) {
         const container = document.getElementById('responseContainer');
         
         // Mostrar el JSON completo
@@ -1393,7 +1440,7 @@
       }
 
       function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('exampleJsonCode');
+        const codeElement = document.getElementById('responseJsonCode');
         const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
@@ -1406,26 +1453,26 @@
 
       // Cargar el JSON cuando el documento esté listo
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+        document.addEventListener('DOMContentLoaded', loadResponseJSON);
       } else {
-        loadExampleJSON();
+        loadResponseJSON();
       }
     </script>
     <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Schema_Json.json -->
     <script>
-      async function loadExampleJSON() {
+      async function loadResponseSchemaJSON() {
         try {
           const response = await fetch('GNX_Response_Invoice_Schema_Json.json');
-          const exampleData = await response.json();
-          renderExampleJSON(exampleData);
+          const responseSchemaData = await response.json();
+          renderResponseSchemaJSON(responseSchemaData);
         } catch (error) {
-          console.error('Error loading example JSON:', error);
+          console.error('Error loading response Schema JSON:', error);
           document.getElementById('responseSchemaContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
         }
       }
 
-      function renderExampleJSON(data) {
+      function renderResponseSchemaJSON(data) {
         const container = document.getElementById('responseSchemaContainer');
         
         // Mostrar el JSON completo
@@ -1436,11 +1483,11 @@
             <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
+                <span style="font-size: 1.1rem;">📋 Esquema de Respuesta</span>
                 <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="responseSchemaJsonCode">${escapeHtml(jsonCode)}</code></pre>
             </div>
           </div>
         `;
@@ -1464,7 +1511,7 @@
       }
 
       function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('exampleJsonCode');
+        const codeElement = document.getElementById('responseSchemaJsonCode');
         const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
@@ -1477,9 +1524,9 @@
 
       // Cargar el JSON cuando el documento esté listo
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadExampleJSON);
+        document.addEventListener('DOMContentLoaded', loadResponseSchemaJSON);
       } else {
-        loadExampleJSON();
+        loadResponseSchemaJSON();
       }
     </script>
 
