@@ -248,7 +248,22 @@
 								}
 							}
 						],
-						"TaxesWithheld": [],
+						"TaxesWithheld": [
+							{
+								"Tax": {
+									"TaxTypeCode": "05",
+									"TaxRate": 0.0,
+									"TaxableBase": {
+										"TotalAmount": 1071.48,
+										"EquivalentInEuros": 1071.48
+									},
+									"TaxAmount": {
+										"TotalAmount": 0.0,
+										"EquivalentInEuros": 0.0
+									}
+								}
+							}
+						],
 						"InvoiceTotals": {
 							"GeneralDiscounts": [
 								{
