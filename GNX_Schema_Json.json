@@ -5,7 +5,6 @@
 	"properties": {
         "InvoiceGNX": {
 			"type": "object",
-			"description": "test description",
 			"properties": {
 				"FileHeader": {
 					"type": "object",
