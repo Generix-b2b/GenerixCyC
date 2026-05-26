@@ -976,7 +976,7 @@
         ];
 
         // Cargar el schema JSON
-        fetch('GNX_Schema_Json.json')
+        fetch('E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json')
           .then(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
@@ -1365,7 +1365,7 @@
     <script>
       async function loadExampleJSON() {
         try {
-          const response = await fetch('GNX_Invoice_Json.json');
+          const response = await fetch('E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json');
           const exampleData = await response.json();
           renderExampleJSON(exampleData);
         } catch (error) {
