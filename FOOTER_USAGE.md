@@ -38,7 +38,7 @@ En cualquier página HTML donde quieras que aparezca el footer:
   <div id="footer-container"></div>
 
   <!-- Script para cargar el footer -->
-  <script src="load-footer.js"></script>
+  <script src="Assets/load-footer.js"></script>
 
 </body>
 </html>
