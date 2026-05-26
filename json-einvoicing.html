@@ -1496,7 +1496,7 @@
     <script>
       async function loadResponseJSON() {
         try {
-          const response = await fetch('E-invoicing/Standard/Invoice/Json/GNX_Response_Json.json.json');
+          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Json.json.json');
           const responseData = await response.json();
           renderResponseJSON(responseData);
         } catch (error) {
@@ -1563,17 +1563,17 @@
         loadResponseJSON();
       }
     </script>
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Schema_Json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Schema_Json.json.json -->
     <script>
       async function loadResponseSchemaJSON() {
         try {
-          const response = await fetch('GNX_Response_Invoice_Schema_Json.json');
+          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json.json');
           const responseSchemaData = await response.json();
           renderResponseSchemaJSON(responseSchemaData);
         } catch (error) {
           console.error('Error loading response Schema JSON:', error);
           document.getElementById('responseSchemaContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Invoice_Schema_Json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Schema_Json.json.json: ' + error.message + '</p>';
         }
       }
 
