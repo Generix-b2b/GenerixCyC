@@ -1330,23 +1330,37 @@
 
           container.innerHTML = html;
           if (navContainer) {
+            initNavObserver();
             navContainer.innerHTML = navHtml;
           }
         }
+        function initNavObserver() {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                // Remover activo de todos
+                document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+                  btn.classList.remove('active');
+                });
+                // Marcar el botón correspondiente como activo
+                const blockName = entry.target.id.replace('block-', '');
+                const activeBtn = document.querySelector(`.sidebar-nav-btn[data-block="${blockName}"]`);
+                if (activeBtn) {
+                  activeBtn.classList.add('active');
+                }
+              }
+            });
+          }, { threshold: 0.3 });
+
+          document.querySelectorAll('[id^="block-"]').forEach(block => {
+            observer.observe(block);
+          });
+        }
+
         function setActiveNavButton(clickedBtn, event) {
           event.preventDefault();
-          
-           // Remover clase activa de todos los botones
-          document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-          });
-          
-          // Añadir clase activa al botón clickeado
-          clickedBtn.classList.add('active');
-          
-          // Navegar al bloque
           const blockId = clickedBtn.getAttribute('href');
-          window.location.hash = blockId;
+          document.querySelector(blockId).scrollIntoView({ behavior: 'smooth' });
         }
 
         function escapeHtml(text) {
@@ -1478,17 +1492,17 @@
     </script>
 
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Invoice_Json.json -- responseContainer -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Json.json.json -- responseContainer -->
     <script>
       async function loadResponseJSON() {
         try {
-          const response = await fetch('GNX_Response_Invoice_Json.json');
+          const response = await fetch('E-invoicing/Standard/Invoice/Json/GNX_Response_Json.json.json');
           const responseData = await response.json();
           renderResponseJSON(responseData);
         } catch (error) {
           console.error('Error loading Response JSON:', error);
           document.getElementById('responseContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Invoice_Json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Json.json.json: ' + error.message + '</p>';
         }
       }
 
