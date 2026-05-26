@@ -1330,8 +1330,10 @@
 
           container.innerHTML = html;
           if (navContainer) {
-            initNavObserver();
             navContainer.innerHTML = navHtml;
+            setTimeout(() => {
+                initNavObserver();
+              }, 0);
           }
         }
         function initNavObserver() {
@@ -1350,7 +1352,10 @@
                 }
               }
             });
-          }, { threshold: 0.3 });
+          }, { 
+            rootMargin: "-120px 0px -60% 0px", // 🔥 clave
+            threshold: 0
+          });
 
           document.querySelectorAll('[id^="block-"]').forEach(block => {
             observer.observe(block);
@@ -1359,6 +1364,16 @@
 
         function setActiveNavButton(clickedBtn, event) {
           event.preventDefault();
+                
+          // quitar active de todos
+          document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+        
+          // poner active al clicado
+          clickedBtn.classList.add('active');
+        
+          // scroll
           const blockId = clickedBtn.getAttribute('href');
           document.querySelector(blockId).scrollIntoView({ behavior: 'smooth' });
         }
