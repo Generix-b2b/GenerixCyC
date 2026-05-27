@@ -209,7 +209,7 @@
 								"ReasonCode": "12",
 								"ReasonDescription": "NÃºmero de la factura",
 								"InvoiceIssueDate": "2024-10-03T23:59:59",
-								"CorrectionMethod": "01",
+								"CorrectionMethod": "I",
 								"CorrectionMethodDescription": "Rectificación modelo íntegro",
 								"CorrectiveAmounts": {
 									"GrossAmount": 0.0,
