@@ -1238,26 +1238,34 @@
         const enumDescriptions = {
           InvoiceIssuerTypeEnum: {
             title: '🪪 InvoiceIssuerType - Tipo de Emisor',
-            esp: 'Identifica quién emite materialmente la factura: EM = emisor habitual (el propio vendedor), RE = receptor en régimen de autofactura, TE = tercero que expide la factura en nombre y por cuenta del obligado a emitirla.',
-            eng: 'Identifies who issues the invoice: EM = regular issuer (the seller itself), RE = recipient under self-billing arrangement, TE = third party issuing the invoice on behalf of the obliged issuer.',
+            esp: 'Identifica quién emite materialmente la factura',
+            eng: 'Identifies who issues the invoice',
+            enumDescEsp: 'EM = emisor | RE = receptor | TE = tercero .',
+            enumDescEng: 'EM = issuer | RE = recipient | TE = third party.',
             usedIn: ['FileHeader.InvoiceIssuerType']
           },
           PersonTypeCodeEnum: {
             title: '👤 PersonTypeCode - Tipo de Persona',
-            esp: 'Tipo de persona en la identificación fiscal: F = persona física, J = persona jurídica.',
-            eng: 'Person type for tax identification: F = natural person, J = legal entity.',
+            esp: 'Tipo de persona en la identificación fiscal',
+            eng: 'Person type for tax identification',
+            enumDescEsp: 'F = persona física | J = persona jurídica.',
+            enumDescEng: 'F = natural person | J = legal entity.',
             usedIn: ['TaxIdentification.PersonTypeCode']
           },
           ResidenceTypeCodeEnum: {
             title: '🌐 ResidenceTypeCode - Tipo de Residencia',
-            esp: 'Tipo de residencia fiscal del sujeto: E = extranjero residente fuera de la Unión Europea, R = residente en territorio español, U = residente en la Unión Europea distinto de España.',
-            eng: 'Tax residence type of the party: E = foreign resident outside the European Union, R = Spanish tax resident, U = European Union resident other than Spain.',
+            esp: 'Tipo de residencia fiscal del sujeto',
+            eng: 'Tax residence type of the party',
+            enumDescEsp: 'E = fuera de la Unión Europea | R = residente en España | U = residente en la Unión Europea.',
+            enumDescEng: 'E = outside the European Union | R = Spanish tax resident | U = European Union resident.',
             usedIn: ['TaxIdentification.ResidenceTypeCode']
           },
           InvoiceDocumentTypeEnum: {
             title: '📄 InvoiceDocumentType - Tipo de Documento',
-            esp: 'Código del tipo de documento de factura conforme a UNTDID 1001 y a la lista L1 del Anexo I (RD 238/2026): 380 factura ordinaria, 381 nota de abono, 384 factura rectificativa, 388 factura emitida en sustitución de simplificadas, 389 factura emitida por el destinatario, 481 factura rectificativa emitida por el destinatario.',
-            eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026): 380 standard invoice, 381 credit note, 384 corrective invoice, 388 invoice replacing simplified invoices, 389 invoice issued by the recipient, 481 corrective invoice issued by the recipient.',
+            esp: 'Código del tipo de documento de factura conforme a UNTDID 1001 y a la lista L1 del Anexo I (RD 238/2026)',
+            eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026)',
+            enumDescEsp: '380 factura ordinaria | 381 nota de abono | 384 factura rectificativa | 388 factura emitida en sustitución de simplificadas | 389 factura emitida por el destinatario | 481 factura rectificativa emitida por el destinatario.',
+            enumDescEng: '380 standard invoice | 381 credit note | 384 corrective invoice | 388 invoice replacing simplified invoices | 389 invoice issued by the recipient | 481 corrective invoice issued by the recipient.',
             usedIn: ['InvoiceHeader.InvoiceDocumentType']
           },
           InvoiceClassEnum: {
@@ -1423,6 +1431,16 @@
                         <strong>Usado en:</strong>
                       </p>
                       <div class="tech-details__used-in">${usedInHtml}</div>
+                    </div>
+                    <div class="tech-details">
+                      <div class="tech-details__used-in">
+                        <p class="explanation-box__text">
+                          <strong>Español:</strong> ${desc.enumDescEsp}
+                        </p>
+                        <p class="explanation-box__text explanation-box__text--spaced">
+                          <strong>English:</strong> ${desc.enumDescEng}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
