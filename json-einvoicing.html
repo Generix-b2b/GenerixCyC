@@ -677,7 +677,7 @@
       <div class="tab-navigation">
         <button class="tab-button active" data-tab="general">Descripción General</button>
         <button class="tab-button" data-tab="estructura">Estructura</button>
-        <button class="tab-button" data-tab="campos">Enumeraciones</button>
+        <button class="tab-button" data-tab="enumeraciones">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
         <button class="tab-button" data-tab="validaciones">Validaciones</button>
         <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
@@ -738,60 +738,13 @@
             <div class="content-section">
               <h2>Estructura del Schema JSON</h2>
               <p>Explora la estructura completa del esquema JSON para e-Invoicing.
-                Cada bloque se muestra a continuación con su código y
-                descripción.</p>
-              <p><a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
-                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
-              
+                Cada bloque se muestra a continuación con su código y descripción.</p>
+              <p>
+                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">
+                📥 Ver GNX_Schema_Json.json completo</a>
+                </p>              
               <div id="schemaBlocksContainer"></div>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
-              <p>a</p>
             </div>
           </div>
           
@@ -802,17 +755,29 @@
       </div>
 
       <!-- ============ TAB 3: Enumeraciones ============ -->
-      <div id="campos" class="tab-content">
-        <div class="content-section">
-          <h2>Enumeraciones</h2>
-          <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing.
-            Cada enumeración se carga dinámicamente desde
-            <code>definitions.Enums</code> del schema y muestra su tipo,
-            descripción y los valores válidos.</p>
-          <p><a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Ver GNX_Schema_Json.json completo</a></p>
-
-          <div id="enumsContainer"></div>
+      <div id="enumeraciones" class="tab-content">
+        <div class="tab-wrapper">
+          <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
+          <div class="sidebar-nav">
+            <div class="sidebar-nav-title">Ir a</div>
+            <div id="navButtons" class="sidebar-nav-buttons"></div>
+          </div>
+          <!-- COLUMNA 2: CONTENIDO CENTRAL -->
+          <div class="tab-content-middle">
+            <div class="content-section">
+              <h2>Enumeraciones</h2>
+              <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing. Cada enumeración se carga dinámicamente desde
+                <code>definitions.Enums</code> del schema y muestra su tipo, descripción y los valores válidos.</p>
+              <p>
+                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 
+                📥 Ver GNX_Schema_Json.json completo</a>
+              </p>
+              <div id="enumsContainer"></div>
+            </div>
+          </div>          
+          <!-- COLUMNA 3: ESPACIO EN BLANCO -->
+          <div class="sidebar-right"></div>
         </div>
       </div>
 
