@@ -10,7 +10,7 @@
   // Detectar la ruta relativa del footer.html basada en la ubicación del script
   function getFooterPath() {
     // Si el script y footer.html están en el mismo directorio
-    return 'footer.html';
+    return '../footer.html';
   }
 
   // Cargar el footer cuando el DOM esté listo
