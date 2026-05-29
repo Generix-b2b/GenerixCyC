@@ -401,7 +401,13 @@
       color: var(--generix-dark);
       padding: 2px 6px;
       border-radius: 3px;
-    }   
+    } 
+    .tag--text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }  
     .tech-details__values {
       margin: 0 0 12px 0;
     }
@@ -1498,15 +1504,11 @@
                       <p class="tech-details__row">
                         <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
                       </p>
-                      <div class="tech-details__values">${valuesHtml}</div>
+                      <div class="tech-details__values">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
                       <p class="tech-details__row">
                         <strong>Usado en:</strong>
                       </p>
                       <div class="tech-details__used-in">${usedInHtml}</div>
-                    </div>
-
-                    <div class="enums-description">
-                      <div class="tech-details__used-in">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
                     </div>
                   </div>
                 </div>
@@ -1721,9 +1723,9 @@
             const code = esp.code || eng.code;
             rows += `
               <tr>
-                <td><span class="tag tag--type">${escapeHtml(code)}</span></td>
-                <td>${escapeHtml(esp.desc)}</td>
-                <td>${escapeHtml(eng.desc)}</td>
+                <td><span class="tag tag--required">${escapeHtml(code)}</span></td>
+                <td><span class="tag tag--text">${escapeHtml(esp.desc)}</span></td>
+                <td><span class="tag tag--text">${escapeHtml(eng.desc)}</span></td>
               </tr>
             `;
           }
