@@ -113,8 +113,9 @@
     .page-header-breadcrumb a:hover {
       text-decoration: underline;
     }
-    .page-header-breadcrumb span { margin: 0 8px; }
-
+    .page-header-breadcrumb span { 
+      margin: 0 8px; 
+    }
     .page-header h1 {
       font-size: 2.5rem;
       font-weight: 700;
@@ -245,7 +246,7 @@
       border: 1px solid var(--gray-300);
       border-radius: 4px;
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       font-weight: 500;
       transition: all 0.2s;
       text-align: left;
@@ -264,9 +265,123 @@
       color: var(--white);
       border-color: var(--generix-orange);
     }
+
     .tab-content-middle {
       padding: 0 32px;
     }
+    .block-container {
+      margin-bottom: 60px;
+      scroll-margin-top: 150px;
+    }
+    .block-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    /* Panel izquierdo: Código */
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 35, 51, 0.15);
+    }
+    .code-panel__header {
+      padding: 16px;
+      background: var(--generix-dark);
+      color: var(--white);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .code-panel__icon {
+      font-size: 1.2rem;
+    }
+    .code-panel__pre {
+      margin: 0;
+      padding: 24px;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    /* Panel derecho: Explicación */
+    .explanation-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .explanation-box__title {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    .explanation-box__text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .explanation-box__text--spaced {
+      margin: 16px 0 0 0;
+    }
+    /* Panel derecho: detalles técnicos */
+    .tech-details {
+      background: var(--gray-100);
+      border-left: 4px solid var(--gray-500);
+      padding: 20px;
+      border-radius: 6px;
+    }  
+    .tech-details__title {
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }   
+    .tech-details__row {
+      color: var(--gray-700);
+      margin: 0 0 8px 0;
+    }   
+    .tech-details__row--last {
+      margin: 0;
+    }   
+    /* Panel derecho: Etiquetas (tags) */
+    .tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }   
+    .tag--type {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+    }   
+    .tag--properties {
+      background: var(--white);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }   
+    .tag--required {
+      background: var(--generix-orange);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }   
+    .tag--required-empty {
+      background: var(--white);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }   
+    /* Separador inferior */
+    .block-divider {
+      border-bottom: 1px solid var(--gray-200);
+      margin-top: 40px;
+    }
+
+
     .sidebar-right {
       /* Columna derecha en blanco */
       background-color: transparent;
@@ -1257,62 +1372,57 @@
             `;
 
             html += `
-              <div style="margin-bottom: 60px; scroll-margin-top: 150px;" id="block-${blockName}">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
+              <div class="block-container" id="block-${blockName}">
+                <div class="block-grid">
                   <!-- Panel izquierdo: Código -->
-                  <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-                    <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
-                      <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
+                  <div class="code-panel">
+                    <div class="code-panel__header">
+                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
                       <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
                     </div>
-                    <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
+                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
                   </div>
 
                   <!-- Panel derecho: Explicación -->
                   <div>
-                    <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
-                      <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
-                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                    <div class="explanation-box">
+                      <h4 class="explanation-box__title">${desc.title}</h4>
+                      <p class="explanation-box__description">
                         <strong>Español:</strong> ${desc.esp}
                       </p>
-                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
+                      <p class="explanation-box__text explanation-box__text--spaced">
                         <strong>English:</strong> ${desc.eng}
                       </p>
                     </div>
 
-                    <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
-                      <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
-                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                    <div class="tech-details">
+                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                      <p class="tech-details__row">
                         <strong>Tipo:</strong> 
-                        <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                          ${blockContent.type || 'N/A'}
-                        </span>
+                        <span class="tag tag--type">${blockContent.type || 'N/A'}</span>
                       </p>
                       ${blockContent.properties 
-                        ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        ? `<p class="tech-details__row">
                             <strong>Propiedades:</strong> 
-                            <span style="background: var(--white); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;"> 
-                              ${Object.keys(blockContent.properties).join(', ')}
-                            </span>
+                            <span class="tag tag--properties">${Object.keys(blockContent.properties).join(', ')}</span>
                           </p>` : ''}
                       ${blockContent.required && blockContent.required.length > 0
-                        ? `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        ? `<p class="tech-details__row">
                             <strong>Requeridos:</strong> 
-                            <span style="background: var(--generix-orange); color: var(--generix-dark); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                                ${blockContent.required.join(', ')}
-                            </span>
+                            <span class="tag tag--required">${blockContent.required.join(', ')}</span>
                           </p>` 
-                        : `<p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                        : `<p class="tech-details__row">
                             <strong>Requeridos:</strong> 
-                            <span style="background: var(--white); color: var(--generix-dark); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                                No required data in this segment
-                            </span>
+                            <span class="tag tag--required-empty">No required data in this segment</span>
                           </p>`}
-                      ${blockContent.description ? `<p style="color: var(--gray-700); margin: 0;"><strong>Descripción:</strong> ${blockContent.description}</p>` : ''}
+                      ${blockContent.description 
+                        ? `<p class="tech-details__row tech-details__row--last">
+                          <strong>Descripción:</strong> ${blockContent.description}</p>` 
+                        : ''}
                     </div>
                   </div>
                 </div>
-                <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
+                <div class="block-divider"></div>
               </div>
             `;
           });
