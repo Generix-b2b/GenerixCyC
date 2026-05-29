@@ -190,6 +190,11 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    .download-link {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
 
     /* ============ THREE COLUMN LAYOUT ============ */
     .tab-wrapper {
@@ -751,7 +756,7 @@
                 Cada bloque se muestra a continuación con su código y descripción.</p>
               <p>
                 <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
-                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;">
+                class="download-link">
                 📥 Ver GNX_Schema_Json.json completo</a>
                 </p>              
               <div id="schemaBlocksContainer"></div>
@@ -770,7 +775,7 @@
           <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
           <div class="sidebar-nav">
             <div class="sidebar-nav-title">Ir a</div>
-            <div id="navButtons" class="sidebar-nav-buttons"></div>
+            <div id="navButtonsEnums" class="sidebar-nav-buttons"></div>
           </div>
           <!-- COLUMNA 2: CONTENIDO CENTRAL -->
           <div class="tab-content-middle">
@@ -780,7 +785,7 @@
                 <code>definitions.Enums</code> del schema y muestra su tipo, descripción y los valores válidos.</p>
               <p>
                 <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
-                style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 
+                class="download-link">
                 📥 Ver GNX_Schema_Json.json completo</a>
               </p>
               <div id="enumsContainer"></div>
@@ -796,10 +801,15 @@
         <div class="content-section">
           <h2>Ejemplos Prácticos</h2>
 
-          <p>A continuación se muestra un ejemplo completo de factura en formato JSON estándar Generix e-Invoicing, basado en el esquema normativo español.</p>
-          <p><a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
-            style="color: var(--generix-orange); text-decoration: none; font-weight: 500;"> 📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a></p>
-
+          <p>A continuación se muestra un ejemplo completo de factura en formato JSON estándar Generix e-Invoicing, 
+            basado en el esquema normativo español.
+          </p>
+          <p>
+            <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
+            class="download-link">
+            📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a>
+          </p>
+          
           <h3>Estructura Completa de Factura Ejemplo</h3>
           <div id="examplesContainer"></div>
         </div>
@@ -815,7 +825,7 @@
             <div class="info-card">
               <h4>Estructura JSON</h4>
               <p>
-                El JSON debe ser válido y bien formado. </br>
+                El JSON debe ser válido y bien formado. <br/>
                 Se rechazarán documentos con errores de sintaxis.
               </p>
             </div>
@@ -1034,7 +1044,7 @@
             eng: 'Payment data: payment method, terms, due dates and bank references.'
           },
           AdditionalData:{
-            title: '� AdditionalData - Datos Adicionales',
+            title: '📎 AdditionalData - Datos Adicionales',
             esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
             eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
           },
@@ -1065,6 +1075,7 @@
           'InvoiceTotals',
           'ItemWrapper',
           'PaymentWrapper',
+          'AdditionalData',
           'AmountContainer'
         ];
 
@@ -1231,6 +1242,7 @@
             if (!enumContent) return;
 
             const desc = enumDescriptions[enumName];
+            if (!desc) return;
 
             const enumWithName = { [enumName]: enumContent };
             const jsonCode = JSON.stringify(enumWithName, null, 2);
@@ -1517,7 +1529,7 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Factura Completa - Ejemplo JSON Estándar</span>
-                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this, 'exampleJsonCode') style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
               <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
@@ -1587,15 +1599,12 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('exampleJsonCode');
-        const text = codeElement.innerText;
+      function copyJSONToClipboard(button, codeId) {
+        const text = document.getElementById(codeId).innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => {
-            button.innerText = originalText;
-          }, 2000);
+          setTimeout(() => button.innerText = originalText, 2000);
         });
       }
 
@@ -1608,17 +1617,17 @@
     </script>
 
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Json.json.json -- responseContainer -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Json.json -- responseContainer -->
     <script>
       async function loadResponseJSON() {
         try {
-          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Json.json.json');
+          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Json.json');
           const responseData = await response.json();
           renderResponseJSON(responseData);
         } catch (error) {
           console.error('Error loading Response JSON:', error);
           document.getElementById('responseContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Json.json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Json.json: ' + error.message + '</p>';
         }
       }
 
@@ -1634,10 +1643,11 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
-                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this, 'responseJsonCode')" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
+              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;">
+                <code id="responseJsonCode">${escapeHtml(jsonCode)}</code></pre>
             </div>
           </div>
         `;
@@ -1660,15 +1670,12 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('responseJsonCode');
-        const text = codeElement.innerText;
+      function copyJSONToClipboard(button, codeId) {
+        const text = document.getElementById(codeId).innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => {
-            button.innerText = originalText;
-          }, 2000);
+          setTimeout(() => button.innerText = originalText, 2000);
         });
       }
 
@@ -1679,17 +1686,17 @@
         loadResponseJSON();
       }
     </script>
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Schema_Json.json.json -->
+    <!-- Cargar el JSON de ejemplo desde GNX_Response_Schema_Json.json -->
     <script>
       async function loadResponseSchemaJSON() {
         try {
-          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json.json');
+          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json');
           const responseSchemaData = await response.json();
           renderResponseSchemaJSON(responseSchemaData);
         } catch (error) {
           console.error('Error loading response Schema JSON:', error);
           document.getElementById('responseSchemaContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Schema_Json.json.json: ' + error.message + '</p>';
+            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Schema_Json.json: ' + error.message + '</p>';
         }
       }
 
@@ -1705,7 +1712,7 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Esquema de Respuesta</span>
-                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this, 'responseSchemaJsonCode')" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
               <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="responseSchemaJsonCode">${escapeHtml(jsonCode)}</code></pre>
@@ -1731,15 +1738,12 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button) {
-        const codeElement = document.getElementById('responseSchemaJsonCode');
-        const text = codeElement.innerText;
+      function copyJSONToClipboard(button, codeId) {
+        const text = document.getElementById(codeId).innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => {
-            button.innerText = originalText;
-          }, 2000);
+          setTimeout(() => button.innerText = originalText, 2000);
         });
       }
 
