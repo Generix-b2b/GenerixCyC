@@ -279,9 +279,6 @@
       margin-bottom: 60px;
       scroll-margin-top: 150px;
     }
-    .block-container--enum {
-      scroll-margin-top: 100px;
-    }
     .block-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -809,7 +806,7 @@
             class="download-link">
             📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a>
           </p>
-          
+
           <h3>Estructura Completa de Factura Ejemplo</h3>
           <div id="examplesContainer"></div>
         </div>
@@ -1270,7 +1267,7 @@
             `;
 
             html += `
-              <div class="block-container block-container--enum" id="enum-${enumName}">
+              <div class="block-container" id="enum-${enumName}">
                 <div class="block-grid">
                   <!-- Panel izquierdo: Código -->
                   <div class="code-panel">
@@ -1529,7 +1526,7 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Factura Completa - Ejemplo JSON Estándar</span>
-                <button onclick="copyJSONToClipboard(this, 'exampleJsonCode') style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
               <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
@@ -1599,12 +1596,15 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button, codeId) {
-        const text = document.getElementById(codeId).innerText;
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('exampleJsonCode');
+        const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => button.innerText = originalText, 2000);
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
         });
       }
 
@@ -1643,7 +1643,7 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
-                <button onclick="copyJSONToClipboard(this, 'responseJsonCode')" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
               <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;">
@@ -1670,12 +1670,15 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button, codeId) {
-        const text = document.getElementById(codeId).innerText;
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('responseJsonCode');
+        const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => button.innerText = originalText, 2000);
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
         });
       }
 
@@ -1712,7 +1715,7 @@
               <!-- Header del bloque de código -->
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
                 <span style="font-size: 1.1rem;">📋 Esquema de Respuesta</span>
-                <button onclick="copyJSONToClipboard(this, 'responseSchemaJsonCode')" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
+                <button onclick="copyJSONToClipboard(this)" style="background: var(--generix-orange); color: var(--white); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Copiar</button>
               </div>
               <!-- Código JSON -->
               <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="responseSchemaJsonCode">${escapeHtml(jsonCode)}</code></pre>
@@ -1738,12 +1741,15 @@
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
       }
 
-      function copyJSONToClipboard(button, codeId) {
-        const text = document.getElementById(codeId).innerText;
+      function copyJSONToClipboard(button) {
+        const codeElement = document.getElementById('responseSchemaJsonCode');
+        const text = codeElement.innerText;
         navigator.clipboard.writeText(text).then(() => {
           const originalText = button.innerText;
           button.innerText = '✓ Copiado';
-          setTimeout(() => button.innerText = originalText, 2000);
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 2000);
         });
       }
 
