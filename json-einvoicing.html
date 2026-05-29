@@ -392,7 +392,7 @@
       margin-bottom: -20px;
     }
 
-    
+
     .sidebar-right {
       /* Columna derecha en blanco */
       background-color: transparent;
@@ -939,6 +939,7 @@
     <!-- GNX_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
     <script>
         let schemaData = null;
+        let navObserver = null;
 
         // Diccionario de descripciones para cada bloque
         const descriptions = {
@@ -1214,7 +1215,7 @@
 
         function renderAllEnums() {
           const container = document.getElementById('enumsContainer');
-          const navContainer = document.getElementById('navButtons');
+          const navContainer = document.getElementById('navButtonsEnums');
           if (!container) return;
           if (!schemaData || !schemaData.definitions || !schemaData.definitions.Enums) {
             container.innerHTML = '<p style="color: var(--gray-500);">No se ha encontrado la sección <code>definitions.Enums</code> en el schema.</p>';
@@ -1223,18 +1224,13 @@
 
           const enums = schemaData.definitions.Enums;
           let html = '';
-          let navHtml = '';
+          let navHtmlEnums = '';
 
           enumOrder.forEach(enumName => {
             const enumContent = enums[enumName];
             if (!enumContent) return;
 
-            const desc = enumDescriptions[enumName] || {
-              title: '🔖 ' + enumName,
-              esp: 'Enumeración del schema.',
-              eng: 'Schema enumeration.',
-              usedIn: []
-            };
+            const desc = enumDescriptions[enumName];
 
             const enumWithName = { [enumName]: enumContent };
             const jsonCode = JSON.stringify(enumWithName, null, 2);
@@ -1254,10 +1250,11 @@
                 ).join('')
               : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
 
-            navHtml += `
-              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" onclick="setActiveNavButton(this, event);">
-                ${blockName}
-              </a>
+            navHtmlEnums += `
+              <a href="#enum-${enumName}" class="sidebar-nav-btn" data-enum="${enumName}" 
+              onclick="setActiveNavButton(this, event);">
+                ${enumName}
+                </a>
             `;
 
             html += `
@@ -1308,7 +1305,7 @@
 
           container.innerHTML = html;
           if (navContainer) {
-            navContainer.innerHTML = navHtml;
+            navContainer.innerHTML = navHtmlEnums;
             setTimeout(() => {
                 initNavObserver();
               }, 0);
@@ -1423,29 +1420,46 @@
               }, 0);
           }
         }
+
         function initNavObserver() {
-          const observer = new IntersectionObserver((entries) => {
+          // Detecta si ya existía un observer (porque renderAllBlocks lo creó),
+          // lo desconectamos antes de crear el nuevo. Si no, se duplican.
+          if (navObserver) {
+            navObserver.disconnect();
+          }
+          navObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
-                // Remover activo de todos
+                // Quitar 'active' a todos los botones (de bloques y enums)
                 document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
                   btn.classList.remove('active');
                 });
-                // Marcar el botón correspondiente como activo
-                const blockName = entry.target.id.replace('block-', '');
-                const activeBtn = document.querySelector(`.sidebar-nav-btn[data-block="${blockName}"]`);
+
+                //detectar si el id es de bloque o de enum
+                const id = entry.target.id; // "block-XXX" o "enum-XXX"
+                let activeBtn = null;
+
+                if (id.startsWith('block-')) {
+                  const blockName = id.replace('block-', '');
+                  activeBtn = document.querySelector(`.sidebar-nav-btn[data-block="${blockName}"]`);
+                } else if (id.startsWith('enum-')) {
+                  const enumName = id.replace('enum-', '');
+                  activeBtn = document.querySelector(`.sidebar-nav-btn[data-enum="${enumName}"]`);
+                }
+
                 if (activeBtn) {
                   activeBtn.classList.add('active');
                 }
               }
             });
           }, { 
-            rootMargin: "-120px 0px -60% 0px", // 🔥 clave
+            rootMargin: "-120px 0px -60% 0px",
             threshold: 0
           });
 
-          document.querySelectorAll('[id^="block-"]').forEach(block => {
-            observer.observe(block);
+          // observamos AMBOS tipos de contenedor (bloques + enums)
+          document.querySelectorAll('[id^="block-"], [id^="enum-"]').forEach(el => {
+            navObserver.observe(el);
           });
         }
 
