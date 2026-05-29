@@ -633,6 +633,64 @@
       line-height: 1.7;
       margin: 8px 0 0 0;
     }
+    /* ============ FOOTER STYLES ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 60px 32px 30px;
+      position: relative;
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--generix-orange) 0%, transparent 100%);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand h3 {
+      color: var(--white);
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 380px;
+    }
+    .footer-brand .tagline {
+      color: var(--generix-orange);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+    footer .accent { 
+      color: var(--generix-orange); 
+    }
 
     /* ============ RESPONSIVE ============ */
     @media (max-width: 1300px) {
@@ -655,6 +713,21 @@
       }
       #schemaBlocksContainer > div > div {
         grid-template-columns: 1fr !important;
+      }
+
+      footer {
+        padding: 40px 24px 30px;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+      }
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
       }
     }
   </style>
@@ -699,38 +772,52 @@
       <div id="general" class="tab-content active">
         <div class="content-section">
           <h2>Descripción General</h2>
-          <p>El estándar JSON e-Invoicing de Generix Spain proporciona una
-            estructura unificada y modular para la representación de facturas
-            electrónicas en formato JSON. Este estándar está diseñado para
-            cumplir con la normativa española de facturación electrónica y
-            facilitar la integración con sistemas B2B.</p>
+          <p>El estándar JSON e-Invoicing de Generix Spain proporciona una estructura unificada y modular para la representación de facturas electrónicas en formato JSON. 
+            <br/>Este estándar está diseñado para cumplir con la normativa española de facturación electrónica y facilitar la integración con sistemas B2B.
+          </p>
 
           <h3>Características Principales</h3>
           <ul>
-            <li><strong>Compatibilidad:</strong> Cumple con los requisitos de la
-              Ley 3/2023 de Facturación Electrónica y normativa fiscal
-              española.</li>
-            <li><strong>Modularidad:</strong> Estructura flexible que permite
-              incluir solo los campos necesarios para cada tipo de factura.</li>
-            <li><strong>Validación:</strong> Incluye reglas de validación
-              integradas para garantizar la integridad de los datos.</li>
-            <li><strong>Escalabilidad:</strong> Diseñado para soportar grandes
-              volúmenes de facturas sin degradación de rendimiento.</li>
-            <li><strong>Interoperabilidad:</strong> Compatible con sistemas EDI,
-              APIs REST y otros estándares de intercambio de datos.</li>
+            <li>
+              <strong>Compatibilidad:</strong> 
+              Cumple con los requisitos de la Ley 3/2023 de Facturación Electrónica y normativa fiscal española.
+            </li>
+            <li>
+              <strong>Modularidad:</strong> 
+              Estructura flexible que permite incluir solo los campos necesarios para cada tipo de factura.
+            </li>
+            <li>
+              <strong>Validación:</strong> 
+              Incluye reglas de validación integradas para garantizar la integridad de los datos.
+            </li>
+            <li>
+              <strong>Escalabilidad:</strong> 
+              Diseñado para soportar grandes volúmenes de facturas sin degradación de rendimiento.
+            </li>
           </ul>
 
           <div class="highlight-box">
-            <strong>Nota importante:</strong> Este estándar forma parte del
-            ecosistema de Generix Spain para facturación electrónica. Se
-            recomienda revisar la documentación completa antes de implementar.
+            <strong>Nota importante:</strong> 
+            <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica. 
+            <br/>Se recomienda revisar la documentación completa antes de implementar.
           </div>
 
           <h3>Versiones Soportadas</h3>
           <ul>
-            <li>Versión 2.0 - Versión actual (recomendada)</li>
-            <li>Versión 1.5 - Mantenimiento hasta 2025</li>
-            <li>Versión 1.0 - Deprecada (no se recomienda su uso)</li>
+            <li>
+              Versión 2.0 - Versión actual
+              <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                class="download-link">
+                📥 GNX_Schema_Json.json
+              </a>
+            </li>
+            <li>
+              Versión 1.0 - En Desuso
+              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
+                class="download-link">
+                📥 GNX_Schema_Json_v1.0.json
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -940,7 +1027,27 @@
     </div>
 
     <!-- ============ FOOTER ============ -->
-    <div id="footer-container"></div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand footer-logo">
+            <img src="Assets/generix.svg" alt="Generix">
+            <div class="tagline">Connecting Businesses Together</div>
+            <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+          </div>
+          <div>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
+              <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
+              EDI · API · Peppol · Compliance
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+          <p>Especificaciones técnicas e integración B2B</p>
+        </div>
+      </div>
+    </footer>
 
     <!-- ============ SCRIPT ============ -->
     <!-- GNX_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
@@ -1521,58 +1628,52 @@
         const jsonCode = JSON.stringify(data, null, 2);
         
         let html = `
-          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
-            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-              <!-- Header del bloque de código -->
-              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">📋 Factura Completa - Ejemplo JSON Estándar</span>
-              </div>
-              <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
-            </div>
-
-            <!-- Panel de información -->
-            <div style="margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-              <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px;">
-                <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">📌 Estructura Principal</h4>
-                <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
-                  Este ejemplo incluye la estructura completa con:
-                </p>
-                <ul style="color: var(--gray-700); font-size: 0.95rem; margin: 12px 0 0 0; padding-left: 20px;">
-                  <li><strong>FileHeader:</strong> Información del lote y versión del esquema</li>
-                  <li><strong>Parties:</strong> Datos de vendedor, comprador y terceros</li>
-                  <li><strong>Legislación:</strong> Configuración según normativa (CreaYCrece, VeriFactu, FACe, SII)</li>
-                  <li><strong>Invoice:</strong> Datos completos de la factura con líneas y detalles fiscales</li>
-                </ul>
+          <div class="block-container">
+            <div class="block-grid">
+              <!-- Panel completo del JSON -->
+              <div class="code-panel">
+                <div class="code-panel__header">
+                  <span class="code-panel__icon">📋</span>
+                  <span> Ejemplo JSON Estándar - Factura Completa</span>
+                </div>
+                <!-- Código JSON -->
+                <pre class="code-panel__pre"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
               </div>
 
-              <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
-                <h4 style="color: var(--gray-700); font-size: 1.1rem; margin-bottom: 12px;">💡 Detalles Técnicos</h4>
-                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
-                  <strong>Versión Schema:</strong> 
-                  <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                    ${data.InvoiceGNX?.FileHeader?.SchemaVersion || 'N/A'}
-                  </span>
-                </p>
-                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
-                  <strong>Moneda:</strong> 
-                  <span style="background: var(--white); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                    ${data.InvoiceGNX?.FileHeader?.Batch?.InvoiceCurrencyCode || 'N/A'}
-                  </span>
-                </p>
-                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0 0 8px 0;">
-                  <strong>Importe Total:</strong> 
-                  <span style="background: var(--generix-orange); color: var(--generix-dark); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 600;">
-                    ${formatCurrency(data.InvoiceGNX?.FileHeader?.Batch?.TotalInvoicesAmount?.TotalAmount || 0)}
-                  </span>
-                </p>
-                <p style="color: var(--gray-700); font-size: 0.95rem; margin: 0;">
-                  <strong>Facturas en lote:</strong> 
-                  <span style="background: var(--white); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                    ${data.InvoiceGNX?.FileHeader?.Batch?.InvoicesCount || 0}
-                  </span>
-                </p>
-              </div>
+              <!-- Panel derecho: Explicación -->
+              <div>
+                <div class="explanation-box">
+                  <!-- <h4 class="explanation-box__title">📌 Estructura Principal</h4> -->
+                  <p class="explanation-box__description">
+                    Este ejemplo incluye la estructura completa con:
+                    <ul>
+                      <li><strong>FileHeader:</strong> Información del lote y versión del esquema</li>
+                      <li><strong>Parties:</strong> Datos de vendedor, comprador y terceros</li>
+                      <li><strong>Legislación:</strong> Configuración según normativa (CreaYCrece, VeriFactu, FACe, SII)</li>
+                      <li><strong>Invoice:</strong> Datos completos de la factura con líneas y detalles fiscales</li>
+                    </ul>
+                  </p>
+                </div>
+
+                <div class="tech-details">
+                  <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                  <p class="tech-details__row">
+                    <strong>Versión Schema:</strong> 
+                    <span class="tag tag--type"> ${data.InvoiceGNX?.FileHeader?.SchemaVersion || 'N/A'}</span>
+                  </p>
+                  <p class="tech-details__row">
+                    <strong>Moneda:</strong> 
+                    <span class="tag tag--properties"> ${data.InvoiceGNX?.FileHeader?.Batch?.InvoiceCurrencyCode || 'N/A'}</span>
+                  </p>
+                  <p class="tech-details__row">
+                    <strong>Importe Total:</strong> 
+                    <span class="tag tag--required"> ${formatCurrency(data.InvoiceGNX?.FileHeader?.Batch?.TotalInvoicesAmount?.TotalAmount || 0)}</span>
+                  </p>
+                  <p class="tech-details__row">
+                    <strong>Facturas en lote:</strong> 
+                    <span class="tag tag--properties"> ${data.InvoiceGNX?.FileHeader?.Batch?.InvoicesCount || 0}</span>
+                  </p>
+                </div>
             </div>
           </div>
         `;
@@ -1722,7 +1823,6 @@
       }
     </script>
 
-
     <script>
       document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -1739,6 +1839,5 @@
       });
     </script>
 
-    <script src="Assets/load-footer.js"></script>
   </body>
 </html>
