@@ -21,6 +21,8 @@
       --gray-500: #6B7E8C;
       --gray-700: #3A4A56;
       --gray-900: #0F1B24;
+      --generix-blue:#00A59A;
+      --generix-blue-soft:#B9FFFA;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -359,6 +361,7 @@
       border-left: 4px solid var(--gray-500);
       padding: 20px;
       border-radius: 6px;
+      margin-bottom: 20px;
     }  
     .tech-details__title {
       color: var(--gray-700);
@@ -370,7 +373,15 @@
     }   
     .tech-details__row--last {
       margin: 0;
-    }   
+    }  
+    
+    .enums-description {
+      background: var(--generix-blue-soft);
+      border-left: 4px solid var(--generix-blue);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
     /* Panel derecho: Etiquetas (tags) */
     .tag {
       padding: 2px 8px;
@@ -1412,7 +1423,7 @@
                       <p class="explanation-box__text">
                         <strong>Español:</strong> ${desc.esp}
                       </p>
-                      <p class="explanation-box__text explanation-box__text--spaced">
+                      <p class="explanation-box__text">
                         <strong>English:</strong> ${desc.eng}
                       </p>
                     </div>
@@ -1432,12 +1443,13 @@
                       </p>
                       <div class="tech-details__used-in">${usedInHtml}</div>
                     </div>
-                    <div class="tech-details">
+
+                    <div class="enums-description">
                       <div class="tech-details__used-in">
                         <p class="explanation-box__text">
                           <strong>Español:</strong> ${desc.enumDescEsp}
                         </p>
-                        <p class="explanation-box__text explanation-box__text--spaced">
+                        <p class="explanation-box__text">
                           <strong>English:</strong> ${desc.enumDescEng}
                         </p>
                       </div>
