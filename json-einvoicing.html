@@ -1251,19 +1251,7 @@
             const emoji = desc.title.split(' ')[0];
             const label = desc.title.substring(desc.title.indexOf(' ') + 1);
             navHtml += `
-              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" style="
-                display: inline-block;
-                padding: 8px 12px;
-                background: var(--white);
-                color: var(--generix-dark);
-                border: 1px solid var(--gray-300);
-                border-radius: 4px;
-                text-decoration: none;
-                font-size: 0.9rem;
-                font-weight: 500;
-                transition: all 0.2s;
-                white-space: nowrap;
-              " onclick="setActiveNavButton(this, event);">
+              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" onclick="setActiveNavButton(this, event);">
                 ${blockName}
               </a>
             `;
