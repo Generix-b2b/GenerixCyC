@@ -266,12 +266,16 @@
       border-color: var(--generix-orange);
     }
 
+
     .tab-content-middle {
       padding: 0 32px;
     }
     .block-container {
       margin-bottom: 60px;
       scroll-margin-top: 150px;
+    }
+    .block-container--enum {
+      scroll-margin-top: 100px;
     }
     .block-grid {
       display: grid;
@@ -375,6 +379,12 @@
       padding: 2px 6px;
       border-radius: 3px;
     }   
+    .tech-details__values {
+      margin: 0 0 12px 0;
+    }
+    .tech-details__used-in {
+      /* sin estilo extra, contenedor semántico */
+    }
     /* Separador inferior */
     .block-divider {
       border-bottom: 1px solid var(--gray-200);
@@ -382,7 +392,7 @@
       margin-bottom: -20px;
     }
 
-
+    
     .sidebar-right {
       /* Columna derecha en blanco */
       background-color: transparent;
@@ -1204,6 +1214,7 @@
 
         function renderAllEnums() {
           const container = document.getElementById('enumsContainer');
+          const navContainer = document.getElementById('navButtons');
           if (!container) return;
           if (!schemaData || !schemaData.definitions || !schemaData.definitions.Enums) {
             container.innerHTML = '<p style="color: var(--gray-500);">No se ha encontrado la sección <code>definitions.Enums</code> en el schema.</p>';
@@ -1212,6 +1223,7 @@
 
           const enums = schemaData.definitions.Enums;
           let html = '';
+          let navHtml = '';
 
           enumOrder.forEach(enumName => {
             const enumContent = enums[enumName];
@@ -1242,55 +1254,65 @@
                 ).join('')
               : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
 
+            navHtml += `
+              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" onclick="setActiveNavButton(this, event);">
+                ${blockName}
+              </a>
+            `;
+
             html += `
-              <div style="margin-bottom: 60px; scroll-margin-top: 100px;" id="enum-${enumName}">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
+              <div class="block-container block-container--enum" id="enum-${enumName}">
+                <div class="block-grid">
                   <!-- Panel izquierdo: Código -->
-                  <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-                    <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px;">
-                      <span style="font-size: 1.2rem;">${desc.title.split(' ')[0]}</span>
+                  <div class="code-panel">
+                    <div class="code-panel__header">
+                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
                       <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
                     </div>
-                    <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto;"><code>${escapeHtml(jsonCode)}</code></pre>
+                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
                   </div>
 
                   <!-- Panel derecho: Explicación -->
                   <div>
-                    <div style="background: var(--generix-orange-soft); border-left: 4px solid var(--generix-orange); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
-                      <h4 style="color: var(--generix-orange); font-size: 1.1rem; margin-bottom: 12px;">${desc.title}</h4>
-                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+                    <div class="explanation-box">
+                      <!-- <h4 class="explanation-box__title">${desc.title}</h4> -->
+                      <p class="explanation-box__text">
                         <strong>Español:</strong> ${desc.esp}
                       </p>
-                      <p style="color: var(--gray-700); font-size: 0.95rem; line-height: 1.7; margin: 16px 0 0 0;">
+                      <p class="explanation-box__text explanation-box__text--spaced">
                         <strong>English:</strong> ${desc.eng}
                       </p>
                     </div>
 
-                    <div style="background: var(--gray-100); border-left: 4px solid var(--gray-500); padding: 20px; border-radius: 6px;">
-                      <h4 style="color: var(--gray-700); margin-bottom: 12px;">📌 Detalles Técnicos</h4>
-                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                    <div class="tech-details">
+                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                      <p class="tech-details__row">
                         <strong>Tipo:</strong>
-                        <span style="background: var(--generix-dark); color: var(--generix-orange); padding: 2px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
-                          ${escapeHtml(enumContent.type || 'string')}
-                        </span>
+                        <span class="tag tag--type"> ${escapeHtml(enumContent.type || 'string')} </span>
                       </p>
-                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                      <p class="tech-details__row">
                         <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
                       </p>
-                      <div style="margin: 0 0 12px 0;">${valuesHtml}</div>
-                      <p style="color: var(--gray-700); margin: 0 0 8px 0;">
+                      <div class="tech-details__values">${valuesHtml}</div>
+                      <p class="tech-details__row">
                         <strong>Usado en:</strong>
                       </p>
-                      <div>${usedInHtml}</div>
+                      <div class="tech-details__used-in">${usedInHtml}</div>
                     </div>
                   </div>
                 </div>
-                <div style="border-bottom: 1px solid var(--gray-200); margin-top: 40px;"></div>
+                <div class="block-divider"></div>
               </div>
             `;
           });
 
           container.innerHTML = html;
+          if (navContainer) {
+            navContainer.innerHTML = navHtml;
+            setTimeout(() => {
+                initNavObserver();
+              }, 0);
+          }
         }
 
         function getBlockContent(blockName) {
