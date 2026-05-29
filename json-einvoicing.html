@@ -374,14 +374,6 @@
     .tech-details__row--last {
       margin: 0;
     }  
-    
-    .enums-description {
-      background: var(--generix-blue-soft);
-      border-left: 4px solid var(--generix-blue);
-      padding: 20px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
     /* Panel derecho: Etiquetas (tags) */
     .tag {
       padding: 2px 8px;
@@ -423,6 +415,55 @@
       margin-bottom: -20px;
     }
 
+    .enums-description {
+      background: var(--generix-blue-soft);
+      border-left: 4px solid var(--generix-blue);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .enum-desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    .enum-desc-table thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    .enum-desc-table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .enum-desc-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .enum-desc-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .enum-desc-table tbody tr:hover {
+      background: var(--gray-50);
+    }
+    .enum-desc-table td:first-child,
+    .enum-desc-table th:first-child {
+      white-space: nowrap;
+      width: 1%;
+      text-align: center;
+    }
 
     .sidebar-right {
       /* Columna derecha en blanco */
@@ -1251,7 +1292,7 @@
             title: '🪪 InvoiceIssuerType - Tipo de Emisor',
             esp: 'Identifica quién emite materialmente la factura',
             eng: 'Identifies who issues the invoice',
-            enumDescEsp: 'EM = emisor | RE = receptor | TE = tercero .',
+            enumDescEsp: 'EM = emisor | RE = receptor | TE = tercero.',
             enumDescEng: 'EM = issuer | RE = recipient | TE = third party.',
             usedIn: ['FileHeader.InvoiceIssuerType']
           },
@@ -1275,68 +1316,88 @@
             title: '📄 InvoiceDocumentType - Tipo de Documento',
             esp: 'Código del tipo de documento de factura conforme a UNTDID 1001 y a la lista L1 del Anexo I (RD 238/2026)',
             eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026)',
-            enumDescEsp: '380 factura ordinaria | 381 nota de abono | 384 factura rectificativa | 388 factura emitida en sustitución de simplificadas | 389 factura emitida por el destinatario | 481 factura rectificativa emitida por el destinatario.',
-            enumDescEng: '380 standard invoice | 381 credit note | 384 corrective invoice | 388 invoice replacing simplified invoices | 389 invoice issued by the recipient | 481 corrective invoice issued by the recipient.',
+            enumDescEsp: '380 = factura ordinaria | 381 = nota de abono | 384 = factura rectificativa | 388 = factura emitida en sustitución de simplificadas | 389 = factura emitida por el destinatario | 481 = factura rectificativa emitida por el destinatario.',
+            enumDescEng: '380 = standard invoice | 381 = credit note | 384 = corrective invoice | 388 = invoice replacing simplified invoices | 389 = invoice issued by the recipient | 481 = corrective invoice issued by the recipient.',
             usedIn: ['InvoiceHeader.InvoiceDocumentType']
           },
           InvoiceClassEnum: {
             title: '📑 InvoiceClass - Clase de Factura',
-            esp: 'Clase de factura según su naturaleza dentro del flujo de emisión: OO = original (documento principal), OC = original copia (copia fiel del original con la misma validez tributaria).',
-            eng: 'Invoice class according to its nature within the issuance flow: OO = original (main document), OC = original copy (true copy of the original with the same tax validity).',
+            esp: 'Clase de factura según su naturaleza dentro del flujo de emisión',
+            eng: 'Invoice class according to its nature within the issuance flow',
+            enumDescEsp: 'OO = original (documento principal) | OC = original copia (copia fiel del original con la misma validez tributaria).',
+            enumDescEng: 'OO = original (main document) | OC = original copy (true copy of the original with the same tax validity).',
             usedIn: ['InvoiceHeader.InvoiceClass']
           },
           ReasonCodeEnum: {
             title: '✏️ ReasonCode - Motivo de Rectificación',
-            esp: 'Código del motivo por el que se emite una factura rectificativa según la lista L2.A del Anexo I: R1 = error fundado en derecho y Art. 80 Uno, Dos y Seis LIVA; R2 = Art. 80.3 LIVA (concurso de acreedores); R3 = Art. 80.4 LIVA (créditos incobrables); R4 = resto de causas.',
-            eng: 'Code identifying the reason for issuing a corrective invoice per list L2.A of Annex I: R1 = legally founded error and Art. 80 One, Two and Six VAT Law; R2 = Art. 80.3 VAT Law (creditor insolvency); R3 = Art. 80.4 VAT Law (uncollectible debts); R4 = other causes.',
+            esp: 'Código del motivo por el que se emite una factura rectificativa según la lista L2.A del Anexo I',
+            eng: 'Code identifying the reason for issuing a corrective invoice per list L2.A of Annex I',
+            enumDescEsp: 'R1 = error fundado en derecho y Art. 80 Uno, Dos y Seis LIVA | R2 = Art. 80.3 LIVA (concurso de acreedores) | R3 = Art. 80.4 LIVA (créditos incobrables) | R4 = resto de causas.',
+            enumDescEng: 'R1 = legally founded error and Art. 80 One, Two and Six VAT Law | R2 = Art. 80.3 VAT Law (creditor insolvency) | R3 = Art. 80.4 VAT Law (uncollectible debts) | R4 = other causes.',
             usedIn: ['Corrective.ReasonCode']
           },
           CorrectionMethodEnum: {
             title: '🔧 CorrectionMethod - Método de Corrección',
-            esp: 'Método empleado para la rectificación según la lista L2.B del Anexo I: I = rectificativa por diferencias (solo se informan los importes corregidos), S = rectificativa por sustitución (la nueva factura reemplaza íntegramente a la original).',
-            eng: 'Correction method used per list L2.B of Annex I: I = correction by differences (only corrected amounts are reported), S = correction by substitution (the new invoice fully replaces the original).',
+            esp: 'Método empleado para la rectificación según la lista L2.B del Anexo I',
+            eng: 'Correction method used per list L2.B of Annex I',
+            enumDescEsp: 'I = rectificativa por diferencias (solo se informan los importes corregidos) | S = rectificativa por sustitución (la nueva factura reemplaza íntegramente a la original).',
+            enumDescEng: 'I = correction by differences (only corrected amounts are reported) | S = correction by substitution (the new invoice fully replaces the original).',
             usedIn: ['Corrective.CorrectionMethod']
           },
           TaxTypeCodeEnum: {
             title: '💼 TaxTypeCode - Tipo de Impuesto',
-            esp: 'Código del impuesto aplicado: IVA = Impuesto sobre el Valor Añadido, IPSI = Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla), IGIC = Impuesto General Indirecto Canario, IRPF = retención por IRPF, RIS = retención por Impuesto sobre Sociedades / no Residentes, REEQ = recargo de equivalencia.',
-            eng: 'Code of the tax applied: IVA = Spanish VAT, IPSI = Production, Services and Import Tax (Ceuta and Melilla), IGIC = Canary Islands General Indirect Tax, IRPF = personal income tax withholding, RIS = corporate / non-resident income tax withholding, REEQ = equivalence surcharge.',
+            esp: 'Código del impuesto aplicado a la operación',
+            eng: 'Code of the tax applied to the operation',
+            enumDescEsp: 'IVA = Impuesto sobre el Valor Añadido | IPSI = Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla) | IGIC = Impuesto General Indirecto Canario | IRPF = retención por IRPF | RIS = retención por Impuesto sobre Sociedades / no Residentes | REEQ = recargo de equivalencia.',
+            enumDescEng: 'IVA = Spanish VAT | IPSI = Production, Services and Import Tax (Ceuta and Melilla) | IGIC = Canary Islands General Indirect Tax | IRPF = personal income tax withholding | RIS = corporate / non-resident income tax withholding | REEQ = equivalence surcharge.',
             usedIn: ['Tax.TaxTypeCode', 'DiscountTax.TaxTypeCode', 'ChargeTax.TaxTypeCode']
           },
           TaxRegimeCodeEnum: {
             title: '🏛️ TaxRegimeCode - Régimen Fiscal',
-            esp: 'Clave de régimen fiscal aplicable a la operación según las listas L3A (IVA), L3B (IGIC) y L3C (IPSI) del Anexo I. Incluye, entre otras, régimen general (01), exportación (02), bienes usados/REBU (03), oro de inversión (04), agencias de viajes (05), grupo de entidades nivel avanzado (06), criterio de caja (07), IPSI/IGIC (08), arrendamiento de local (11), recargo de equivalencia (18), REAGYP (19) y régimen simplificado (20).',
-            eng: 'Tax regime code applicable to the operation per lists L3A (VAT), L3B (IGIC) and L3C (IPSI) of Annex I. Includes, among others, general regime (01), export (02), second-hand goods/REBU (03), investment gold (04), travel agencies (05), advanced group of entities regime (06), cash basis (07), IPSI/IGIC (08), business premises lease (11), equivalence surcharge (18), REAGYP (19) and simplified regime (20).',
+            esp: 'Clave de régimen fiscal aplicable a la operación según las listas L3A (IVA), L3B (IGIC) y L3C (IPSI) del Anexo I',
+            eng: 'Tax regime code applicable to the operation per lists L3A (VAT), L3B (IGIC) and L3C (IPSI) of Annex I',
+            enumDescEsp: '01 = régimen general | 02 = exportación | 03 = bienes usados/REBU | 04 = oro de inversión | 05 = agencias de viajes | 06 = grupo de entidades nivel avanzado | 07 = criterio de caja | 08 = sujetas a IPSI/IGIC | 09 = agencias de viaje mediadoras (D.A.4ª) | 11 = arrendamiento de local de negocio | 14 = IVA pendiente devengo en obras a AAPP | 15 = IVA pendiente devengo en tracto sucesivo | 17 = comerciante minorista (IGIC) | 18 = recargo de equivalencia (IVA) / pequeño empresario (IGIC) | 19 = REAGYP / interiores exentas | 20 = régimen simplificado.',
+            enumDescEng: '01 = general regime | 02 = export | 03 = second-hand goods/REBU | 04 = investment gold | 05 = travel agencies | 06 = advanced group of entities regime | 07 = cash basis | 08 = subject to IPSI/IGIC | 09 = travel agencies acting as mediators (D.A.4ª) | 11 = business premises lease | 14 = VAT pending accrual on works to public bodies | 15 = VAT pending accrual on successive operations | 17 = retail trader regime (IGIC) | 18 = equivalence surcharge (VAT) / small entrepreneur (IGIC) | 19 = REAGYP / domestic exempt operations | 20 = simplified regime.',
             usedIn: ['Tax.TaxRegimeCode']
           },
           TaxOperationTypeEnum: {
             title: '⚙️ TaxOperationType - Tipo de Operación',
-            esp: 'Categoría de IVA según la lista L4 del Anexo I (basada en UNTDID 5305): S = régimen general, Z = bienes con tipo impositivo 0%, E = exenta de IVA, AE = inversión del sujeto pasivo, O = no sujeta a IVA, G = exportación, L = operación sujeta al IGIC, M = operación sujeta al IPSI.',
-            eng: 'VAT category per list L4 of Annex I (based on UNTDID 5305): S = standard regime, Z = goods with 0% rate, E = VAT-exempt, AE = reverse charge, O = not subject to VAT, G = export, L = subject to IGIC, M = subject to IPSI.',
+            esp: 'Categoría de IVA según la lista L4 del Anexo I (basada en UNTDID 5305)',
+            eng: 'VAT category per list L4 of Annex I (based on UNTDID 5305)',
+            enumDescEsp: 'S = régimen general | Z = bienes con tipo impositivo 0% | E = exenta de IVA | AE = inversión del sujeto pasivo | O = no sujeta a IVA | G = exportación | L = sujeta al IGIC | M = sujeta al IPSI.',
+            enumDescEng: 'S = standard regime | Z = goods with 0% rate | E = VAT-exempt | AE = reverse charge | O = not subject to VAT | G = export | L = subject to IGIC | M = subject to IPSI.',
             usedIn: ['Tax.TaxOperationType']
           },
           DiscountChargeTypeCodeEnum: {
             title: '🏷️ DiscountChargeTypeCode - Tipo de Descuento o Cargo',
-            esp: 'Código que identifica el tipo de cargo o minoración aplicada en factura según la lista L7 del Anexo I: SUPL = cargo en nombre de un tercero (suplido), MINO = minoración en nombre de un tercero, REGE = régimen especial de grupo de entidades (nivel avanzado), REEQ = recargo de equivalencia, RETE = retención.',
-            eng: 'Code identifying the type of charge or allowance applied per list L7 of Annex I: SUPL = charge on behalf of a third party (disbursement), MINO = allowance on behalf of a third party, REGE = special group of entities regime (advanced level), REEQ = equivalence surcharge, RETE = withholding.',
+            esp: 'Código que identifica el tipo de cargo o minoración aplicada en factura según la lista L7 del Anexo I',
+            eng: 'Code identifying the type of charge or allowance applied per list L7 of Annex I',
+            enumDescEsp: 'SUPL = cargo en nombre de un tercero (suplido) | MINO = minoración en nombre de un tercero | REGE = régimen especial de grupo de entidades (nivel avanzado) | REEQ = recargo de equivalencia | RETE = retención.',
+            enumDescEng: 'SUPL = charge on behalf of a third party (disbursement) | MINO = allowance on behalf of a third party | REGE = special group of entities regime (advanced level) | REEQ = equivalence surcharge | RETE = withholding.',
             usedIn: ['Discount.DiscountTypeCode', 'Charge.ChargeTypeCode']
           },
           PaymentMeansEnum: {
             title: '💳 PaymentMeans - Medio de Pago',
-            esp: 'Código del medio de pago según la lista UNTDID 4461 (BT-81): cubre desde efectivo (10), transferencia bancaria (30/58), domiciliación/adeudo SEPA (49), cheque, tarjeta de crédito/débito (48/54), giro, compensación y otros instrumentos de pago habituales en B2B.',
-            eng: 'Payment method code per UNTDID 4461 (BT-81): covers cash (10), bank transfer (30/58), SEPA direct debit (49), cheque, credit/debit card (48/54), bill of exchange, set-off and other common B2B payment instruments.',
+            esp: 'Código del medio de pago según la lista UNTDID 4461 (BT-81)',
+            eng: 'Payment method code per UNTDID 4461 (BT-81)',
+            enumDescEsp: '01–19 = códigos numéricos para los principales medios de pago habituales en B2B (efectivo, transferencia bancaria, domiciliación/adeudo SEPA, cheque, tarjeta de crédito/débito, giro, compensación y otros instrumentos equivalentes).',
+            enumDescEng: '01–19 = numeric codes for the main payment methods commonly used in B2B (cash, bank transfer, SEPA direct debit, cheque, credit/debit card, bill of exchange, set-off and other equivalent instruments).',
             usedIn: ['Installment.PaymentMeans']
           },
           CadastralReferenceEnum: {
             title: '🏠 CadastralReference - Situación del Inmueble',
-            esp: 'Código que indica la situación del inmueble al que se refiere la operación, según la lista L6 del Anexo I: 01 = inmueble con referencia catastral en territorio español excepto País Vasco y Navarra, 02 = inmueble en el País Vasco o en la Comunidad Foral de Navarra, 03 = inmueble en territorio español sin referencia catastral, 04 = inmueble situado en el extranjero.',
-            eng: 'Code indicating the situation of the property the operation refers to, per list L6 of Annex I: 01 = property with cadastral reference in Spain except Basque Country and Navarre, 02 = property in the Basque Country or the Chartered Community of Navarre, 03 = property in Spain without cadastral reference, 04 = property located abroad.',
+            esp: 'Código que indica la situación del inmueble al que se refiere la operación, según la lista L6 del Anexo I',
+            eng: 'Code indicating the situation of the property the operation refers to, per list L6 of Annex I',
+            enumDescEsp: '01 = inmueble con referencia catastral en territorio español excepto País Vasco y Navarra | 02 = inmueble en el País Vasco o en la Comunidad Foral de Navarra | 03 = inmueble en territorio español sin referencia catastral | 04 = inmueble situado en el extranjero.',
+            enumDescEng: '01 = property with cadastral reference in Spain except Basque Country and Navarre | 02 = property in the Basque Country or the Chartered Community of Navarre | 03 = property in Spain without cadastral reference | 04 = property located abroad.',
             usedIn: ['']
           },
           AttachmentFormatEnum: {
             title: '📎 AttachmentFormat - Formato de Anexo',
-            esp: 'Formato del fichero adjunto a la factura electrónica. Solo se admiten formatos no ejecutables y de uso común: pdf (documento PDF), jpg/jpeg (imagen JPEG) y png (imagen PNG).',
-            eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed: pdf (PDF document), jpg/jpeg (JPEG image) and png (PNG image).',
+            esp: 'Formato del fichero adjunto a la factura electrónica. Solo se admiten formatos no ejecutables y de uso común',
+            eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed',
+            enumDescEsp: 'pdf = documento PDF | jpg = imagen JPEG | jpeg = imagen JPEG | png = imagen PNG.',
+            enumDescEng: 'pdf = PDF document | jpg = JPEG image | jpeg = JPEG image | png = PNG image.',
             usedIn: ['Attachment.AttachmentFormat']
           }
         };
@@ -1445,14 +1506,7 @@
                     </div>
 
                     <div class="enums-description">
-                      <div class="tech-details__used-in">
-                        <p class="explanation-box__text">
-                          <strong>Español:</strong> ${desc.enumDescEsp}
-                        </p>
-                        <p class="explanation-box__text">
-                          <strong>English:</strong> ${desc.enumDescEng}
-                        </p>
-                      </div>
+                      <div class="tech-details__used-in">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
                     </div>
                   </div>
                 </div>
@@ -1635,6 +1689,57 @@
           // scroll
           const blockId = clickedBtn.getAttribute('href');
           document.querySelector(blockId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Parsea "A = desc1 | B = desc2." en [{code:'A', desc:'desc1'}, ...]
+        function parseEnumDesc(str) {
+          if (!str) return [];
+          return str
+            .replace(/\.\s*$/, '')          // quita el punto final
+            .split('|')
+            .map(item => {
+              const [code, ...rest] = item.split('=');
+              return {
+                code: (code || '').trim(),
+                desc: rest.join('=').trim()
+              };
+            })
+            .filter(it => it.code || it.desc);
+        }
+        
+        // Construye la tabla a partir de los strings ES + EN
+        function buildEnumDescTable(enumDescEsp, enumDescEng) {
+          const itemsEsp = parseEnumDesc(enumDescEsp);
+          const itemsEng = parseEnumDesc(enumDescEng);
+          const max = Math.max(itemsEsp.length, itemsEng.length);
+          if (max === 0) return '';
+        
+          let rows = '';
+          for (let i = 0; i < max; i++) {
+            const esp = itemsEsp[i] || { code: '', desc: '' };
+            const eng = itemsEng[i] || { code: '', desc: '' };
+            const code = esp.code || eng.code;
+            rows += `
+              <tr>
+                <td><span class="tag tag--type">${escapeHtml(code)}</span></td>
+                <td>${escapeHtml(esp.desc)}</td>
+                <td>${escapeHtml(eng.desc)}</td>
+              </tr>
+            `;
+          }
+        
+          return `
+            <table class="enum-desc-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Español</th>
+                  <th>English</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          `;
         }
 
         function escapeHtml(text) {
