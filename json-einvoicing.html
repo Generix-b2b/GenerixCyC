@@ -289,15 +289,33 @@
     .code-panel {
       background: var(--gray-900);
       border-radius: 8px;
-      overflow: hidden;
+      overflow: auto;
       box-shadow: 0 4px 16px rgba(0, 35, 51, 0.15);
+      max-height: 750px;
+      min-height: 500px;
+    }
+    .code-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .code-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .code-panel::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .code-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--generix-orange);
     }
     .code-panel__header {
+      position: sticky;
+      top: 0.1px;
+      display: flex;
+      z-index: 99;
       padding: 16px;
       background: var(--generix-dark);
       color: var(--white);
       font-weight: 600;
-      display: flex;
       align-items: center;
       gap: 12px;
     }
@@ -805,17 +823,25 @@
           <h3>Versiones Soportadas</h3>
           <ul>
             <li>
-              Versión 2.0 - Versión actual
+              Versión 2.0 - Versión actual, cumplimiento normativo C&C<br/>
               <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
                 class="download-link">
-                📥 GNX_Schema_Json.json
+                📥 Schema - GNX_Schema_Json.json
+              </a><br/>
+              <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
+                class="download-link">
+                📥 Example - GNX_Invoice_Json.json
               </a>
             </li>
             <li>
-              Versión 1.0 - En Desuso
+              Versión 1.0 - En Desuso, basado en la version 3.2.2 de FACE <br/>
               <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
                 class="download-link">
-                📥 GNX_Schema_Json_v1.0.json
+                📥 Schema - GNX_Schema_Json_v1.0.json
+              </a><br/>
+              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Json_v1.0.json" target="_blank"
+                class="download-link">
+                📥 Example - GNX_Invoice_Json_v1.0.json
               </a>
             </li>
           </ul>
