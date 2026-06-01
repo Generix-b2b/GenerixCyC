@@ -1365,8 +1365,8 @@
             enumDescEsp: 'IVA=Impuesto sobre el Valor Añadido|IPSI=Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla)|IGIC=Impuesto General Indirecto Canario|IRPF=retención por IRPF|RIS=retención por Impuesto sobre Sociedades / no Residentes|REEQ=recargo de equivalencia.',
             enumDescEng: 'IVA=Spanish VAT|IPSI=Production, Services and Import Tax (Ceuta and Melilla)|IGIC=Canary Islands General Indirect Tax|IRPF=personal income tax withholding|RIS=corporate / non-resident income tax withholding|REEQ=equivalence surcharge.',
             usedIn: [
-              'InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxTypeCode',
-              'InvoiceGNX.Invoices[0].Invoice[0].TaxesWithheld[0].Tax.TaxTypeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxTypeCode',
+              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesWithheld[0].Tax.TaxTypeCode', 
               'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralDiscounts[0].Discount.DiscountTax.TaxTypeCode',
               'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralCharges[0].Charge.ChargeTax.TaxTypeCode', 
               'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxTypeCode'
@@ -1379,7 +1379,7 @@
             enumDescEsp: '01=régimen general|02=exportación|03=bienes usados/REBU|04=oro de inversión|05=agencias de viajes|06=grupo de entidades nivel avanzado|07=criterio de caja|08=sujetas a IPSI/IGIC|09=agencias de viaje mediadoras (D.A.4ª)|11=arrendamiento de local de negocio|14=IVA pendiente devengo en obras a AAPP|15=IVA pendiente devengo en tracto sucesivo|17=comerciante minorista (IGIC)|18=recargo de equivalencia (IVA) / pequeño empresario (IGIC)|19=REAGYP / interiores exentas|20=régimen simplificado.',
             enumDescEng: '01=general regime|02=export|03=second-hand goods/REBU|04=investment gold|05=travel agencies|06=advanced group of entities regime|07=cash basis|08=subject to IPSI/IGIC|09=travel agencies acting as mediators (D.A.4ª)|11=business premises lease|14=VAT pending accrual on works to public bodies|15=VAT pending accrual on successive operations|17=retail trader regime (IGIC)|18=equivalence surcharge (VAT) / small entrepreneur (IGIC)|19=REAGYP / domestic exempt operations|20=simplified regime.',
             usedIn: [
-              'InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxRegimeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxRegimeCode', 
               'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxRegimeCode'
             ]
           },
@@ -1424,7 +1424,7 @@
             eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed',
             enumDescEsp: 'pdf=documento PDF|jpg=imagen JPEG|jpeg=imagen JPEG|png=imagen PNG.',
             enumDescEng: 'pdf=PDF document|jpg=JPEG image|jpeg=JPEG image|png=PNG image.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. AdditionalData.RelatedDocuments[0].Attachment.AttachmentFormat']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].AdditionalData. RelatedDocuments[0].Attachment.AttachmentFormat']
           }
         };
 
