@@ -1312,7 +1312,11 @@
             eng: 'Person type for tax identification',
             enumDescEsp: 'F=persona física|J=persona jurídica.',
             enumDescEng: 'F=natural person|J=legal entity.',
-            usedIn: ['InvoiceGNX.Invoices[0].Parties.','.SellerParty.TaxIdentification.PersonTypeCode','.BuyerParty.TaxIdentification.PersonTypeCode','.ThirdParty.TaxIdentification.PersonTypeCode']
+            usedIn: [
+              'InvoiceGNX.Invoices[0].Parties. SellerParty.TaxIdentification.PersonTypeCode',
+              'InvoiceGNX.Invoices[0].Parties. BuyerParty.TaxIdentification.PersonTypeCode',
+              'InvoiceGNX.Invoices[0].Parties. ThirdParty.TaxIdentification.PersonTypeCode'
+            ]
           },
           ResidenceTypeCodeEnum: {
             title: '🌐 ResidenceTypeCode - Tipo de Residencia',
@@ -1320,7 +1324,7 @@
             eng: 'Tax residence type of the party',
             enumDescEsp: 'E=fuera de la Unión Europea|R=residente en España|U=residente en la Unión Europea.',
             enumDescEng: 'E=outside the European Union|R=Spanish tax resident|U=European Union resident.',
-            usedIn: ['InvoiceGNX.Invoices[0]. Parties.ThirdParty.TaxIdentification.ResidenceTypeCode']
+            usedIn: ['InvoiceGNX.Invoices[0].Parties. ThirdParty.TaxIdentification.ResidenceTypeCode']
           },
           InvoiceDocumentTypeEnum: {
             title: '📄 InvoiceDocumentType - Tipo de Documento',
@@ -1328,7 +1332,7 @@
             eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026)',
             enumDescEsp: '380=factura ordinaria|381=nota de abono|384=factura rectificativa|388=factura emitida en sustitución de simplificadas|389=factura emitida por el destinatario|481=factura rectificativa emitida por el destinatario.',
             enumDescEng: '380=standard invoice|381=credit note|384=corrective invoice|388=invoice replacing simplified invoices|389=invoice issued by the recipient|481=corrective invoice issued by the recipient.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].InvoiceHeader.InvoiceDocumentType']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.InvoiceDocumentType']
           },
           InvoiceClassEnum: {
             title: '📑 InvoiceClass - Clase de Factura',
@@ -1336,7 +1340,7 @@
             eng: 'Invoice class according to its nature within the issuance flow',
             enumDescEsp: 'OO=original (documento principal)|OC=original copia (copia fiel del original con la misma validez tributaria).',
             enumDescEng: 'OO=original (main document)|OC=original copy (true copy of the original with the same tax validity).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].InvoiceHeader.InvoiceClass']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.InvoiceClass']
           },
           ReasonCodeEnum: {
             title: '✏️ ReasonCode - Motivo de Rectificación',
@@ -1344,7 +1348,7 @@
             eng: 'Code identifying the reason for issuing a corrective invoice per list L2.A of Annex I',
             enumDescEsp: 'R1=error fundado en derecho y Art. 80 Uno, Dos y Seis LIVA|R2=Art. 80.3 LIVA (concurso de acreedores)|R3=Art. 80.4 LIVA (créditos incobrables)|R4=resto de causas.',
             enumDescEng: 'R1=legally founded error and Art. 80 One, Two and Six VAT Law|R2=Art. 80.3 VAT Law (creditor insolvency)|R3=Art. 80.4 VAT Law (uncollectible debts)|R4=other causes.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].InvoiceHeader.Corrective.ReasonCode']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.Corrective.ReasonCode']
           },
           CorrectionMethodEnum: {
             title: '🔧 CorrectionMethod - Método de Corrección',
@@ -1352,7 +1356,7 @@
             eng: 'Correction method used per list L2.B of Annex I',
             enumDescEsp: 'I=rectificativa por diferencias (solo se informan los importes corregidos)|S=rectificativa por sustitución (la nueva factura reemplaza íntegramente a la original).',
             enumDescEng: 'I=correction by differences (only corrected amounts are reported)|S=correction by substitution (the new invoice fully replaces the original).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].InvoiceHeader.Corrective.CorrectionMethod']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.Corrective.CorrectionMethod']
           },
           TaxTypeCodeEnum: {
             title: '💼 TaxTypeCode - Tipo de Impuesto',
@@ -1360,7 +1364,13 @@
             eng: 'Code of the tax applied to the operation',
             enumDescEsp: 'IVA=Impuesto sobre el Valor Añadido|IPSI=Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla)|IGIC=Impuesto General Indirecto Canario|IRPF=retención por IRPF|RIS=retención por Impuesto sobre Sociedades / no Residentes|REEQ=recargo de equivalencia.',
             enumDescEng: 'IVA=Spanish VAT|IPSI=Production, Services and Import Tax (Ceuta and Melilla)|IGIC=Canary Islands General Indirect Tax|IRPF=personal income tax withholding|RIS=corporate / non-resident income tax withholding|REEQ=equivalence surcharge.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxTypeCode','InvoiceGNX.Invoices[0].Invoice[0].TaxesWithheld[0].Tax.TaxTypeCode', 'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals.GeneralDiscounts[0].Discount.DiscountTax.TaxTypeCode','InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals.GeneralCharges[0].Charge.ChargeTax.TaxTypeCode', 'InvoiceGNX.Invoices[0].Invoice[0].Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxTypeCode']
+            usedIn: [
+              'InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxTypeCode',
+              'InvoiceGNX.Invoices[0].Invoice[0].TaxesWithheld[0].Tax.TaxTypeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralDiscounts[0].Discount.DiscountTax.TaxTypeCode',
+              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralCharges[0].Charge.ChargeTax.TaxTypeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxTypeCode'
+            ]
           },
           TaxRegimeCodeEnum: {
             title: '🏛️ TaxRegimeCode - Régimen Fiscal',
@@ -1368,7 +1378,10 @@
             eng: 'Tax regime code applicable to the operation per lists L3A (VAT), L3B (IGIC) and L3C (IPSI) of Annex I',
             enumDescEsp: '01=régimen general|02=exportación|03=bienes usados/REBU|04=oro de inversión|05=agencias de viajes|06=grupo de entidades nivel avanzado|07=criterio de caja|08=sujetas a IPSI/IGIC|09=agencias de viaje mediadoras (D.A.4ª)|11=arrendamiento de local de negocio|14=IVA pendiente devengo en obras a AAPP|15=IVA pendiente devengo en tracto sucesivo|17=comerciante minorista (IGIC)|18=recargo de equivalencia (IVA) / pequeño empresario (IGIC)|19=REAGYP / interiores exentas|20=régimen simplificado.',
             enumDescEng: '01=general regime|02=export|03=second-hand goods/REBU|04=investment gold|05=travel agencies|06=advanced group of entities regime|07=cash basis|08=subject to IPSI/IGIC|09=travel agencies acting as mediators (D.A.4ª)|11=business premises lease|14=VAT pending accrual on works to public bodies|15=VAT pending accrual on successive operations|17=retail trader regime (IGIC)|18=equivalence surcharge (VAT) / small entrepreneur (IGIC)|19=REAGYP / domestic exempt operations|20=simplified regime.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxRegimeCode', 'InvoiceGNX.Invoices[0].Invoice[0].Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxRegimeCode']
+            usedIn: [
+              'InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxRegimeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxRegimeCode'
+            ]
           },
           TaxOperationTypeEnum: {
             title: '⚙️ TaxOperationType - Tipo de Operación',
@@ -1376,7 +1389,7 @@
             eng: 'VAT category per list L4 of Annex I (based on UNTDID 5305)',
             enumDescEsp: 'S=régimen general|Z=bienes con tipo impositivo 0%|E=exenta de IVA|AE=inversión del sujeto pasivo|O=no sujeta a IVA|G=exportación|L=sujeta al IGIC|M=sujeta al IPSI.',
             enumDescEng: 'S=standard regime|Z=goods with 0% rate|E=VAT-exempt|AE=reverse charge|O=not subject to VAT|G=export|L=subject to IGIC|M=subject to IPSI.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].TaxesOutputs[0].Tax.TaxOperationType']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxOperationType']
           },
           DiscountChargeTypeCodeEnum: {
             title: '🏷️ DiscountChargeTypeCode - Tipo de Descuento o Cargo',
@@ -1384,7 +1397,10 @@
             eng: 'Code identifying the type of charge or allowance applied per list L7 of Annex I',
             enumDescEsp: 'SUPL=cargo en nombre de un tercero (suplido)|MINO=minoración en nombre de un tercero|REGE=régimen especial de grupo de entidades (nivel avanzado)|REEQ=recargo de equivalencia|RETE=retención.',
             enumDescEng: 'SUPL=charge on behalf of a third party (disbursement)|MINO=allowance on behalf of a third party|REGE=special group of entities regime (advanced level)|REEQ=equivalence surcharge|RETE=withholding.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals.GeneralDiscounts[0].Discount.DiscountTypeCode', 'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals.GeneralCharges[0].Charge.ChargeTypeCode']
+            usedIn: [
+              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralDiscounts[0].Discount.DiscountTypeCode', 
+              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralCharges[0].Charge.ChargeTypeCode'
+            ]
           },
           PaymentMeansEnum: {
             title: '💳 PaymentMeans - Medio de Pago',
@@ -1392,7 +1408,7 @@
             eng: 'Payment method code per UNTDID 4461 (BT-81)',
             enumDescEsp: '01–19=códigos numéricos para los principales medios de pago habituales en B2B (efectivo, transferencia bancaria, domiciliación/adeudo SEPA, cheque, tarjeta de crédito/débito, giro, compensación y otros instrumentos equivalentes).',
             enumDescEng: '01–19=numeric codes for the main payment methods commonly used in B2B (cash, bank transfer, SEPA direct debit, cheque, credit/debit card, bill of exchange, set-off and other equivalent instruments).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].PaymentDetails[0].Installment.PaymentMeans']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. PaymentDetails[0].Installment.PaymentMeans']
           },
           CadastralReferenceEnum: {
             title: '🏠 CadastralReference - Situación del Inmueble',
@@ -1400,7 +1416,7 @@
             eng: 'Code indicating the situation of the property the operation refers to, per list L6 of Annex I',
             enumDescEsp: '01=inmueble con referencia catastral en territorio español excepto País Vasco y Navarra|02=inmueble en el País Vasco o en la Comunidad Foral de Navarra|03=inmueble en territorio español sin referencia catastral|04=inmueble situado en el extranjero.',
             enumDescEng: '01=property with cadastral reference in Spain except Basque Country and Navarre|02=property in the Basque Country or the Chartered Community of Navarre|03=property in Spain without cadastral reference|04=property located abroad.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].Items[0].InvoiceLine.NotesReferences[0].CadastralReference']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.NotesReferences[0].CadastralReference']
           },
           AttachmentFormatEnum: {
             title: '📎 AttachmentFormat - Formato de Anexo',
@@ -1408,7 +1424,7 @@
             eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed',
             enumDescEsp: 'pdf=documento PDF|jpg=imagen JPEG|jpeg=imagen JPEG|png=imagen PNG.',
             enumDescEng: 'pdf=PDF document|jpg=JPEG image|jpeg=JPEG image|png=PNG image.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].AdditionalData.RelatedDocuments[0].Attachment.AttachmentFormat']
+            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. AdditionalData.RelatedDocuments[0].Attachment.AttachmentFormat']
           }
         };
 
