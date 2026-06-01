@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML e-Invoicing Standard · Generix Developer Documentation</title>
+    <link rel="icon" href="Assets/logo-black.png" type="image/png">
+    <style>
+    /* ============ COLORES OFICIALES GENERIX ============ */
+    :root {
+      --generix-dark: #002333;
+      --generix-dark-soft: #0a3447;
+      --generix-orange: #F28A48;
+      --generix-orange-hover: #e07535;
+      --generix-orange-soft: #FDF0E7;
+      --white: #FFFFFF;
+      --gray-50: #FAFBFC;
+      --gray-100: #F2F5F8;
+      --gray-200: #E1E8EE;
+      --gray-300: #C5D2DC;
+      --gray-500: #6B7E8C;
+      --gray-700: #3A4A56;
+      --gray-900: #0F1B24;
+      --generix-blue:#00A59A;
+      --generix-blue-soft:#B9FFFA;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+      color: var(--generix-dark);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,35,51,0.04);
+    }
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav a {
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--generix-orange); }
+    .breadcrumb {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+    .breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============ PAGE HEADER ============ */
+    .page-header {
+      background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
+      color: var(--white);
+      padding: 60px 32px;
+    }
+    .page-header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .page-header-breadcrumb {
+      margin-bottom: 20px;
+    }
+    .page-header-breadcrumb a,
+    .page-header-breadcrumb span {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+    .page-header-breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+    }
+    .page-header-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .page-header-breadcrumb span {
+      margin: 0 8px;
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* ============ TAB NAVIGATION ============ */
+    .tab-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .tab-navigation {
+      position: sticky;
+      top: 87px;
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      margin-bottom: 50px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      z-index: 99;
+      background: var(--white);
+    }
+    .tab-navigation::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tab-navigation::-webkit-scrollbar-track {
+      background: var(--generix-orange);
+    }
+    .tab-navigation::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .tab-button {
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      color: var(--gray-700);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      position: relative;
+    }
+    .tab-button:hover {
+      color: var(--generix-orange);
+      background: var(--generix-orange-soft);
+    }
+    .tab-button.active {
+      color: var(--generix-orange);
+      border-bottom-color: var(--generix-orange);
+    }
+
+    /* ============ TAB CONTENT ============ */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .download-link {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ============ THREE COLUMN LAYOUT ============ */
+    .tab-wrapper {
+      display: grid;
+      grid-template-columns: 0px 1fr 0px;
+      gap: 0;
+      align-items: start;
+    }
+    .sidebar-nav {
+      position: sticky;
+      top: 100px;
+      width: 280px;
+      height: calc(100vh - 115px);
+      overflow-y: auto;
+      background: var(--gray-100);
+      border-radius: 0 6px 6px 0;
+      border-left: 4px solid var(--generix-orange);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+      z-index: 40;
+      margin-left: -316px;
+    }
+    .sidebar-nav::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb:hover {
+      background: var(--generix-orange);
+    }
+    .sidebar-nav-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--generix-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-nav-btn {
+      display: block;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--generix-dark);
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: left;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      line-height: 1.4;
+    }
+    .sidebar-nav-btn:hover {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    .sidebar-nav-btn.active {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+
+
+    .tab-content-middle {
+      padding: 0 32px;
+    }
+    .block-container {
+      margin-bottom: 60px;
+      scroll-margin-top: 150px;
+    }
+    .block-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    /* Panel izquierdo: Código */
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0, 35, 51, 0.15);
+      max-height: 750px;
+      min-height: 500px;
+    }
+    .code-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .code-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .code-panel::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .code-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--generix-orange);
+    }
+    .code-panel__header {
+      position: sticky;
+      top: 0.1px;
+      display: flex;
+      z-index: 99;
+      padding: 16px;
+      background: var(--generix-dark);
+      color: var(--white);
+      font-weight: 600;
+      align-items: center;
+      gap: 12px;
+    }
+    .code-panel__icon {
+      font-size: 1.2rem;
+    }
+    .code-panel__pre {
+      margin: 0;
+      padding: 24px;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    /* Panel derecho: Explicación */
+    .explanation-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .explanation-box__title {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    .explanation-box__text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .explanation-box__text--spaced {
+      margin: 16px 0 0 0;
+    }
+    /* Panel derecho: detalles técnicos */
+    .tech-details {
+      background: var(--gray-100);
+      border-left: 4px solid var(--gray-500);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .tech-details__title {
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+    .tech-details__row {
+      color: var(--gray-700);
+      margin: 0 0 8px 0;
+    }
+    .tech-details__row--last {
+      margin: 0;
+    }
+    /* Panel derecho: Etiquetas (tags) */
+    .tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .tag--type {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+    }
+    .tag--properties {
+      background: var(--white);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .tag--required {
+      background: var(--generix-orange);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .tag--required-empty {
+      background: var(--white);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .tag--text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .tech-details__values {
+      margin: 0 0 12px 0;
+    }
+    .tech-details__used-in {
+      display: inline-block;
+      background: var(--gray-200);
+      color: var(--generix-dark);
+      margin: 2px 4px 2px 0;
+      border: 1px solid var(--gray-300);
+    }
+    /* Separador inferior */
+    .block-divider {
+      border-bottom: 1px solid var(--gray-200);
+      margin-top: 40px;
+      margin-bottom: -20px;
+    }
+
+    .enums-description {
+      background: var(--generix-blue-soft);
+      border-left: 4px solid var(--generix-blue);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .enum-desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    .enum-desc-table thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    .enum-desc-table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .enum-desc-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .enum-desc-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .enum-desc-table tbody tr:hover {
+      background: var(--gray-100);
+    }
+    .enum-desc-table td:first-child,
+    .enum-desc-table th:first-child {
+      white-space: nowrap;
+      width: 1%;
+      text-align: center;
+    }
+
+    .sidebar-right {
+      /* Columna derecha en blanco */
+      background-color: transparent;
+    }
+
+    /* ============ CONTENT SECTIONS ============ */
+    .content-section {
+      margin-bottom: 60px;
+    }
+    .content-section h2 {
+      font-size: 1.8rem;
+      color: var(--generix-dark);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--generix-orange-soft);
+    }
+    .content-section h3 {
+      font-size: 1.3rem;
+      color: var(--generix-dark);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .content-section p {
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .content-section ul {
+      margin: 16px 0 16px 24px;
+      color: var(--gray-700);
+    }
+    .content-section li {
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    /* ============ CODE BLOCK ============ */
+    .tab-content {
+      position: relative;
+    }
+    .code-block {
+      background: var(--gray-900);
+      color: #e0e0e0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--generix-orange);
+    }
+    .code-block code {
+      color: inherit;
+    }
+
+    /* ============ HIGHLIGHT BOX ============ */
+    .highlight-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+    .highlight-box strong {
+      color: var(--generix-dark);
+    }
+
+    /* ============ TABLE ============ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    th {
+      font-weight: 600;
+      border-bottom-color: var(--gray-300);
+    }
+    tbody tr:hover {
+      background: var(--gray-50);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ============ CARD GRID ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      border-color: var(--generix-orange);
+    }
+    .info-card h4 {
+      color: var(--generix-orange);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .info-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 50px 32px;
+      margin-top: 80px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-section h4 {
+      color: var(--white);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .footer-section a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-section a:hover {
+      color: var(--generix-orange);
+    }
+    .footer-bottom {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+
+    /* ============ CODE-EXPLANATION LAYOUT ============ */
+    .code-explanation-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 40px 0;
+      align-items: start;
+    }
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0,35,51,0.15);
+      position: sticky;
+      top: 100px;
+    }
+    .code-panel pre {
+      margin: 0;
+      padding: 24px;
+      overflow-x: auto;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .code-panel code {
+      color: inherit;
+    }
+    .explanation-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .explanation-block {
+      background: var(--gray-50);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .explanation-block:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      transform: translateX(4px);
+    }
+    .explanation-block h4 {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .explanation-block .code-ref {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .explanation-block p {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 8px 0 0 0;
+    }
+    /* ============ FOOTER STYLES ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 60px 32px 30px;
+      position: relative;
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--generix-orange) 0%, transparent 100%);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand h3 {
+      color: var(--white);
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 380px;
+    }
+    .footer-brand .tagline {
+      color: var(--generix-orange);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+    footer .accent {
+      color: var(--generix-orange);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1300px) {
+      .page-header { padding: 40px 24px; }
+      .page-header h1 { font-size: 1.8rem; }
+      .tab-container { padding: 0 24px; }
+      .tab-button { padding: 12px 16px; font-size: 0.9rem; }
+      .content-section h2 { font-size: 1.5rem; }
+      .footer-top { flex-direction: column; gap: 30px; }
+      .code-explanation-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .code-panel {
+        position: static;
+      }
+      .code-panel pre {
+        font-size: 0.75rem;
+        padding: 16px;
+      }
+      #schemaBlocksContainer > div > div {
+        grid-template-columns: 1fr !important;
+      }
+
+      footer {
+        padding: 40px 24px 30px;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+      }
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+    }
+    </style>
+  </head>
+  <body>
+
+    <!-- ============ TOPBAR ============ -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="logo" aria-label="Generix">
+          <img src="Assets/generix-dark.svg" alt="Generix">
+        </a>
+      </div>
+    </header>
+
+    <!-- ============ PAGE HEADER ============ -->
+    <section class="page-header">
+      <div class="page-header-inner">
+        <div class="page-header-breadcrumb">
+          <a href="index.html">Documentación</a>
+          <span>/</span>
+          <span>XML e-Invoicing Standard</span>
+        </div>
+        <h1>XML e-Invoicing Standard</h1>
+        <p>Especificación técnica completa del esquema XSD para
+          facturación electrónica B2B en España.</p>
+      </div>
+    </section>
+
+    <!-- ============ TAB NAVIGATION ============ -->
+    <div class="tab-container">
+      <div class="tab-navigation">
+        <button class="tab-button active" data-tab="general">Descripción General</button>
+        <button class="tab-button" data-tab="estructura">Estructura</button>
+        <button class="tab-button" data-tab="enumeraciones">Enumeraciones</button>
+        <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
+        <button class="tab-button" data-tab="validaciones">Validaciones</button>
+        <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
+      </div>
+
+      <!-- ============ TAB 1: GENERAL ============ -->
+      <div id="general" class="tab-content active">
+        <div class="content-section">
+          <h2>Descripción General</h2>
+          <p>El estándar XML e-Invoicing de Generix Spain proporciona un esquema XSD unificado y modular para la representación de facturas electrónicas en formato XML.
+            <br/>Este estándar está diseñado para cumplir con la normativa española de facturación electrónica y facilitar la integración con sistemas B2B.
+          </p>
+
+          <h3>Características Principales</h3>
+          <ul>
+            <li>
+              <strong>Compatibilidad:</strong>
+              Cumple con los requisitos de la Ley 3/2023 de Facturación Electrónica y normativa fiscal española.
+            </li>
+            <li>
+              <strong>Modularidad:</strong>
+              Estructura basada en tipos complejos reutilizables que permite componer cada tipo de factura.
+            </li>
+            <li>
+              <strong>Validación:</strong>
+              El esquema XSD permite validar la integridad estructural y de tipos de cada documento.
+            </li>
+            <li>
+              <strong>Escalabilidad:</strong>
+              Diseñado para soportar grandes volúmenes de facturas sin degradación de rendimiento.
+            </li>
+          </ul>
+
+          <div class="highlight-box">
+            <strong>Nota importante:</strong>
+            <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica.
+            <br/>Se recomienda revisar la documentación completa antes de implementar.
+          </div>
+
+          <h3>Versiones Soportadas</h3>
+          <ul>
+            <li>
+              Versión 2.0 - Versión actual, cumplimiento normativo C&amp;C<br/>
+              <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
+                class="download-link">
+                📥 Schema - GNX_Schema_xml.xsd
+              </a>
+            </li>
+          </ul>
+
+          <div class="highlight-box">
+            <strong>Ejemplos y respuestas en preparación:</strong>
+            <br/>Los ficheros de ejemplo de factura XML y de respuesta/validación XML
+            están actualmente en preparación. En cuanto estén disponibles se
+            publicarán en las pestañas <em>Ejemplos</em> y <em>Validaciones</em>.
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 2: ESTRUCTURA ============ -->
+      <div id="estructura" class="tab-content">
+        <div class="tab-wrapper">
+
+          <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
+          <div class="sidebar-nav">
+            <div class="sidebar-nav-title">Ir a</div>
+            <div id="navButtons" class="sidebar-nav-buttons"></div>
+          </div>
+
+          <!-- COLUMNA 2: CONTENIDO CENTRAL -->
+          <div class="tab-content-middle">
+            <div class="content-section">
+              <h2>Estructura del Esquema XSD</h2>
+              <p>Explora la estructura completa del esquema XSD para e-Invoicing.
+                Cada tipo complejo se muestra a continuación con su código y descripción.</p>
+              <p>
+                <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
+                class="download-link">
+                📥 Ver GNX_Schema_xml.xsd completo</a>
+                </p>
+              <div id="schemaBlocksContainer"></div>
+            </div>
+          </div>
+
+          <!-- COLUMNA 3: ESPACIO EN BLANCO -->
+          <div class="sidebar-right"></div>
+
+        </div>
+      </div>
+
+      <!-- ============ TAB 3: Enumeraciones ============ -->
+      <div id="enumeraciones" class="tab-content">
+        <div class="tab-wrapper">
+          <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
+          <div class="sidebar-nav">
+            <div class="sidebar-nav-title">Ir a</div>
+            <div id="navButtonsEnums" class="sidebar-nav-buttons"></div>
+          </div>
+          <!-- COLUMNA 2: CONTENIDO CENTRAL -->
+          <div class="tab-content-middle">
+            <div class="content-section">
+              <h2>Enumeraciones</h2>
+              <p>Listas cerradas de valores admitidos en el esquema XSD e-Invoicing. Cada enumeración se carga dinámicamente desde los
+                <code>xs:simpleType</code> del esquema y muestra su tipo, descripción y los valores válidos.</p>
+              <p>
+                <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
+                class="download-link">
+                📥 Ver GNX_Schema_xml.xsd completo</a>
+              </p>
+              <div id="enumsContainer"></div>
+            </div>
+          </div>
+          <!-- COLUMNA 3: ESPACIO EN BLANCO -->
+          <div class="sidebar-right"></div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 4: EJEMPLOS ============ -->
+      <div id="ejemplos" class="tab-content">
+        <div class="content-section">
+          <h2>Ejemplos Prácticos</h2>
+
+          <p>El ejemplo completo de factura en formato XML estándar Generix e-Invoicing,
+            basado en el esquema normativo español, está actualmente en preparación.
+          </p>
+
+          <div class="highlight-box">
+            <strong>En preparación:</strong>
+            <br/>El fichero de ejemplo de factura XML (<code>GNX_Invoice_xml.xml</code>)
+            aún no está disponible. En cuanto se publique, este apartado mostrará la
+            estructura completa de una factura de ejemplo, del mismo modo que la
+            documentación JSON.
+            <br/>Mientras tanto, puedes consultar la pestaña <em>Estructura</em> para
+            ver el detalle de cada tipo del esquema XSD.
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 5: VALIDACIONES ============ -->
+      <div id="validaciones" class="tab-content">
+        <div class="content-section">
+          <h2>Reglas de Validación</h2>
+
+          <h3>Validaciones Estructurales</h3>
+          <div class="card-grid">
+            <div class="info-card">
+              <h4>Estructura XML</h4>
+              <p>
+                El XML debe ser válido y estar bien formado, y validar
+                correctamente contra el esquema XSD.<br/>
+                Se rechazarán documentos con errores de sintaxis.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Campos Requeridos</h4>
+              <p>
+                Todos los elementos sin <code>minOccurs="0"</code> son
+                obligatorios y deben estar presentes y no vacíos.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Tipos de Datos</h4>
+              <p>
+                Cada elemento debe cumplir con el tipo XSD especificado
+                (xs:string, xs:integer, xs:decimal, tipos con patrón, Enums).
+              </p>
+            </div>
+          </div>
+
+          <h3>Validaciones de Negocio</h3>
+            <div class="card-grid">
+              <div class="info-card">
+                <h4>NIF/CIF</h4>
+                <ul>
+                  <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
+                  <li>La letra debe corresponder al código de validación NIF</li>
+                  <li>CIF válidos también aceptados (B87654321)</li>
+                </ul>
+              </div>
+
+              <div class="info-card">
+                <h4>Fechas</h4>
+                  <ul>
+                    <li>Formato requerido: YYYY-MM-DDThh:mm:ss (DateTimeType)</li>
+                    <li>La fecha de emisión no puede ser futura</li>
+                    <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
+                  </ul>
+              </div>
+              <div class="info-card">
+                <h4>Importes</h4>
+                <ul>
+                  <li>Quantity y NetUnitPrice deben ser positivos</li>
+                  <li>Máximo 2 decimales en importes</li>
+                  <li>El importe de línea = cantidad × precio - descuento</li>
+                  <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
+                </ul>
+              </div>
+            </div>
+
+          <h3>Respuestas de Validación</h3>
+          <div class="highlight-box">
+            <strong>En preparación:</strong>
+            <br/>El esquema y los ejemplos de respuesta de validación en formato XML
+            (<code>GNX_Response_xml.xml</code> / <code>GNX_Response_Schema_xml.xsd</code>)
+            están actualmente en preparación y se publicarán en este apartado
+            cuando estén disponibles.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============ TAB 6: FAQ ============ -->
+      <div id="faq" class="tab-content">
+        <div class="content-section">
+          <h2>Preguntas Frecuentes</h2>
+
+          <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
+          <p>Una factura rectificativa se utiliza para corregir errores en una
+            factura ya emitida. Debe incluir referencia a la factura original
+            (elemento <code>Corrective</code>) y el motivo de la rectificación.
+            A nivel fiscal es una factura independiente que se emite junto a la
+            original.</p>
+
+          <h3>¿Cómo manejar descuentos?</h3>
+          <p>Los descuentos se aplican a nivel de línea (tipo
+            <code>LineDiscountType</code>) o a nivel de factura (tipo
+            <code>DiscountType</code> dentro de <code>InvoiceTotals</code>). El
+            importe final de línea se calcula como:
+            <code>(Quantity × NetUnitPrice) - DiscountAmount</code>.</p>
+
+          <h3>¿Se pueden incluir retenciones?</h3>
+          <p>Sí, a través de la sección <code>TaxesWithheld</code> en el tipo
+            <code>InvoiceType</code>. Las retenciones se aplican al importe total y
+            generalmente son del 19% para prestación de servicios en actividades
+            profesionales.</p>
+
+          <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
+          <p>Use la dirección fiscal oficial de la empresa en el elemento
+            <code>Address</code> de <code>LegalEntity</code>. Si necesita incluir
+            una dirección diferente para envío, puede usar el campo
+            <code>AdditionalAddress</code>.</p>
+
+          <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
+          <p>No hay límite técnico establecido (<code>InvoiceLine</code> tiene
+            <code>maxOccurs="unbounded"</code>), pero se recomienda mantener
+            facturas manejables. Para volúmenes muy grandes, considere
+            fragmentar en múltiples facturas o usar el modo lote (<code>Batch</code>).</p>
+
+          <h3>¿Cómo integro esto con mi sistema actual?</h3>
+          <p>Generix proporciona:</p>
+          <ul>
+            <li>APIs REST para validación y transformación</li>
+            <li>Librerías client para JavaScript, Python y Java</li>
+            <li>Conectores directos para ERP populares (SAP, Dynamics,
+              etc.)</li>
+          </ul>
+          <p>Consulte con nuestro equipo de soporte técnico para opciones
+            específicas a su tecnología.</p>
+
+          <h3>¿Dónde puedo ver el esquema XSD completo?</h3>
+          <p>Puede descargar el fichero
+            <code>GNX_Schema_xml.xsd</code> desde la pestaña "Descripción General"
+            o "Estructura" arriba.</p>
+
+          <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
+          <p>Contáctenos en <a
+              href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a>
+            o a través del portal de soporte de Generix.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand footer-logo">
+            <img src="Assets/generix.svg" alt="Generix">
+            <div class="tagline">Connecting Businesses Together</div>
+            <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+          </div>
+          <div>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
+              <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
+              EDI · API · Peppol · Compliance
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+          <p>Especificaciones técnicas e integración B2B</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ SCRIPT ============ -->
+    <!-- GNX_Schema_xml.xsd -- schemaBlocksContainer / enumsContainer -->
+    <script>
+        const XSD_NS = 'http://www.w3.org/2001/XMLSchema';
+        let xsdText = null;   // texto crudo del XSD
+        let xsdDoc = null;    // XML parseado (DOMParser)
+        let navObserver = null;
+
+        // ============ Diccionario de descripciones por tipo (complexType / simpleType) ============
+        const descriptions = {
+          InvoiceGNXType: {
+            title: '📄 InvoiceGNXType - Raíz del Documento',
+            esp: 'Tipo raíz del esquema. Contiene la cabecera del fichero (FileHeader) y el conjunto de facturas (Invoices).',
+            eng: 'Root type of the schema. Contains the file header (FileHeader) and the set of invoices (Invoices).'
+          },
+          InvoicesType: {
+            title: '📚 InvoicesType - Conjunto de Facturas',
+            esp: 'Contenedor de uno o varios envoltorios de factura (InvoiceWrapper).',
+            eng: 'Container of one or more invoice wrappers (InvoiceWrapper).'
+          },
+          FileHeaderType: {
+            title: '🗂️ FileHeaderType - Cabecera del Fichero',
+            esp: 'Metadatos del fichero: versión del esquema, modalidad, tipo de emisor y datos del lote.',
+            eng: 'File metadata: schema version, modality, issuer type and batch data.'
+          },
+          BatchType: {
+            title: '📦 BatchType - Lote de Facturas',
+            esp: 'Información agregada del lote: identificador, número de facturas, importes totales y divisa.',
+            eng: 'Aggregated batch information: identifier, invoice count, total amounts and currency.'
+          },
+          AmountContainerType: {
+            title: '💰 AmountContainerType - Contenedor de Importes',
+            esp: 'Importe en su divisa original y, opcionalmente, su equivalente en euros.',
+            eng: 'Amount in its original currency and, optionally, its euro equivalent.'
+          },
+          InvoiceWrapperType: {
+            title: '📦 InvoiceWrapperType - Envoltura de Factura',
+            esp: 'Envuelve las partes (Parties), la legislación aplicable y una o varias facturas.',
+            eng: 'Wraps the parties, the applicable legislation and one or more invoices.'
+          },
+          PartiesType: {
+            title: '👥 PartiesType - Partes',
+            esp: 'Partes involucradas en la factura: vendedor (SellerParty), comprador (BuyerParty) y tercero (ThirdParty, opcional).',
+            eng: 'Parties involved in the invoice: seller, buyer and third party (optional).'
+          },
+          PartyType: {
+            title: '👤 PartyType - Parte/Actor',
+            esp: 'Información de una parte: identificación fiscal, identificador y datos de la persona jurídica.',
+            eng: 'Information about a party: tax identification, identifier and legal entity data.'
+          },
+          TaxIdentificationType: {
+            title: '🧾 TaxIdentificationType - Identificación Fiscal',
+            esp: 'Datos fiscales: tipo de persona, tipo de residencia y número de identificación fiscal.',
+            eng: 'Tax data: person type, residence type and tax identification number.'
+          },
+          LegalEntityType: {
+            title: '🏢 LegalEntityType - Persona Jurídica',
+            esp: 'Datos de la persona jurídica: razón social, nombre comercial, datos registrales, dirección y contacto.',
+            eng: 'Legal entity data: corporate name, trade name, registration data, address and contact.'
+          },
+          RegistrationDataType: {
+            title: '📋 RegistrationDataType - Datos Registrales',
+            esp: 'Información del registro mercantil: libro, localización, hoja, folio, sección y tomo.',
+            eng: 'Commercial registry information: book, location, sheet, folio, section and volume.'
+          },
+          AddressType: {
+            title: '📍 AddressType - Dirección',
+            esp: 'Dirección fiscal: vía, código postal, población, provincia y país.',
+            eng: 'Fiscal address: street, postal code, town, province and country.'
+          },
+          ContactDetailsType: {
+            title: '📞 ContactDetailsType - Datos de Contacto',
+            esp: 'Información de contacto: teléfonos, web, correo electrónico y nombre de la persona de contacto.',
+            eng: 'Contact information: phones, website, email and contact person name.'
+          },
+          LegislacionType: {
+            title: '⚖️ LegislacionType - Legislación',
+            esp: 'Bloque de contenido libre (xs:any) para incluir información específica de cada normativa (CreaYCrece, VeriFactu, FACe, SII).',
+            eng: 'Free-content block (xs:any) to include information specific to each regulation (CreaYCrece, VeriFactu, FACe, SII).'
+          },
+          InvoiceType: {
+            title: '📄 InvoiceType - Factura Individual',
+            esp: 'Una factura completa: encabezado, datos de emisión, impuestos, totales, líneas, pago y datos adicionales.',
+            eng: 'A complete invoice: header, issue data, taxes, totals, lines, payment and additional data.'
+          },
+          InvoiceHeaderType: {
+            title: '📋 InvoiceHeaderType - Encabezado de Factura',
+            esp: 'Metadatos de la factura: número, tipo de documento, clase, descripción y datos rectificativos.',
+            eng: 'Invoice metadata: number, document type, class, description and corrective data.'
+          },
+          CorrectiveType: {
+            title: '✏️ CorrectiveType - Información Correctiva',
+            esp: 'Datos para facturas rectificativas: referencia a la original, motivo, fecha, método de corrección e importes.',
+            eng: 'Data for corrective invoices: reference to the original, reason, date, correction method and amounts.'
+          },
+          CorrectiveAmountsType: {
+            title: '➖ CorrectiveAmountsType - Importes Rectificativos',
+            esp: 'Importes corregidos: base, impuesto y cargo.',
+            eng: 'Corrected amounts: gross, tax and charge.'
+          },
+          InvoiceIssueDataType: {
+            title: '📅 InvoiceIssueDataType - Datos de Emisión',
+            esp: 'Información de emisión: fecha, periodo de facturación, divisas e idioma.',
+            eng: 'Issue information: date, invoicing period, currencies and language.'
+          },
+          PeriodType: {
+            title: '🗓️ PeriodType - Periodo',
+            esp: 'Rango de fechas con fecha de inicio y fecha de fin.',
+            eng: 'Date range with a start date and an end date.'
+          },
+          TaxSectionType: {
+            title: '💼 TaxSectionType - Sección de Impuestos',
+            esp: 'Conjunto de uno o varios impuestos (Tax) repercutidos o retenidos.',
+            eng: 'Set of one or more taxes (Tax), output or withheld.'
+          },
+          TaxType: {
+            title: '🧮 TaxType - Impuesto',
+            esp: 'Detalle de un impuesto: tipo, régimen, tipo de operación, exención, tasa, base imponible e importe.',
+            eng: 'Tax detail: type, regime, operation type, exemption, rate, taxable base and amount.'
+          },
+          InvoiceTotalsType: {
+            title: '🧾 InvoiceTotalsType - Totales de Factura',
+            esp: 'Importes finales: descuentos y cargos generales, bases, impuestos, total y total a pagar.',
+            eng: 'Final amounts: general discounts and charges, bases, taxes, total and amount payable.'
+          },
+          GeneralDiscountsType: {
+            title: '🏷️ GeneralDiscountsType - Descuentos Generales',
+            esp: 'Conjunto de descuentos aplicados a nivel de factura.',
+            eng: 'Set of discounts applied at invoice level.'
+          },
+          GeneralChargesType: {
+            title: '➕ GeneralChargesType - Cargos Generales',
+            esp: 'Conjunto de cargos aplicados a nivel de factura.',
+            eng: 'Set of charges applied at invoice level.'
+          },
+          DiscountType: {
+            title: '🏷️ DiscountType - Descuento',
+            esp: 'Descuento a nivel de factura: motivo, tipo, tasa, importe e impuesto asociado.',
+            eng: 'Invoice-level discount: reason, type, rate, amount and associated tax.'
+          },
+          ChargeType: {
+            title: '➕ ChargeType - Cargo',
+            esp: 'Cargo a nivel de factura: motivo, tipo, tasa, importe e impuesto asociado.',
+            eng: 'Invoice-level charge: reason, type, rate, amount and associated tax.'
+          },
+          DiscountTaxType: {
+            title: '💲 DiscountTaxType - Impuesto de Descuento/Cargo',
+            esp: 'Impuesto asociado a un descuento o cargo: tipo de impuesto y tasa.',
+            eng: 'Tax associated with a discount or charge: tax type and rate.'
+          },
+          InvoiceLineListType: {
+            title: '📑 InvoiceLineListType - Lista de Líneas',
+            esp: 'Conjunto de una o varias líneas de factura (InvoiceLine).',
+            eng: 'Set of one or more invoice lines (InvoiceLine).'
+          },
+          InvoiceLineType: {
+            title: '📦 InvoiceLineType - Línea de Factura',
+            esp: 'Detalle de una línea: producto/servicio, cantidad, descuentos, cargos, impuestos y precios.',
+            eng: 'Line detail: product/service, quantity, discounts, charges, taxes and prices.'
+          },
+          NotesReferenceType: {
+            title: '🔗 NotesReferenceType - Referencias',
+            esp: 'Referencias de línea: albarán, pedido y referencia catastral.',
+            eng: 'Line references: delivery note, order and cadastral reference.'
+          },
+          DeliveryNoteType: {
+            title: '🚚 DeliveryNoteType - Albarán',
+            esp: 'Datos del albarán: número y fecha.',
+            eng: 'Delivery note data: number and date.'
+          },
+          OrderType: {
+            title: '🛒 OrderType - Pedido',
+            esp: 'Datos del pedido: número y fecha.',
+            eng: 'Order data: number and date.'
+          },
+          CadastralReferenceType: {
+            title: '🏠 CadastralReferenceType - Referencia Catastral',
+            esp: 'Referencia catastral del inmueble: número y situación.',
+            eng: 'Property cadastral reference: number and situation.'
+          },
+          LineDiscountsType: {
+            title: '🏷️ LineDiscountsType - Descuentos de Línea',
+            esp: 'Conjunto de descuentos aplicados a nivel de línea.',
+            eng: 'Set of discounts applied at line level.'
+          },
+          LineDiscountType: {
+            title: '🏷️ LineDiscountType - Descuento de Línea',
+            esp: 'Descuento de línea: tipo, tasa e importe.',
+            eng: 'Line discount: type, rate and amount.'
+          },
+          LineChargesType: {
+            title: '➕ LineChargesType - Cargos de Línea',
+            esp: 'Conjunto de cargos aplicados a nivel de línea.',
+            eng: 'Set of charges applied at line level.'
+          },
+          LineChargeType: {
+            title: '➕ LineChargeType - Cargo de Línea',
+            esp: 'Cargo de línea: tipo, tasa e importe.',
+            eng: 'Line charge: type, rate and amount.'
+          },
+          PaymentDetailsType: {
+            title: '💳 PaymentDetailsType - Detalles de Pago',
+            esp: 'Conjunto de vencimientos/plazos de pago (Installment).',
+            eng: 'Set of payment installments (Installment).'
+          },
+          InstallmentType: {
+            title: '💳 InstallmentType - Vencimiento/Plazo',
+            esp: 'Plazo de pago: fecha de vencimiento, importe, medio de pago y cuenta bancaria.',
+            eng: 'Payment installment: due date, amount, payment means and bank account.'
+          },
+          AccountType: {
+            title: '🏦 AccountType - Cuenta Bancaria',
+            esp: 'Datos bancarios: IBAN, número de cuenta, código de banco y BIC.',
+            eng: 'Bank data: IBAN, account number, bank code and BIC.'
+          },
+          LegalLiteralsType: {
+            title: '📜 LegalLiteralsType - Literales Legales',
+            esp: 'Referencias y menciones legales aplicables a la factura.',
+            eng: 'Legal references and mentions applicable to the invoice.'
+          },
+          AdditionalDataType: {
+            title: '📎 AdditionalDataType - Datos Adicionales',
+            esp: 'Información complementaria: documentos relacionados y anexos.',
+            eng: 'Complementary information: related documents and attachments.'
+          },
+          RelatedDocumentType: {
+            title: '📎 RelatedDocumentType - Documento Relacionado',
+            esp: 'Documento asociado a la factura: anexo (Attachment) y anexo QR/firma (QRAttachment).',
+            eng: 'Document associated with the invoice: attachment and QR/signature attachment.'
+          },
+          AttachmentType: {
+            title: '📎 AttachmentType - Anexo',
+            esp: 'Fichero adjunto: algoritmo de compresión, formato, codificación, descripción y datos.',
+            eng: 'Attached file: compression algorithm, format, encoding, description and data.'
+          },
+          QRAttachmentType: {
+            title: '🔳 QRAttachmentType - Anexo QR/Firma',
+            esp: 'Información de QR y firma: URL, código hash, hash previo, firma electrónica y otros campos.',
+            eng: 'QR and signature information: URL, hash code, previous hash, electronic signature and other fields.'
+          },
+          CurrencyCodeType: {
+            title: '💱 CurrencyCodeType - Código de Divisa',
+            esp: 'Código de divisa de 3 caracteres (ISO 4217).',
+            eng: 'Three-character currency code (ISO 4217).'
+          },
+          CountryCodeType: {
+            title: '🌍 CountryCodeType - Código de País',
+            esp: 'Código de país de 2 caracteres (ISO 3166-1 alpha-2).',
+            eng: 'Two-character country code (ISO 3166-1 alpha-2).'
+          },
+          DateTimeType: {
+            title: '⏱️ DateTimeType - Fecha y Hora',
+            esp: 'Fecha y hora con patrón YYYY-MM-DDThh:mm:ss.',
+            eng: 'Date and time with pattern YYYY-MM-DDThh:mm:ss.'
+          },
+          LanguageCodeType: {
+            title: '🔤 LanguageCodeType - Código de Idioma',
+            esp: 'Código de idioma de 2 caracteres (ISO 639-1).',
+            eng: 'Two-character language code (ISO 639-1).'
+          }
+        };
+
+        // Orden de tipos a mostrar (complexTypes + simpleTypes no-enum)
+        const blockOrder = [
+          'InvoiceGNXType',
+          'InvoicesType',
+          'FileHeaderType',
+          'BatchType',
+          'AmountContainerType',
+          'InvoiceWrapperType',
+          'PartiesType',
+          'PartyType',
+          'TaxIdentificationType',
+          'LegalEntityType',
+          'RegistrationDataType',
+          'AddressType',
+          'ContactDetailsType',
+          'LegislacionType',
+          'InvoiceType',
+          'InvoiceHeaderType',
+          'CorrectiveType',
+          'CorrectiveAmountsType',
+          'InvoiceIssueDataType',
+          'PeriodType',
+          'TaxSectionType',
+          'TaxType',
+          'InvoiceTotalsType',
+          'GeneralDiscountsType',
+          'GeneralChargesType',
+          'DiscountType',
+          'ChargeType',
+          'DiscountTaxType',
+          'InvoiceLineListType',
+          'InvoiceLineType',
+          'NotesReferenceType',
+          'DeliveryNoteType',
+          'OrderType',
+          'CadastralReferenceType',
+          'LineDiscountsType',
+          'LineDiscountType',
+          'LineChargesType',
+          'LineChargeType',
+          'PaymentDetailsType',
+          'InstallmentType',
+          'AccountType',
+          'LegalLiteralsType',
+          'AdditionalDataType',
+          'RelatedDocumentType',
+          'AttachmentType',
+          'QRAttachmentType',
+          'CurrencyCodeType',
+          'CountryCodeType',
+          'DateTimeType',
+          'LanguageCodeType'
+        ];
+
+        // ============ ENUMERACIONES ============
+        const enumDescriptions = {
+          InvoiceIssuerTypeEnum: {
+            title: '🪪 InvoiceIssuerType - Tipo de Emisor',
+            esp: 'Identifica quién emite materialmente la factura',
+            eng: 'Identifies who issues the invoice',
+            enumDescEsp: 'EM=emisor|RE=receptor|TE=tercero.',
+            enumDescEng: 'EM=issuer|RE=recipient|TE=third party.'
+          },
+          PersonTypeCodeEnum: {
+            title: '👤 PersonTypeCode - Tipo de Persona',
+            esp: 'Tipo de persona en la identificación fiscal',
+            eng: 'Person type for tax identification',
+            enumDescEsp: 'F=persona física|J=persona jurídica.',
+            enumDescEng: 'F=natural person|J=legal entity.'
+          },
+          ResidenceTypeCodeEnum: {
+            title: '🌐 ResidenceTypeCode - Tipo de Residencia',
+            esp: 'Tipo de residencia fiscal del sujeto',
+            eng: 'Tax residence type of the party',
+            enumDescEsp: 'E=fuera de la Unión Europea|R=residente en España|U=residente en la Unión Europea.',
+            enumDescEng: 'E=outside the European Union|R=Spanish tax resident|U=European Union resident.'
+          },
+          InvoiceDocumentTypeEnum: {
+            title: '📄 InvoiceDocumentType - Tipo de Documento',
+            esp: 'Código del tipo de documento de factura conforme a UNTDID 1001 y a la lista L1 del Anexo I (RD 238/2026)',
+            eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026)',
+            enumDescEsp: '380=factura ordinaria|381=nota de abono|384=factura rectificativa|388=factura emitida en sustitución de simplificadas|389=factura emitida por el destinatario|481=factura rectificativa emitida por el destinatario.',
+            enumDescEng: '380=standard invoice|381=credit note|384=corrective invoice|388=invoice replacing simplified invoices|389=invoice issued by the recipient|481=corrective invoice issued by the recipient.'
+          },
+          InvoiceClassEnum: {
+            title: '📑 InvoiceClass - Clase de Factura',
+            esp: 'Clase de factura según su naturaleza dentro del flujo de emisión',
+            eng: 'Invoice class according to its nature within the issuance flow',
+            enumDescEsp: 'OO=original (documento principal)|OC=original copia (copia fiel del original con la misma validez tributaria).',
+            enumDescEng: 'OO=original (main document)|OC=original copy (true copy of the original with the same tax validity).'
+          },
+          ReasonCodeEnum: {
+            title: '✏️ ReasonCode - Motivo de Rectificación',
+            esp: 'Código del motivo por el que se emite una factura rectificativa según la lista L2.A del Anexo I',
+            eng: 'Code identifying the reason for issuing a corrective invoice per list L2.A of Annex I',
+            enumDescEsp: 'R1=error fundado en derecho y Art. 80 Uno, Dos y Seis LIVA|R2=Art. 80.3 LIVA (concurso de acreedores)|R3=Art. 80.4 LIVA (créditos incobrables)|R4=resto de causas.',
+            enumDescEng: 'R1=legally founded error and Art. 80 One, Two and Six VAT Law|R2=Art. 80.3 VAT Law (creditor insolvency)|R3=Art. 80.4 VAT Law (uncollectible debts)|R4=other causes.'
+          },
+          CorrectionMethodEnum: {
+            title: '🔧 CorrectionMethod - Método de Corrección',
+            esp: 'Método empleado para la rectificación según la lista L2.B del Anexo I',
+            eng: 'Correction method used per list L2.B of Annex I',
+            enumDescEsp: 'I=rectificativa por diferencias (solo se informan los importes corregidos)|S=rectificativa por sustitución (la nueva factura reemplaza íntegramente a la original).',
+            enumDescEng: 'I=correction by differences (only corrected amounts are reported)|S=correction by substitution (the new invoice fully replaces the original).'
+          },
+          TaxTypeCodeEnum: {
+            title: '💼 TaxTypeCode - Tipo de Impuesto',
+            esp: 'Código del impuesto aplicado a la operación',
+            eng: 'Code of the tax applied to the operation',
+            enumDescEsp: 'IVA=Impuesto sobre el Valor Añadido|IPSI=Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla)|IGIC=Impuesto General Indirecto Canario|IRPF=retención por IRPF|RIS=retención por Impuesto sobre Sociedades / no Residentes|REEQ=recargo de equivalencia.',
+            enumDescEng: 'IVA=Spanish VAT|IPSI=Production, Services and Import Tax (Ceuta and Melilla)|IGIC=Canary Islands General Indirect Tax|IRPF=personal income tax withholding|RIS=corporate / non-resident income tax withholding|REEQ=equivalence surcharge.'
+          },
+          TaxRegimeCodeEnum: {
+            title: '🏛️ TaxRegimeCode - Régimen Fiscal',
+            esp: 'Clave de régimen fiscal aplicable a la operación según las listas L3A (IVA), L3B (IGIC) y L3C (IPSI) del Anexo I',
+            eng: 'Tax regime code applicable to the operation per lists L3A (VAT), L3B (IGIC) and L3C (IPSI) of Annex I',
+            enumDescEsp: '01=régimen general|02=exportación|03=bienes usados/REBU|04=oro de inversión|05=agencias de viajes|06=grupo de entidades nivel avanzado|07=criterio de caja|08=sujetas a IPSI/IGIC|09=agencias de viaje mediadoras (D.A.4ª)|11=arrendamiento de local de negocio|14=IVA pendiente devengo en obras a AAPP|15=IVA pendiente devengo en tracto sucesivo|17=comerciante minorista (IGIC)|18=recargo de equivalencia (IVA) / pequeño empresario (IGIC)|19=REAGYP / interiores exentas|20=régimen simplificado.',
+            enumDescEng: '01=general regime|02=export|03=second-hand goods/REBU|04=investment gold|05=travel agencies|06=advanced group of entities regime|07=cash basis|08=subject to IPSI/IGIC|09=travel agencies acting as mediators (D.A.4ª)|11=business premises lease|14=VAT pending accrual on works to public bodies|15=VAT pending accrual on successive operations|17=retail trader regime (IGIC)|18=equivalence surcharge (VAT) / small entrepreneur (IGIC)|19=REAGYP / domestic exempt operations|20=simplified regime.'
+          },
+          TaxOperationTypeEnum: {
+            title: '⚙️ TaxOperationType - Tipo de Operación',
+            esp: 'Categoría de IVA según la lista L4 del Anexo I (basada en UNTDID 5305)',
+            eng: 'VAT category per list L4 of Annex I (based on UNTDID 5305)',
+            enumDescEsp: 'S=régimen general|Z=bienes con tipo impositivo 0%|E=exenta de IVA|AE=inversión del sujeto pasivo|O=no sujeta a IVA|G=exportación|L=sujeta al IGIC|M=sujeta al IPSI.',
+            enumDescEng: 'S=standard regime|Z=goods with 0% rate|E=VAT-exempt|AE=reverse charge|O=not subject to VAT|G=export|L=subject to IGIC|M=subject to IPSI.'
+          },
+          DiscountChargeTypeCodeEnum: {
+            title: '🏷️ DiscountChargeTypeCode - Tipo de Descuento o Cargo',
+            esp: 'Código que identifica el tipo de cargo o minoración aplicada en factura según la lista L7 del Anexo I',
+            eng: 'Code identifying the type of charge or allowance applied per list L7 of Annex I',
+            enumDescEsp: 'SUPL=cargo en nombre de un tercero (suplido)|MINO=minoración en nombre de un tercero|REGE=régimen especial de grupo de entidades (nivel avanzado)|REEQ=recargo de equivalencia|RETE=retención.',
+            enumDescEng: 'SUPL=charge on behalf of a third party (disbursement)|MINO=allowance on behalf of a third party|REGE=special group of entities regime (advanced level)|REEQ=equivalence surcharge|RETE=withholding.'
+          },
+          PaymentMeansEnum: {
+            title: '💳 PaymentMeans - Medio de Pago',
+            esp: 'Código del medio de pago según la lista UNTDID 4461 (BT-81)',
+            eng: 'Payment method code per UNTDID 4461 (BT-81)',
+            enumDescEsp: '01–19=códigos numéricos para los principales medios de pago habituales en B2B (efectivo, transferencia bancaria, domiciliación/adeudo SEPA, cheque, tarjeta de crédito/débito, giro, compensación y otros instrumentos equivalentes).',
+            enumDescEng: '01–19=numeric codes for the main payment methods commonly used in B2B (cash, bank transfer, SEPA direct debit, cheque, credit/debit card, bill of exchange, set-off and other equivalent instruments).'
+          },
+          CadastralReferenceEnum: {
+            title: '🏠 CadastralReference - Situación del Inmueble',
+            esp: 'Código que indica la situación del inmueble al que se refiere la operación, según la lista L6 del Anexo I',
+            eng: 'Code indicating the situation of the property the operation refers to, per list L6 of Annex I',
+            enumDescEsp: '01=inmueble con referencia catastral en territorio español excepto País Vasco y Navarra|02=inmueble en el País Vasco o en la Comunidad Foral de Navarra|03=inmueble en territorio español sin referencia catastral|04=inmueble situado en el extranjero.',
+            enumDescEng: '01=property with cadastral reference in Spain except Basque Country and Navarre|02=property in the Basque Country or the Chartered Community of Navarre|03=property in Spain without cadastral reference|04=property located abroad.'
+          },
+          AttachmentFormatEnum: {
+            title: '📎 AttachmentFormat - Formato de Anexo',
+            esp: 'Formato del fichero adjunto a la factura electrónica. Solo se admiten formatos no ejecutables y de uso común',
+            eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed',
+            enumDescEsp: 'pdf=documento PDF|jpg=imagen JPEG|jpeg=imagen JPEG|png=imagen PNG.',
+            enumDescEng: 'pdf=PDF document|jpg=JPEG image|jpeg=JPEG image|png=PNG image.'
+          }
+        };
+
+        // Orden de enumeraciones a mostrar
+        const enumOrder = [
+          'InvoiceIssuerTypeEnum',
+          'PersonTypeCodeEnum',
+          'ResidenceTypeCodeEnum',
+          'InvoiceDocumentTypeEnum',
+          'InvoiceClassEnum',
+          'ReasonCodeEnum',
+          'CorrectionMethodEnum',
+          'TaxTypeCodeEnum',
+          'TaxRegimeCodeEnum',
+          'TaxOperationTypeEnum',
+          'DiscountChargeTypeCodeEnum',
+          'PaymentMeansEnum',
+          'CadastralReferenceEnum',
+          'AttachmentFormatEnum'
+        ];
+
+        // ============ Carga del esquema XSD (texto crudo + DOM) ============
+        fetch('E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+          })
+          .then(text => {
+            xsdText = text;
+            const parser = new DOMParser();
+            xsdDoc = parser.parseFromString(text, 'application/xml');
+            const parseError = xsdDoc.getElementsByTagName('parsererror');
+            if (parseError && parseError.length > 0) {
+              throw new Error('El XSD no se ha podido parsear correctamente.');
+            }
+            renderAllBlocks();
+            renderAllEnums();
+          })
+          .catch(error => {
+            console.error('Error cargando el esquema:', error);
+            document.getElementById('schemaBlocksContainer').innerHTML =
+              '<p style="color: red;">Error al cargar GNX_Schema_xml.xsd: ' + error.message + '</p>';
+            const enumsEl = document.getElementById('enumsContainer');
+            if (enumsEl) {
+              enumsEl.innerHTML =
+                '<p style="color: red;">Error al cargar GNX_Schema_xml.xsd: ' + error.message + '</p>';
+            }
+          });
+
+        // ============ Helpers de parseo XSD ============
+
+        // Busca el nodo de tipo (complexType o simpleType) por @name
+        function getTypeNode(name) {
+          const complex = xsdDoc.getElementsByTagNameNS(XSD_NS, 'complexType');
+          for (let i = 0; i < complex.length; i++) {
+            if (complex[i].getAttribute('name') === name) return complex[i];
+          }
+          const simple = xsdDoc.getElementsByTagNameNS(XSD_NS, 'simpleType');
+          for (let i = 0; i < simple.length; i++) {
+            if (simple[i].getAttribute('name') === name) return simple[i];
+          }
+          return null;
+        }
+
+        // Devuelve 'complexType' | 'simpleType' | null
+        function getTypeKind(name) {
+          const node = getTypeNode(name);
+          if (!node) return null;
+          return node.localName; // 'complexType' o 'simpleType'
+        }
+
+        // Extrae el fragmento XSD literal de un tipo dado (texto verbatim)
+        function extractXsdSnippet(name) {
+          if (!xsdText) return '';
+          const tags = ['complexType', 'simpleType'];
+          for (const tag of tags) {
+            const re = new RegExp('[ \\t]*<xs:' + tag + ' name="' + name + '"[\\s\\S]*?</xs:' + tag + '>');
+            const m = xsdText.match(re);
+            if (m) return dedent(m[0]);
+          }
+          return '';
+        }
+
+        // Elimina la indentación común de un bloque de texto
+        function dedent(s) {
+          const lines = s.replace(/\t/g, '    ').split('\n');
+          let min = Infinity;
+          lines.forEach(line => {
+            if (line.trim() === '') return;
+            const indent = line.match(/^ */)[0].length;
+            if (indent < min) min = indent;
+          });
+          if (!isFinite(min)) min = 0;
+          return lines.map(line => line.slice(min)).join('\n').trim();
+        }
+
+        // Lista de elementos hijos directos (xs:element) de un complexType
+        function getElements(node) {
+          const result = [];
+          const els = node.getElementsByTagNameNS(XSD_NS, 'element');
+          for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            const elName = el.getAttribute('name');
+            if (!elName) continue;
+            result.push({
+              name: elName,
+              type: el.getAttribute('type') || '',
+              min: el.getAttribute('minOccurs'),
+              max: el.getAttribute('maxOccurs')
+            });
+          }
+          return result;
+        }
+
+        // Determina dónde se usa una enumeración: recorre los xs:element con @type === enumName
+        // y sube hasta el complexType ancestro, devolviendo "ComplexType.element"
+        function getEnumUsage(enumName) {
+          const usage = [];
+          const els = xsdDoc.getElementsByTagNameNS(XSD_NS, 'element');
+          for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            if (el.getAttribute('type') !== enumName) continue;
+            const elName = el.getAttribute('name') || '';
+            // subir hasta el complexType con @name
+            let ancestor = el.parentNode;
+            let ctName = '';
+            while (ancestor && ancestor.nodeType === 1) {
+              if (ancestor.localName === 'complexType' && ancestor.getAttribute('name')) {
+                ctName = ancestor.getAttribute('name');
+                break;
+              }
+              ancestor = ancestor.parentNode;
+            }
+            usage.push(ctName ? (ctName + '.' + elName) : elName);
+          }
+          return usage;
+        }
+
+        // Devuelve la base y las facetas de un simpleType (para tech-details)
+        function getSimpleTypeFacets(node) {
+          const restriction = node.getElementsByTagNameNS(XSD_NS, 'restriction')[0];
+          if (!restriction) return { base: '', facets: [] };
+          const base = restriction.getAttribute('base') || '';
+          const facets = [];
+          const facetTags = ['length', 'pattern', 'minLength', 'maxLength', 'minInclusive', 'maxInclusive'];
+          facetTags.forEach(ft => {
+            const nodes = restriction.getElementsByTagNameNS(XSD_NS, ft);
+            for (let i = 0; i < nodes.length; i++) {
+              facets.push({ name: ft, value: nodes[i].getAttribute('value') || '' });
+            }
+          });
+          return { base: base, facets: facets };
+        }
+
+        // ============ Render: Estructura (tipos) ============
+        function renderAllBlocks() {
+          const container = document.getElementById('schemaBlocksContainer');
+          const navContainer = document.getElementById('navButtons');
+          let html = '';
+          let navHtml = '';
+
+          blockOrder.forEach(blockName => {
+            const node = getTypeNode(blockName);
+            if (!node) return;
+
+            const desc = descriptions[blockName];
+            if (!desc) return;
+
+            const kind = node.localName; // complexType | simpleType
+            const jsonCode = extractXsdSnippet(blockName);
+
+            // Tech details según el tipo
+            let techRows = '';
+            techRows += `
+              <p class="tech-details__row">
+                <strong>Tipo:</strong>
+                <span class="tag tag--type">${kind === 'simpleType' ? 'xs:simpleType' : 'xs:complexType'}</span>
+              </p>`;
+
+            if (kind === 'complexType') {
+              const hasAny = node.getElementsByTagNameNS(XSD_NS, 'any').length > 0;
+              const elements = getElements(node);
+              if (elements.length > 0) {
+                const propNames = elements.map(e => e.name).join(', ');
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Propiedades:</strong>
+                    <span class="tag tag--properties">${escapeHtml(propNames)}</span>
+                  </p>`;
+                const required = elements.filter(e => e.min !== '0').map(e => e.name);
+                if (required.length > 0) {
+                  techRows += `
+                    <p class="tech-details__row">
+                      <strong>Requeridos:</strong>
+                      <span class="tag tag--required">${escapeHtml(required.join(', '))}</span>
+                    </p>`;
+                } else {
+                  techRows += `
+                    <p class="tech-details__row">
+                      <strong>Requeridos:</strong>
+                      <span class="tag tag--required-empty">No required data in this segment</span>
+                    </p>`;
+                }
+              } else if (hasAny) {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Propiedades:</strong>
+                    <span class="tag tag--properties">xs:any (contenido libre / free content)</span>
+                  </p>
+                  <p class="tech-details__row">
+                    <strong>Requeridos:</strong>
+                    <span class="tag tag--required-empty">No required data in this segment</span>
+                  </p>`;
+              } else {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Requeridos:</strong>
+                    <span class="tag tag--required-empty">No required data in this segment</span>
+                  </p>`;
+              }
+            } else {
+              // simpleType: base + facetas
+              const f = getSimpleTypeFacets(node);
+              if (f.base) {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Base:</strong>
+                    <span class="tag tag--type">${escapeHtml(f.base)}</span>
+                  </p>`;
+              }
+              if (f.facets.length > 0) {
+                const facetsHtml = f.facets.map(fa =>
+                  `<span class="tag tag--properties">${escapeHtml(fa.name)} = ${escapeHtml(fa.value)}</span>`
+                ).join(' ');
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Restricciones:</strong> ${facetsHtml}
+                  </p>`;
+              }
+            }
+
+            navHtml += `
+              <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" onclick="setActiveNavButton(this, event);">
+                ${blockName}
+              </a>
+            `;
+
+            html += `
+              <div class="block-container" id="block-${blockName}">
+                <div class="block-grid">
+                  <!-- Panel izquierdo: Código -->
+                  <div class="code-panel">
+                    <div class="code-panel__header">
+                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
+                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                    </div>
+                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                  </div>
+
+                  <!-- Panel derecho: Explicación -->
+                  <div>
+                    <div class="explanation-box">
+                      <p class="explanation-box__description">
+                        <strong>Español:</strong> ${desc.esp}
+                      </p>
+                      <p class="explanation-box__text explanation-box__text--spaced">
+                        <strong>English:</strong> ${desc.eng}
+                      </p>
+                    </div>
+
+                    <div class="tech-details">
+                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                      ${techRows}
+                    </div>
+                  </div>
+                </div>
+                <div class="block-divider"></div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+          if (navContainer) {
+            navContainer.innerHTML = navHtml;
+            setTimeout(() => {
+                initNavObserver();
+              }, 0);
+          }
+        }
+
+        // ============ Render: Enumeraciones ============
+        function renderAllEnums() {
+          const container = document.getElementById('enumsContainer');
+          const navContainer = document.getElementById('navButtonsEnums');
+          if (!container) return;
+
+          let html = '';
+          let navHtmlEnums = '';
+
+          enumOrder.forEach(enumName => {
+            const node = getTypeNode(enumName);
+            if (!node) return;
+
+            const desc = enumDescriptions[enumName];
+            if (!desc) return;
+
+            const jsonCode = extractXsdSnippet(enumName);
+
+            // Valores desde el XSD
+            const enumNodes = node.getElementsByTagNameNS(XSD_NS, 'enumeration');
+            const values = [];
+            for (let i = 0; i < enumNodes.length; i++) {
+              values.push(enumNodes[i].getAttribute('value'));
+            }
+            const hasValues = values.length > 0;
+
+            const usedIn = getEnumUsage(enumName);
+
+            const usedInHtml = (usedIn && usedIn.length > 0)
+              ? usedIn.map(f =>
+                  `<span class="tag tech-details__used-in">${escapeHtml(f)}</span>`
+                ).join('')
+              : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
+
+            navHtmlEnums += `
+              <a href="#enum-${enumName}" class="sidebar-nav-btn" data-enum="${enumName}"
+              onclick="setActiveNavButton(this, event);">
+                ${enumName}
+                </a>
+            `;
+
+            html += `
+              <div class="block-container" id="enum-${enumName}">
+                <div class="block-grid">
+                  <!-- Panel izquierdo: Código -->
+                  <div class="code-panel">
+                    <div class="code-panel__header">
+                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
+                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                    </div>
+                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                  </div>
+
+                  <!-- Panel derecho: Explicación -->
+                  <div>
+                    <div class="explanation-box">
+                      <p class="explanation-box__text">
+                        <strong>Español:</strong> ${desc.esp}
+                      </p>
+                      <p class="explanation-box__text">
+                        <strong>English:</strong> ${desc.eng}
+                      </p>
+                    </div>
+
+                    <div class="tech-details">
+                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                      <p class="tech-details__row">
+                        <strong>Tipo:</strong>
+                        <span class="tag tag--type"> xs:string </span>
+                      </p>
+                      <p class="tech-details__row">
+                        <strong>Usado en:</strong>
+                        ${usedInHtml}
+                      </p>
+                      <p class="tech-details__row">
+                        <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
+                      </p>
+                      <div class="tech-details__values">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="block-divider"></div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+          if (navContainer) {
+            navContainer.innerHTML = navHtmlEnums;
+            setTimeout(() => {
+                initNavObserver();
+              }, 0);
+          }
+        }
+
+        function initNavObserver() {
+          if (navObserver) {
+            navObserver.disconnect();
+          }
+          navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+                  btn.classList.remove('active');
+                });
+
+                const id = entry.target.id; // "block-XXX" o "enum-XXX"
+                let activeBtn = null;
+
+                if (id.startsWith('block-')) {
+                  const blockName = id.replace('block-', '');
+                  activeBtn = document.querySelector(`.sidebar-nav-btn[data-block="${blockName}"]`);
+                } else if (id.startsWith('enum-')) {
+                  const enumName = id.replace('enum-', '');
+                  activeBtn = document.querySelector(`.sidebar-nav-btn[data-enum="${enumName}"]`);
+                }
+
+                if (activeBtn) {
+                  activeBtn.classList.add('active');
+                }
+              }
+            });
+          }, {
+            rootMargin: "-120px 0px -60% 0px",
+            threshold: 0
+          });
+
+          document.querySelectorAll('[id^="block-"], [id^="enum-"]').forEach(el => {
+            navObserver.observe(el);
+          });
+        }
+
+        function setActiveNavButton(clickedBtn, event) {
+          event.preventDefault();
+
+          document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+
+          clickedBtn.classList.add('active');
+
+          const blockId = clickedBtn.getAttribute('href');
+          document.querySelector(blockId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Parsea "A = desc1 | B = desc2." en [{code:'A', desc:'desc1'}, ...]
+        function parseEnumDesc(str) {
+          if (!str) return [];
+          return str
+            .replace(/\.\s*$/, '')
+            .split('|')
+            .map(item => {
+              const [code, ...rest] = item.split('=');
+              return {
+                code: (code || '').trim(),
+                desc: rest.join('=').trim()
+              };
+            })
+            .filter(it => it.code || it.desc);
+        }
+
+        // Construye la tabla a partir de los strings ES + EN
+        function buildEnumDescTable(enumDescEsp, enumDescEng) {
+          const itemsEsp = parseEnumDesc(enumDescEsp);
+          const itemsEng = parseEnumDesc(enumDescEng);
+          const max = Math.max(itemsEsp.length, itemsEng.length);
+          if (max === 0) return '';
+
+          let rows = '';
+          for (let i = 0; i < max; i++) {
+            const esp = itemsEsp[i] || { code: '', desc: '' };
+            const eng = itemsEng[i] || { code: '', desc: '' };
+            const code = esp.code || eng.code;
+            rows += `
+              <tr>
+                <td><span class="tag tag--required">${escapeHtml(code)}</span></td>
+                <td>${escapeHtml(esp.desc)}</td>
+                <td>${escapeHtml(eng.desc)}</td>
+              </tr>
+            `;
+          }
+
+          return `
+            <table class="enum-desc-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Español</th>
+                  <th>English</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          `;
+        }
+
+        function escapeHtml(text) {
+          const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+          };
+          return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+    </script>
+
+    <!-- Tab switching -->
+    <script>
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const tabName = button.getAttribute('data-tab');
+
+          document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+          button.classList.add('active');
+          document.getElementById(tabName).classList.add('active');
+        });
+      });
+    </script>
+
+  </body>
+</html>
