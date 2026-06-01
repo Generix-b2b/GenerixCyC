@@ -412,7 +412,11 @@
       margin: 0 0 12px 0;
     }
     .tech-details__used-in {
-      /* sin estilo extra, contenedor semántico */
+      display: inline-block; 
+      background: var(--gray-200); 
+      color: var(--generix-dark); 
+      margin: 2px 4px 2px 0; 
+      border: 1px solid var(--gray-300);
     }
     /* Separador inferior */
     .block-divider {
@@ -1316,7 +1320,7 @@
             eng: 'Tax residence type of the party',
             enumDescEsp: 'E=fuera de la Unión Europea|R=residente en España|U=residente en la Unión Europea.',
             enumDescEng: 'E=outside the European Union|R=Spanish tax resident|U=European Union resident.',
-            usedIn: ['InvoiceGNX.Invoices[0].Parties.ThirdParty.TaxIdentification.ResidenceTypeCode']
+            usedIn: ['InvoiceGNX.Invoices[0]. Parties.ThirdParty.TaxIdentification.ResidenceTypeCode']
           },
           InvoiceDocumentTypeEnum: {
             title: '📄 InvoiceDocumentType - Tipo de Documento',
@@ -1460,7 +1464,7 @@
 
             const usedInHtml = (desc.usedIn && desc.usedIn.length > 0)
               ? desc.usedIn.map(f =>
-                  `<span style="display: inline-block; background: var(--gray-100); color: var(--generix-dark); padding: 2px 8px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.8rem; margin: 2px 4px 2px 0; border: 1px solid var(--gray-200);">${escapeHtml(f)}</span>`
+                  `<span class="tag tech-details__used-in">${escapeHtml(f)}</span>`
                 ).join('')
               : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
 
@@ -1503,7 +1507,7 @@
                       </p>
                       <p class="tech-details__row">
                         <strong>Usado en:</strong>
-                        <span class="tech-details__used-in">${usedInHtml}</span>
+                        ${usedInHtml}
                       </p>
                       <p class="tech-details__row">
                         <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
