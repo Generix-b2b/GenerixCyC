@@ -298,6 +298,7 @@
     }
     .code-panel::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
     .code-panel::-webkit-scrollbar-track {
       background: transparent;
@@ -1812,7 +1813,7 @@
                       <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
                       <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
                     </div>
-                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                    <pre class="code-panel code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
                   </div>
 
                   <!-- Panel derecho: Explicación -->
@@ -1896,7 +1897,7 @@
                       <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
                       <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
                     </div>
-                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                    <pre class="code-panel code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
                   </div>
 
                   <!-- Panel derecho: Explicación -->
