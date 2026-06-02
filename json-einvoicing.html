@@ -847,7 +847,7 @@
         <button class="tab-button" data-tab="enumeraciones">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
         <button class="tab-button" data-tab="validaciones">Validaciones</button>
-        <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
+        <button class="tab-button" data-tab="old-versions">Versiones</button>
       </div>
 
       <!-- ============ TAB 1: GENERAL ============ -->
@@ -883,32 +883,6 @@
             <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica. 
             <br/>Se recomienda revisar la documentación completa antes de implementar.
           </div>
-
-          <h3>Versiones Soportadas</h3>
-          <ul>
-            <li>
-              Versión 2.0 - Versión actual, cumplimiento normativo C&C<br/>
-              <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
-                class="download-link">
-                📥 Schema - GNX_Schema_Json.json
-              </a><br/>
-              <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
-                class="download-link">
-                📥 Example - GNX_Invoice_Json.json
-              </a>
-            </li>
-            <li>
-              Versión 1.0 - En Desuso, basado en la version 3.2.2 de FACE <br/>
-              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
-                class="download-link">
-                📥 Schema - GNX_Schema_Json_v1.0.json
-              </a><br/>
-              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Json_v1.0.json" target="_blank"
-                class="download-link">
-                📥 Example - GNX_Invoice_Json_v1.0.json
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
 
@@ -1056,61 +1030,34 @@
         </div>
       </div>
 
-      <!-- ============ TAB 6: FAQ ============ -->
-      <div id="faq" class="tab-content">
+      <!-- ============ TAB 6: OLD VERSION ============ -->
+      <div id="old-versions" class="tab-content">
         <div class="content-section">
-          <h2>Preguntas Frecuentes</h2>
-
-          <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
-          <p>Una factura rectificativa se utiliza para corregir errores en una
-            factura ya emitida. Debe incluir referencia a la factura original y
-            el motivo de la rectificación. A nivel fiscal es una factura
-            independiente que se emite junto a la original.</p>
-
-          <h3>¿Cómo manejar descuentos?</h3>
-          <p>Los descuentos se aplican a nivel de línea (campo
-            <code>descuento</code>) o pueden agregarse a nivel de factura (campo
-            <code>descuentoGlobal</code> en totales). El importe final de línea
-            se calcula como: <code>(cantidad × precioUnitario) -
-              descuento</code>.</p>
-
-          <h3>¿Se pueden incluir retenciones?</h3>
-          <p>Sí, a través del campo <code>retencion</code> en el objeto
-            <code>totales</code>. Las retenciones se aplican al importeTotal y
-            generalmente son del 19% para prestación de servicios en actividades
-            profesionales.</p>
-
-          <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
-          <p>Use la dirección fiscal oficial de la empresa en el campo
-            <code>emisor.direccion</code>. Si necesita incluir una dirección
-            diferente para envío, puede agregarse en un campo adicional
-            <code>direccionEnvio</code>.</p>
-
-          <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
-          <p>No hay límite técnico establecido, pero se recomienda mantener
-            facturas manejables. Para volúmenes muy grandes, considere
-            fragmentar en múltiples facturas.</p>
-
-          <h3>¿Cómo integro esto con mi sistema actual?</h3>
-          <p>Generix proporciona:</p>
+          <h2>Versiones Soportadas</h2>
           <ul>
-            <li>APIs REST para validación y transformación</li>
-            <li>Librerías client para JavaScript, Python y Java</li>
-            <li>Conectores directos para ERP populares (SAP, Dynamics,
-              etc.)</li>
+            <li>
+              Versión 2.0 - Versión actual, cumplimiento normativo C&C<br/>
+              <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                class="download-link">
+                📥 Schema - GNX_Schema_Json.json
+              </a><br/>
+              <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
+                class="download-link">
+                📥 Example - GNX_Invoice_Json.json
+              </a>
+            </li>
+            <li>
+              Versión 1.0 - En Desuso, basado en la version 3.2.2 de FACE <br/>
+              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
+                class="download-link">
+                📥 Schema - GNX_Schema_Json_v1.0.json
+              </a><br/>
+              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Json_v1.0.json" target="_blank"
+                class="download-link">
+                📥 Example - GNX_Invoice_Json_v1.0.json
+              </a>
+            </li>
           </ul>
-          <p>Consulte con nuestro equipo de soporte técnico para opciones
-            específicas a su tecnología.</p>
-
-          <h3>¿Dónde puedo ver ejemplos reales de facturas validadas?</h3>
-          <p>Consulte la pestaña "Ejemplos" arriba, o descargue el archivo
-            <code>EJEMPLO_FACTURA_INDEX.json</code> incluido en la
-            documentación.</p>
-
-          <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
-          <p>Contáctenos en <a
-              href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a>
-            o a través del portal de soporte de Generix.</p>
         </div>
       </div>
 

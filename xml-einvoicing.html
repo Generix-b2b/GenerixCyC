@@ -846,7 +846,7 @@
         <button class="tab-button" data-tab="enumeraciones">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
         <button class="tab-button" data-tab="validaciones">Validaciones</button>
-        <button class="tab-button" data-tab="faq">Preguntas Frecuentes</button>
+        <button class="tab-button" data-tab="old-versions">Versiones</button>
       </div>
 
       <!-- ============ TAB 1: GENERAL ============ -->
@@ -881,24 +881,6 @@
             <strong>Nota importante:</strong>
             <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica.
             <br/>Se recomienda revisar la documentación completa antes de implementar.
-          </div>
-
-          <h3>Versiones Soportadas</h3>
-          <ul>
-            <li>
-              Versión 2.0 - Versión actual, cumplimiento normativo C&amp;C<br/>
-              <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
-                class="download-link">
-                📥 Schema - GNX_Schema_xml.xsd
-              </a>
-            </li>
-          </ul>
-
-          <div class="highlight-box">
-            <strong>Ejemplos y respuestas en preparación:</strong>
-            <br/>Los ficheros de ejemplo de factura XML y de respuesta/validación XML
-            están actualmente en preparación. En cuanto estén disponibles se
-            publicarán en las pestañas <em>Ejemplos</em> y <em>Validaciones</em>.
           </div>
         </div>
       </div>
@@ -1055,63 +1037,25 @@
         </div>
       </div>
 
-      <!-- ============ TAB 6: FAQ ============ -->
-      <div id="faq" class="tab-content">
+      <!-- ============ TAB 6: OLD VERSION ============ -->
+      <div id="old-versions" class="tab-content">
         <div class="content-section">
-          <h2>Preguntas Frecuentes</h2>
-
-          <h3>¿Cuál es la diferencia entre factura y factura rectificativa?</h3>
-          <p>Una factura rectificativa se utiliza para corregir errores en una
-            factura ya emitida. Debe incluir referencia a la factura original
-            (elemento <code>Corrective</code>) y el motivo de la rectificación.
-            A nivel fiscal es una factura independiente que se emite junto a la
-            original.</p>
-
-          <h3>¿Cómo manejar descuentos?</h3>
-          <p>Los descuentos se aplican a nivel de línea (tipo
-            <code>LineDiscountType</code>) o a nivel de factura (tipo
-            <code>DiscountType</code> dentro de <code>InvoiceTotals</code>). El
-            importe final de línea se calcula como:
-            <code>(Quantity × NetUnitPrice) - DiscountAmount</code>.</p>
-
-          <h3>¿Se pueden incluir retenciones?</h3>
-          <p>Sí, a través de la sección <code>TaxesWithheld</code> en el tipo
-            <code>InvoiceType</code>. Las retenciones se aplican al importe total y
-            generalmente son del 19% para prestación de servicios en actividades
-            profesionales.</p>
-
-          <h3>¿Qué hago si mi empresa tiene múltiples sedes?</h3>
-          <p>Use la dirección fiscal oficial de la empresa en el elemento
-            <code>Address</code> de <code>LegalEntity</code>. Si necesita incluir
-            una dirección diferente para envío, puede usar el campo
-            <code>AdditionalAddress</code>.</p>
-
-          <h3>¿Cuál es el máximo de líneas que puede tener una factura?</h3>
-          <p>No hay límite técnico establecido (<code>InvoiceLine</code> tiene
-            <code>maxOccurs="unbounded"</code>), pero se recomienda mantener
-            facturas manejables. Para volúmenes muy grandes, considere
-            fragmentar en múltiples facturas o usar el modo lote (<code>Batch</code>).</p>
-
-          <h3>¿Cómo integro esto con mi sistema actual?</h3>
-          <p>Generix proporciona:</p>
+          <h2>Versiones Soportadas</h2>
           <ul>
-            <li>APIs REST para validación y transformación</li>
-            <li>Librerías client para JavaScript, Python y Java</li>
-            <li>Conectores directos para ERP populares (SAP, Dynamics,
-              etc.)</li>
+            <li>
+              Versión 2.0 - Versión actual, cumplimiento normativo C&amp;C<br/>
+              <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
+                class="download-link">
+                📥 Schema - GNX_Schema_xml.xsd
+              </a>
+            </li>
           </ul>
-          <p>Consulte con nuestro equipo de soporte técnico para opciones
-            específicas a su tecnología.</p>
-
-          <h3>¿Dónde puedo ver el esquema XSD completo?</h3>
-          <p>Puede descargar el fichero
-            <code>GNX_Schema_xml.xsd</code> desde la pestaña "Descripción General"
-            o "Estructura" arriba.</p>
-
-          <h3>¿Cómo reporto un problema o sugiero mejoras?</h3>
-          <p>Contáctenos en <a
-              href="mailto:facturacion@generixgroup.com">facturacion@generixgroup.com</a>
-            o a través del portal de soporte de Generix.</p>
+          <div class="highlight-box">
+            <strong>Ejemplos y respuestas en preparación:</strong>
+            <br/>Los ficheros de ejemplo de factura XML y de respuesta/validación XML
+            están actualmente en preparación. En cuanto estén disponibles se
+            publicarán en las pestañas <em>Ejemplos</em> y <em>Validaciones</em>.
+          </div>
         </div>
       </div>
 
