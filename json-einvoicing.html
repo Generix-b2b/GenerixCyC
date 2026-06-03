@@ -477,6 +477,18 @@
       text-align: center;
     }
 
+    /* ===== Tabla de descripción de campos (pestaña Estructura) ===== */
+    .field-desc-section {
+      margin-top: 20px;
+    }
+    .field-desc-table td:first-child,
+    .field-desc-table th:first-child {
+      text-align: left;
+    }
+    .field-desc-table td:nth-child(2) {
+      min-width: 220px;
+    }
+
     .sidebar-right {
       /* Columna derecha en blanco */
       background-color: transparent;
@@ -1591,6 +1603,7 @@
                     </div>
                   </div>
                 </div>
+                ${buildFieldDescTable(blockContent)}
                 <div class="block-divider"></div>
               </div>
             `;
@@ -1711,6 +1724,82 @@
               </thead>
               <tbody>${rows}</tbody>
             </table>
+          `;
+        }
+
+        // Devuelve el tipo legible de una propiedad del schema
+        function getFieldType(def) {
+          if (!def) return '';
+          if (def['$ref']) return def['$ref'].split('/').pop();
+          let type = def.type;
+          if (Array.isArray(type)) type = type.join(' | ');
+          if (type === 'array' && def.items) {
+            const it = def.items['$ref']
+              ? def.items['$ref'].split('/').pop()
+              : (def.items.type || '');
+            return it ? `array<${it}>` : 'array';
+          }
+          if (!type && Array.isArray(def.enum)) return 'enum';
+          return type || '';
+        }
+
+        // Recoge las restricciones de validación de una propiedad
+        function getFieldConstraints(def) {
+          if (!def) return [];
+          const c = [];
+          if (def.minLength !== undefined) c.push(`minLength: ${def.minLength}`);
+          if (def.maxLength !== undefined) c.push(`maxLength: ${def.maxLength}`);
+          if (def.minimum !== undefined) c.push(`min: ${def.minimum}`);
+          if (def.maximum !== undefined) c.push(`max: ${def.maximum}`);
+          if (def.format !== undefined) c.push(`format: ${def.format}`);
+          if (def.pattern !== undefined) c.push(`pattern: ${def.pattern}`);
+          if (Array.isArray(def.enum)) c.push(`enum: ${def.enum.join(', ')}`);
+          return c;
+        }
+
+        // Construye una tabla con la descripción de cada campo de un bloque del schema
+        function buildFieldDescTable(blockContent) {
+          if (!blockContent || !blockContent.properties) return '';
+          const entries = Object.entries(blockContent.properties);
+          if (entries.length === 0) return '';
+          const required = blockContent.required || [];
+          const dash = '<span style="color: var(--gray-300);">—</span>';
+
+          let rows = '';
+          entries.forEach(([field, def]) => {
+            def = def || {};
+            const type = getFieldType(def);
+            const constraints = getFieldConstraints(def);
+            const isReq = required.includes(field);
+            rows += `
+              <tr>
+                <td><span class="tag tag--required">${escapeHtml(field)}</span></td>
+                <td>${def.description ? escapeHtml(def.description) : dash}</td>
+                <td>${type ? `<span class="tag tag--type">${escapeHtml(type)}</span>` : dash}</td>
+                <td>${isReq
+                    ? '<span class="tag tag--required">Sí</span>'
+                    : '<span style="color: var(--gray-500);">No</span>'}</td>
+                <td>${constraints.length ? escapeHtml(constraints.join(' · ')) : dash}</td>
+              </tr>
+            `;
+          });
+
+          return `
+            <div class="field-desc-section">
+              <h4 class="tech-details__title">📝 Descripción de Campos</h4>
+              <table class="enum-desc-table field-desc-table">
+                <thead>
+                  <tr>
+                    <th>Campo</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                    <th>Requerido</th>
+                    <th>Restricciones</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
           `;
         }
 
