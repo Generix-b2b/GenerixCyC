@@ -1,6 +1,7 @@
 {
     "StatusGNX": [
         {
+            "statusID": "GNX123",
             "tipo": "PAYMENT",
             "rol": "DESTINATARIO",
             "responseCode": "PAYMENT",
@@ -22,6 +23,7 @@
             }
         },
         {
+            "statusID": "GNX124",
             "tipo": "CANCELPAYMENT",
             "rol": "DESTINATARIO",
             "responseCode": "CANCELPAYMENT",
@@ -33,6 +35,7 @@
             }
         },
         {
+            "statusID": "GNX125",
             "tipo": "REJECTION",
             "rol": "DESTINATARIO",
             "responseCode": "REJECTION",
@@ -46,6 +49,7 @@
             }
         },
         {
+            "statusID": "GNX126",
             "tipo": "CANCELREJECTION",
             "rol": "DESTINATARIO",
             "responseCode": "CANCELREJECTION",
@@ -57,6 +61,7 @@
             }
         },
         {
+            "statusID": "GNX127",
             "tipo": "SETTLEMENT",
             "rol": "EMISOR",
             "responseCode": "SETTLEMENT",
@@ -72,6 +77,7 @@
             }
         },
         {
+            "statusID": "GNX128",
             "tipo": "CANCELSETTLEMENT",
             "rol": "EMISOR",
             "responseCode": "CANCELSETTLEMENT",
@@ -83,6 +89,7 @@
             }
         },
         {
+            "statusID": "GNX129",
             "tipo": "DEFAULT",
             "rol": "EMISOR",
             "responseCode": "DEFAULT",
@@ -97,6 +104,7 @@
             }
         },
         {
+            "statusID": "GNX130",
             "tipo": "CANCELDEFAULT",
             "rol": "EMISOR",
             "responseCode": "CANCELDEFAULT",
