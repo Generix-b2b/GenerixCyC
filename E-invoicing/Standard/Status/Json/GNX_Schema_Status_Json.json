@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Status_Standard",
+  "type": "object",
+  "properties": {
+    "StatusGNX": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/StatusItem" }
+    }
+  },
+  "required": ["StatusGNX"],
+  "definitions": {
+    "StatusItem": {
+      "type": "object",
+      "properties": {
+        "tipo": { "$ref": "#/definitions/Enums/StatusTypeEnum" },
+        "rol": { "$ref": "#/definitions/Enums/RoleEnum" },
+        "responseCode": { "type": "string" },
+        "fecha_efecto": { "$ref": "#/definitions/Date" },
+        "fecha_vencimiento": { "$ref": "#/definitions/Date" },
+        "fecha_recepcion_mercancia": { "$ref": "#/definitions/Date" },
+        "fecha_recepcion_factura": { "$ref": "#/definitions/Date" },
+        "fecha_rechazo": { "$ref": "#/definitions/Date" },
+        "motivo_rechazo": { "type": "string" },
+        "fecha_cobro": { "$ref": "#/definitions/Date" },
+        "fecha_impago": { "$ref": "#/definitions/Date" },
+        "indicadores": {
+          "type": "object",
+          "properties": {
+            "factura_rectificada": { "type": "boolean" },
+            "factura_rectificativa": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "factura": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "fecha_emision": { "$ref": "#/definitions/Date" },
+            "nif_emisor": { "type": "string" },
+            "nombre_emisor": { "type": "string" },
+            "nif_receptor": { "type": "string" },
+            "nombre_receptor": { "type": "string" }
+          },
+          "required": ["id", "fecha_emision", "nif_emisor", "nombre_emisor"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["tipo", "rol", "responseCode", "factura"],
+      "additionalProperties": false
+    },
+    "Enums": {
+      "StatusTypeEnum": {
+        "type": "string",
+        "enum": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ]
+      },
+      "RoleEnum": {
+        "type": "string",
+        "enum": ["DESTINATARIO", "EMISOR"]
+      }
+    },
+    "Date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+  },
+  "additionalProperties": false
+}
