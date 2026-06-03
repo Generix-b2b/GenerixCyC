@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="root">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="documentType" type="documentTypeType">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en"> Type of document for which the response is sent.</xs:documentation>
+                        <xs:documentation xml:lang="es"> Tipo de docuemnto sobre el que se envia la respuesta.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="listOfResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="response" type="responseType" maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="documentTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="USER" />
+            <xs:enumeration value="PARTNER" />
+            <xs:enumeration value="INVOICE" />
+            <xs:enumeration value="PERIMETER" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="responseType">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Reference depending on the type (Email, Tax Identification, BatchIdentifier).</xs:documentation>
+                    <xs:documentation xml:lang="es"> Referencia que dependera del tipo (Email, DNI/CIF, Identificador de lote).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="BMECustomer" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Reference of the BME customer.</xs:documentation>
+                    <xs:documentation xml:lang="es"> Referencia del BME customer.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="BMESupplier" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Reference of the BME supplier.</xs:documentation>
+                    <xs:documentation xml:lang="es"> Referencia del BME supplier.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="timestamp" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Record date and time when the error was generated. AAAAMMDDHHMMSS</xs:documentation>
+                    <xs:documentation xml:lang="es"> Registro de fecha y hora en la que se generó el error. AAAAMMDDHHMMSS</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="status" type="statusType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Process status</xs:documentation>
+                    <xs:documentation xml:lang="es"> Estado del porceso</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="listOfErrors">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> When the status is ERROR, listOfErrors is mandatory.</xs:documentation>
+                    <xs:documentation xml:lang="es"> Cuando el estado es ERROR, listOfErrors es obligatorio.</xs:documentation>
+                </xs:annotation>  
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="errors" type="errorsType" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>              
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="statusType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OK" />
+            <xs:enumeration value="ERROR" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="errorsType">
+        <xs:sequence>
+            <xs:element name="error" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Error code</xs:documentation>
+                    <xs:documentation xml:lang="es"> Código de error</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="receivedvalue" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Received value</xs:documentation>
+                    <xs:documentation xml:lang="es"> Valor recibido</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="expectedvalue" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Expected value</xs:documentation>
+                    <xs:documentation xml:lang="es"> Valor esperado</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="message" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en"> Error message</xs:documentation>
+                    <xs:documentation xml:lang="es"> Mensaje de error</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <documentType>INVOICE</documentType>
+    <listOfResponse>
+        <response>
+            <uuid>GNX1000000</uuid>
+            <timestamp>20250124091622</timestamp>
+            <status>ERROR</status>
+            <listOfErrors>
+                <errors>
+                    <error>BT-69 CountryCode</error>
+                    <receivedvalue>URN</receivedvalue>
+                    <expectedvalue>ESP</expectedvalue>
+                    <message>Valor no permitido = URN</message>
+                </errors>
+                <errors>
+                    <error>BT-129 Quantity</error>
+                    <message>Valor BT-129 Quantity Obligatorio.</message>
+                </errors>
+            </listOfErrors>
+        </response>    
+        <response>
+            <uuid>GNX1000002</uuid>
+            <timestamp>20250331173200</timestamp>
+            <status>OK</status>
+        </response>
+    </listOfResponse>
+</root>
