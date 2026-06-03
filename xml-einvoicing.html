@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON e-Invoicing Standard · Generix Developer Documentation</title>
+    <title>XML e-Invoicing Standard · Generix Developer Documentation</title>
     <link rel="icon" href="Assets/logo-black.png" type="image/png">
     <style>
     /* ============ COLORES OFICIALES GENERIX ============ */
@@ -76,9 +76,7 @@
       font-weight: 500;
       transition: color 0.2s;
     }
-    .nav a:hover { 
-      color: var(--generix-orange); 
-    }
+    .nav a:hover { color: var(--generix-orange); }
     .breadcrumb {
       color: var(--gray-500);
       font-size: 0.9rem;
@@ -117,8 +115,8 @@
     .page-header-breadcrumb a:hover {
       text-decoration: underline;
     }
-    .page-header-breadcrumb span { 
-      margin: 0 8px; 
+    .page-header-breadcrumb span {
+      margin: 0 8px;
     }
     .page-header h1 {
       font-size: 2.5rem;
@@ -139,7 +137,7 @@
       padding: 0 32px;
     }
     .tab-navigation {
-      position: sticky; 
+      position: sticky;
       top: 87px;
       display: flex;
       border-bottom: 1px solid var(--gray-200);
@@ -300,6 +298,7 @@
     }
     .code-panel::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
     .code-panel::-webkit-scrollbar-track {
       background: transparent;
@@ -364,60 +363,60 @@
       padding: 20px;
       border-radius: 6px;
       margin-bottom: 20px;
-    }  
+    }
     .tech-details__title {
       color: var(--gray-700);
       margin-bottom: 12px;
-    }   
+    }
     .tech-details__row {
       color: var(--gray-700);
       margin: 0 0 8px 0;
-    }   
+    }
     .tech-details__row--last {
       margin: 0;
-    }  
+    }
     /* Panel derecho: Etiquetas (tags) */
     .tag {
       padding: 2px 8px;
       border-radius: 4px;
       font-family: 'Courier New', monospace;
       font-size: 0.85rem;
-    }   
+    }
     .tag--type {
       background: var(--generix-dark);
       color: var(--generix-orange);
-    }   
+    }
     .tag--properties {
       background: var(--white);
       padding: 2px 6px;
       border-radius: 3px;
-    }   
+    }
     .tag--required {
       background: var(--generix-orange);
       color: var(--generix-dark);
       padding: 2px 6px;
       border-radius: 3px;
-    }   
+    }
     .tag--required-empty {
       background: var(--white);
       color: var(--generix-dark);
       padding: 2px 6px;
       border-radius: 3px;
-    } 
+    }
     .tag--text {
       color: var(--gray-700);
       font-size: 0.95rem;
       line-height: 1.7;
       margin: 0;
-    }  
+    }
     .tech-details__values {
       margin: 0 0 12px 0;
     }
     .tech-details__used-in {
-      display: inline-block; 
-      background: var(--gray-200); 
-      color: var(--generix-dark); 
-      margin: 2px 4px 2px 0; 
+      display: inline-block;
+      background: var(--gray-200);
+      color: var(--generix-dark);
+      margin: 2px 4px 2px 0;
       border: 1px solid var(--gray-300);
     }
     /* Separador inferior */
@@ -770,8 +769,8 @@
       color: rgba(255,255,255,0.6);
       font-size: 0.85rem;
     }
-    footer .accent { 
-      color: var(--generix-orange); 
+    footer .accent {
+      color: var(--generix-orange);
     }
 
     /* ============ RESPONSIVE ============ */
@@ -812,7 +811,7 @@
         flex-direction: column;
       }
     }
-  </style>
+    </style>
   </head>
   <body>
 
@@ -831,10 +830,10 @@
         <div class="page-header-breadcrumb">
           <a href="index.html">Documentación</a>
           <span>/</span>
-          <span>JSON e-Invoicing Standard</span>
+          <span>XML e-Invoicing Standard</span>
         </div>
-        <h1>JSON e-Invoicing Standard</h1>
-        <p>Especificación técnica completa de la estructura JSON para
+        <h1>XML e-Invoicing Standard</h1>
+        <p>Especificación técnica completa del esquema XSD para
           facturación electrónica B2B en España.</p>
       </div>
     </section>
@@ -854,33 +853,33 @@
       <div id="general" class="tab-content active">
         <div class="content-section">
           <h2>Descripción General</h2>
-          <p>El estándar JSON e-Invoicing de Generix Spain proporciona una estructura unificada y modular para la representación de facturas electrónicas en formato JSON. 
+          <p>El estándar XML e-Invoicing de Generix Spain proporciona un esquema XSD unificado y modular para la representación de facturas electrónicas en formato XML.
             <br/>Este estándar está diseñado para cumplir con la normativa española de facturación electrónica y facilitar la integración con sistemas B2B.
           </p>
 
           <h3>Características Principales</h3>
           <ul>
             <li>
-              <strong>Compatibilidad:</strong> 
+              <strong>Compatibilidad:</strong>
               Cumple con los requisitos de la Ley 3/2023 de Facturación Electrónica y normativa fiscal española.
             </li>
             <li>
-              <strong>Modularidad:</strong> 
-              Estructura flexible que permite incluir solo los campos necesarios para cada tipo de factura.
+              <strong>Modularidad:</strong>
+              Estructura basada en tipos complejos reutilizables que permite componer cada tipo de factura.
             </li>
             <li>
-              <strong>Validación:</strong> 
-              Incluye reglas de validación integradas para garantizar la integridad de los datos.
+              <strong>Validación:</strong>
+              El esquema XSD permite validar la integridad estructural y de tipos de cada documento.
             </li>
             <li>
-              <strong>Escalabilidad:</strong> 
+              <strong>Escalabilidad:</strong>
               Diseñado para soportar grandes volúmenes de facturas sin degradación de rendimiento.
             </li>
           </ul>
 
           <div class="highlight-box">
-            <strong>Nota importante:</strong> 
-            <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica. 
+            <strong>Nota importante:</strong>
+            <br/>Este estándar forma parte del ecosistema de Generix Spain para facturación electrónica.
             <br/>Se recomienda revisar la documentación completa antes de implementar.
           </div>
         </div>
@@ -889,31 +888,31 @@
       <!-- ============ TAB 2: ESTRUCTURA ============ -->
       <div id="estructura" class="tab-content">
         <div class="tab-wrapper">
-          
+
           <!-- COLUMNA 1: SIDEBAR IZQUIERDO -->
           <div class="sidebar-nav">
             <div class="sidebar-nav-title">Ir a</div>
             <div id="navButtons" class="sidebar-nav-buttons"></div>
           </div>
-          
+
           <!-- COLUMNA 2: CONTENIDO CENTRAL -->
           <div class="tab-content-middle">
             <div class="content-section">
-              <h2>Estructura del Schema JSON</h2>
-              <p>Explora la estructura completa del esquema JSON para e-Invoicing.
-                Cada bloque se muestra a continuación con su código y descripción.</p>
+              <h2>Estructura del Esquema XSD</h2>
+              <p>Explora la estructura completa del esquema XSD para e-Invoicing.
+                Cada tipo complejo se muestra a continuación con su código y descripción.</p>
               <p>
-                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
                 class="download-link">
-                📥 Ver GNX_Schema_Json.json completo</a>
-                </p>              
+                📥 Ver GNX_Schema_xml.xsd completo</a>
+                </p>
               <div id="schemaBlocksContainer"></div>
             </div>
           </div>
-          
+
           <!-- COLUMNA 3: ESPACIO EN BLANCO -->
           <div class="sidebar-right"></div>
-          
+
         </div>
       </div>
 
@@ -929,16 +928,16 @@
           <div class="tab-content-middle">
             <div class="content-section">
               <h2>Enumeraciones</h2>
-              <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing. Cada enumeración se carga dinámicamente desde
-                <code>definitions.Enums</code> del schema y muestra su tipo, descripción y los valores válidos.</p>
+              <p>Listas cerradas de valores admitidos en el esquema XSD e-Invoicing. Cada enumeración se carga dinámicamente desde los
+                <code>xs:simpleType</code> del esquema y muestra su tipo, descripción y los valores válidos.</p>
               <p>
-                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
                 class="download-link">
-                📥 Ver GNX_Schema_Json.json completo</a>
+                📥 Ver GNX_Schema_xml.xsd completo</a>
               </p>
               <div id="enumsContainer"></div>
             </div>
-          </div>          
+          </div>
           <!-- COLUMNA 3: ESPACIO EN BLANCO -->
           <div class="sidebar-right"></div>
         </div>
@@ -949,20 +948,22 @@
         <div class="content-section">
           <h2>Ejemplos Prácticos</h2>
 
-          <p>A continuación se muestra un ejemplo completo de factura en formato JSON estándar Generix e-Invoicing, 
-            basado en el esquema normativo español.
-          </p>
-          <p>
-            <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
-            class="download-link">
-            📥 Descargar ejemplo completo (GNX_Invoice_Json.json)</a>
+          <p>El ejemplo completo de factura en formato XML estándar Generix e-Invoicing,
+            basado en el esquema normativo español, está actualmente en preparación.
           </p>
 
-          <h3>Estructura Completa de Factura Ejemplo</h3>
-          <div id="examplesContainer"></div>
+          <div class="highlight-box">
+            <strong>En preparación:</strong>
+            <br/>El fichero de ejemplo de factura XML (<code>GNX_Invoice_xml.xml</code>)
+            aún no está disponible. En cuanto se publique, este apartado mostrará la
+            estructura completa de una factura de ejemplo, del mismo modo que la
+            documentación JSON.
+            <br/>Mientras tanto, puedes consultar la pestaña <em>Estructura</em> para
+            ver el detalle de cada tipo del esquema XSD.
+          </div>
         </div>
       </div>
-      
+
       <!-- ============ TAB 5: VALIDACIONES ============ -->
       <div id="validaciones" class="tab-content">
         <div class="content-section">
@@ -971,24 +972,25 @@
           <h3>Validaciones Estructurales</h3>
           <div class="card-grid">
             <div class="info-card">
-              <h4>Estructura JSON</h4>
+              <h4>Estructura XML</h4>
               <p>
-                El JSON debe ser válido y bien formado. <br/>
+                El XML debe ser válido y estar bien formado, y validar
+                correctamente contra el esquema XSD.<br/>
                 Se rechazarán documentos con errores de sintaxis.
               </p>
             </div>
             <div class="info-card">
               <h4>Campos Requeridos</h4>
               <p>
-                Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.
+                Todos los elementos sin <code>minOccurs="0"</code> son
+                obligatorios y deben estar presentes y no vacíos.
               </p>
             </div>
             <div class="info-card">
               <h4>Tipos de Datos</h4>
               <p>
-                Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array, Enums).
+                Cada elemento debe cumplir con el tipo XSD especificado
+                (xs:string, xs:integer, xs:decimal, tipos con patrón, Enums).
               </p>
             </div>
           </div>
@@ -1007,7 +1009,7 @@
               <div class="info-card">
                 <h4>Fechas</h4>
                   <ul>
-                    <li>Formato requerido: YYYY-MM-DD</li>
+                    <li>Formato requerido: YYYY-MM-DDThh:mm:ss (DateTimeType)</li>
                     <li>La fecha de emisión no puede ser futura</li>
                     <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
                   </ul>
@@ -1015,18 +1017,23 @@
               <div class="info-card">
                 <h4>Importes</h4>
                 <ul>
-                  <li>Cantidad y precioUnitario deben ser positivos</li>
+                  <li>Quantity y NetUnitPrice deben ser positivos</li>
                   <li>Máximo 2 decimales en importes</li>
-                  <li>El importe de línea = cantidad × precioUnitario - descuento</li>
+                  <li>El importe de línea = cantidad × precio - descuento</li>
                   <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
                 </ul>
               </div>
             </div>
-          
+
           <h3>Respuestas de Validación</h3>
-          <div id="responseContainer"></div>
-          <div id="responseSchemaContainer"></div>
-          
+          <div class="highlight-box">
+            <strong>En preparación:</strong>
+            <br/>El esquema y los ejemplos de respuesta de validación en formato XML
+            (<code>GNX_Response_xml.xml</code> / <code>GNX_Response_Schema_xml.xsd</code>)
+            están actualmente en preparación y se publicarán en este apartado
+            cuando estén disponibles.
+          </div>
+
         </div>
       </div>
 
@@ -1036,28 +1043,19 @@
           <h2>Versiones Soportadas</h2>
           <ul>
             <li>
-              Versión 2.0 - Versión actual, cumplimiento normativo C&C<br/>
-              <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+              Versión 2.0 - Versión actual, cumplimiento normativo C&amp;C<br/>
+              <a href="E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd" target="_blank"
                 class="download-link">
-                📥 Schema - GNX_Schema_Json.json
-              </a><br/>
-              <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
-                class="download-link">
-                📥 Example - GNX_Invoice_Json.json
-              </a>
-            </li>
-            <li>
-              Versión 1.0 - En Desuso, basado en la version 3.2.2 de FACE <br/>
-              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
-                class="download-link">
-                📥 Schema - GNX_Schema_Json_v1.0.json
-              </a><br/>
-              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Json_v1.0.json" target="_blank"
-                class="download-link">
-                📥 Example - GNX_Invoice_Json_v1.0.json
+                📥 Schema - GNX_Schema_xml.xsd
               </a>
             </li>
           </ul>
+          <div class="highlight-box">
+            <strong>Ejemplos y respuestas en preparación:</strong>
+            <br/>Los ficheros de ejemplo de factura XML y de respuesta/validación XML
+            están actualmente en preparación. En cuanto estén disponibles se
+            publicarán en las pestañas <em>Ejemplos</em> y <em>Validaciones</em>.
+          </div>
         </div>
       </div>
 
@@ -1087,293 +1085,420 @@
     </footer>
 
     <!-- ============ SCRIPT ============ -->
-    <!-- GNX_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
+    <!-- GNX_Schema_xml.xsd -- schemaBlocksContainer / enumsContainer -->
     <script>
-        let schemaData = null;
+        const XSD_NS = 'http://www.w3.org/2001/XMLSchema';
+        let xsdText = null;   // texto crudo del XSD
+        let xsdDoc = null;    // XML parseado (DOMParser)
         let navObserver = null;
 
-        // Diccionario de descripciones para cada bloque
+        // ============ Diccionario de descripciones por tipo (complexType / simpleType) ============
         const descriptions = {
-          InvoiceGNX: {
-            title: '📄 InvoiceGNX',
-            esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
-            eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
+          InvoiceGNXType: {
+            title: '📄 InvoiceGNXType - Raíz del Documento',
+            esp: 'Tipo raíz del esquema. Contiene la cabecera del fichero (FileHeader) y el conjunto de facturas (Invoices).',
+            eng: 'Root type of the schema. Contains the file header (FileHeader) and the set of invoices (Invoices).'
           },
-          Batch: {
-            title: '📦 Batch - Lote de Facturas',
-            esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
-            eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
+          InvoicesType: {
+            title: '📚 InvoicesType - Conjunto de Facturas',
+            esp: 'Contenedor de uno o varios envoltorios de factura (InvoiceWrapper).',
+            eng: 'Container of one or more invoice wrappers (InvoiceWrapper).'
           },
-          InvoiceWrapper: {
-            title: '📦 InvoiceWrapper - Envoltura de Factura',
-            esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
-            eng: 'Container that wraps the invoice with control and processing information.'
+          FileHeaderType: {
+            title: '🗂️ FileHeaderType - Cabecera del Fichero',
+            esp: 'Metadatos del fichero: versión del esquema, modalidad, tipo de emisor y datos del lote.',
+            eng: 'File metadata: schema version, modality, issuer type and batch data.'
           },
-          Parties: {
-            title: '👥 Parties - Partes Múltiples',
-            esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
-            eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
+          BatchType: {
+            title: '📦 BatchType - Lote de Facturas',
+            esp: 'Información agregada del lote: identificador, número de facturas, importes totales y divisa.',
+            eng: 'Aggregated batch information: identifier, invoice count, total amounts and currency.'
           },
-          Party: {
-            title: '👤 Party - Parte/Actor',
-            esp: 'Información de una parte de la transacción (emisor, receptor o tercero). Incluye datos fiscales, entidad legal y contacto.',
-            eng: 'Information about a transaction party (issuer, recipient or third party). Includes tax data, legal entity and contact.'
+          AmountContainerType: {
+            title: '💰 AmountContainerType - Contenedor de Importes',
+            esp: 'Importe en su divisa original y, opcionalmente, su equivalente en euros.',
+            eng: 'Amount in its original currency and, optionally, its euro equivalent.'
           },
-          TaxIdentification: {
-            title: '🧾 TaxIdentification - Identificación Fiscal',
-            esp: 'Datos fiscales: tipo de persona (física/jurídica), residencia y número de identificación.',
-            eng: 'Tax data: person type (natural/legal), residence and identification number.'
+          InvoiceWrapperType: {
+            title: '📦 InvoiceWrapperType - Envoltura de Factura',
+            esp: 'Envuelve las partes (Parties), la legislación aplicable y una o varias facturas.',
+            eng: 'Wraps the parties, the applicable legislation and one or more invoices.'
           },
-          LegalEntity: {
-            title: '🏢 LegalEntity - Persona Jurídica',
-            esp: 'Datos de la persona jurídica: razón social, datos registrales y otra información legal.',
-            eng: 'Legal entity data: company name, registration data and other legal information.'
+          PartiesType: {
+            title: '👥 PartiesType - Partes',
+            esp: 'Partes involucradas en la factura: vendedor (SellerParty), comprador (BuyerParty) y tercero (ThirdParty, opcional).',
+            eng: 'Parties involved in the invoice: seller, buyer and third party (optional).'
           },
-          RegistrationData: {
-            title: '📋 RegistrationData - Datos Registrales',
-            esp: 'Información sobre el registro mercantil: libro, folio, hoja de inscripción.',
-            eng: 'Commercial registry information: book, folio, registration sheet.'
+          PartyType: {
+            title: '👤 PartyType - Parte/Actor',
+            esp: 'Información de una parte: identificación fiscal, identificador y datos de la persona jurídica.',
+            eng: 'Information about a party: tax identification, identifier and legal entity data.'
           },
-          Address: {
-            title: '📍 Address - Dirección',
-            esp: 'Información de dirección fiscal: calle, ciudad, código postal, provincia y país.',
-            eng: 'Fiscal address information: street, city, postal code, province and country.'
+          TaxIdentificationType: {
+            title: '🧾 TaxIdentificationType - Identificación Fiscal',
+            esp: 'Datos fiscales: tipo de persona, tipo de residencia y número de identificación fiscal.',
+            eng: 'Tax data: person type, residence type and tax identification number.'
           },
-          ContactDetails: {
-            title: '📞 ContactDetails - Datos de Contacto',
-            esp: 'Información de contacto: teléfono, correo electrónico y otros datos de comunicación.',
-            eng: 'Contact information: phone, email and other communication data.'
+          LegalEntityType: {
+            title: '🏢 LegalEntityType - Persona Jurídica',
+            esp: 'Datos de la persona jurídica: razón social, nombre comercial, datos registrales, dirección y contacto.',
+            eng: 'Legal entity data: corporate name, trade name, registration data, address and contact.'
           },
-          Invoice: {
-            title: '📄 Invoice - Factura Individual',
-            esp: 'Una factura completa con todos sus detalles: encabezado, líneas, importes e información fiscal.',
-            eng: 'A complete invoice with all details: header, lines, amounts and tax information.'
+          RegistrationDataType: {
+            title: '📋 RegistrationDataType - Datos Registrales',
+            esp: 'Información del registro mercantil: libro, localización, hoja, folio, sección y tomo.',
+            eng: 'Commercial registry information: book, location, sheet, folio, section and volume.'
           },
-          InvoiceHeader: {
-            title: '📋 InvoiceHeader - Encabezado de Factura',
-            esp: 'Metadatos de la factura: número, serie, tipo de documento, modalidad de emisión.',
-            eng: 'Invoice metadata: number, series, document type, issuance mode.'
+          AddressType: {
+            title: '📍 AddressType - Dirección',
+            esp: 'Dirección fiscal: vía, código postal, población, provincia y país.',
+            eng: 'Fiscal address: street, postal code, town, province and country.'
           },
-          Corrective: {
-            title: '✏️ Corrective - Información Correctiva',
-            esp: 'Datos para facturas rectificativas: referencia a factura original, motivo y detalles de la corrección.',
-            eng: 'Data for corrective invoices: reference to original invoice, reason and correction details.'
+          ContactDetailsType: {
+            title: '📞 ContactDetailsType - Datos de Contacto',
+            esp: 'Información de contacto: teléfonos, web, correo electrónico y nombre de la persona de contacto.',
+            eng: 'Contact information: phones, website, email and contact person name.'
           },
-          InvoiceIssueData: {
-            title: '📅 InvoiceIssueData - Datos de Emisión',
-            esp: 'Información sobre la emisión: fecha, hora, lugar y otros datos del momento de la emisión.',
-            eng: 'Issue information: date, time, place and other issue moment data.'
+          LegislacionType: {
+            title: '⚖️ LegislacionType - Legislación',
+            esp: 'Bloque de contenido libre (xs:any) para incluir información específica de cada normativa (CreaYCrece, VeriFactu, FACe, SII).',
+            eng: 'Free-content block (xs:any) to include information specific to each regulation (CreaYCrece, VeriFactu, FACe, SII).'
           },
-          TaxWrapper: {
-            title: '💼 TaxWrapper - Información Fiscal',
-            esp: 'Contenedor con toda la información fiscal: impuestos, retenciones, exenciones y equivalencias.',
-            eng: 'Container with all tax information: taxes, withholdings, exemptions and equivalences.'
+          InvoiceType: {
+            title: '📄 InvoiceType - Factura Individual',
+            esp: 'Una factura completa: encabezado, datos de emisión, impuestos, totales, líneas, pago y datos adicionales.',
+            eng: 'A complete invoice: header, issue data, taxes, totals, lines, payment and additional data.'
           },
-          InvoiceTotals: {
-            title: '🧮 InvoiceTotals - Totales de Factura',
-            esp: 'Importes finales calculados: base imponible, impuestos totales, descuentos y total a pagar.',
-            eng: 'Calculated final amounts: taxable base, total taxes, discounts and amount due.'
+          InvoiceHeaderType: {
+            title: '📋 InvoiceHeaderType - Encabezado de Factura',
+            esp: 'Metadatos de la factura: número, tipo de documento, clase, descripción y datos rectificativos.',
+            eng: 'Invoice metadata: number, document type, class, description and corrective data.'
           },
-          ItemWrapper: {
-            title: '📦 ItemWrapper - Envoltura de Línea',
-            esp: 'Contenedor para una línea de factura con detalles del producto/servicio, cantidades e importes.',
-            eng: 'Container for an invoice line with product/service details, quantities and amounts.'
+          CorrectiveType: {
+            title: '✏️ CorrectiveType - Información Correctiva',
+            esp: 'Datos para facturas rectificativas: referencia a la original, motivo, fecha, método de corrección e importes.',
+            eng: 'Data for corrective invoices: reference to the original, reason, date, correction method and amounts.'
           },
-          PaymentWrapper: {
-            title: '💳 PaymentWrapper - Información de Pago',
-            esp: 'Datos de pago: forma de pago, condiciones, fechas de vencimiento y referencias bancarias.',
-            eng: 'Payment data: payment method, terms, due dates and bank references.'
+          CorrectiveAmountsType: {
+            title: '➖ CorrectiveAmountsType - Importes Rectificativos',
+            esp: 'Importes corregidos: base, impuesto y cargo.',
+            eng: 'Corrected amounts: gross, tax and charge.'
           },
-          AdditionalData:{
-            title: '📎 AdditionalData - Datos Adicionales',
-            esp: 'Información adicional sobre la factura: documentos relacionados, anexos y otros datos complementarios.',
-            eng: 'Additional information about the invoice: related documents, attachments and other complementary data.'
+          InvoiceIssueDataType: {
+            title: '📅 InvoiceIssueDataType - Datos de Emisión',
+            esp: 'Información de emisión: fecha, periodo de facturación, divisas e idioma.',
+            eng: 'Issue information: date, invoicing period, currencies and language.'
           },
-          AmountContainer: {
-            title: '💰 AmountContainer - Contenedor de Importes',
-            esp: 'Contenedor que agrupa todos los importes de la factura: subtotales, impuestos y total final.',
-            eng: 'Container that groups all invoice amounts: subtotals, taxes and final total.'
+          PeriodType: {
+            title: '🗓️ PeriodType - Periodo',
+            esp: 'Rango de fechas con fecha de inicio y fecha de fin.',
+            eng: 'Date range with a start date and an end date.'
+          },
+          TaxSectionType: {
+            title: '💼 TaxSectionType - Sección de Impuestos',
+            esp: 'Conjunto de uno o varios impuestos (Tax) repercutidos o retenidos.',
+            eng: 'Set of one or more taxes (Tax), output or withheld.'
+          },
+          TaxType: {
+            title: '🧮 TaxType - Impuesto',
+            esp: 'Detalle de un impuesto: tipo, régimen, tipo de operación, exención, tasa, base imponible e importe.',
+            eng: 'Tax detail: type, regime, operation type, exemption, rate, taxable base and amount.'
+          },
+          InvoiceTotalsType: {
+            title: '🧾 InvoiceTotalsType - Totales de Factura',
+            esp: 'Importes finales: descuentos y cargos generales, bases, impuestos, total y total a pagar.',
+            eng: 'Final amounts: general discounts and charges, bases, taxes, total and amount payable.'
+          },
+          GeneralDiscountsType: {
+            title: '🏷️ GeneralDiscountsType - Descuentos Generales',
+            esp: 'Conjunto de descuentos aplicados a nivel de factura.',
+            eng: 'Set of discounts applied at invoice level.'
+          },
+          GeneralChargesType: {
+            title: '➕ GeneralChargesType - Cargos Generales',
+            esp: 'Conjunto de cargos aplicados a nivel de factura.',
+            eng: 'Set of charges applied at invoice level.'
+          },
+          DiscountType: {
+            title: '🏷️ DiscountType - Descuento',
+            esp: 'Descuento a nivel de factura: motivo, tipo, tasa, importe e impuesto asociado.',
+            eng: 'Invoice-level discount: reason, type, rate, amount and associated tax.'
+          },
+          ChargeType: {
+            title: '➕ ChargeType - Cargo',
+            esp: 'Cargo a nivel de factura: motivo, tipo, tasa, importe e impuesto asociado.',
+            eng: 'Invoice-level charge: reason, type, rate, amount and associated tax.'
+          },
+          DiscountTaxType: {
+            title: '💲 DiscountTaxType - Impuesto de Descuento/Cargo',
+            esp: 'Impuesto asociado a un descuento o cargo: tipo de impuesto y tasa.',
+            eng: 'Tax associated with a discount or charge: tax type and rate.'
+          },
+          InvoiceLineListType: {
+            title: '📑 InvoiceLineListType - Lista de Líneas',
+            esp: 'Conjunto de una o varias líneas de factura (InvoiceLine).',
+            eng: 'Set of one or more invoice lines (InvoiceLine).'
+          },
+          InvoiceLineType: {
+            title: '📦 InvoiceLineType - Línea de Factura',
+            esp: 'Detalle de una línea: producto/servicio, cantidad, descuentos, cargos, impuestos y precios.',
+            eng: 'Line detail: product/service, quantity, discounts, charges, taxes and prices.'
+          },
+          NotesReferenceType: {
+            title: '🔗 NotesReferenceType - Referencias',
+            esp: 'Referencias de línea: albarán, pedido y referencia catastral.',
+            eng: 'Line references: delivery note, order and cadastral reference.'
+          },
+          DeliveryNoteType: {
+            title: '🚚 DeliveryNoteType - Albarán',
+            esp: 'Datos del albarán: número y fecha.',
+            eng: 'Delivery note data: number and date.'
+          },
+          OrderType: {
+            title: '🛒 OrderType - Pedido',
+            esp: 'Datos del pedido: número y fecha.',
+            eng: 'Order data: number and date.'
+          },
+          CadastralReferenceType: {
+            title: '🏠 CadastralReferenceType - Referencia Catastral',
+            esp: 'Referencia catastral del inmueble: número y situación.',
+            eng: 'Property cadastral reference: number and situation.'
+          },
+          LineDiscountsType: {
+            title: '🏷️ LineDiscountsType - Descuentos de Línea',
+            esp: 'Conjunto de descuentos aplicados a nivel de línea.',
+            eng: 'Set of discounts applied at line level.'
+          },
+          LineDiscountType: {
+            title: '🏷️ LineDiscountType - Descuento de Línea',
+            esp: 'Descuento de línea: tipo, tasa e importe.',
+            eng: 'Line discount: type, rate and amount.'
+          },
+          LineChargesType: {
+            title: '➕ LineChargesType - Cargos de Línea',
+            esp: 'Conjunto de cargos aplicados a nivel de línea.',
+            eng: 'Set of charges applied at line level.'
+          },
+          LineChargeType: {
+            title: '➕ LineChargeType - Cargo de Línea',
+            esp: 'Cargo de línea: tipo, tasa e importe.',
+            eng: 'Line charge: type, rate and amount.'
+          },
+          PaymentDetailsType: {
+            title: '💳 PaymentDetailsType - Detalles de Pago',
+            esp: 'Conjunto de vencimientos/plazos de pago (Installment).',
+            eng: 'Set of payment installments (Installment).'
+          },
+          InstallmentType: {
+            title: '💳 InstallmentType - Vencimiento/Plazo',
+            esp: 'Plazo de pago: fecha de vencimiento, importe, medio de pago y cuenta bancaria.',
+            eng: 'Payment installment: due date, amount, payment means and bank account.'
+          },
+          AccountType: {
+            title: '🏦 AccountType - Cuenta Bancaria',
+            esp: 'Datos bancarios: IBAN, número de cuenta, código de banco y BIC.',
+            eng: 'Bank data: IBAN, account number, bank code and BIC.'
+          },
+          LegalLiteralsType: {
+            title: '📜 LegalLiteralsType - Literales Legales',
+            esp: 'Referencias y menciones legales aplicables a la factura.',
+            eng: 'Legal references and mentions applicable to the invoice.'
+          },
+          AdditionalDataType: {
+            title: '📎 AdditionalDataType - Datos Adicionales',
+            esp: 'Información complementaria: documentos relacionados y anexos.',
+            eng: 'Complementary information: related documents and attachments.'
+          },
+          RelatedDocumentType: {
+            title: '📎 RelatedDocumentType - Documento Relacionado',
+            esp: 'Documento asociado a la factura: anexo (Attachment) y anexo QR/firma (QRAttachment).',
+            eng: 'Document associated with the invoice: attachment and QR/signature attachment.'
+          },
+          AttachmentType: {
+            title: '📎 AttachmentType - Anexo',
+            esp: 'Fichero adjunto: algoritmo de compresión, formato, codificación, descripción y datos.',
+            eng: 'Attached file: compression algorithm, format, encoding, description and data.'
+          },
+          QRAttachmentType: {
+            title: '🔳 QRAttachmentType - Anexo QR/Firma',
+            esp: 'Información de QR y firma: URL, código hash, hash previo, firma electrónica y otros campos.',
+            eng: 'QR and signature information: URL, hash code, previous hash, electronic signature and other fields.'
+          },
+          CurrencyCodeType: {
+            title: '💱 CurrencyCodeType - Código de Divisa',
+            esp: 'Código de divisa de 3 caracteres (ISO 4217).',
+            eng: 'Three-character currency code (ISO 4217).'
+          },
+          CountryCodeType: {
+            title: '🌍 CountryCodeType - Código de País',
+            esp: 'Código de país de 2 caracteres (ISO 3166-1 alpha-2).',
+            eng: 'Two-character country code (ISO 3166-1 alpha-2).'
+          },
+          DateTimeType: {
+            title: '⏱️ DateTimeType - Fecha y Hora',
+            esp: 'Fecha y hora con patrón YYYY-MM-DDThh:mm:ss.',
+            eng: 'Date and time with pattern YYYY-MM-DDThh:mm:ss.'
+          },
+          LanguageCodeType: {
+            title: '🔤 LanguageCodeType - Código de Idioma',
+            esp: 'Código de idioma de 2 caracteres (ISO 639-1).',
+            eng: 'Two-character language code (ISO 639-1).'
           }
         };
 
-        // Orden de bloques a mostrar
+        // Orden de tipos a mostrar (complexTypes + simpleTypes no-enum)
         const blockOrder = [
-          'InvoiceGNX',
-          'Batch',
-          'InvoiceWrapper',
-          'Parties',
-          'Party',
-          'TaxIdentification',
-          'LegalEntity',
-          'RegistrationData',
-          'Address',
-          'ContactDetails',
-          'Invoice',
-          'InvoiceHeader',
-          'Corrective',
-          'InvoiceIssueData',
-          'TaxWrapper',
-          'InvoiceTotals',
-          'ItemWrapper',
-          'PaymentWrapper',
-          'AdditionalData',
-          'AmountContainer'
+          'InvoiceGNXType',
+          'InvoicesType',
+          'FileHeaderType',
+          'BatchType',
+          'AmountContainerType',
+          'InvoiceWrapperType',
+          'PartiesType',
+          'PartyType',
+          'TaxIdentificationType',
+          'LegalEntityType',
+          'RegistrationDataType',
+          'AddressType',
+          'ContactDetailsType',
+          'LegislacionType',
+          'InvoiceType',
+          'InvoiceHeaderType',
+          'CorrectiveType',
+          'CorrectiveAmountsType',
+          'InvoiceIssueDataType',
+          'PeriodType',
+          'TaxSectionType',
+          'TaxType',
+          'InvoiceTotalsType',
+          'GeneralDiscountsType',
+          'GeneralChargesType',
+          'DiscountType',
+          'ChargeType',
+          'DiscountTaxType',
+          'InvoiceLineListType',
+          'InvoiceLineType',
+          'NotesReferenceType',
+          'DeliveryNoteType',
+          'OrderType',
+          'CadastralReferenceType',
+          'LineDiscountsType',
+          'LineDiscountType',
+          'LineChargesType',
+          'LineChargeType',
+          'PaymentDetailsType',
+          'InstallmentType',
+          'AccountType',
+          'LegalLiteralsType',
+          'AdditionalDataType',
+          'RelatedDocumentType',
+          'AttachmentType',
+          'QRAttachmentType',
+          'CurrencyCodeType',
+          'CountryCodeType',
+          'DateTimeType',
+          'LanguageCodeType'
         ];
 
-        // Cargar el schema JSON
-        fetch('E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            schemaData = data;
-            renderAllBlocks();
-            renderAllEnums();
-          })
-          .catch(error => {
-            console.error('Error cargando el schema:', error);
-            document.getElementById('schemaBlocksContainer').innerHTML = 
-              '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
-            const enumsEl = document.getElementById('enumsContainer');
-            if (enumsEl) {
-              enumsEl.innerHTML =
-                '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
-            }
-          });
-
         // ============ ENUMERACIONES ============
-        // Diccionario de descripciones por enum
         const enumDescriptions = {
           InvoiceIssuerTypeEnum: {
             title: '🪪 InvoiceIssuerType - Tipo de Emisor',
             esp: 'Identifica quién emite materialmente la factura',
             eng: 'Identifies who issues the invoice',
             enumDescEsp: 'EM=emisor|RE=receptor|TE=tercero.',
-            enumDescEng: 'EM=issuer|RE=recipient|TE=third party.',
-            usedIn: ['InvoiceGNX.FileHeader.InvoiceIssuerType']
+            enumDescEng: 'EM=issuer|RE=recipient|TE=third party.'
           },
           PersonTypeCodeEnum: {
             title: '👤 PersonTypeCode - Tipo de Persona',
             esp: 'Tipo de persona en la identificación fiscal',
             eng: 'Person type for tax identification',
             enumDescEsp: 'F=persona física|J=persona jurídica.',
-            enumDescEng: 'F=natural person|J=legal entity.',
-            usedIn: [
-              'InvoiceGNX.Invoices[0].Parties. SellerParty.TaxIdentification.PersonTypeCode',
-              'InvoiceGNX.Invoices[0].Parties. BuyerParty.TaxIdentification.PersonTypeCode',
-              'InvoiceGNX.Invoices[0].Parties. ThirdParty.TaxIdentification.PersonTypeCode'
-            ]
+            enumDescEng: 'F=natural person|J=legal entity.'
           },
           ResidenceTypeCodeEnum: {
             title: '🌐 ResidenceTypeCode - Tipo de Residencia',
             esp: 'Tipo de residencia fiscal del sujeto',
             eng: 'Tax residence type of the party',
             enumDescEsp: 'E=fuera de la Unión Europea|R=residente en España|U=residente en la Unión Europea.',
-            enumDescEng: 'E=outside the European Union|R=Spanish tax resident|U=European Union resident.',
-            usedIn: ['InvoiceGNX.Invoices[0].Parties. ThirdParty.TaxIdentification.ResidenceTypeCode']
+            enumDescEng: 'E=outside the European Union|R=Spanish tax resident|U=European Union resident.'
           },
           InvoiceDocumentTypeEnum: {
             title: '📄 InvoiceDocumentType - Tipo de Documento',
             esp: 'Código del tipo de documento de factura conforme a UNTDID 1001 y a la lista L1 del Anexo I (RD 238/2026)',
             eng: 'Invoice document type code per UNTDID 1001 and list L1 of Annex I (RD 238/2026)',
             enumDescEsp: '380=factura ordinaria|381=nota de abono|384=factura rectificativa|388=factura emitida en sustitución de simplificadas|389=factura emitida por el destinatario|481=factura rectificativa emitida por el destinatario.',
-            enumDescEng: '380=standard invoice|381=credit note|384=corrective invoice|388=invoice replacing simplified invoices|389=invoice issued by the recipient|481=corrective invoice issued by the recipient.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.InvoiceDocumentType']
+            enumDescEng: '380=standard invoice|381=credit note|384=corrective invoice|388=invoice replacing simplified invoices|389=invoice issued by the recipient|481=corrective invoice issued by the recipient.'
           },
           InvoiceClassEnum: {
             title: '📑 InvoiceClass - Clase de Factura',
             esp: 'Clase de factura según su naturaleza dentro del flujo de emisión',
             eng: 'Invoice class according to its nature within the issuance flow',
             enumDescEsp: 'OO=original (documento principal)|OC=original copia (copia fiel del original con la misma validez tributaria).',
-            enumDescEng: 'OO=original (main document)|OC=original copy (true copy of the original with the same tax validity).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.InvoiceClass']
+            enumDescEng: 'OO=original (main document)|OC=original copy (true copy of the original with the same tax validity).'
           },
           ReasonCodeEnum: {
             title: '✏️ ReasonCode - Motivo de Rectificación',
             esp: 'Código del motivo por el que se emite una factura rectificativa según la lista L2.A del Anexo I',
             eng: 'Code identifying the reason for issuing a corrective invoice per list L2.A of Annex I',
             enumDescEsp: 'R1=error fundado en derecho y Art. 80 Uno, Dos y Seis LIVA|R2=Art. 80.3 LIVA (concurso de acreedores)|R3=Art. 80.4 LIVA (créditos incobrables)|R4=resto de causas.',
-            enumDescEng: 'R1=legally founded error and Art. 80 One, Two and Six VAT Law|R2=Art. 80.3 VAT Law (creditor insolvency)|R3=Art. 80.4 VAT Law (uncollectible debts)|R4=other causes.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.Corrective.ReasonCode']
+            enumDescEng: 'R1=legally founded error and Art. 80 One, Two and Six VAT Law|R2=Art. 80.3 VAT Law (creditor insolvency)|R3=Art. 80.4 VAT Law (uncollectible debts)|R4=other causes.'
           },
           CorrectionMethodEnum: {
             title: '🔧 CorrectionMethod - Método de Corrección',
             esp: 'Método empleado para la rectificación según la lista L2.B del Anexo I',
             eng: 'Correction method used per list L2.B of Annex I',
             enumDescEsp: 'I=rectificativa por diferencias (solo se informan los importes corregidos)|S=rectificativa por sustitución (la nueva factura reemplaza íntegramente a la original).',
-            enumDescEng: 'I=correction by differences (only corrected amounts are reported)|S=correction by substitution (the new invoice fully replaces the original).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. InvoiceHeader.Corrective.CorrectionMethod']
+            enumDescEng: 'I=correction by differences (only corrected amounts are reported)|S=correction by substitution (the new invoice fully replaces the original).'
           },
           TaxTypeCodeEnum: {
             title: '💼 TaxTypeCode - Tipo de Impuesto',
             esp: 'Código del impuesto aplicado a la operación',
             eng: 'Code of the tax applied to the operation',
             enumDescEsp: 'IVA=Impuesto sobre el Valor Añadido|IPSI=Impuesto sobre la Producción, los Servicios y la Importación (Ceuta y Melilla)|IGIC=Impuesto General Indirecto Canario|IRPF=retención por IRPF|RIS=retención por Impuesto sobre Sociedades / no Residentes|REEQ=recargo de equivalencia.',
-            enumDescEng: 'IVA=Spanish VAT|IPSI=Production, Services and Import Tax (Ceuta and Melilla)|IGIC=Canary Islands General Indirect Tax|IRPF=personal income tax withholding|RIS=corporate / non-resident income tax withholding|REEQ=equivalence surcharge.',
-            usedIn: [
-              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxTypeCode',
-              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesWithheld[0].Tax.TaxTypeCode', 
-              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralDiscounts[0].Discount.DiscountTax.TaxTypeCode',
-              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralCharges[0].Charge.ChargeTax.TaxTypeCode', 
-              'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxTypeCode'
-            ]
+            enumDescEng: 'IVA=Spanish VAT|IPSI=Production, Services and Import Tax (Ceuta and Melilla)|IGIC=Canary Islands General Indirect Tax|IRPF=personal income tax withholding|RIS=corporate / non-resident income tax withholding|REEQ=equivalence surcharge.'
           },
           TaxRegimeCodeEnum: {
             title: '🏛️ TaxRegimeCode - Régimen Fiscal',
             esp: 'Clave de régimen fiscal aplicable a la operación según las listas L3A (IVA), L3B (IGIC) y L3C (IPSI) del Anexo I',
             eng: 'Tax regime code applicable to the operation per lists L3A (VAT), L3B (IGIC) and L3C (IPSI) of Annex I',
             enumDescEsp: '01=régimen general|02=exportación|03=bienes usados/REBU|04=oro de inversión|05=agencias de viajes|06=grupo de entidades nivel avanzado|07=criterio de caja|08=sujetas a IPSI/IGIC|09=agencias de viaje mediadoras (D.A.4ª)|11=arrendamiento de local de negocio|14=IVA pendiente devengo en obras a AAPP|15=IVA pendiente devengo en tracto sucesivo|17=comerciante minorista (IGIC)|18=recargo de equivalencia (IVA) / pequeño empresario (IGIC)|19=REAGYP / interiores exentas|20=régimen simplificado.',
-            enumDescEng: '01=general regime|02=export|03=second-hand goods/REBU|04=investment gold|05=travel agencies|06=advanced group of entities regime|07=cash basis|08=subject to IPSI/IGIC|09=travel agencies acting as mediators (D.A.4ª)|11=business premises lease|14=VAT pending accrual on works to public bodies|15=VAT pending accrual on successive operations|17=retail trader regime (IGIC)|18=equivalence surcharge (VAT) / small entrepreneur (IGIC)|19=REAGYP / domestic exempt operations|20=simplified regime.',
-            usedIn: [
-              'InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxRegimeCode', 
-              'InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.TaxesOutputs[0].Tax.TaxRegimeCode'
-            ]
+            enumDescEng: '01=general regime|02=export|03=second-hand goods/REBU|04=investment gold|05=travel agencies|06=advanced group of entities regime|07=cash basis|08=subject to IPSI/IGIC|09=travel agencies acting as mediators (D.A.4ª)|11=business premises lease|14=VAT pending accrual on works to public bodies|15=VAT pending accrual on successive operations|17=retail trader regime (IGIC)|18=equivalence surcharge (VAT) / small entrepreneur (IGIC)|19=REAGYP / domestic exempt operations|20=simplified regime.'
           },
           TaxOperationTypeEnum: {
             title: '⚙️ TaxOperationType - Tipo de Operación',
             esp: 'Categoría de IVA según la lista L4 del Anexo I (basada en UNTDID 5305)',
             eng: 'VAT category per list L4 of Annex I (based on UNTDID 5305)',
             enumDescEsp: 'S=régimen general|Z=bienes con tipo impositivo 0%|E=exenta de IVA|AE=inversión del sujeto pasivo|O=no sujeta a IVA|G=exportación|L=sujeta al IGIC|M=sujeta al IPSI.',
-            enumDescEng: 'S=standard regime|Z=goods with 0% rate|E=VAT-exempt|AE=reverse charge|O=not subject to VAT|G=export|L=subject to IGIC|M=subject to IPSI.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. TaxesOutputs[0].Tax.TaxOperationType']
+            enumDescEng: 'S=standard regime|Z=goods with 0% rate|E=VAT-exempt|AE=reverse charge|O=not subject to VAT|G=export|L=subject to IGIC|M=subject to IPSI.'
           },
           DiscountChargeTypeCodeEnum: {
             title: '🏷️ DiscountChargeTypeCode - Tipo de Descuento o Cargo',
             esp: 'Código que identifica el tipo de cargo o minoración aplicada en factura según la lista L7 del Anexo I',
             eng: 'Code identifying the type of charge or allowance applied per list L7 of Annex I',
             enumDescEsp: 'SUPL=cargo en nombre de un tercero (suplido)|MINO=minoración en nombre de un tercero|REGE=régimen especial de grupo de entidades (nivel avanzado)|REEQ=recargo de equivalencia|RETE=retención.',
-            enumDescEng: 'SUPL=charge on behalf of a third party (disbursement)|MINO=allowance on behalf of a third party|REGE=special group of entities regime (advanced level)|REEQ=equivalence surcharge|RETE=withholding.',
-            usedIn: [
-              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralDiscounts[0].Discount.DiscountTypeCode', 
-              'InvoiceGNX.Invoices[0].Invoice[0].InvoiceTotals. GeneralCharges[0].Charge.ChargeTypeCode'
-            ]
+            enumDescEng: 'SUPL=charge on behalf of a third party (disbursement)|MINO=allowance on behalf of a third party|REGE=special group of entities regime (advanced level)|REEQ=equivalence surcharge|RETE=withholding.'
           },
           PaymentMeansEnum: {
             title: '💳 PaymentMeans - Medio de Pago',
             esp: 'Código del medio de pago según la lista UNTDID 4461 (BT-81)',
             eng: 'Payment method code per UNTDID 4461 (BT-81)',
             enumDescEsp: '01–19=códigos numéricos para los principales medios de pago habituales en B2B (efectivo, transferencia bancaria, domiciliación/adeudo SEPA, cheque, tarjeta de crédito/débito, giro, compensación y otros instrumentos equivalentes).',
-            enumDescEng: '01–19=numeric codes for the main payment methods commonly used in B2B (cash, bank transfer, SEPA direct debit, cheque, credit/debit card, bill of exchange, set-off and other equivalent instruments).',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. PaymentDetails[0].Installment.PaymentMeans']
+            enumDescEng: '01–19=numeric codes for the main payment methods commonly used in B2B (cash, bank transfer, SEPA direct debit, cheque, credit/debit card, bill of exchange, set-off and other equivalent instruments).'
           },
           CadastralReferenceEnum: {
             title: '🏠 CadastralReference - Situación del Inmueble',
             esp: 'Código que indica la situación del inmueble al que se refiere la operación, según la lista L6 del Anexo I',
             eng: 'Code indicating the situation of the property the operation refers to, per list L6 of Annex I',
             enumDescEsp: '01=inmueble con referencia catastral en territorio español excepto País Vasco y Navarra|02=inmueble en el País Vasco o en la Comunidad Foral de Navarra|03=inmueble en territorio español sin referencia catastral|04=inmueble situado en el extranjero.',
-            enumDescEng: '01=property with cadastral reference in Spain except Basque Country and Navarre|02=property in the Basque Country or the Chartered Community of Navarre|03=property in Spain without cadastral reference|04=property located abroad.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0]. Items[0].InvoiceLine.NotesReferences[0].CadastralReference']
+            enumDescEng: '01=property with cadastral reference in Spain except Basque Country and Navarre|02=property in the Basque Country or the Chartered Community of Navarre|03=property in Spain without cadastral reference|04=property located abroad.'
           },
           AttachmentFormatEnum: {
             title: '📎 AttachmentFormat - Formato de Anexo',
             esp: 'Formato del fichero adjunto a la factura electrónica. Solo se admiten formatos no ejecutables y de uso común',
             eng: 'Format of the file attached to the electronic invoice. Only non-executable, common formats are allowed',
             enumDescEsp: 'pdf=documento PDF|jpg=imagen JPEG|jpeg=imagen JPEG|png=imagen PNG.',
-            enumDescEng: 'pdf=PDF document|jpg=JPEG image|jpeg=JPEG image|png=PNG image.',
-            usedIn: ['InvoiceGNX.Invoices[0].Invoice[0].AdditionalData. RelatedDocuments[0].Attachment.AttachmentFormat']
+            enumDescEng: 'pdf=PDF document|jpg=JPEG image|jpeg=JPEG image|png=PNG image.'
           }
         };
 
@@ -1395,118 +1520,142 @@
           'AttachmentFormatEnum'
         ];
 
-        function renderAllEnums() {
-          const container = document.getElementById('enumsContainer');
-          const navContainer = document.getElementById('navButtonsEnums');
-          if (!container) return;
-          if (!schemaData || !schemaData.definitions || !schemaData.definitions.Enums) {
-            container.innerHTML = '<p style="color: var(--gray-500);">No se ha encontrado la sección <code>definitions.Enums</code> en el schema.</p>';
-            return;
-          }
-
-          const enums = schemaData.definitions.Enums;
-          let html = '';
-          let navHtmlEnums = '';
-
-          enumOrder.forEach(enumName => {
-            const enumContent = enums[enumName];
-            if (!enumContent) return;
-
-            const desc = enumDescriptions[enumName];
-            if (!desc) return;
-
-            const enumWithName = { [enumName]: enumContent };
-            const jsonCode = JSON.stringify(enumWithName, null, 2);
-
-            const values = Array.isArray(enumContent.enum) ? enumContent.enum : [];
-            const hasValues = values.length > 0;
-
-            const valuesHtml = hasValues
-              ? values.map(v =>
-                  `<span style="display: inline-block; background: var(--generix-orange); color: var(--generix-dark); padding: 4px 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 600; margin: 4px 6px 4px 0;">${escapeHtml(String(v))}</span>`
-                ).join('')
-              : `<span style="display: inline-block; background: var(--white); color: var(--gray-500); padding: 4px 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem; font-style: italic; border: 1px dashed var(--gray-300);">No values defined yet</span>`;
-
-            const usedInHtml = (desc.usedIn && desc.usedIn.length > 0)
-              ? desc.usedIn.map(f =>
-                  `<span class="tag tech-details__used-in">${escapeHtml(f)}</span>`
-                ).join('')
-              : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
-
-            navHtmlEnums += `
-              <a href="#enum-${enumName}" class="sidebar-nav-btn" data-enum="${enumName}" 
-              onclick="setActiveNavButton(this, event);">
-                ${enumName}
-                </a>
-            `;
-
-            html += `
-              <div class="block-container" id="enum-${enumName}">
-                <div class="block-grid">
-                  <!-- Panel izquierdo: Código -->
-                  <div class="code-panel">
-                    <div class="code-panel__header">
-                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
-                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
-                    </div>
-                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
-                  </div>
-
-                  <!-- Panel derecho: Explicación -->
-                  <div>
-                    <div class="explanation-box">
-                      <!-- <h4 class="explanation-box__title">${desc.title}</h4> -->
-                      <p class="explanation-box__text">
-                        <strong>Español:</strong> ${desc.esp}
-                      </p>
-                      <p class="explanation-box__text">
-                        <strong>English:</strong> ${desc.eng}
-                      </p>
-                    </div>
-
-                    <div class="tech-details">
-                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
-                      <p class="tech-details__row">
-                        <strong>Tipo:</strong>
-                        <span class="tag tag--type"> ${escapeHtml(enumContent.type || 'string')} </span>
-                      </p>
-                      <p class="tech-details__row">
-                        <strong>Usado en:</strong>
-                        ${usedInHtml}
-                      </p>
-                      <p class="tech-details__row">
-                        <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
-                      </p>
-                      <div class="tech-details__values">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
-                      
-                    </div>
-                  </div>
-                </div>
-                <div class="block-divider"></div>
-              </div>
-            `;
+        // ============ Carga del esquema XSD (texto crudo + DOM) ============
+        fetch('E-invoicing/Standard/Invoice/Xml/GNX_Schema_xml.xsd')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+          })
+          .then(text => {
+            xsdText = text;
+            const parser = new DOMParser();
+            xsdDoc = parser.parseFromString(text, 'application/xml');
+            const parseError = xsdDoc.getElementsByTagName('parsererror');
+            if (parseError && parseError.length > 0) {
+              throw new Error('El XSD no se ha podido parsear correctamente.');
+            }
+            renderAllBlocks();
+            renderAllEnums();
+          })
+          .catch(error => {
+            console.error('Error cargando el esquema:', error);
+            document.getElementById('schemaBlocksContainer').innerHTML =
+              '<p style="color: red;">Error al cargar GNX_Schema_xml.xsd: ' + error.message + '</p>';
+            const enumsEl = document.getElementById('enumsContainer');
+            if (enumsEl) {
+              enumsEl.innerHTML =
+                '<p style="color: red;">Error al cargar GNX_Schema_xml.xsd: ' + error.message + '</p>';
+            }
           });
 
-          container.innerHTML = html;
-          if (navContainer) {
-            navContainer.innerHTML = navHtmlEnums;
-            setTimeout(() => {
-                initNavObserver();
-              }, 0);
-          }
-        }
+        // ============ Helpers de parseo XSD ============
 
-        function getBlockContent(blockName) {
-          if (blockName === 'root') {
-            return { $schema: schemaData.$schema, type: schemaData.type };
-          } else if (schemaData.properties && schemaData.properties[blockName]) {
-            return schemaData.properties[blockName];
-          } else if (schemaData.definitions && schemaData.definitions[blockName]) {
-            return schemaData.definitions[blockName];
+        // Busca el nodo de tipo (complexType o simpleType) por @name
+        function getTypeNode(name) {
+          const complex = xsdDoc.getElementsByTagNameNS(XSD_NS, 'complexType');
+          for (let i = 0; i < complex.length; i++) {
+            if (complex[i].getAttribute('name') === name) return complex[i];
+          }
+          const simple = xsdDoc.getElementsByTagNameNS(XSD_NS, 'simpleType');
+          for (let i = 0; i < simple.length; i++) {
+            if (simple[i].getAttribute('name') === name) return simple[i];
           }
           return null;
         }
 
+        // Devuelve 'complexType' | 'simpleType' | null
+        function getTypeKind(name) {
+          const node = getTypeNode(name);
+          if (!node) return null;
+          return node.localName; // 'complexType' o 'simpleType'
+        }
+
+        // Extrae el fragmento XSD literal de un tipo dado (texto verbatim)
+        function extractXsdSnippet(name) {
+          if (!xsdText) return '';
+          const tags = ['complexType', 'simpleType'];
+          for (const tag of tags) {
+            const re = new RegExp('[ \\t]*<xs:' + tag + ' name="' + name + '"[\\s\\S]*?</xs:' + tag + '>');
+            const m = xsdText.match(re);
+            if (m) return dedent(m[0]);
+          }
+          return '';
+        }
+
+        // Elimina la indentación común de un bloque de texto
+        function dedent(s) {
+          const lines = s.replace(/\t/g, '    ').split('\n');
+          let min = Infinity;
+          lines.forEach(line => {
+            if (line.trim() === '') return;
+            const indent = line.match(/^ */)[0].length;
+            if (indent < min) min = indent;
+          });
+          if (!isFinite(min)) min = 0;
+          return lines.map(line => line.slice(min)).join('\n').trim();
+        }
+
+        // Lista de elementos hijos directos (xs:element) de un complexType
+        function getElements(node) {
+          const result = [];
+          const els = node.getElementsByTagNameNS(XSD_NS, 'element');
+          for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            const elName = el.getAttribute('name');
+            if (!elName) continue;
+            result.push({
+              name: elName,
+              type: el.getAttribute('type') || '',
+              min: el.getAttribute('minOccurs'),
+              max: el.getAttribute('maxOccurs')
+            });
+          }
+          return result;
+        }
+
+        // Determina dónde se usa una enumeración: recorre los xs:element con @type === enumName
+        // y sube hasta el complexType ancestro, devolviendo "ComplexType.element"
+        function getEnumUsage(enumName) {
+          const usage = [];
+          const els = xsdDoc.getElementsByTagNameNS(XSD_NS, 'element');
+          for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            if (el.getAttribute('type') !== enumName) continue;
+            const elName = el.getAttribute('name') || '';
+            // subir hasta el complexType con @name
+            let ancestor = el.parentNode;
+            let ctName = '';
+            while (ancestor && ancestor.nodeType === 1) {
+              if (ancestor.localName === 'complexType' && ancestor.getAttribute('name')) {
+                ctName = ancestor.getAttribute('name');
+                break;
+              }
+              ancestor = ancestor.parentNode;
+            }
+            usage.push(ctName ? (ctName + '.' + elName) : elName);
+          }
+          return usage;
+        }
+
+        // Devuelve la base y las facetas de un simpleType (para tech-details)
+        function getSimpleTypeFacets(node) {
+          const restriction = node.getElementsByTagNameNS(XSD_NS, 'restriction')[0];
+          if (!restriction) return { base: '', facets: [] };
+          const base = restriction.getAttribute('base') || '';
+          const facets = [];
+          const facetTags = ['length', 'pattern', 'minLength', 'maxLength', 'minInclusive', 'maxInclusive'];
+          facetTags.forEach(ft => {
+            const nodes = restriction.getElementsByTagNameNS(XSD_NS, ft);
+            for (let i = 0; i < nodes.length; i++) {
+              facets.push({ name: ft, value: nodes[i].getAttribute('value') || '' });
+            }
+          });
+          return { base: base, facets: facets };
+        }
+
+        // ============ Render: Estructura (tipos) ============
         function renderAllBlocks() {
           const container = document.getElementById('schemaBlocksContainer');
           const navContainer = document.getElementById('navButtons');
@@ -1514,26 +1663,85 @@
           let navHtml = '';
 
           blockOrder.forEach(blockName => {
-            const blockContent = getBlockContent(blockName);
-            if (!blockContent) return;
+            const node = getTypeNode(blockName);
+            if (!node) return;
 
             const desc = descriptions[blockName];
+            if (!desc) return;
 
-            // Crear el JSON con el nombre del bloque como clave
-            let blockWithName;
-            if (blockName === 'root' || blockName === 'properties') {
-              // Para root y properties, mostrar como está
-              blockWithName = blockContent;
+            const kind = node.localName; // complexType | simpleType
+            const jsonCode = extractXsdSnippet(blockName);
+
+            // Tech details según el tipo
+            let techRows = '';
+            techRows += `
+              <p class="tech-details__row">
+                <strong>Tipo:</strong>
+                <span class="tag tag--type">${kind === 'simpleType' ? 'xs:simpleType' : 'xs:complexType'}</span>
+              </p>`;
+
+            if (kind === 'complexType') {
+              const hasAny = node.getElementsByTagNameNS(XSD_NS, 'any').length > 0;
+              const elements = getElements(node);
+              if (elements.length > 0) {
+                const propNames = elements.map(e => e.name).join(', ');
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Propiedades:</strong>
+                    <span class="tag tag--properties">${escapeHtml(propNames)}</span>
+                  </p>`;
+                const required = elements.filter(e => e.min !== '0').map(e => e.name);
+                if (required.length > 0) {
+                  techRows += `
+                    <p class="tech-details__row">
+                      <strong>Requeridos:</strong>
+                      <span class="tag tag--required">${escapeHtml(required.join(', '))}</span>
+                    </p>`;
+                } else {
+                  techRows += `
+                    <p class="tech-details__row">
+                      <strong>Requeridos:</strong>
+                      <span class="tag tag--required-empty">No required data in this segment</span>
+                    </p>`;
+                }
+              } else if (hasAny) {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Propiedades:</strong>
+                    <span class="tag tag--properties">xs:any (contenido libre / free content)</span>
+                  </p>
+                  <p class="tech-details__row">
+                    <strong>Requeridos:</strong>
+                    <span class="tag tag--required-empty">No required data in this segment</span>
+                  </p>`;
+              } else {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Requeridos:</strong>
+                    <span class="tag tag--required-empty">No required data in this segment</span>
+                  </p>`;
+              }
             } else {
-              // Para las definiciones, envolver en el nombre del bloque
-              blockWithName = { [blockName]: blockContent };
+              // simpleType: base + facetas
+              const f = getSimpleTypeFacets(node);
+              if (f.base) {
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Base:</strong>
+                    <span class="tag tag--type">${escapeHtml(f.base)}</span>
+                  </p>`;
+              }
+              if (f.facets.length > 0) {
+                const facetsHtml = f.facets.map(fa =>
+                  `<span class="tag tag--properties">${escapeHtml(fa.name)} = ${escapeHtml(fa.value)}</span>`
+                ).join(' ');
+                techRows += `
+                  <p class="tech-details__row">
+                    <strong>Restricciones:</strong> ${facetsHtml}
+                  </p>`;
+              }
             }
 
-            const jsonCode = JSON.stringify(blockWithName, null, 2);
-
-            // Generar botón de navegación
-            const emoji = desc.title.split(' ')[0];
-            const label = desc.title.substring(desc.title.indexOf(' ') + 1);
             navHtml += `
               <a href="#block-${blockName}" class="sidebar-nav-btn" data-block="${blockName}" onclick="setActiveNavButton(this, event);">
                 ${blockName}
@@ -1549,13 +1757,12 @@
                       <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
                       <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
                     </div>
-                    <pre class="code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                    <pre class="code-panel code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
                   </div>
 
                   <!-- Panel derecho: Explicación -->
                   <div>
                     <div class="explanation-box">
-                      <!-- <h4 class="explanation-box__title">${desc.title}</h4> -->
                       <p class="explanation-box__description">
                         <strong>Español:</strong> ${desc.esp}
                       </p>
@@ -1566,28 +1773,7 @@
 
                     <div class="tech-details">
                       <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
-                      <p class="tech-details__row">
-                        <strong>Tipo:</strong> 
-                        <span class="tag tag--type">${blockContent.type || 'N/A'}</span>
-                      </p>
-                      ${blockContent.properties 
-                        ? `<p class="tech-details__row">
-                            <strong>Propiedades:</strong> 
-                            <span class="tag tag--properties">${Object.keys(blockContent.properties).join(', ')}</span>
-                          </p>` : ''}
-                      ${blockContent.required && blockContent.required.length > 0
-                        ? `<p class="tech-details__row">
-                            <strong>Requeridos:</strong> 
-                            <span class="tag tag--required">${blockContent.required.join(', ')}</span>
-                          </p>` 
-                        : `<p class="tech-details__row">
-                            <strong>Requeridos:</strong> 
-                            <span class="tag tag--required-empty">No required data in this segment</span>
-                          </p>`}
-                      ${blockContent.description 
-                        ? `<p class="tech-details__row tech-details__row--last">
-                          <strong>Descripción:</strong> ${blockContent.description}</p>` 
-                        : ''}
+                      ${techRows}
                     </div>
                   </div>
                 </div>
@@ -1605,21 +1791,113 @@
           }
         }
 
+        // ============ Render: Enumeraciones ============
+        function renderAllEnums() {
+          const container = document.getElementById('enumsContainer');
+          const navContainer = document.getElementById('navButtonsEnums');
+          if (!container) return;
+
+          let html = '';
+          let navHtmlEnums = '';
+
+          enumOrder.forEach(enumName => {
+            const node = getTypeNode(enumName);
+            if (!node) return;
+
+            const desc = enumDescriptions[enumName];
+            if (!desc) return;
+
+            const jsonCode = extractXsdSnippet(enumName);
+
+            // Valores desde el XSD
+            const enumNodes = node.getElementsByTagNameNS(XSD_NS, 'enumeration');
+            const values = [];
+            for (let i = 0; i < enumNodes.length; i++) {
+              values.push(enumNodes[i].getAttribute('value'));
+            }
+            const hasValues = values.length > 0;
+
+            const usedIn = getEnumUsage(enumName);
+
+            const usedInHtml = (usedIn && usedIn.length > 0)
+              ? usedIn.map(f =>
+                  `<span class="tag tech-details__used-in">${escapeHtml(f)}</span>`
+                ).join('')
+              : `<span style="color: var(--gray-500); font-style: italic; font-size: 0.85rem;">No usage references</span>`;
+
+            navHtmlEnums += `
+              <a href="#enum-${enumName}" class="sidebar-nav-btn" data-enum="${enumName}"
+              onclick="setActiveNavButton(this, event);">
+                ${enumName}
+                </a>
+            `;
+
+            html += `
+              <div class="block-container" id="enum-${enumName}">
+                <div class="block-grid">
+                  <!-- Panel izquierdo: Código -->
+                  <div class="code-panel">
+                    <div class="code-panel__header">
+                      <span class="code-panel__icon">${desc.title.split(' ')[0]}</span>
+                      <span>${desc.title.substring(desc.title.indexOf(' ') + 1)}</span>
+                    </div>
+                    <pre class="code-panel code-panel__pre"><code>${escapeHtml(jsonCode)}</code></pre>
+                  </div>
+
+                  <!-- Panel derecho: Explicación -->
+                  <div>
+                    <div class="explanation-box">
+                      <p class="explanation-box__text">
+                        <strong>Español:</strong> ${desc.esp}
+                      </p>
+                      <p class="explanation-box__text">
+                        <strong>English:</strong> ${desc.eng}
+                      </p>
+                    </div>
+
+                    <div class="tech-details">
+                      <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
+                      <p class="tech-details__row">
+                        <strong>Tipo:</strong>
+                        <span class="tag tag--type"> xs:string </span>
+                      </p>
+                      <p class="tech-details__row">
+                        <strong>Usado en:</strong>
+                        ${usedInHtml}
+                      </p>
+                      <p class="tech-details__row">
+                        <strong>Valores admitidos${hasValues ? ' (' + values.length + ')' : ''}:</strong>
+                      </p>
+                      <div class="tech-details__values">${buildEnumDescTable(desc.enumDescEsp, desc.enumDescEng)}</div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="block-divider"></div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+          if (navContainer) {
+            navContainer.innerHTML = navHtmlEnums;
+            setTimeout(() => {
+                initNavObserver();
+              }, 0);
+          }
+        }
+
         function initNavObserver() {
-          // Detecta si ya existía un observer (porque renderAllBlocks lo creó),
-          // lo desconectamos antes de crear el nuevo. Si no, se duplican.
           if (navObserver) {
             navObserver.disconnect();
           }
           navObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
-                // Quitar 'active' a todos los botones (de bloques y enums)
                 document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
                   btn.classList.remove('active');
                 });
 
-                //detectar si el id es de bloque o de enum
                 const id = entry.target.id; // "block-XXX" o "enum-XXX"
                 let activeBtn = null;
 
@@ -1636,12 +1914,11 @@
                 }
               }
             });
-          }, { 
+          }, {
             rootMargin: "-120px 0px -60% 0px",
             threshold: 0
           });
 
-          // observamos AMBOS tipos de contenedor (bloques + enums)
           document.querySelectorAll('[id^="block-"], [id^="enum-"]').forEach(el => {
             navObserver.observe(el);
           });
@@ -1649,16 +1926,13 @@
 
         function setActiveNavButton(clickedBtn, event) {
           event.preventDefault();
-                
-          // quitar active de todos
+
           document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
             btn.classList.remove('active');
           });
-        
-          // poner active al clicado
+
           clickedBtn.classList.add('active');
-        
-          // scroll
+
           const blockId = clickedBtn.getAttribute('href');
           document.querySelector(blockId).scrollIntoView({ behavior: 'smooth' });
         }
@@ -1667,7 +1941,7 @@
         function parseEnumDesc(str) {
           if (!str) return [];
           return str
-            .replace(/\.\s*$/, '')          // quita el punto final
+            .replace(/\.\s*$/, '')
             .split('|')
             .map(item => {
               const [code, ...rest] = item.split('=');
@@ -1678,14 +1952,14 @@
             })
             .filter(it => it.code || it.desc);
         }
-        
+
         // Construye la tabla a partir de los strings ES + EN
         function buildEnumDescTable(enumDescEsp, enumDescEng) {
           const itemsEsp = parseEnumDesc(enumDescEsp);
           const itemsEng = parseEnumDesc(enumDescEng);
           const max = Math.max(itemsEsp.length, itemsEng.length);
           if (max === 0) return '';
-        
+
           let rows = '';
           for (let i = 0; i < max; i++) {
             const esp = itemsEsp[i] || { code: '', desc: '' };
@@ -1699,7 +1973,7 @@
               </tr>
             `;
           }
-        
+
           return `
             <table class="enum-desc-table">
               <thead>
@@ -1722,236 +1996,19 @@
             '"': '&quot;',
             "'": '&#039;'
           };
-          return text.replace(/[&<>"']/g, m => map[m]);
+          return String(text).replace(/[&<>"']/g, m => map[m]);
         }
     </script>
 
-    <!-- Cargar el JSON de ejemplo desde GNX_Invoice_Json.json -- examplesContainer -->
-    <script>
-      async function loadExampleJSON() {
-        try {
-          const response = await fetch('E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json');
-          const exampleData = await response.json();
-          renderExampleJSON(exampleData);
-        } catch (error) {
-          console.error('Error loading example JSON:', error);
-          document.getElementById('examplesContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Invoice_Json.json: ' + error.message + '</p>';
-        }
-      }
-
-      function renderExampleJSON(data) {
-        const container = document.getElementById('examplesContainer');
-        
-        // Mostrar el JSON completo
-        const jsonCode = JSON.stringify(data, null, 2);
-        
-        let html = `
-          <div class="block-container">
-            <div class="block-grid">
-              <!-- Panel completo del JSON -->
-              <div class="code-panel">
-                <div class="code-panel__header">
-                  <span class="code-panel__icon">📋</span>
-                  <span> Ejemplo JSON Estándar - Factura Completa</span>
-                </div>
-                <!-- Código JSON -->
-                <pre class="code-panel__pre"><code id="exampleJsonCode">${escapeHtml(jsonCode)}</code></pre>
-              </div>
-
-              <!-- Panel derecho: Explicación -->
-              <div>
-                <div class="explanation-box">
-                  <!-- <h4 class="explanation-box__title">📌 Estructura Principal</h4> -->
-                  <p class="explanation-box__description">
-                    Este ejemplo incluye la estructura completa con:
-                    <ul>
-                      <li><strong>FileHeader:</strong> Información del lote y versión del esquema</li>
-                      <li><strong>Parties:</strong> Datos de vendedor, comprador y terceros</li>
-                      <li><strong>Legislación:</strong> Configuración según normativa (CreaYCrece, VeriFactu, FACe, SII)</li>
-                      <li><strong>Invoice:</strong> Datos completos de la factura con líneas y detalles fiscales</li>
-                    </ul>
-                  </p>
-                </div>
-
-                <div class="tech-details">
-                  <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
-                  <p class="tech-details__row">
-                    <strong>Versión Schema:</strong> 
-                    <span class="tag tag--type"> ${data.InvoiceGNX?.FileHeader?.SchemaVersion || 'N/A'}</span>
-                  </p>
-                  <p class="tech-details__row">
-                    <strong>Moneda:</strong> 
-                    <span class="tag tag--properties"> ${data.InvoiceGNX?.FileHeader?.Batch?.InvoiceCurrencyCode || 'N/A'}</span>
-                  </p>
-                  <p class="tech-details__row">
-                    <strong>Importe Total:</strong> 
-                    <span class="tag tag--required"> ${formatCurrency(data.InvoiceGNX?.FileHeader?.Batch?.TotalInvoicesAmount?.TotalAmount || 0)}</span>
-                  </p>
-                  <p class="tech-details__row">
-                    <strong>Facturas en lote:</strong> 
-                    <span class="tag tag--properties"> ${data.InvoiceGNX?.FileHeader?.Batch?.InvoicesCount || 0}</span>
-                  </p>
-                </div>
-            </div>
-          </div>
-        `;
-
-        container.innerHTML = html;
-      }
-
-      function escapeHtml(text) {
-        const map = {
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
-      }
-
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
-      }
-
-      // Cargar el JSON cuando el documento esté listo
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadExampleJSON);
-      } else {
-        loadExampleJSON();
-      }
-    </script>
-
-
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Json.json -- responseContainer -->
-    <script>
-      async function loadResponseJSON() {
-        try {
-          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Json.json');
-          const responseData = await response.json();
-          renderResponseJSON(responseData);
-        } catch (error) {
-          console.error('Error loading Response JSON:', error);
-          document.getElementById('responseContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el ejemplo JSON GNX_Response_Json.json: ' + error.message + '</p>';
-        }
-      }
-
-      function renderResponseJSON(data) {
-        const container = document.getElementById('responseContainer');
-        
-        // Mostrar el JSON completo
-        const jsonCode = JSON.stringify(data, null, 2);
-        
-        let html = `
-          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
-            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-              <!-- Header del bloque de código -->
-              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">📋 Respuesta Completa - Ejemplo JSON </span>
-              </div>
-              <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;">
-                <code id="responseJsonCode">${escapeHtml(jsonCode)}</code></pre>
-            </div>
-          </div>
-        `;
-
-        container.innerHTML = html;
-      }
-
-      function escapeHtml(text) {
-        const map = {
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
-      }
-
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
-      }
-
-      // Cargar el JSON cuando el documento esté listo
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadResponseJSON);
-      } else {
-        loadResponseJSON();
-      }
-    </script>
-    <!-- Cargar el JSON de ejemplo desde GNX_Response_Schema_Json.json -->
-    <script>
-      async function loadResponseSchemaJSON() {
-        try {
-          const response = await fetch('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json');
-          const responseSchemaData = await response.json();
-          renderResponseSchemaJSON(responseSchemaData);
-        } catch (error) {
-          console.error('Error loading response Schema JSON:', error);
-          document.getElementById('responseSchemaContainer').innerHTML = 
-            '<p style="color: red;">Error al cargar el JSON de respuesta GNX_Response_Schema_Json.json: ' + error.message + '</p>';
-        }
-      }
-
-      function renderResponseSchemaJSON(data) {
-        const container = document.getElementById('responseSchemaContainer');
-        
-        // Mostrar el JSON completo
-        const jsonCode = JSON.stringify(data, null, 2);
-        
-        let html = `
-          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
-            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-              <!-- Header del bloque de código -->
-              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">📋 Esquema de Respuesta</span>
-              </div>
-              <!-- Código JSON -->
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code id="responseSchemaJsonCode">${escapeHtml(jsonCode)}</code></pre>
-            </div>
-          </div>
-        `;
-
-        container.innerHTML = html;
-      }
-
-      function escapeHtml(text) {
-        const map = {
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
-      }
-
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
-      }
-
-      // Cargar el JSON cuando el documento esté listo
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadResponseSchemaJSON);
-      } else {
-        loadResponseSchemaJSON();
-      }
-    </script>
-
+    <!-- Tab switching -->
     <script>
       document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
           const tabName = button.getAttribute('data-tab');
-        
-          // Remove active class from all buttons and contents
+
           document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
           document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        
-          // Add active class to clicked button and corresponding content
+
           button.classList.add('active');
           document.getElementById(tabName).classList.add('active');
         });
