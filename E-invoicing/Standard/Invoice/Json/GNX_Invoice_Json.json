@@ -107,7 +107,6 @@
 							},
 							"ContactDetails": {
 								"Telephone": "+34 914444444",
-								"Telephone2": "+34 914444445",
 								"WebAddress": "http://www.thirdparty.com/",
 								"ElectronicMail": "contacto@thirdparty.com",
 								"LastName": "López",
