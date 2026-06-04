@@ -1760,29 +1760,64 @@
         // Construye una tabla con la descripción de cada campo de un bloque del schema
         function buildFieldDescTable(blockContent) {
           if (!blockContent || !blockContent.properties) return '';
-          const entries = Object.entries(blockContent.properties);
-          if (entries.length === 0) return '';
-          const required = blockContent.required || [];
+          if (Object.keys(blockContent.properties).length === 0) return '';
           const dash = '<span style="color: var(--gray-300);">—</span>';
 
           let rows = '';
-          entries.forEach(([field, def]) => {
-            def = def || {};
-            const type = getFieldType(def);
-            const constraints = getFieldConstraints(def);
-            const isReq = required.includes(field);
-            rows += `
-              <tr>
-                <td><span class="tag tag--required">${escapeHtml(field)}</span></td>
-                <td>${def.description ? escapeHtml(def.description) : dash}</td>
-                <td>${type ? `<span class="tag tag--type">${escapeHtml(type)}</span>` : dash}</td>
-                <td>${isReq
+
+          // Recorre las propiedades; entra en objetos/arrays anidados inline,
+          // pero NO en los $ref (esos tienen su propio bloque documentado).
+          function addRows(properties, required, level) {
+            required = required || [];
+            Object.entries(properties).forEach(([field, def]) => {
+              def = def || {};
+              const type = getFieldType(def);
+              const constraints = getFieldConstraints(def);
+              const isReq = required.includes(field);
+              const indent = 12 + level * 22;
+              const marker = level > 0
+                ? '<span style="color: var(--gray-300);">↳ </span>'
+                : '';
+              rows += `
+                <tr>
+                  <td style="padding-left: ${indent}px;">
+                    ${marker}
+                    <span class="tag tag--required">
+                      ${escapeHtml(field)}
+                    </span>
+                  </td>
+                  <td>${def.description
+                    ? escapeHtml(def.description)
+                    : dash}
+                  </td>
+                  <td>${type
+                    ? `<span class="tag tag--type">${escapeHtml(type)}</span>`
+                    : dash}
+                  </td>
+                  <td>${isReq
                     ? '<span class="tag tag--required">Sí</span>'
-                    : '<span style="color: var(--gray-500);">No</span>'}</td>
-                <td>${constraints.length ? escapeHtml(constraints.join(' · ')) : dash}</td>
-              </tr>
-            `;
-          });
+                    : '<span style="color: var(--gray-500);">No</span>'}
+                  </td>
+                  <td>${constraints.length
+                    ? escapeHtml(constraints.join(' · '))
+                    : dash}
+                  </td>
+                </tr>
+              `;
+
+              // Objeto anidado inline (sin $ref) → mostrar sus subcampos
+              if (!def['$ref'] && def.type === 'object' && def.properties) {
+                addRows(def.properties, def.required, level + 1);
+              }
+              // Array de objetos inline (items sin $ref) → mostrar los campos del item
+              if (!def['$ref'] && def.type === 'array' && def.items
+                  && !def.items['$ref'] && def.items.properties) {
+                addRows(def.items.properties, def.items.required, level + 1);
+              }
+            });
+          }
+
+          addRows(blockContent.properties, blockContent.required, 0);
 
           return `
             <div class="field-desc-section">
