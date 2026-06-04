@@ -10,15 +10,19 @@
 					"type": "object",
 					"properties": {
 						"SchemaVersion": {
-							"description": "",
+							"description": "Versión del esquema utilizada para generar el documento.",
 							"type": "string"
 						},
-						"Modality": { "description": "", "type": "string" },
+						"Modality": {
+							"description": "Modalidad del envío.",
+							"$ref": "#/definitions/Enums/ModalityEnum"
+						},
 						"InvoiceIssuerType": {
-							"description": "",
+							"description": "Tipo de emisor de la factura",
 							"$ref": "#/definitions/Enums/InvoiceIssuerTypeEnum"
 						},
 						"Batch": {
+							"description": "Identificador del lote. Concatenación del nº del emisor con el número de la primera factura y el número de serie",
 							"$ref": "#/definitions/Batch"
 						}
 					},
@@ -31,32 +35,46 @@
 				"Invoices": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Conjunto de datos de una factura, incluyendo las partes y el detalle del documento.",
 						"$ref": "#/definitions/InvoiceWrapper"
 					}
 				}
 			},
-			"required": ["FileHeader", "Invoices"]
+			"required": [
+				"FileHeader",
+				"Invoices"
+			]
 		}
 	},
-	"required": ["InvoiceGNX"],
+	"required": [
+		"InvoiceGNX"
+	],
 	"definitions": {
 		"Batch": {
 			"type": "object",
 			"properties": {
-				"BatchIdentifier": { "description": "", "type": "string" },
-				"InvoicesCount": { "description": "", "type": "integer" },
+				"BatchIdentifier": {
+					"description": "Identificador único del lote de facturas.",
+					"type": "string"
+				},
+				"InvoicesCount": {
+					"description": "Número de facturas incluidas en el lote.",
+					"type": "integer"
+				},
 				"TotalInvoicesAmount": {
+					"description": "Total facturas del lote.",
 					"$ref": "#/definitions/AmountContainer"
 				},
 				"TotalOutstandingAmount": {
+					"description": "Total del lote a pago.",
 					"$ref": "#/definitions/AmountContainer"
 				},
 				"TotalExecutableAmount": {
+					"description": "Total del lote a Ejecutar.",
 					"$ref": "#/definitions/AmountContainer"
 				},
 				"InvoiceCurrencyCode": {
-					"description": "",
+					"description": "Moneda del lote, según la Norma ISO 4217. Valor por defecto: EUR.",
 					"type": "string",
 					"minLength": 3,
 					"maxLength": 3,
@@ -69,38 +87,47 @@
 			"type": "object",
 			"properties": {
 				"Parties": {
-					"description": "",
+					"description": "Grupo de términos de negocio que identifican a las partes que intervienen en la factura.",
 					"$ref": "#/definitions/Parties"
 				},
-				"Legislacion": { "description": "", "type": "object" },
+				"Legislacion": {
+					"description": "Información relativa a la legislación aplicable a la operación.",
+					"type": "object"
+				},
 				"Invoice": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Datos del documento de factura.",
 						"$ref": "#/definitions/Invoice"
 					}
 				}
 			},
-			"required": ["Parties", "Invoice"],
+			"required": [
+				"Parties",
+				"Invoice"
+			],
 			"additionalProperties": false
 		},
 		"Parties": {
 			"type": "object",
 			"properties": {
 				"SellerParty": {
-					"description": "",
+					"description": "BG-4 | Grupo de términos de negocio que proporcionan información sobre el vendedor.",
 					"$ref": "#/definitions/Party"
 				},
 				"BuyerParty": {
-					"description": "",
+					"description": "BG-7 | Un conjunto de términos de negocio que ofrecen información sobre el comprador.",
 					"$ref": "#/definitions/Party"
 				},
 				"ThirdParty": {
-					"description": "",
+					"description": "BG-ES-3 | Un conjunto de términos de negocio que ofrecen información relativa a un tercero.",
 					"$ref": "#/definitions/Party"
 				}
 			},
-			"required": ["SellerParty", "BuyerParty"],
+			"required": [
+				"SellerParty",
+				"BuyerParty"
+			],
 			"additionalProperties": false
 		},
 		"Party": {
@@ -109,28 +136,34 @@
 				"TaxIdentification": {
 					"$ref": "#/definitions/TaxIdentification"
 				},
-				"PartyIdentification": { "description": "", "type": "string" },
+				"PartyIdentification": {
+					"description": "Identificación adicional de la parte.",
+					"type": "string"
+				},
 				"LegalEntity": {
-					"description": "",
+					"description": "Grupo de términos de negocio con la información jurídica y de contacto de la parte.",
 					"$ref": "#/definitions/LegalEntity"
 				}
 			},
-			"required": ["TaxIdentification", "LegalEntity"],
+			"required": [
+				"TaxIdentification",
+				"LegalEntity"
+			],
 			"additionalProperties": false
 		},
 		"TaxIdentification": {
 			"type": "object",
 			"properties": {
 				"PersonTypeCode": {
-					"description": "",
+					"description": "Tipo de persona.",
 					"$ref": "#/definitions/Enums/PersonTypeCodeEnum"
 				},
 				"ResidenceTypeCode": {
-					"description": "",
+					"description": "Tipo de residencia a efectos fiscales.",
 					"$ref": "#/definitions/Enums/ResidenceTypeCodeEnum"
 				},
 				"TaxIdentificationNumber": {
-					"description": "",
+					"description": "BT-32 / BT-48 / BT-ES-12 | Número de identificación fiscal (NIF/NIE) de la parte.",
 					"type": "string"
 				}
 			},
@@ -144,37 +177,61 @@
 		"LegalEntity": {
 			"type": "object",
 			"properties": {
-				"CorporateName": { "description": "", "type": "string" },
-				"TradeName": { "description": "", "type": "string" },
+				"CorporateName": {
+					"description": "BT-27 / BT-44 | Nombre y apellidos o razón social de la parte.",
+					"type": "string"
+				},
+				"TradeName": {
+					"description": "Nombre comercial de la parte.",
+					"type": "string"
+				},
 				"RegistrationData": {
+					"description": "Datos de registro de la parte.",
 					"$ref": "#/definitions/RegistrationData"
 				},
 				"Address": {
-					"description": "",
+					"description": "BG-5 / BG-8 | Grupo de términos de negocio que proporciona información de la dirección postal de la parte.",
 					"$ref": "#/definitions/Address"
 				},
 				"ContactDetails": {
-					"description": "",
+					"description": "BG-6 / BG-9 | Grupo de términos de negocio que ofrecen información de contacto de la parte.",
 					"$ref": "#/definitions/ContactDetails"
 				}
 			},
-			"required": ["CorporateName"],
+			"required": [
+				"CorporateName"
+			],
 			"additionalProperties": false
 		},
 		"RegistrationData": {
 			"type": "object",
 			"properties": {
-				"Book": { "description": "", "type": "string" },
-				"RegisterOfCompaniesLocation": {
-					"description": "",
+				"Book": {
+					"description": "Libro de inscripción en el Registro Mercantil.",
 					"type": "string"
 				},
-				"Sheet": { "description": "", "type": "string" },
-				"Folio": { "description": "", "type": "string" },
-				"Section": { "description": "", "type": "string" },
-				"Volume": { "description": "", "type": "string" },
+				"RegisterOfCompaniesLocation": {
+					"description": "Localidad del Registro Mercantil.",
+					"type": "string"
+				},
+				"Sheet": {
+					"description": "Hoja de inscripción en el Registro Mercantil.",
+					"type": "string"
+				},
+				"Folio": {
+					"description": "Folio de inscripción en el Registro Mercantil.",
+					"type": "string"
+				},
+				"Section": {
+					"description": "Sección de inscripción en el Registro Mercantil.",
+					"type": "string"
+				},
+				"Volume": {
+					"description": "Tomo de inscripción en el Registro Mercantil.",
+					"type": "string"
+				},
 				"AdditionalRegistrationData": {
-					"description": "",
+					"description": "Datos registrales adicionales.",
 					"type": "string"
 				}
 			},
@@ -183,38 +240,66 @@
 		"Address": {
 			"type": "object",
 			"properties": {
-				"Address": { "description": "", "type": "string" },
-				"AdditionalAddress": { "description": "", "type": "string" },
-				"PostCode": { "description": "", "type": "string" },
-				"Town": { "description": "", "type": "string" },
-				"Province": { "description": "", "type": "string" },
+				"Address": {
+					"description": "BT-35 / BT-50 | Se consignará la dirección postal de la parte.",
+					"type": "string"
+				},
+				"AdditionalAddress": {
+					"description": "Información adicional de la dirección postal de la parte.",
+					"type": "string"
+				},
+				"PostCode": {
+					"description": "BT-38 / BT-53 | Se consignará el código postal de la parte.",
+					"type": "string"
+				},
+				"Town": {
+					"description": "BT-37 / BT-52 | Se consignará la localidad de la parte.",
+					"type": "string"
+				},
+				"Province": {
+					"description": "BT-39 / BT-54 | Se consignará la provincia de la parte.",
+					"type": "string"
+				},
 				"CountryCode": {
-					"description": "",
+					"description": "BT-40 / BT-55 | Se consignará el código del país de la parte. En la Norma EN ISO 3166-1",
 					"type": "string",
 					"minLength": 3,
 					"maxLength": 3
 				}
 			},
-			"required": ["Address", "PostCode", "Town", "CountryCode"],
+			"required": [
+				"Address",
+				"PostCode",
+				"Town",
+				"CountryCode"
+			],
 			"additionalProperties": false
 		},
 		"ContactDetails": {
 			"type": "object",
 			"properties": {
-				"Telephone": { "description": "", "type": "string" },
-				"Telephone2": { "description": "", "type": "string" },
+				"Telephone": {
+					"description": "BT-42 / BT-57 | Número de teléfono de contacto de la parte.",
+					"type": "string"
+				},
 				"WebAddress": {
-					"description": "",
+					"description": "Dirección del sitio web de contacto.",
 					"type": "string",
 					"format": "uri"
 				},
 				"ElectronicMail": {
-					"description": "",
+					"description": "BT-43 / BT-58 | Dirección de correo electrónico de contacto de la parte.",
 					"type": "string",
 					"format": "email"
 				},
-				"LastName": { "description": "", "type": "string" },
-				"FirstName": { "description": "", "type": "string" }
+				"LastName": {
+					"description": "Apellidos de la parte.",
+					"type": "string"
+				},
+				"FirstName": {
+					"description": "Nombre de la parte.",
+					"type": "string"
+				}
 			},
 			"additionalProperties": false
 		},
@@ -222,81 +307,93 @@
 			"type": "object",
 			"properties": {
 				"InvoiceHeader": {
-					"description": "",
+					"description": "Grupo de términos de negocio con los datos de cabecera de la factura.",
 					"$ref": "#/definitions/InvoiceHeader"
 				},
 				"InvoiceIssueData": {
-					"description": "",
+					"description": "Grupo de términos de negocio con los datos de expedición de la factura.",
 					"$ref": "#/definitions/InvoiceIssueData"
 				},
 				"TaxesOutputs": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Detalle de un impuesto repercutido.",
 						"$ref": "#/definitions/TaxWrapper"
-					}
+					},
+					"description": "BG-23 | Grupo de términos de negocio que proporcionan información sobre el desglose del IVA en diferentes categorías."
 				},
 				"TaxesWithheld": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Detalle de una retención practicada.",
 						"$ref": "#/definitions/TaxWrapper"
-					}
+					},
+					"description": "BG-ES-4 | Grupo de términos de negocio que proporcionan información relativa a las retenciones practicadas en la factura."
 				},
 				"InvoiceTotals": {
-					"description": "",
+					"description": "BG-22 | Grupo de términos de negocio que proporcionan los totales monetarios de la factura.",
 					"$ref": "#/definitions/InvoiceTotals"
 				},
 				"Items": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Datos de una línea individual de la factura.",
 						"$ref": "#/definitions/ItemWrapper"
 					}
 				},
 				"PaymentDetails": {
 					"type": "array",
 					"items": {
-						"description": "",
+						"description": "Datos de un vencimiento o plazo de pago.",
 						"$ref": "#/definitions/PaymentWrapper"
-					}
+					},
+					"description": "BG-16 | Un grupo de términos de negocio que ofrecen información acerca del pago."
 				},
 				"LegalLiterals": {
 					"type": "object",
 					"properties": {
 						"LegalReference": {
-							"description": "",
+							"description": "Texto de la mención legal aplicable a la factura.",
 							"type": "string"
 						}
 					},
 					"additionalProperties": false
 				},
 				"AdditionalData": {
-					"description": "",
+					"description": "Grupo de términos de negocio con datos adicionales de la factura.",
 					"$ref": "#/definitions/AdditionalData"
 				}
 			},
-			"required": ["InvoiceHeader", "InvoiceIssueData"]
+			"required": [
+				"InvoiceHeader",
+				"InvoiceIssueData"
+			]
 		},
 		"InvoiceHeader": {
 			"type": "object",
 			"properties": {
-				"InvoiceNumber": { "description": "", "type": "string" },
+				"InvoiceNumber": {
+					"description": "BT-1 | Número y serie que identifican la factura emitida.",
+					"type": "string"
+				},
 				"InvoiceDocumentType": {
-					"description": "",
+					"description": "BT-3 | Tipo de factura. ",
 					"$ref": "#/definitions/Enums/InvoiceDocumentTypeEnum"
 				},
 				"InvoiceClass": {
-					"description": "",
+					"description": "BT-ES-1 | Valor que indica la originalidad de la factura.",
 					"$ref": "#/definitions/Enums/InvoiceClassEnum"
 				},
-				"InvoiceDescription": { "description": "", "type": "string" },
+				"InvoiceDescription": {
+					"description": "Descripción general del contenido de la factura.",
+					"type": "string"
+				},
 				"PreviousInvoiceNumber": {
-					"description": "",
+					"description": "Número de la factura anterior, cuando proceda.",
 					"type": "string"
 				},
 				"Corrective": {
-					"description": "",
+					"description": "BG-ES-1 | Este grupo recoge los datos relativos al tipo de factura rectificativa y/o modalidad.",
 					"$ref": "#/definitions/Corrective"
 				}
 			},
@@ -311,32 +408,48 @@
 		"Corrective": {
 			"type": "object",
 			"properties": {
-				"InvoiceNumber": { "description": "", "type": "string" },
+				"InvoiceNumber": {
+					"description": "BT-25 | Número y serie que identifican la factura emitida referenciada o sustituida.",
+					"type": "string"
+				},
 				"ReasonCode": {
-					"description": "",
+					"description": "BT-ES-2 | Indicador del motivo de la rectificación.",
 					"$ref": "#/definitions/Enums/ReasonCodeEnum"
 				},
-				"ReasonDescription": { "description": "", "type": "string" },
+				"ReasonDescription": {
+					"description": "Descripción del motivo de la rectificación.",
+					"type": "string"
+				},
 				"InvoiceIssueDate": {
-					"description": "",
+					"description": "BT-26 | Fecha de expedición de la factura referenciada o sustituida.",
 					"$ref": "#/definitions/DateTime"
 				},
 				"CorrectionMethod": {
-					"description": "",
+					"description": "BT-ES-3 | Código que especifica la modalidad de rectificación empleada.",
 					"$ref": "#/definitions/Enums/CorrectionMethodEnum"
 				},
 				"CorrectionMethodDescription": {
-					"description": "",
+					"description": "Descripción de la modalidad de rectificación empleada.",
 					"type": "string"
 				},
 				"CorrectiveAmounts": {
 					"type": "object",
 					"properties": {
-						"GrossAmount": { "description": "", "type": "number" },
-						"TaxAmount": { "description": "", "type": "number" },
-						"ChargeAmount": { "description": "", "type": "number" }
+						"GrossAmount": {
+							"description": "BT-ES-4 | Base imponible de la factura rectificada.",
+							"type": "number"
+						},
+						"TaxAmount": {
+							"description": "BT-ES-5 | Cuota repercutida de la factura rectificada.",
+							"type": "number"
+						},
+						"ChargeAmount": {
+							"description": "BT-ES-6 | Cuota recargo de equivalencia de la factura rectificada.",
+							"type": "number"
+						}
 					},
-					"additionalProperties": false
+					"additionalProperties": false,
+					"description": "BG-ES-2 | Este grupo recoge los importes rectificados, en los casos en los que se proceda."
 				}
 			},
 			"required": [
@@ -351,49 +464,53 @@
 			"type": "object",
 			"properties": {
 				"IssueDate": {
-					"description": "",
+					"description": "BT-2 | Fecha en la que se ha expedido la factura.",
 					"$ref": "#/definitions/DateTime"
 				},
 				"PreviousInvoiceDate": {
-					"description": "",
+					"description": "Fecha de expedición de la factura anterior, cuando proceda.",
 					"$ref": "#/definitions/DateTime"
 				},
 				"InvoicingPeriod": {
 					"type": "object",
 					"properties": {
 						"StartDate": {
-							"description": "",
+							"description": "Fecha de inicio del periodo de facturación.",
 							"$ref": "#/definitions/DateTime"
 						},
 						"EndDate": {
-							"description": "",
+							"description": "Fecha de fin del periodo de facturación.",
 							"$ref": "#/definitions/DateTime"
 						}
 					},
 					"additionalProperties": false
 				},
 				"InvoiceCurrencyCode": {
-					"description": "",
+					"description": "BT-5 | Moneda en la que se expresan todos los importes de la factura, usando los códigos de la Norma ISO-4217.",
 					"type": "string",
 					"minLength": 3,
 					"maxLength": 3,
 					"default": "EUR"
 				},
 				"TaxCurrencyCode": {
-					"description": "",
+					"description": "BT-6 | Moneda en la que se expresan todas las tasas de la factura, usando los códigos de la Norma ISO-4217",
 					"type": "string",
 					"minLength": 3,
 					"maxLength": 3,
 					"default": "EUR"
 				},
 				"LanguageName": {
-					"description": "",
+					"description": "Idioma en que se expresa la factura, según la Norma ISO 639-1.",
 					"type": "string",
 					"minLength": 2,
 					"maxLength": 2
 				}
 			},
-			"required": ["IssueDate", "InvoiceCurrencyCode", "LanguageName"],
+			"required": [
+				"IssueDate",
+				"InvoiceCurrencyCode",
+				"LanguageName"
+			],
 			"additionalProperties": false
 		},
 		"TaxWrapper": {
@@ -403,28 +520,31 @@
 					"type": "object",
 					"properties": {
 						"TaxTypeCode": {
-							"description": "",
+							"description": "BT-118 / BT-151 | Identificación de la categoría de IVA correspondiente a la cuota tributaria.",
 							"$ref": "#/definitions/Enums/TaxTypeCodeEnum"
 						},
 						"TaxRegimeCode": {
-							"description": "",
+							"description": "BT-161 | Se consignará la clave de régimen correspondiente a la operación.",
 							"$ref": "#/definitions/Enums/TaxRegimeCodeEnum"
 						},
 						"TaxOperationType": {
-							"description": "",
+							"description": "Tipo de operación a efectos del impuesto.",
 							"$ref": "#/definitions/Enums/TaxOperationTypeEnum"
 						},
 						"TaxExemptionReasonCode": {
-							"description": "",
+							"description": "BT-120 / BT-121 | Texto exento o razón exención.",
 							"type": "string"
 						},
-						"TaxRate": { "description": "", "type": "number" },
+						"TaxRate": {
+							"description": "BT-119 / BT-152 | Tipo de Impuesto, representado en forma de porcentaje.",
+							"type": "number"
+						},
 						"TaxableBase": {
-							"description": "",
+							"description": "BT-116 | Suma de todas las bases imponibles a las que se les aplica la misma categoría de impuesto.",
 							"$ref": "#/definitions/AmountContainer"
 						},
 						"TaxAmount": {
-							"description": "",
+							"description": "BT-117 | La cuota de impuesto por categoría.",
 							"$ref": "#/definitions/AmountContainer"
 						}
 					},
@@ -452,34 +572,37 @@
 								"type": "object",
 								"properties": {
 									"DiscountReason": {
-										"description": "",
+										"description": "BT-97 | La razón de la minoración definida a nivel de documento, expresada como texto.",
 										"type": "string"
 									},
 									"DiscountTypeCode": {
-										"description": "",
+										"description": "Código que identifica el tipo de minoración aplicada.",
 										"$ref": "#/definitions/Enums/DiscountChargeTypeCodeEnum"
 									},
 									"DiscountRate": {
-										"description": "",
+										"description": "Porcentaje aplicado para el cálculo de la minoración.",
 										"type": "number"
 									},
 									"DiscountAmount": {
-										"description": "",
+										"description": "BT-92 | Importe de las minoraciones aplicables a la factura, Impuesto excluido.",
 										"type": "number"
 									},
 									"DiscountTax": {
 										"type": "object",
 										"properties": {
 											"TaxTypeCode": {
-												"description": "",
+												"description": "BT-95 | Identificación codificada de la categoría de Impuesto aplicable a la minoración.",
 												"$ref": "#/definitions/Enums/TaxTypeCodeEnum"
 											},
 											"TaxRate": {
-												"description": "",
+												"description": "BT-96 | Tipo de Impuesto representado como porcentaje que es aplicable a la minoración.",
 												"type": "number"
 											}
 										},
-										"required": ["TaxTypeCode", "TaxRate"],
+										"required": [
+											"TaxTypeCode",
+											"TaxRate"
+										],
 										"additionalProperties": false
 									}
 								},
@@ -491,9 +614,12 @@
 								"additionalProperties": false
 							}
 						},
-						"required": ["Discount"],
+						"required": [
+							"Discount"
+						],
 						"additionalProperties": false
-					}
+					},
+					"description": "BG-20 | Un grupo de términos de negocio que ofrecen información sobre minoraciones aplicables a la factura en su totalidad."
 				},
 				"GeneralCharges": {
 					"type": "array",
@@ -504,34 +630,37 @@
 								"type": "object",
 								"properties": {
 									"ChargeReason": {
-										"description": "",
+										"description": "BT-104 | La razón del cargo definido a nivel de factura, expresado como texto.",
 										"type": "string"
 									},
 									"ChargeTypeCode": {
-										"description": "",
+										"description": "Código que identifica el tipo de cargo aplicado.",
 										"$ref": "#/definitions/Enums/DiscountChargeTypeCodeEnum"
 									},
 									"ChargeRate": {
-										"description": "",
+										"description": "Porcentaje aplicado para el cálculo del cargo.",
 										"type": "number"
 									},
 									"ChargeAmount": {
-										"description": "",
+										"description": "BT-99 | Importe del cargo aplicable a la factura, sin Impuestos.",
 										"type": "number"
 									},
 									"ChargeTax": {
 										"type": "object",
 										"properties": {
 											"TaxTypeCode": {
-												"description": "",
+												"description": "BT-102 | Identificación codificada de la categoría de Impuesto aplicable al cargo.",
 												"$ref": "#/definitions/Enums/TaxTypeCodeEnum"
 											},
 											"TaxRate": {
-												"description": "",
+												"description": "BT-103 | Tipo de Impuesto representado como porcentaje que es aplicable al cargo.",
 												"type": "number"
 											}
 										},
-										"required": ["TaxTypeCode", "TaxRate"],
+										"required": [
+											"TaxTypeCode",
+											"TaxRate"
+										],
 										"additionalProperties": false
 									}
 								},
@@ -543,22 +672,49 @@
 								"additionalProperties": false
 							}
 						},
-						"required": ["Charge"],
+						"required": [
+							"Charge"
+						],
 						"additionalProperties": false
-					}
+					},
+					"description": "BG-21 | Grupo de términos de negocio que proporcionan información sobre cargos que aplican a la factura en su conjunto."
 				},
 				"TotalGeneralDiscounts": {
-					"description": "",
+					"description": "BT-107 | Suma de todas las minoraciones definidas a nivel de documento de la factura.",
 					"type": "number"
 				},
-				"TotalGeneralCharges": { "description": "", "type": "number" },
-				"TotalNetAmount": { "description": "", "type": "number" },
-				"TotalGrossAmount": { "description": "", "type": "number" },
-				"TotalTaxOutputs": { "description": "", "type": "number" },
-				"TotalTaxesWithheld": { "description": "", "type": "number" },
-				"InvoiceTotal": { "description": "", "type": "number" },
-				"TotalPayableAmount": { "description": "", "type": "number" },
-				"TotalPayedAmount": { "description": "", "type": "number" }
+				"TotalGeneralCharges": {
+					"description": "BT-108 | Suma de todos los cargos definidos a nivel de documento de la factura.",
+					"type": "number"
+				},
+				"TotalNetAmount": {
+					"description": "BT-106 | Suma de todos los importes netos de las líneas de la factura.",
+					"type": "number"
+				},
+				"TotalGrossAmount": {
+					"description": "BT-109 | Importe total de la factura antes de aplicar el IVA.",
+					"type": "number"
+				},
+				"TotalTaxOutputs": {
+					"description": "BT-110 | Cuota total del IVA para la factura.",
+					"type": "number"
+				},
+				"TotalTaxesWithheld": {
+					"description": "BT-ES-33 | Suma de retenciones.",
+					"type": "number"
+				},
+				"InvoiceTotal": {
+					"description": "BT-112 | Importe total de la factura después de aplicar el IVA.",
+					"type": "number"
+				},
+				"TotalPayableAmount": {
+					"description": "BT-113 | Importe total pendiente de pago de la factura.",
+					"type": "number"
+				},
+				"TotalPayedAmount": {
+					"description": "BT-113 | Importe total pagado de la factura.",
+					"type": "number"
+				}
 			},
 			"required": [
 				"TotalGeneralDiscounts",
@@ -579,17 +735,23 @@
 					"type": "object",
 					"properties": {
 						"SequenceNumber": {
-							"description": "",
+							"description": "Número de línea dentro de la factura.",
 							"type": "integer"
 						},
-						"ItemCode": { "description": "", "type": "string" },
-						"ItemDescription": {
-							"description": "",
+						"ItemCode": {
+							"description": "BT-126 | Un identificador único del articulo.",
 							"type": "string"
 						},
-						"Quantity": { "description": "", "type": "number" },
+						"ItemDescription": {
+							"description": "BT-153 | Nombre del artículo.",
+							"type": "string"
+						},
+						"Quantity": {
+							"description": "BT-129 | Cantidad de articulos en la linea.",
+							"type": "number"
+						},
 						"UnitOfMeasure": {
-							"description": "",
+							"description": "Unidad de medida en que se expresa la cantidad.",
 							"type": "string"
 						},
 						"NotesReferences": {
@@ -601,11 +763,11 @@
 										"type": "object",
 										"properties": {
 											"DeliveryNoteNumber": {
-												"description": "",
+												"description": "Número del albarán asociado a la línea.",
 												"type": "number"
 											},
 											"DeliveryNoteDate": {
-												"description": "",
+												"description": "Fecha del albarán asociado a la línea.",
 												"$ref": "#/definitions/DateTime"
 											}
 										},
@@ -619,11 +781,11 @@
 										"type": "object",
 										"properties": {
 											"OrderNumber": {
-												"description": "",
+												"description": "Número de pedido asociado a la línea.",
 												"type": "number"
 											},
 											"OrderDate": {
-												"description": "",
+												"description": "Fecha del pedido asociado a la línea.",
 												"$ref": "#/definitions/DateTime"
 											}
 										},
@@ -637,11 +799,11 @@
 										"type": "object",
 										"properties": {
 											"CadastralReferenceNumber": {
-												"description": "",
+												"description": "BT-161 | Referencia catastral del inmueble.",
 												"type": "number"
 											},
 											"CadastralReferenceSituation": {
-												"description": "",
+												"description": "BT-ES-43 | Identificador que especifica la situación del inmueble.",
 												"$ref": "#/definitions/CadastralReferenceEnum"
 											}
 										},
@@ -649,7 +811,8 @@
 											"CadastralReferenceNumber",
 											"CadastralReferenceSituation"
 										],
-										"additionalProperties": false
+										"additionalProperties": false,
+										"description": "BG-32 | Un grupo de términos de negocio que ofrece información relativa al inmueble sobre el que recae la operación facturada."
 									}
 								}
 							}
@@ -658,11 +821,11 @@
 							"type": "object",
 							"properties": {
 								"StartDate": {
-									"description": "",
+									"description": "Fecha de inicio del periodo al que corresponde la línea.",
 									"$ref": "#/definitions/DateTime"
 								},
 								"EndDate": {
-									"description": "",
+									"description": "Fecha de fin del periodo al que corresponde la línea.",
 									"$ref": "#/definitions/DateTime"
 								}
 							},
@@ -674,15 +837,15 @@
 								"type": "object",
 								"properties": {
 									"DiscountTypeCode": {
-										"description": "",
+										"description": "Código que identifica el tipo de minoración aplicada a la línea.",
 										"$ref": "#/definitions/Enums/DiscountTypeCodeEnum"
 									},
 									"DiscountRate": {
-										"description": "",
+										"description": "Porcentaje aplicado para el cálculo de la minoración de la línea.",
 										"type": "number"
 									},
 									"DiscountAmount": {
-										"description": "",
+										"description": "BT-136 | Importe de la minoración, sin IVA.",
 										"type": "number"
 									}
 								},
@@ -691,7 +854,8 @@
 									"DiscountAmount"
 								],
 								"additionalProperties": false
-							}
+							},
+							"description": "BG-27 | Grupo de elementos de negocio que proporciona información sobre minoraciones aplicables a una línea de factura."
 						},
 						"Charges": {
 							"type": "array",
@@ -699,33 +863,50 @@
 								"type": "object",
 								"properties": {
 									"ChargeTypeCode": {
-										"description": "",
+										"description": "Código que identifica el tipo de cargo aplicado a la línea.",
 										"$ref": "#/definitions/Enums/ChargeTypeCodeEnum"
 									},
 									"ChargeRate": {
-										"description": "",
+										"description": "Porcentaje aplicado para el cálculo del cargo de la línea.",
 										"type": "number"
 									},
 									"ChargeAmount": {
-										"description": "",
+										"description": "BT-141 | Importe del cargo, sin IVA.",
 										"type": "number"
 									}
 								},
-								"required": ["ChargeTypeCode", "ChargeAmount"],
+								"required": [
+									"ChargeTypeCode",
+									"ChargeAmount"
+								],
 								"additionalProperties": false
-							}
+							},
+							"description": "BG-28 | Grupo de elementos de negocio que proporciona información sobre cargos e impuestos distintos del IVA aplicables a una línea de la factura."
 						},
 						"TaxesOutputs": {
 							"type": "array",
 							"items": {
-								"description": "",
+								"description": "Detalle de un impuesto repercutido a nivel de línea.",
 								"$ref": "#/definitions/TaxWrapper"
-							}
+							},
+							"description": "BG-30 | Un grupo de términos de negocio que ofrecen información sobre Impuestos a nivel de línea de la factura."
 						},
-						"NetUnitPrice": { "description": "", "type": "number" },
-						"NetPrice": { "description": "", "type": "number" },
-						"TotalCost": { "description": "", "type": "number" },
-						"GrossAmount": { "description": "", "type": "number" }
+						"NetUnitPrice": {
+							"description": "BT-146 | Precio de un artículo, excluido Impuestos, una vez minorado por el descuento sobre el precio del artículo.",
+							"type": "number"
+						},
+						"NetPrice": {
+							"description": "Importe neto de la línea, una vez aplicadas minoraciones y cargos.",
+							"type": "number"
+						},
+						"TotalCost": {
+							"description": "BT-131 | El importe total a nivel de la línea de factura.",
+							"type": "number"
+						},
+						"GrossAmount": {
+							"description": "Importe bruto de la línea, antes de impuestos.",
+							"type": "number"
+						}
 					},
 					"required": [
 						"SequenceNumber",
@@ -739,7 +920,8 @@
 						"TotalCost",
 						"GrossAmount"
 					],
-					"additionalProperties": false
+					"additionalProperties": false,
+					"description": "BG-25 | Un grupo de términos de negocio que proporcionan información a nivel de líneas individuales de la factura."
 				}
 			},
 			"additionalProperties": false
@@ -751,45 +933,63 @@
 					"type": "object",
 					"properties": {
 						"InstallmentDueDate": {
-							"description": "",
+							"description": "BT-9 | Fecha de vencimiento del pago.",
 							"$ref": "#/definitions/DateTime"
 						},
 						"InstallmentAmount": {
-							"description": "",
+							"description": "Importe correspondiente al vencimiento de pago.",
 							"type": "number"
 						},
-						"PaymentMeans": { "description": "", "type": "string" },
+						"PaymentMeans": {
+							"description": "BT-81 | Metodo de pago de la factura.",
+							"type": "string"
+						},
 						"Account": {
 							"type": "object",
 							"properties": {
-								"IBAN": { "description": "", "type": "string" },
+								"IBAN": {
+									"description": "BT-84 | Identificador único de la cuenta, se tratará de un código IBAN.",
+									"type": "string"
+								},
 								"AccountNumber": {
-									"description": "",
+									"description": "Número de cuenta de pago.",
 									"type": "string"
 								},
 								"BankCode": {
-									"description": "",
+									"description": "Código de la entidad bancaria.",
 									"type": "string"
 								},
-								"BIC": { "description": "", "type": "string" }
+								"BIC": {
+									"description": "Código de identificación bancaria (BIC/SWIFT) de la cuenta de pago.",
+									"type": "string"
+								}
 							},
-							"required": ["IBAN", "AccountNumber"],
-							"additionalProperties": false
+							"required": [
+								"IBAN",
+								"AccountNumber"
+							],
+							"additionalProperties": false,
+							"description": "BG-17 | Un grupo de términos de negocio utilizados para especificar pagos por transferencia."
 						},
 						"CollectionAdditionalInformation": {
-							"description": "",
+							"description": "Información adicional sobre el cobro.",
 							"type": "string"
 						},
 						"PaymentReconciliationReference": {
-							"description": "",
+							"description": "Referencia para la conciliación del pago.",
 							"type": "string"
 						}
 					},
-					"required": ["InstallmentAmount", "PaymentMeans"],
+					"required": [
+						"InstallmentAmount",
+						"PaymentMeans"
+					],
 					"additionalProperties": false
 				}
 			},
-			"required": ["Installment"],
+			"required": [
+				"Installment"
+			],
 			"additionalProperties": false
 		},
 		"AdditionalData": {
@@ -825,25 +1025,26 @@
 								"type": "object",
 								"properties": {
 									"URL": {
-										"description": "",
+										"description": "BT-ES-47 | Se debe consignar la URL correspondiente al QR VERI*FACTU o el que corresponda según normativa aplicable.",
 										"type": "string"
 									},
 									"HASHCode": {
-										"description": "",
+										"description": "Código hash («huella») de la factura, según la normativa aplicable.",
 										"type": "string"
 									},
 									"PrevoiusHASHCode": {
 										"type": "string"
 									},
 									"eSignature": {
-										"description": "",
+										"description": "Firma electrónica asociada al registro de facturación.",
 										"type": "string"
 									},
 									"PlaceholderOthers": {
 										"type": "string"
 									}
 								},
-								"additionalProperties": false
+								"additionalProperties": false,
+								"description": "BG-24 | Grupo de términos de negocio que proporcionan información obligatoria relativa al código QR."
 							}
 						},
 						"additionalProperties": false
@@ -855,44 +1056,88 @@
 		"AmountContainer": {
 			"type": "object",
 			"properties": {
-				"TotalAmount": { "description": "", "type": "number" },
-				"EquivalentInEuros": { "description": "", "type": "number" }
+				"TotalAmount": {
+					"description": "Importe total expresado en la moneda de la factura.",
+					"type": "number"
+				},
+				"EquivalentInEuros": {
+					"description": "Importe equivalente expresado en euros.",
+					"type": "number"
+				}
 			},
-			"required": ["TotalAmount"],
+			"required": [
+				"TotalAmount"
+			],
 			"additionalProperties": false
 		},
 		"Enums": {
 			"InvoiceIssuerTypeEnum": {
 				"type": "string",
-				"enum": ["EM", "RE", "TE"]
+				"enum": [
+					"EM",
+					"RE",
+					"TE"
+				]
 			},
 			"PersonTypeCodeEnum": {
 				"type": "string",
-				"enum": ["F", "J"]
+				"enum": [
+					"F",
+					"J"
+				]
 			},
 			"ResidenceTypeCodeEnum": {
 				"type": "string",
-				"enum": ["E", "R", "U"]
+				"enum": [
+					"E",
+					"R",
+					"U"
+				]
 			},
 			"InvoiceDocumentTypeEnum": {
 				"type": "string",
-				"enum": ["380", "381", "384", "388", "389", "481"]
+				"enum": [
+					"380",
+					"381",
+					"384",
+					"388",
+					"389",
+					"481"
+				]
 			},
 			"InvoiceClassEnum": {
 				"type": "string",
-				"enum": ["OO", "OC"]
+				"enum": [
+					"OO",
+					"OC"
+				]
 			},
 			"ReasonCodeEnum": {
 				"type": "string",
-				"enum": ["R1", "R2", "R3", "R4"]
+				"enum": [
+					"R1",
+					"R2",
+					"R3",
+					"R4"
+				]
 			},
 			"CorrectionMethodEnum": {
 				"type": "string",
-				"enum": ["I", "S"]
+				"enum": [
+					"I",
+					"S"
+				]
 			},
 			"TaxTypeCodeEnum": {
 				"type": "string",
-				"enum": ["IVA", "IPSI", "IGIC", "IRPF", "RIS", "REEQ"]
+				"enum": [
+					"IVA",
+					"IPSI",
+					"IGIC",
+					"IRPF",
+					"RIS",
+					"REEQ"
+				]
 			},
 			"TaxRegimeCodeEnum": {
 				"type": "string",
@@ -917,11 +1162,26 @@
 			},
 			"TaxOperationTypeEnum": {
 				"type": "string",
-				"enum": ["S", "Z", "E", "AE", "O", "G", "L", "M"]
+				"enum": [
+					"S",
+					"Z",
+					"E",
+					"AE",
+					"O",
+					"G",
+					"L",
+					"M"
+				]
 			},
 			"DiscountChargeTypeCodeEnum": {
 				"type": "string",
-				"enum": ["SUPL", "MINO", "REGE", "REEQ", "RETE"]
+				"enum": [
+					"SUPL",
+					"MINO",
+					"REGE",
+					"REEQ",
+					"RETE"
+				]
 			},
 			"PaymentMeansEnum": {
 				"type": "string",
@@ -949,11 +1209,21 @@
 			},
 			"CadastralReferenceEnum": {
 				"type": "string",
-				"enum": ["01", "02", "03", "04"]
+				"enum": [
+					"01",
+					"02",
+					"03",
+					"04"
+				]
 			},
 			"AttachmentFormatEnum": {
 				"type": "string",
-				"enum": ["pdf", "jpg", "jpeg", "png"]
+				"enum": [
+					"pdf",
+					"jpg",
+					"jpeg",
+					"png"
+				]
 			}
 		},
 		"DateTime": {
