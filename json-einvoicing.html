@@ -399,7 +399,7 @@
       border-radius: 3px;
     }   
     .tag--required-empty {
-      background: var(--white);
+      background: var(--gray-100);
       color: var(--generix-dark);
       padding: 2px 6px;
       border-radius: 3px;
@@ -1769,7 +1769,7 @@
         function buildRefLink(ref) {
           if (!ref) return '';
           const name = ref.split('/').pop();
-          return `<a href="javascript:void(0)" class="tag tag--type"
+          return `<a href="javascript:void(0)" class="tag tag--required-empty"
                     style="text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;"
                     title="Ir a la definición de ${escapeHtml(name)}"
                     onclick="goToRef('${escapeHtml(ref)}'); return false;">🔗 ${escapeHtml(name)}</a>`;
