@@ -1757,6 +1757,58 @@
           return c;
         }
 
+        // Devuelve el $ref de una propiedad (directo o en items de un array), o ''
+        function getFieldRef(def) {
+          if (!def) return '';
+          if (def['$ref']) return def['$ref'];
+          if (def.type === 'array' && def.items && def.items['$ref']) return def.items['$ref'];
+          return '';
+        }
+
+        // Construye el enlace navegable (chip) hacia la definición referenciada
+        function buildRefLink(ref) {
+          if (!ref) return '';
+          const name = ref.split('/').pop();
+          return `<a href="javascript:void(0)" class="tag tag--type"
+                    style="text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;"
+                    title="Ir a la definición de ${escapeHtml(name)}"
+                    onclick="goToRef('${escapeHtml(ref)}'); return false;">🔗 ${escapeHtml(name)}</a>`;
+        }
+
+        // Activa la pestaña correcta (Estructura o Enumeraciones) y hace scroll
+        // hasta la definición referenciada por un $ref.
+        function goToRef(ref) {
+          if (!ref) return;
+          const isEnum = ref.indexOf('/Enums/') !== -1;
+          const name = ref.split('/').pop();
+          const tabName = isEnum ? 'enumeraciones' : 'estructura';
+          const targetId = (isEnum ? 'enum-' : 'block-') + name;
+
+          // Activar la pestaña destino
+          const tabBtn = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+          if (tabBtn) {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tabBtn.classList.add('active');
+            const tabContent = document.getElementById(tabName);
+            if (tabContent) tabContent.classList.add('active');
+          }
+
+          // Marcar el botón de navegación lateral correspondiente
+          document.querySelectorAll('.sidebar-nav-btn').forEach(b => b.classList.remove('active'));
+          const navSelector = isEnum
+            ? `.sidebar-nav-btn[data-enum="${name}"]`
+            : `.sidebar-nav-btn[data-block="${name}"]`;
+          const navBtn = document.querySelector(navSelector);
+          if (navBtn) navBtn.classList.add('active');
+
+          // Scroll al elemento (tras activar la pestaña ya es visible)
+          const el = document.getElementById(targetId);
+          if (el) {
+            setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+          }
+        }
+
         // Construye una tabla con la descripción de cada campo de un bloque del schema
         function buildFieldDescTable(blockContent) {
           if (!blockContent || !blockContent.properties) return '';
@@ -1773,6 +1825,10 @@
               def = def || {};
               const type = getFieldType(def);
               const constraints = getFieldConstraints(def);
+              const ref = getFieldRef(def);
+              const refHtml = ref ? buildRefLink(ref) : '';
+              const constraintsHtml = constraints.length ? escapeHtml(constraints.join(' · ')) : '';
+              const restricciones = [refHtml, constraintsHtml].filter(Boolean).join(' · ') || dash;
               const isReq = required.includes(field);
               const indent = 12 + level * 22;
               const marker = level > 0
@@ -1798,9 +1854,7 @@
                     ? '<span class="tag tag--required">Sí</span>'
                     : '<span style="color: var(--gray-500);">No</span>'}
                   </td>
-                  <td>${constraints.length
-                    ? escapeHtml(constraints.join(' · '))
-                    : dash}
+                  <td>${restricciones}
                   </td>
                 </tr>
               `;
