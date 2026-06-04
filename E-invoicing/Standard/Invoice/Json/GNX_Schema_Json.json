@@ -22,7 +22,7 @@
 							"$ref": "#/definitions/Enums/InvoiceIssuerTypeEnum"
 						},
 						"Batch": {
-							"description": "Identificador del lote. Concatenación del nº del emisor con el número de la primera factura y el número de serie",
+							"description": "Lote",
 							"$ref": "#/definitions/Batch"
 						}
 					},
@@ -87,7 +87,7 @@
 			"type": "object",
 			"properties": {
 				"Parties": {
-					"description": "Grupo de términos de negocio que identifican a las partes que intervienen en la factura.",
+					"description": "Datos de las partes que intervienen en la factura.",
 					"$ref": "#/definitions/Parties"
 				},
 				"Legislacion": {
@@ -1071,6 +1071,13 @@
 			"additionalProperties": false
 		},
 		"Enums": {
+            "ModalityEnum": {
+                "type": "string",
+                "enum": [
+                    "I",
+                    "L"
+                ]
+            },
 			"InvoiceIssuerTypeEnum": {
 				"type": "string",
 				"enum": [
