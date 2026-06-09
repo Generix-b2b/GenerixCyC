@@ -1,7 +1,7 @@
 {
 	"InvoiceGNX": {
 		"FileHeader": {
-			"SchemaVersion": "1.3",
+			"SchemaVersion": "2.0",
 			"Modality": "I",
 			"InvoiceIssuerType": "TE",
 			"Batch": {
@@ -114,86 +114,6 @@
 							}
 						}
 					}
-				},
-				"Legislacion": {
-					"CreaYCrece": {
-						"InvoiceNotes": [
-							{
-								"NoteCode": "",
-								"NoteDescription": ""
-							}
-						],
-						"RecargoEquivalencia": [
-							{
-								"BT-ES-28": "",
-								"BT-179": "",
-								"BT-180": "",
-								"BT-ES-27": ""
-							}
-						],
-						"GrupoEntidades": {}
-					},
-					"Verifactu": {
-						"InformaticSystem": {
-							"CorporateName": "Razon Social",
-							"NIF": "NIF",
-							"InformaticSystemName": "NombreSistemaInformatico",
-							"InformaticSystemID": "IDSistemaInformatico",
-							"InformaticSystemVersion": "1.0",
-							"InstallationNumber": "123456",
-							"OtherInformaticSystem": {
-								"CountryCode": "ESP",
-								"IDType": "02",
-								"IDCode": "00000000Z"
-							},
-							"UseVeriFactu": "S",
-							"UseMultiOTtype": "N",
-							"MultiOT": "N"
-						}
-					},
-					"FACe": {
-						"SellerAdministrativeCentres": [
-							{
-								"AdministrativeCentre": {
-									"CentreCode": "S12345678",
-									"RoleTypeCode": "01",
-									"Address": {
-										"Address": "Calle del Centro Seller",
-										"AdditionalAddress": "Edificio Portal Puerta",
-										"PostCode": "1234567890",
-										"Town": "Ciudad Centro Seller",
-										"Province": "Provincia ACS",
-										"CountryCode": "ESP"
-									},
-									"CentreDescription": "Centro Seller Party"
-								}
-							}
-						],
-						"BuyerAdministrativeCentres": [
-							{
-								"AdministrativeCentre": {
-									"CentreCode": "S12345678",
-									"RoleTypeCode": "01",
-									"Address": {
-										"Address": "Calle del Centro Seller",
-										"AdditionalAddress": "Edificio Portal Puerta",
-										"PostCode": "1234567890",
-										"Town": "Ciudad Centro Seller",
-										"Province": "Provincia ACS",
-										"CountryCode": "ESP"
-									},
-									"CentreDescription": "Centro Seller Party"
-								}
-							}
-						],
-						"Corrective": {
-							"TaxPeriod": {
-								"StartDate": "2024-10-03T23:59:59",
-								"EndDate": "2024-10-03T23:59:59"
-							}
-						}
-					},
-					"SII": {}
 				},
 				"Invoice": [
 					{
