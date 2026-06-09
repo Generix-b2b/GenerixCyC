@@ -995,36 +995,6 @@
             </div>
           </div>
 
-          <h3>Validaciones de Negocio</h3>
-            <div class="card-grid">
-              <div class="info-card">
-                <h4>NIF/CIF</h4>
-                <ul>
-                  <li>Formato: 8 dígitos + 1 letra (ej: A12345678)</li>
-                  <li>La letra debe corresponder al código de validación NIF</li>
-                  <li>CIF válidos también aceptados (B87654321)</li>
-                </ul>
-              </div>
-
-              <div class="info-card">
-                <h4>Fechas</h4>
-                  <ul>
-                    <li>Formato requerido: YYYY-MM-DDThh:mm:ss (DateTimeType)</li>
-                    <li>La fecha de emisión no puede ser futura</li>
-                    <li>La fecha de vencimiento debe ser posterior a la de emisión</li>
-                  </ul>
-              </div>
-              <div class="info-card">
-                <h4>Importes</h4>
-                <ul>
-                  <li>Quantity y NetUnitPrice deben ser positivos</li>
-                  <li>Máximo 2 decimales en importes</li>
-                  <li>El importe de línea = cantidad × precio - descuento</li>
-                  <li>Total debe coincidir con suma de líneas + IVA - retenciones</li>
-                </ul>
-              </div>
-            </div>
-
           <h3>Respuestas de Validación</h3>
           <div class="highlight-box">
             <strong>En preparación:</strong>
