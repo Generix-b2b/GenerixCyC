@@ -979,7 +979,7 @@
             <br/>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
             <a href="${url}" target="_blank"
               class="download-link">
-              📥 ${fileName}
+              Revisar en GitHub
             </a>
           </div>`;
       }
@@ -992,7 +992,7 @@
           const data = await res.json();
           renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
         } catch (e) {
-          renderPending(containerId, fileName, url);
+          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json");
         }
       }
 
@@ -1005,7 +1005,7 @@
           if (!text.trim()) throw new Error('empty');
           renderCodePanel(containerId, title, text, url, fileName);
         } catch (e) {
-          renderPending(containerId, fileName, url);
+          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml");
         }
       }
 
