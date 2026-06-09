@@ -39,7 +39,7 @@
             "tipo": "REJECTION",
             "rol": "DESTINATARIO",
             "responseCode": "REJECTION",
-            "fecha_rechazo": "2026-05-05",
+            "fecha_efecto": "2026-05-05",
             "motivo_rechazo": "01",
             "factura": {
                 "id": "FAC-2026-002",
@@ -55,7 +55,7 @@
             "responseCode": "CANCELREJECTION",
             "factura": {
                 "id": "FAC-2026-002",
-                "fecha_emision": "2026-05-02??????????",
+                "fecha_emision": "2026-05-02",
                 "nif_emisor": "B87654321",
                 "nombre_emisor": "PROVEEDOR XYZ SL"
             }
@@ -65,7 +65,7 @@
             "tipo": "SETTLEMENT",
             "rol": "EMISOR",
             "responseCode": "SETTLEMENT",
-            "fecha_cobro": "2026-05-15",
+            "fecha_efecto": "2026-05-15",
             "fecha_vencimiento": "2026-05-30",
             "fecha_recepcion_mercancia": "2026-05-01",
             "fecha_recepcion_factura": "2026-05-02",
@@ -93,7 +93,7 @@
             "tipo": "DEFAULT",
             "rol": "EMISOR",
             "responseCode": "DEFAULT",
-            "fecha_impago": "2026-06-01",
+            "fecha_efecto": "2026-06-01",
             "fecha_recepcion_mercancia": "2026-05-01",
             "fecha_recepcion_factura": "2026-05-02",
             "factura": {
