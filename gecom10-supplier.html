@@ -1182,13 +1182,13 @@
         const root = schema.properties.supplierMasterData;
         const item = root.items;
         return [
-          { key: 'supplierMasterData', icon: '📚',
-            label: 'supplierMasterData — Colección de proveedores',
+          { key: 'supplierMasterData / M10', icon: '📚',
+            label: 'supplierMasterData/ M10 — Colección de proveedores',
             esp: 'Elemento raíz del esquema. Array que contiene uno o varios proveedores.',
             eng: 'Root element. Array containing one or more suppliers.',
             node: root, refBlocks: [] },
-          { key: 'Supplier 1000', icon: '🏭',
-            label: 'Supplier 1000 — Datos del proveedor',
+          { key: 'GEEX1000', icon: '🏭',
+            label: 'GEEX1000 — Datos del proveedor',
             esp: 'Objeto con los datos de un proveedor: identificación, dirección, contacto y parámetros logísticos.',
             eng: 'Object holding one supplier: identification, address, contact and logistics parameters.',
             node: item, refBlocks: ['GEEX1001', 'GEEX1002'] },
