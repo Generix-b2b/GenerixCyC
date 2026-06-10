@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Response · Validación de Facturas · Generix Developer Documentation</title>
+    <title>AEAT Documentation · Generix Developer Documentation</title>
     <link rel="icon" href="Assets/logo-black.png" type="image/png">
-    <style>
+<style>
     /* ============ COLORES OFICIALES GENERIX ============ */
     :root {
       --generix-dark: #002333;
@@ -475,6 +475,18 @@
       text-align: center;
     }
 
+    /* ===== Tabla de descripción de campos (pestaña Estructura) ===== */
+    .field-desc-section {
+      margin-top: 20px;
+    }
+    .field-desc-table td:first-child,
+    .field-desc-table th:first-child {
+      text-align: left;
+    }
+    .field-desc-table td:nth-child(2) {
+      min-width: 220px;
+    }
+
     .sidebar-right {
       /* Columna derecha en blanco */
       background-color: transparent;
@@ -483,6 +495,7 @@
     /* ============ CONTENT SECTIONS ============ */
     .content-section {
       margin-bottom: 60px;
+      margin-top: 60px;
     }
     .content-section h2 {
       font-size: 1.8rem;
@@ -810,6 +823,63 @@
         flex-direction: column;
       }
     }
+  
+    /* ===== Listado de ficheros AEAT ===== */
+    .file-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin: 8px 0 24px;
+    }
+    .btn-refresh {
+      background: var(--generix-orange); color: var(--white); border: none;
+      padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;
+      font-size: 0.9rem; transition: background 0.2s;
+    }
+    .btn-refresh:hover { background: var(--generix-orange-hover); }
+    .quick-index { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+    .quick-index a {
+      background: var(--gray-100); border: 1px solid var(--gray-300);
+      color: var(--generix-dark); padding: 6px 12px; border-radius: 20px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    }
+    .quick-index a:hover { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .folder-section { margin-bottom: 40px; scroll-margin-top: 120px; }
+    .folder-section h3 {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.25rem; color: var(--generix-dark);
+      border-bottom: 2px solid var(--generix-orange-soft); padding-bottom: 10px; margin-bottom: 16px;
+    }
+    .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .file-card {
+      background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px;
+      padding: 18px; transition: all 0.25s; display: flex; flex-direction: column; gap: 10px;
+    }
+    .file-card:hover { border-color: var(--generix-orange); box-shadow: 0 6px 18px rgba(0,35,51,0.08); }
+    .file-card__head { display: flex; align-items: flex-start; gap: 12px; }
+    .file-card__icon { font-size: 1.6rem; line-height: 1; }
+    .file-card__name { font-weight: 700; color: var(--generix-dark); word-break: break-word; }
+    .file-card__meta { color: var(--gray-500); font-size: 0.8rem; margin-top: 2px; }
+    .file-card__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .file-btn {
+      font-size: 0.82rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--gray-300);
+      color: var(--generix-dark); background: var(--gray-50); transition: all 0.2s;
+    }
+    .file-btn:hover { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .file-btn--primary { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .file-btn--primary:hover { background: var(--generix-orange-hover); }
+    .file-preview {
+      margin-top: 6px; background: var(--gray-900); border-radius: 8px; overflow: hidden;
+      display: none;
+    }
+    .file-preview.open { display: block; }
+    .file-preview pre {
+      margin: 0; padding: 16px; color: #e0e0e0; font-family: 'Courier New', monospace;
+      font-size: 0.78rem; line-height: 1.55; overflow: auto; max-height: 420px;
+    }
+    .aeat-status {
+      color: var(--gray-500); font-size: 0.9rem; margin-bottom: 16px;
+    }
+
   </style>
   </head>
 
@@ -830,105 +900,29 @@
         <div class="page-header-breadcrumb">
           <a href="index.html">Documentación</a>
           <span>/</span>
-          <span>Response · Validación de Facturas</span>
+          <span>AEAT Documentation</span>
         </div>
-        <h1>Response · Validación de Facturas</h1>
-        <p>Estructura de las respuestas de validación de facturas electrónicas,
-          en formato JSON y XML: esquema y ejemplo de cada uno.</p>
+        <h1>AEAT Documentation</h1>
+        <p>Documentación oficial de la AEAT relacionada con la facturación
+          electrónica, organizada por ley. El listado se genera en vivo desde el
+          repositorio: cualquier carpeta o fichero que se añada aparece aquí
+          automáticamente.</p>
       </div>
     </section>
 
-    <!-- ============ TAB NAVIGATION ============ -->
+    <!-- ============ CONTENIDO ============ -->
     <div class="tab-container">
-      <div class="tab-navigation">
-        <button class="tab-button active" data-tab="response-json">JSON de Respuesta</button>
-        <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
-      </div>
+      <div class="content-section">
+        <h2>Ficheros disponibles</h2>
 
-      <!-- ============ TAB 1: ESQUEMA JSON ============ -->
-      <div id="response-json" class="tab-content active">
-        <div class="content-section">
-          <h2>Esquema y Ejemplo JSON de Respuesta</h2>
-          <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
-          <h3>Reglas de Validación</h3>
-          <div class="card-grid"> 
-            <div class="info-card">
-              <h4>Estructura JSON</h4>
-              <p>
-                El JSON debe ser válido y bien formado. <br/>
-                Se rechazarán documentos con errores de sintaxis.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Campos Requeridos</h4>
-              <p>
-                Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Tipos de Datos</h4>
-              <p>
-                Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array, Enums).
-              </p>
-            </div>
-          </div>
-          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
-            <div id="ejemploJsonContainer"></div>
-            <div id="esquemaJsonContainer"></div>
-          </div>
-
-          <div id="dropzone">
-    Arrastra tu JSON o haz click
-    <input type="file" id="fileInput" hidden>
-  </div>
- 
-  <div id="result"></div>
-  <div id="errorList"></div>
- 
-  <div id="jsonViewer" class="json-viewer"></div>
- 
-</div>
+        <div class="file-toolbar">
+          <div id="aeatStatus" class="aeat-status">Cargando documentación…</div>
+          <button class="btn-refresh" onclick="loadAEAT()">↻ Actualizar</button>
         </div>
-      </div>
 
-      <!-- ============ TAB 3: ESQUEMA XML ============ -->
-      <div id="response-xml" class="tab-content">
-        <div class="content-section">
-          <h2>Esquema y Ejemplo XML de Respuesta</h2>
-          <p>Definición del esquema XML que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
-          <h3>Reglas de Validación</h3>
-          <div class="card-grid"> 
-            <div class="info-card">
-              <h4>Estructura XML</h4>
-              <p>
-                El XML debe ser válido y bien formado. <br/>
-                Se rechazarán documentos con errores de sintaxis.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Campos Requeridos</h4>
-              <p>
-                Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Tipos de Datos</h4>
-              <p>
-                Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array, Enums).
-              </p>
-            </div>
-          </div>
-          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
-            <div id="ejemploXmlContainer"></div>
-            <div id="esquemaXmlContainer"></div>
-          </div>
-        </div>
+        <div id="aeatQuickIndex" class="quick-index"></div>
+        <div id="aeatContainer"></div>
       </div>
-
     </div>
 
     <!-- ============ FOOTER ============ -->
@@ -956,118 +950,161 @@
 
     <!-- ============ SCRIPT ============ -->
     <script>
+      const REPO   = 'Generix-b2b/GenerixCyC';
+      const BRANCH = 'main';
+      const FOLDER = 'E-invoicing/AEAT-Documentation';
+      // jsDelivr sirve el listado y los ficheros del repo a través de su CDN,
+      // sin el límite de 60 peticiones/hora de la API de GitHub.
+      const LIST_API = `https://data.jsdelivr.com/v1/packages/gh/${REPO}@${BRANCH}?structure=flat`;
+
+      const TEXT_EXT = ['json','xml','xsd','txt','md','csv','html','htm','yaml','yml','properties','svg'];
+      const ICONS = {
+        pdf:'📕', json:'🟨', xml:'📃', xsd:'📐', csv:'📊', xlsx:'📊', xls:'📊',
+        doc:'📄', docx:'📄', txt:'📄', md:'📝', html:'🌐', htm:'🌐',
+        png:'🖼️', jpg:'🖼️', jpeg:'🖼️', gif:'🖼️', svg:'🖼️', zip:'🗜️'
+      };
+
       function escapeHtml(text) {
         const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
         return String(text).replace(/[&<>"']/g, m => map[m]);
       }
-
-      // Panel de código oscuro reutilizable
-      function renderCodePanel(containerId, title, codeText, url, fileName) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = `
-          <p>
-            <a href="${url}" target="_blank"
-              class="download-link">
-              📥 ${fileName}
-            </a>
-          </p>
-          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
-            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">${title}</span>
-              </div>
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code>${escapeHtml(codeText)}</code></pre>
-            </div>
-          </div>`;
+      function extOf(name) {
+        const i = name.lastIndexOf('.');
+        return i >= 0 ? name.slice(i + 1).toLowerCase() : '';
       }
-
-      // Aviso honesto cuando el fichero aún no está disponible
-      function renderPending(containerId, fileName, url) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = `
-          <div class="highlight-box">
-            <strong>En preparación</strong>
-            <br/>El fichero <code>${escapeHtml(fileName)}</code> todavía no está disponible.
-            <br/>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
-            <a href="${url}" target="_blank"
-              class="download-link">
-              Revisar en GitHub
-            </a>
-          </div>`;
+      function iconFor(name) { return ICONS[extOf(name)] || '📁'; }
+      function isText(name) { return TEXT_EXT.includes(extOf(name)); }
+      function fmtBytes(b) {
+        if (b == null) return '';
+        if (b < 1024) return b + ' B';
+        if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+        return (b / 1048576).toFixed(1) + ' MB';
       }
+      function rawUrl(path)  { return `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+      function htmlUrl(path) { return `https://github.com/${REPO}/blob/${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+      function slug(s) { return s.replace(/[^A-Za-z0-9_-]/g, '-'); }
 
-      // Carga un fichero JSON y lo muestra formateado; si falla, muestra el aviso
-      async function loadJson(url, containerId, title, fileName) {
+      async function loadAEAT() {
+        const status = document.getElementById('aeatStatus');
+        const container = document.getElementById('aeatContainer');
+        const quick = document.getElementById('aeatQuickIndex');
+        status.textContent = 'Cargando documentación…';
+        container.innerHTML = '';
+        quick.innerHTML = '';
         try {
-          const res = await fetch(url);
+          const res = await fetch(LIST_API);
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
-          renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
+          const prefix = '/' + FOLDER + '/';
+          const files = (data.files || [])
+            .filter(e => e.name.startsWith(prefix))
+            .map(e => ({ path: e.name.replace(/^\//, ''), size: e.size }));
+
+          if (files.length === 0) {
+            status.textContent = '';
+            container.innerHTML = `
+              <div class="highlight-box">
+                <strong>Carpeta vacía o aún no creada</strong>
+                <br/>No se han encontrado ficheros en <code>${FOLDER}</code>.
+                <br/>En cuanto se añada documentación al repositorio, aparecerá aquí automáticamente.
+                <br/><a class="download-link" target="_blank"
+                  href="https://github.com/${REPO}/tree/${BRANCH}/${FOLDER}">Ver carpeta en GitHub</a>
+              </div>`;
+            return;
+          }
+
+          // Agrupar por carpeta de ley (primer nivel dentro de FOLDER)
+          const groups = {};
+          files.forEach(f => {
+            const rel = f.path.slice(FOLDER.length + 1);     // p.ej. "Ley18-2022/anexo/doc.pdf"
+            const parts = rel.split('/');
+            const group = parts.length > 1 ? parts[0] : '(raíz)';
+            const subdir = parts.slice(1, -1).join('/');     // ruta interna dentro de la ley (si la hay)
+            (groups[group] = groups[group] || []).push({ ...f, name: parts[parts.length - 1], rel, subdir });
+          });
+          const groupNames = Object.keys(groups).sort((a, b) => {
+            if (a === '(raíz)') return -1; if (b === '(raíz)') return 1;
+            return a.localeCompare(b);
+          });
+
+          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s) de ley`;
+
+          quick.innerHTML = groupNames.map(g =>
+            `<a href="#grp-${slug(g)}">${escapeHtml(g === '(raíz)' ? 'General' : g)} (${groups[g].length})</a>`).join('');
+
+          let html = '';
+          groupNames.forEach(g => {
+            const items = groups[g].sort((a, b) => a.name.localeCompare(b.name));
+            const groupLabel = g === '(raíz)' ? 'General' : g;
+            html += `<div class="folder-section" id="grp-${slug(g)}">
+              <h3>⚖️ ${escapeHtml(groupLabel)}</h3>
+              <div class="file-grid">`;
+            items.forEach(f => {
+              const pid = 'pv-' + slug(f.path);
+              const previewBtn = isText(f.name)
+                ? `<button class="file-btn" onclick="togglePreview('${escapeHtml(f.path)}','${pid}', this)">Ver contenido</button>`
+                : '';
+              html += `
+                <div class="file-card">
+                  <div class="file-card__head">
+                    <div class="file-card__icon">${iconFor(f.name)}</div>
+                    <div>
+                      <div class="file-card__name">${escapeHtml(f.name)}</div>
+                      <div class="file-card__meta">${escapeHtml(extOf(f.name).toUpperCase() || 'FILE')}${f.size != null ? ' · ' + fmtBytes(f.size) : ''}${f.subdir ? ' · 📁 ' + escapeHtml(f.subdir) : ''}</div>
+                    </div>
+                  </div>
+                  <div class="file-card__actions">
+                    <a class="file-btn file-btn--primary" target="_blank" href="${rawUrl(f.path)}">Descargar</a>
+                    <a class="file-btn" target="_blank" href="${htmlUrl(f.path)}">Ver en GitHub</a>
+                    ${previewBtn}
+                  </div>
+                  <div class="file-preview" id="${pid}"><pre></pre></div>
+                </div>`;
+            });
+            html += `</div></div>`;
+          });
+          container.innerHTML = html;
         } catch (e) {
-          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json");
+          status.textContent = '';
+          const msg = 'No se pudo cargar el listado (' + escapeHtml(e.message) + ').';
+          container.innerHTML = `
+            <div class="highlight-box">
+              <strong>No se pudo cargar la documentación</strong>
+              <br/>${msg}
+              <br/><a class="download-link" target="_blank"
+                href="https://github.com/${REPO}/tree/${BRANCH}/${FOLDER}">Ver carpeta en GitHub</a>
+            </div>`;
         }
       }
 
-      // Carga un fichero de texto (XML/XSD) y lo muestra tal cual; si falla, muestra el aviso
-      async function loadText(url, containerId, title, fileName) {
+      const _previewCache = {};
+      async function togglePreview(path, pid, btn) {
+        const box = document.getElementById(pid);
+        if (!box) return;
+        if (box.classList.contains('open')) {
+          box.classList.remove('open'); btn.textContent = 'Ver contenido'; return;
+        }
+        box.classList.add('open'); btn.textContent = 'Ocultar';
+        const pre = box.querySelector('pre');
+        if (_previewCache[path]) { pre.textContent = _previewCache[path]; return; }
+        pre.textContent = 'Cargando…';
         try {
-          const res = await fetch(url);
+          const res = await fetch(rawUrl(path));
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          const text = await res.text();
-          if (!text.trim()) throw new Error('empty');
-          renderCodePanel(containerId, title, text, url, fileName);
+          let text = await res.text();
+          if (text.length > 60000) text = text.slice(0, 60000) + '\n\n… (contenido truncado)';
+          _previewCache[path] = text;
+          pre.textContent = text;
         } catch (e) {
-          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml");
+          pre.textContent = 'No se pudo cargar la vista previa: ' + e.message;
         }
-      }
-
-      function loadAll() {
-        loadJson(
-          'E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json',
-          'esquemaJsonContainer', '📋 Esquema JSON de Respuesta', 'GNX_Response_Schema_Json.json');
-        loadJson(
-          'E-invoicing/Standard/Response/Json/GNX_Response_Json.json',
-          'ejemploJsonContainer', '📋 Ejemplo JSON de Respuesta', 'GNX_Response_Json.json');
-        loadText(
-          'E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd',
-          'esquemaXmlContainer', '📋 Esquema XML de Respuesta (XSD)', 'GNX_Response_Schema_xml.xsd');
-        loadText(
-          'E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml',
-          'ejemploXmlContainer', '📋 Ejemplo XML de Respuesta', 'GNX_Response_xml.xml');
       }
 
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAll);
+        document.addEventListener('DOMContentLoaded', loadAEAT);
       } else {
-        loadAll();
+        loadAEAT();
       }
-    </script>
-
-    <!-- Cambio de pestañas -->
-    <script>
-      document.querySelectorAll('.tab-button').forEach(button => {
-        button.addEventListener('click', () => {
-          const tabName = button.getAttribute('data-tab');
-          document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-          button.classList.add('active');
-          document.getElementById(tabName).classList.add('active');
-        });
-      });
-    </script>
-
-    <script type="module" src="validator.js"></script>
-
-    <script>
-      document.querySelectorAll(".tab-button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
-          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-        
-          btn.classList.add("active");
-          document.getElementById(btn.dataset.tab).classList.add("active");
-        });
-      });
     </script>
 
   </body>
