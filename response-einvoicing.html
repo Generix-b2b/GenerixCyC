@@ -841,73 +841,79 @@
     <!-- ============ TAB NAVIGATION ============ -->
     <div class="tab-container">
       <div class="tab-navigation">
-        <button class="tab-button active" data-tab="esquema-json">Esquema JSON</button>
-        <button class="tab-button" data-tab="ejemplo-json">Ejemplo JSON</button>
-        <button class="tab-button" data-tab="esquema-xml">Esquema XML</button>
-        <button class="tab-button" data-tab="ejemplo-xml">Ejemplo XML</button>
+        <button class="tab-button active" data-tab="response-json">JSON de Respuesta</button>
+        <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
       </div>
 
       <!-- ============ TAB 1: ESQUEMA JSON ============ -->
-      <div id="esquema-json" class="tab-content active">
+      <div id="response-json" class="tab-content active">
         <div class="content-section">
-          <h2>Esquema JSON de Respuesta</h2>
-          <p>Definición del esquema JSON que describe la estructura de las
-            respuestas de validación de facturas.</p>
-          <p>
-            <a href="E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json" target="_blank"
-              class="download-link">
-              📥 GNX_Response_Schema_Json.json
-            </a>
-          </p>
-          <div id="esquemaJsonContainer"></div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 2: EJEMPLO JSON ============ -->
-      <div id="ejemplo-json" class="tab-content">
-        <div class="content-section">
-          <h2>Ejemplo JSON de Respuesta</h2>
-          <p>Ejemplo completo de respuestas de validación en formato JSON,
-            con los distintos tipos de respuesta (PAYMENT, REJECTION,
-            SETTLEMENT, DEFAULT y sus cancelaciones).</p>
-          <p>
-            <a href="E-invoicing/Standard/Response/Json/GNX_Response_Json.json" target="_blank"
-              class="download-link">
-              📥 GNX_Response_Json.json
-            </a>
-          </p>
-          <div id="ejemploJsonContainer"></div>
+          <h2>Esquema y Ejemplo JSON de Respuesta</h2>
+          <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
+          <h3>Reglas de Validación</h3>
+          <div class="card-grid"> 
+            <div class="info-card">
+              <h4>Estructura JSON</h4>
+              <p>
+                El JSON debe ser válido y bien formado. <br/>
+                Se rechazarán documentos con errores de sintaxis.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Campos Requeridos</h4>
+              <p>
+                Todos los campos marcados como obligatorios deben estar
+                presentes y no vacíos.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Tipos de Datos</h4>
+              <p>
+                Cada campo debe cumplir con el tipo especificado (String,
+                Integer, Decimal, Date, Object, Array, Enums).
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
+            <div id="ejemploJsonContainer"></div>
+            <div id="esquemaJsonContainer"></div>
+          </div>
         </div>
       </div>
 
       <!-- ============ TAB 3: ESQUEMA XML ============ -->
-      <div id="esquema-xml" class="tab-content">
+      <div id="response-xml" class="tab-content">
         <div class="content-section">
-          <h2>Esquema XML de Respuesta</h2>
-          <p>Definición XSD que describe la estructura de las respuestas de
-            validación de facturas en formato XML.</p>
-          <p>
-            <a href="E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd" target="_blank"
-              class="download-link">
-              📥 GNX_Response_Schema_xml.xsd
-            </a>
-          </p>
-          <div id="esquemaXmlContainer"></div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 4: EJEMPLO XML ============ -->
-      <div id="ejemplo-xml" class="tab-content">
-        <div class="content-section">
-          <h2>Ejemplo XML de Respuesta</h2>
-          <p>Ejemplo completo de respuestas de validación en formato XML.</p>
-          <p>
-            <a href="E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml" target="_blank"
-              class="download-link">
-              📥 GNX_Response_xml.xml
-            </a>
-          </p>
-          <div id="ejemploXmlContainer"></div>
+          <h2>Esquema y Ejemplo XML de Respuesta</h2>
+          <p>Definición del esquema XML que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
+          <h3>Reglas de Validación</h3>
+          <div class="card-grid"> 
+            <div class="info-card">
+              <h4>Estructura XML</h4>
+              <p>
+                El XML debe ser válido y bien formado. <br/>
+                Se rechazarán documentos con errores de sintaxis.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Campos Requeridos</h4>
+              <p>
+                Todos los campos marcados como obligatorios deben estar
+                presentes y no vacíos.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4>Tipos de Datos</h4>
+              <p>
+                Cada campo debe cumplir con el tipo especificado (String,
+                Integer, Decimal, Date, Object, Array, Enums).
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
+            <div id="ejemploXmlContainer"></div>
+            <div id="esquemaXmlContainer"></div>
+          </div>
         </div>
       </div>
 
@@ -944,9 +950,15 @@
       }
 
       // Panel de código oscuro reutilizable
-      function renderCodePanel(containerId, title, codeText) {
+      function renderCodePanel(containerId, title, codeText, url, fileName) {
         const container = document.getElementById(containerId);
         container.innerHTML = `
+          <p>
+            <a href="${url}" target="_blank"
+              class="download-link">
+              📥 ${fileName}
+            </a>
+          </p>
           <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
             <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
               <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
@@ -958,13 +970,17 @@
       }
 
       // Aviso honesto cuando el fichero aún no está disponible
-      function renderPending(containerId, fileName) {
+      function renderPending(containerId, fileName, url) {
         const container = document.getElementById(containerId);
         container.innerHTML = `
           <div class="highlight-box">
             <strong>En preparación</strong>
             <br/>El fichero <code>${escapeHtml(fileName)}</code> todavía no está disponible.
             <br/>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
+            <a href="${url}" target="_blank"
+              class="download-link">
+              Revisar en GitHub
+            </a>
           </div>`;
       }
 
@@ -974,9 +990,9 @@
           const res = await fetch(url);
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
-          renderCodePanel(containerId, title, JSON.stringify(data, null, 2));
+          renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
         } catch (e) {
-          renderPending(containerId, fileName);
+          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json");
         }
       }
 
@@ -987,9 +1003,9 @@
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const text = await res.text();
           if (!text.trim()) throw new Error('empty');
-          renderCodePanel(containerId, title, text);
+          renderCodePanel(containerId, title, text, url, fileName);
         } catch (e) {
-          renderPending(containerId, fileName);
+          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml");
         }
       }
 
