@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEAT Documentation · Generix Developer Documentation</title>
+    <link rel="icon" href="Assets/logo-black.png" type="image/png">
+<style>
+    /* ============ COLORES OFICIALES GENERIX ============ */
+    :root {
+      --generix-dark: #002333;
+      --generix-dark-soft: #0a3447;
+      --generix-orange: #F28A48;
+      --generix-orange-hover: #e07535;
+      --generix-orange-soft: #FDF0E7;
+      --white: #FFFFFF;
+      --gray-50: #FAFBFC;
+      --gray-100: #F2F5F8;
+      --gray-200: #E1E8EE;
+      --gray-300: #C5D2DC;
+      --gray-500: #6B7E8C;
+      --gray-700: #3A4A56;
+      --gray-900: #0F1B24;
+      --generix-blue:#00A59A;
+      --generix-blue-soft:#B9FFFA;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+      color: var(--generix-dark);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,35,51,0.04);
+    }
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav a {
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--generix-orange); }
+    .breadcrumb {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+    .breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============ PAGE HEADER ============ */
+    .page-header {
+      background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
+      color: var(--white);
+      padding: 60px 32px;
+    }
+    .page-header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .page-header-breadcrumb {
+      margin-bottom: 20px;
+    }
+    .page-header-breadcrumb a,
+    .page-header-breadcrumb span {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+    .page-header-breadcrumb a {
+      color: var(--generix-orange);
+      text-decoration: none;
+    }
+    .page-header-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .page-header-breadcrumb span { 
+      margin: 0 8px; 
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* ============ TAB NAVIGATION ============ */
+    .tab-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .tab-navigation {
+      position: sticky; 
+      top: 87px;
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      margin-bottom: 50px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      z-index: 99;
+      background: var(--white);
+    }
+    .tab-navigation::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tab-navigation::-webkit-scrollbar-track {
+      background: var(--generix-orange);
+    }
+    .tab-navigation::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .tab-button {
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      color: var(--gray-700);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      position: relative;
+    }
+    .tab-button:hover {
+      color: var(--generix-orange);
+      background: var(--generix-orange-soft);
+    }
+    .tab-button.active {
+      color: var(--generix-orange);
+      border-bottom-color: var(--generix-orange);
+    }
+
+    /* ============ TAB CONTENT ============ */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .download-link {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ============ THREE COLUMN LAYOUT ============ */
+    .tab-wrapper {
+      display: grid;
+      grid-template-columns: 0px 1fr 0px;
+      gap: 0;
+      align-items: start;
+    }
+    .sidebar-nav {
+      position: sticky;
+      top: 100px;
+      width: 280px;
+      height: calc(100vh - 115px);
+      overflow-y: auto;
+      background: var(--gray-100);
+      border-radius: 0 6px 6px 0;
+      border-left: 4px solid var(--generix-orange);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
+      z-index: 40;
+      margin-left: -316px;
+    }
+    .sidebar-nav::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb:hover {
+      background: var(--generix-orange);
+    }
+    .sidebar-nav-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--generix-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-nav-btn {
+      display: block;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--generix-dark);
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: left;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      line-height: 1.4;
+    }
+    .sidebar-nav-btn:hover {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+    .sidebar-nav-btn.active {
+      background: var(--generix-orange);
+      color: var(--white);
+      border-color: var(--generix-orange);
+    }
+
+
+    .tab-content-middle {
+      padding: 0 32px;
+    }
+    .block-container {
+      margin-bottom: 60px;
+      scroll-margin-top: 150px;
+    }
+    .block-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    /* Panel izquierdo: Código */
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0, 35, 51, 0.15);
+      max-height: 750px;
+      min-height: 500px;
+    }
+    .code-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .code-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .code-panel::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+    .code-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--generix-orange);
+    }
+    .code-panel__header {
+      position: sticky;
+      top: 0.1px;
+      display: flex;
+      z-index: 99;
+      padding: 16px;
+      background: var(--generix-dark);
+      color: var(--white);
+      font-weight: 600;
+      align-items: center;
+      gap: 12px;
+    }
+    .code-panel__icon {
+      font-size: 1.2rem;
+    }
+    .code-panel__pre {
+      margin: 0;
+      padding: 24px;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    /* Panel derecho: Explicación */
+    .explanation-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .explanation-box__title {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    .explanation-box__text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .explanation-box__text--spaced {
+      margin: 16px 0 0 0;
+    }
+    /* Panel derecho: detalles técnicos */
+    .tech-details {
+      background: var(--gray-100);
+      border-left: 4px solid var(--gray-500);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }  
+    .tech-details__title {
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }   
+    .tech-details__row {
+      color: var(--gray-700);
+      margin: 0 0 8px 0;
+    }   
+    .tech-details__row--last {
+      margin: 0;
+    }  
+    /* Panel derecho: Etiquetas (tags) */
+    .tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }   
+    .tag--type {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+    }   
+    .tag--properties {
+      background: var(--white);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }   
+    .tag--required {
+      background: var(--generix-orange);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }   
+    .tag--required-empty {
+      background: var(--white);
+      color: var(--generix-dark);
+      padding: 2px 6px;
+      border-radius: 3px;
+    } 
+    .tag--text {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }  
+    .tech-details__values {
+      margin: 0 0 12px 0;
+    }
+    .tech-details__used-in {
+      display: inline-block; 
+      background: var(--gray-200); 
+      color: var(--generix-dark); 
+      margin: 2px 4px 2px 0; 
+      border: 1px solid var(--gray-300);
+    }
+    /* Separador inferior */
+    .block-divider {
+      border-bottom: 1px solid var(--gray-200);
+      margin-top: 40px;
+      margin-bottom: -20px;
+    }
+
+    .enums-description {
+      background: var(--generix-blue-soft);
+      border-left: 4px solid var(--generix-blue);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .enum-desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    .enum-desc-table thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    .enum-desc-table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .enum-desc-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .enum-desc-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .enum-desc-table tbody tr:hover {
+      background: var(--gray-100);
+    }
+    .enum-desc-table td:first-child,
+    .enum-desc-table th:first-child {
+      white-space: nowrap;
+      width: 1%;
+      text-align: center;
+    }
+
+    /* ===== Tabla de descripción de campos (pestaña Estructura) ===== */
+    .field-desc-section {
+      margin-top: 20px;
+    }
+    .field-desc-table td:first-child,
+    .field-desc-table th:first-child {
+      text-align: left;
+    }
+    .field-desc-table td:nth-child(2) {
+      min-width: 220px;
+    }
+
+    .sidebar-right {
+      /* Columna derecha en blanco */
+      background-color: transparent;
+    }
+
+    /* ============ CONTENT SECTIONS ============ */
+    .content-section {
+      margin-bottom: 60px;
+    }
+    .content-section h2 {
+      font-size: 1.8rem;
+      color: var(--generix-dark);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--generix-orange-soft);
+    }
+    .content-section h3 {
+      font-size: 1.3rem;
+      color: var(--generix-dark);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .content-section p {
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .content-section ul {
+      margin: 16px 0 16px 24px;
+      color: var(--gray-700);
+    }
+    .content-section li {
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    /* ============ CODE BLOCK ============ */
+    .tab-content {
+      position: relative;
+    }
+    .code-block {
+      background: var(--gray-900);
+      color: #e0e0e0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--generix-orange);
+    }
+    .code-block code {
+      color: inherit;
+    }
+
+    /* ============ HIGHLIGHT BOX ============ */
+    .highlight-box {
+      background: var(--generix-orange-soft);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+    .highlight-box strong {
+      color: var(--generix-dark);
+    }
+
+    /* ============ TABLE ============ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    thead {
+      background: var(--generix-dark);
+      color: var(--white);
+    }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    th {
+      font-weight: 600;
+      border-bottom-color: var(--gray-300);
+    }
+    tbody tr:hover {
+      background: var(--gray-50);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ============ CARD GRID ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      border-color: var(--generix-orange);
+    }
+    .info-card h4 {
+      color: var(--generix-orange);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .info-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 50px 32px;
+      margin-top: 80px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-section h4 {
+      color: var(--white);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .footer-section a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-section a:hover {
+      color: var(--generix-orange);
+    }
+    .footer-bottom {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+
+    /* ============ CODE-EXPLANATION LAYOUT ============ */
+    .code-explanation-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 40px 0;
+      align-items: start;
+    }
+    .code-panel {
+      background: var(--gray-900);
+      border-radius: 8px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0,35,51,0.15);
+      position: sticky;
+      top: 100px;
+    }
+    .code-panel pre {
+      margin: 0;
+      padding: 24px;
+      overflow-x: auto;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .code-panel code {
+      color: inherit;
+    }
+    .explanation-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .explanation-block {
+      background: var(--gray-50);
+      border-left: 4px solid var(--generix-orange);
+      padding: 20px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .explanation-block:hover {
+      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
+      transform: translateX(4px);
+    }
+    .explanation-block h4 {
+      color: var(--generix-orange);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .explanation-block .code-ref {
+      background: var(--generix-dark);
+      color: var(--generix-orange);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .explanation-block p {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 8px 0 0 0;
+    }
+    /* ============ FOOTER STYLES ============ */
+    footer {
+      background: var(--generix-dark);
+      color: var(--white);
+      padding: 60px 32px 30px;
+      position: relative;
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--generix-orange) 0%, transparent 100%);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand h3 {
+      color: var(--white);
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 380px;
+    }
+    .footer-brand .tagline {
+      color: var(--generix-orange);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+    footer .accent { 
+      color: var(--generix-orange); 
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1300px) {
+      .page-header { padding: 40px 24px; }
+      .page-header h1 { font-size: 1.8rem; }
+      .tab-container { padding: 0 24px; }
+      .tab-button { padding: 12px 16px; font-size: 0.9rem; }
+      .content-section h2 { font-size: 1.5rem; }
+      .footer-top { flex-direction: column; gap: 30px; }
+      .code-explanation-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .code-panel {
+        position: static;
+      }
+      .code-panel pre {
+        font-size: 0.75rem;
+        padding: 16px;
+      }
+      #schemaBlocksContainer > div > div {
+        grid-template-columns: 1fr !important;
+      }
+
+      footer {
+        padding: 40px 24px 30px;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+      }
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+    }
+  
+    /* ===== Listado de ficheros AEAT ===== */
+    .file-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin: 8px 0 24px;
+    }
+    .btn-refresh {
+      background: var(--generix-orange); color: var(--white); border: none;
+      padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;
+      font-size: 0.9rem; transition: background 0.2s;
+    }
+    .btn-refresh:hover { background: var(--generix-orange-hover); }
+    .quick-index { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+    .quick-index a {
+      background: var(--gray-100); border: 1px solid var(--gray-300);
+      color: var(--generix-dark); padding: 6px 12px; border-radius: 20px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    }
+    .quick-index a:hover { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .folder-section { margin-bottom: 40px; scroll-margin-top: 120px; }
+    .folder-section h3 {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.25rem; color: var(--generix-dark);
+      border-bottom: 2px solid var(--generix-orange-soft); padding-bottom: 10px; margin-bottom: 16px;
+    }
+    .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .file-card {
+      background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px;
+      padding: 18px; transition: all 0.25s; display: flex; flex-direction: column; gap: 10px;
+    }
+    .file-card:hover { border-color: var(--generix-orange); box-shadow: 0 6px 18px rgba(0,35,51,0.08); }
+    .file-card__head { display: flex; align-items: flex-start; gap: 12px; }
+    .file-card__icon { font-size: 1.6rem; line-height: 1; }
+    .file-card__name { font-weight: 700; color: var(--generix-dark); word-break: break-word; }
+    .file-card__meta { color: var(--gray-500); font-size: 0.8rem; margin-top: 2px; }
+    .file-card__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .file-btn {
+      font-size: 0.82rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--gray-300);
+      color: var(--generix-dark); background: var(--gray-50); transition: all 0.2s;
+    }
+    .file-btn:hover { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .file-btn--primary { background: var(--generix-orange); color: var(--white); border-color: var(--generix-orange); }
+    .file-btn--primary:hover { background: var(--generix-orange-hover); }
+    .file-preview {
+      margin-top: 6px; background: var(--gray-900); border-radius: 8px; overflow: hidden;
+      display: none;
+    }
+    .file-preview.open { display: block; }
+    .file-preview pre {
+      margin: 0; padding: 16px; color: #e0e0e0; font-family: 'Courier New', monospace;
+      font-size: 0.78rem; line-height: 1.55; overflow: auto; max-height: 420px;
+    }
+    .aeat-status {
+      color: var(--gray-500); font-size: 0.9rem; margin-bottom: 16px;
+    }
+
+  </style>
+  </head>
+
+  <body>
+
+    <!-- ============ TOPBAR ============ -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="logo" aria-label="Generix">
+          <img src="Assets/generix-dark.svg" alt="Generix">
+        </a>
+      </div>
+    </header>
+
+    <!-- ============ PAGE HEADER ============ -->
+    <section class="page-header">
+      <div class="page-header-inner">
+        <div class="page-header-breadcrumb">
+          <a href="index.html">Documentación</a>
+          <span>/</span>
+          <span>AEAT Documentation</span>
+        </div>
+        <h1>AEAT Documentation</h1>
+        <p>Documentación oficial de la AEAT relacionada con la facturación
+          electrónica. El listado se genera en vivo desde el repositorio:
+          cualquier fichero que se añada a la carpeta aparece aquí
+          automáticamente.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTENIDO ============ -->
+    <div class="tab-container">
+      <div class="content-section">
+        <h2>Ficheros disponibles</h2>
+
+        <div class="file-toolbar">
+          <div id="aeatStatus" class="aeat-status">Cargando documentación…</div>
+          <button class="btn-refresh" onclick="loadAEAT()">↻ Actualizar</button>
+        </div>
+
+        <div id="aeatQuickIndex" class="quick-index"></div>
+        <div id="aeatContainer"></div>
+      </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand footer-logo">
+            <img src="Assets/generix.svg" alt="Generix">
+            <div class="tagline">Connecting Businesses Together</div>
+            <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+          </div>
+          <div>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
+              <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
+              EDI · API · Peppol · Compliance
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+          <p>Especificaciones técnicas e integración B2B</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ SCRIPT ============ -->
+    <script>
+      const REPO   = 'Generix-b2b/GenerixCyC';
+      const BRANCH = 'main';
+      const FOLDER = 'AEAT-Documentation';
+      const TREES_API = `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`;
+
+      const TEXT_EXT = ['json','xml','xsd','txt','md','csv','html','htm','yaml','yml','properties','svg'];
+      const ICONS = {
+        pdf:'📕', json:'🟨', xml:'📃', xsd:'📐', csv:'📊', xlsx:'📊', xls:'📊',
+        doc:'📄', docx:'📄', txt:'📄', md:'📝', html:'🌐', htm:'🌐',
+        png:'🖼️', jpg:'🖼️', jpeg:'🖼️', gif:'🖼️', svg:'🖼️', zip:'🗜️'
+      };
+
+      function escapeHtml(text) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return String(text).replace(/[&<>"']/g, m => map[m]);
+      }
+      function extOf(name) {
+        const i = name.lastIndexOf('.');
+        return i >= 0 ? name.slice(i + 1).toLowerCase() : '';
+      }
+      function iconFor(name) { return ICONS[extOf(name)] || '📁'; }
+      function isText(name) { return TEXT_EXT.includes(extOf(name)); }
+      function fmtBytes(b) {
+        if (b == null) return '';
+        if (b < 1024) return b + ' B';
+        if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+        return (b / 1048576).toFixed(1) + ' MB';
+      }
+      function rawUrl(path)  { return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+      function htmlUrl(path) { return `https://github.com/${REPO}/blob/${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+      function slug(s) { return s.replace(/[^A-Za-z0-9_-]/g, '-'); }
+
+      async function loadAEAT() {
+        const status = document.getElementById('aeatStatus');
+        const container = document.getElementById('aeatContainer');
+        const quick = document.getElementById('aeatQuickIndex');
+        status.textContent = 'Cargando documentación…';
+        container.innerHTML = '';
+        quick.innerHTML = '';
+        try {
+          const res = await fetch(TREES_API, { headers: { 'Accept': 'application/vnd.github+json' } });
+          if (!res.ok) {
+            if (res.status === 403) throw new Error('rate-limit');
+            throw new Error('HTTP ' + res.status);
+          }
+          const data = await res.json();
+          const tree = data.tree || [];
+          const files = tree.filter(e => e.type === 'blob' &&
+            (e.path === FOLDER + '/' || e.path.startsWith(FOLDER + '/')));
+
+          if (files.length === 0) {
+            status.textContent = '';
+            container.innerHTML = `
+              <div class="highlight-box">
+                <strong>Carpeta vacía o aún no creada</strong>
+                <br/>No se han encontrado ficheros en <code>${FOLDER}</code>.
+                <br/>En cuanto se añada documentación al repositorio, aparecerá aquí automáticamente.
+                <br/><a class="download-link" target="_blank"
+                  href="https://github.com/${REPO}/tree/${BRANCH}/${FOLDER}">Ver carpeta en GitHub</a>
+              </div>`;
+            return;
+          }
+
+          // Agrupar por subcarpeta inmediata dentro de FOLDER
+          const groups = {};
+          files.forEach(f => {
+            const rel = f.path.slice(FOLDER.length + 1);     // p.ej. "subA/doc.pdf" o "doc.pdf"
+            const parts = rel.split('/');
+            const group = parts.length > 1 ? parts.slice(0, -1).join(' / ') : '(raíz)';
+            (groups[group] = groups[group] || []).push({ ...f, name: parts[parts.length - 1], rel });
+          });
+          const groupNames = Object.keys(groups).sort((a, b) => {
+            if (a === '(raíz)') return -1; if (b === '(raíz)') return 1;
+            return a.localeCompare(b);
+          });
+
+          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s)` +
+            (data.truncated ? ' · (listado parcial: el repositorio es muy grande)' : '');
+
+          quick.innerHTML = groupNames.map(g =>
+            `<a href="#grp-${slug(g)}">${escapeHtml(g)} (${groups[g].length})</a>`).join('');
+
+          let html = '';
+          groupNames.forEach(g => {
+            const items = groups[g].sort((a, b) => a.name.localeCompare(b.name));
+            html += `<div class="folder-section" id="grp-${slug(g)}">
+              <h3>📂 ${escapeHtml(g)}</h3>
+              <div class="file-grid">`;
+            items.forEach(f => {
+              const pid = 'pv-' + slug(f.path);
+              const previewBtn = isText(f.name)
+                ? `<button class="file-btn" onclick="togglePreview('${escapeHtml(f.path)}','${pid}', this)">Ver contenido</button>`
+                : '';
+              html += `
+                <div class="file-card">
+                  <div class="file-card__head">
+                    <div class="file-card__icon">${iconFor(f.name)}</div>
+                    <div>
+                      <div class="file-card__name">${escapeHtml(f.name)}</div>
+                      <div class="file-card__meta">${escapeHtml(extOf(f.name).toUpperCase() || 'FILE')}${f.size != null ? ' · ' + fmtBytes(f.size) : ''}</div>
+                    </div>
+                  </div>
+                  <div class="file-card__actions">
+                    <a class="file-btn file-btn--primary" target="_blank" href="${rawUrl(f.path)}">Descargar</a>
+                    <a class="file-btn" target="_blank" href="${htmlUrl(f.path)}">Ver en GitHub</a>
+                    ${previewBtn}
+                  </div>
+                  <div class="file-preview" id="${pid}"><pre></pre></div>
+                </div>`;
+            });
+            html += `</div></div>`;
+          });
+          container.innerHTML = html;
+        } catch (e) {
+          status.textContent = '';
+          const msg = e.message === 'rate-limit'
+            ? 'Se ha alcanzado el límite de peticiones a GitHub (60/hora sin autenticación). Inténtalo de nuevo más tarde.'
+            : 'No se pudo cargar el listado (' + escapeHtml(e.message) + ').';
+          container.innerHTML = `
+            <div class="highlight-box">
+              <strong>No se pudo cargar la documentación</strong>
+              <br/>${msg}
+              <br/><a class="download-link" target="_blank"
+                href="https://github.com/${REPO}/tree/${BRANCH}/${FOLDER}">Ver carpeta en GitHub</a>
+            </div>`;
+        }
+      }
+
+      const _previewCache = {};
+      async function togglePreview(path, pid, btn) {
+        const box = document.getElementById(pid);
+        if (!box) return;
+        if (box.classList.contains('open')) {
+          box.classList.remove('open'); btn.textContent = 'Ver contenido'; return;
+        }
+        box.classList.add('open'); btn.textContent = 'Ocultar';
+        const pre = box.querySelector('pre');
+        if (_previewCache[path]) { pre.textContent = _previewCache[path]; return; }
+        pre.textContent = 'Cargando…';
+        try {
+          const res = await fetch(rawUrl(path));
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          let text = await res.text();
+          if (text.length > 60000) text = text.slice(0, 60000) + '\n\n… (contenido truncado)';
+          _previewCache[path] = text;
+          pre.textContent = text;
+        } catch (e) {
+          pre.textContent = 'No se pudo cargar la vista previa: ' + e.message;
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAEAT);
+      } else {
+        loadAEAT();
+      }
+    </script>
+
+  </body>
+</html>
