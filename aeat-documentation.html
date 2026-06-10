@@ -903,8 +903,8 @@
         </div>
         <h1>AEAT Documentation</h1>
         <p>Documentación oficial de la AEAT relacionada con la facturación
-          electrónica. El listado se genera en vivo desde el repositorio:
-          cualquier fichero que se añada a la carpeta aparece aquí
+          electrónica, organizada por ley. El listado se genera en vivo desde el
+          repositorio: cualquier carpeta o fichero que se añada aparece aquí
           automáticamente.</p>
       </div>
     </section>
@@ -951,7 +951,7 @@
     <script>
       const REPO   = 'Generix-b2b/GenerixCyC';
       const BRANCH = 'main';
-      const FOLDER = 'AEAT-Documentation';
+      const FOLDER = 'E-invoicing/AEAT-Documentation';
       const TREES_API = `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`;
 
       const TEXT_EXT = ['json','xml','xsd','txt','md','csv','html','htm','yaml','yml','properties','svg'];
@@ -1012,30 +1012,32 @@
             return;
           }
 
-          // Agrupar por subcarpeta inmediata dentro de FOLDER
+          // Agrupar por carpeta de ley (primer nivel dentro de FOLDER)
           const groups = {};
           files.forEach(f => {
-            const rel = f.path.slice(FOLDER.length + 1);     // p.ej. "subA/doc.pdf" o "doc.pdf"
+            const rel = f.path.slice(FOLDER.length + 1);     // p.ej. "Ley18-2022/anexo/doc.pdf"
             const parts = rel.split('/');
-            const group = parts.length > 1 ? parts.slice(0, -1).join(' / ') : '(raíz)';
-            (groups[group] = groups[group] || []).push({ ...f, name: parts[parts.length - 1], rel });
+            const group = parts.length > 1 ? parts[0] : '(raíz)';
+            const subdir = parts.slice(1, -1).join('/');     // ruta interna dentro de la ley (si la hay)
+            (groups[group] = groups[group] || []).push({ ...f, name: parts[parts.length - 1], rel, subdir });
           });
           const groupNames = Object.keys(groups).sort((a, b) => {
             if (a === '(raíz)') return -1; if (b === '(raíz)') return 1;
             return a.localeCompare(b);
           });
 
-          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s)` +
+          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s) de ley` +
             (data.truncated ? ' · (listado parcial: el repositorio es muy grande)' : '');
 
           quick.innerHTML = groupNames.map(g =>
-            `<a href="#grp-${slug(g)}">${escapeHtml(g)} (${groups[g].length})</a>`).join('');
+            `<a href="#grp-${slug(g)}">${escapeHtml(g === '(raíz)' ? 'General' : g)} (${groups[g].length})</a>`).join('');
 
           let html = '';
           groupNames.forEach(g => {
             const items = groups[g].sort((a, b) => a.name.localeCompare(b.name));
+            const groupLabel = g === '(raíz)' ? 'General' : g;
             html += `<div class="folder-section" id="grp-${slug(g)}">
-              <h3>📂 ${escapeHtml(g)}</h3>
+              <h3>⚖️ ${escapeHtml(groupLabel)}</h3>
               <div class="file-grid">`;
             items.forEach(f => {
               const pid = 'pv-' + slug(f.path);
@@ -1048,7 +1050,7 @@
                     <div class="file-card__icon">${iconFor(f.name)}</div>
                     <div>
                       <div class="file-card__name">${escapeHtml(f.name)}</div>
-                      <div class="file-card__meta">${escapeHtml(extOf(f.name).toUpperCase() || 'FILE')}${f.size != null ? ' · ' + fmtBytes(f.size) : ''}</div>
+                      <div class="file-card__meta">${escapeHtml(extOf(f.name).toUpperCase() || 'FILE')}${f.size != null ? ' · ' + fmtBytes(f.size) : ''}${f.subdir ? ' · 📁 ' + escapeHtml(f.subdir) : ''}</div>
                     </div>
                   </div>
                   <div class="file-card__actions">
