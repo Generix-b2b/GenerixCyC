@@ -772,6 +772,54 @@
       color: var(--generix-orange); 
     }
 
+    /* Validator */
+    #dropzone {
+      border: 2px dashed #888;
+      padding: 40px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    
+    #dropzone.dragover {
+      background: #e0f7ff;
+    }
+    
+    .json-viewer {
+      margin-top: 20px;
+      background: #111;
+      color: #eee;
+      font-family: monospace;
+      max-height: 400px;
+      overflow: auto;
+    }
+    
+    .json-line {
+      display: flex;
+    }
+    
+    .json-line-number {
+      width: 40px;
+      color: gray;
+    }
+    
+    .json-line.error {
+      background: rgba(255,0,0,0.2);
+    }
+    
+    #errorList {
+      margin-top: 20px;
+    }
+    
+    .download-btn {
+      margin-top: 20px;
+      padding: 10px;
+      background: orange;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
     /* ============ RESPONSIVE ============ */
     @media (max-width: 1300px) {
       .page-header { padding: 40px 24px; }
