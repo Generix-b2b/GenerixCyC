@@ -952,7 +952,9 @@
       const REPO   = 'Generix-b2b/GenerixCyC';
       const BRANCH = 'main';
       const FOLDER = 'E-invoicing/AEAT-Documentation';
-      const TREES_API = `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`;
+      // jsDelivr sirve el listado y los ficheros del repo a través de su CDN,
+      // sin el límite de 60 peticiones/hora de la API de GitHub.
+      const LIST_API = `https://data.jsdelivr.com/v1/packages/gh/${REPO}@${BRANCH}?structure=flat`;
 
       const TEXT_EXT = ['json','xml','xsd','txt','md','csv','html','htm','yaml','yml','properties','svg'];
       const ICONS = {
@@ -977,7 +979,7 @@
         if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
         return (b / 1048576).toFixed(1) + ' MB';
       }
-      function rawUrl(path)  { return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+      function rawUrl(path)  { return `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
       function htmlUrl(path) { return `https://github.com/${REPO}/blob/${BRANCH}/${path.split('/').map(encodeURIComponent).join('/')}`; }
       function slug(s) { return s.replace(/[^A-Za-z0-9_-]/g, '-'); }
 
@@ -989,15 +991,13 @@
         container.innerHTML = '';
         quick.innerHTML = '';
         try {
-          const res = await fetch(TREES_API, { headers: { 'Accept': 'application/vnd.github+json' } });
-          if (!res.ok) {
-            if (res.status === 403) throw new Error('rate-limit');
-            throw new Error('HTTP ' + res.status);
-          }
+          const res = await fetch(LIST_API);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
-          const tree = data.tree || [];
-          const files = tree.filter(e => e.type === 'blob' &&
-            (e.path === FOLDER + '/' || e.path.startsWith(FOLDER + '/')));
+          const prefix = '/' + FOLDER + '/';
+          const files = (data.files || [])
+            .filter(e => e.name.startsWith(prefix))
+            .map(e => ({ path: e.name.replace(/^\//, ''), size: e.size }));
 
           if (files.length === 0) {
             status.textContent = '';
@@ -1026,8 +1026,7 @@
             return a.localeCompare(b);
           });
 
-          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s) de ley` +
-            (data.truncated ? ' · (listado parcial: el repositorio es muy grande)' : '');
+          status.textContent = `${files.length} fichero(s) en ${groupNames.length} carpeta(s) de ley`;
 
           quick.innerHTML = groupNames.map(g =>
             `<a href="#grp-${slug(g)}">${escapeHtml(g === '(raíz)' ? 'General' : g)} (${groups[g].length})</a>`).join('');
@@ -1066,15 +1065,13 @@
           container.innerHTML = html;
         } catch (e) {
           status.textContent = '';
-          const msg = e.message === 'rate-limit'
-            ? 'Se ha alcanzado el límite de peticiones a GitHub (60/hora sin autenticación). Inténtalo de nuevo más tarde.'
-            : 'No se pudo cargar el listado (' + escapeHtml(e.message) + ').';
+          const msg = 'No se pudo cargar el listado (' + escapeHtml(e.message) + ').';
           container.innerHTML = `
             <div class="highlight-box">
               <strong>No se pudo cargar la documentación</strong>
               <br/>${msg}
               <br/><a class="download-link" target="_blank"
-                href="https://github.com/${REPO}/tree/${BRANCH}/E-invoicing/AEAT-Documentation">Ver carpeta en GitHub</a>
+                href="https://github.com/${REPO}/tree/${BRANCH}/${FOLDER}">Ver carpeta en GitHub</a>
             </div>`;
         }
       }
