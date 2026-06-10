@@ -878,6 +878,18 @@
             <div id="ejemploJsonContainer"></div>
             <div id="esquemaJsonContainer"></div>
           </div>
+
+          <div id="dropzone">
+    Arrastra tu JSON o haz click
+    <input type="file" id="fileInput" hidden>
+  </div>
+ 
+  <div id="result"></div>
+  <div id="errorList"></div>
+ 
+  <div id="jsonViewer" class="json-viewer"></div>
+ 
+</div>
         </div>
       </div>
 
@@ -1040,6 +1052,20 @@
           document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
           button.classList.add('active');
           document.getElementById(tabName).classList.add('active');
+        });
+      });
+    </script>
+
+    <script type="module" src="validator.js"></script>
+
+    <script>
+      document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+        
+          btn.classList.add("active");
+          document.getElementById(btn.dataset.tab).classList.add("active");
         });
       });
     </script>
