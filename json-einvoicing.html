@@ -1078,22 +1078,22 @@
 
         // Diccionario de descripciones para cada bloque
         const descriptions = {
-          supplierMasterData: {
+          InvoiceGNX: {
             title: '📄 InvoiceGNX',
             esp: 'Elemento raíz del schema. Representa la estructura principal de una factura GNX, con el objeto InvoiceGNX que contiene toda la información de la factura.',
             eng: 'Root element of the schema. Represents the main structure of a GNX invoice with the InvoiceGNX object containing all invoice information.'
           },
-          TRTEXC: {
+          Batch: {
             title: '📦 Batch - Lote de Facturas',
             esp: 'Contenedor para procesar múltiples facturas en un único fichero. Utilizado cuando la Modality es "L" (Lote).',
             eng: 'Container for processing multiple invoices in a single file. Used when Modality is "L" (Batch).'
           },
-          CODACT: {
+          InvoiceWrapper: {
             title: '📦 InvoiceWrapper - Envoltura de Factura',
             esp: 'Contenedor que envuelve la factura con información de control y procesamiento.',
             eng: 'Container that wraps the invoice with control and processing information.'
           },
-          CODFOU: {
+          Parties: {
             title: '👥 Parties - Partes Múltiples',
             esp: 'Contenedor con las partes involucradas en la factura: emisor, receptor y tercero (si aplica).',
             eng: 'Container with the parties involved in the invoice: issuer, recipient and third party (if applicable).'
@@ -1182,10 +1182,10 @@
 
         // Orden de bloques a mostrar
         const blockOrder = [
-          'supplierMasterData',
-          'TRTEXC',
-          'CODACT',
-          'CODFOU',
+          'InvoiceGNX',
+          'Batch',
+          'InvoiceWrapper',
+          'Parties',
           'Party',
           'TaxIdentification',
           'LegalEntity',
