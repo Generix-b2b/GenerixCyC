@@ -1100,6 +1100,22 @@
           document.getElementById(tabName).classList.add('active');
         });
       });
+
+      // Abrir la pestaña indicada en la URL (#response-json / #response-xml)
+      function activarPestanaDesdeHash() {
+        const hash = (location.hash || '').replace('#', '');
+        if (!hash) return;
+        const btn = document.querySelector('.tab-button[data-tab="' + hash + '"]');
+        const content = document.getElementById(hash);
+        if (!btn || !content) return;
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        content.classList.add('active');
+      }
+      activarPestanaDesdeHash();
+      window.addEventListener('hashchange', activarPestanaDesdeHash);
+      
     </script>
 
     <script type="module" src="validator.js"></script>
