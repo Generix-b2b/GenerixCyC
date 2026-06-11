@@ -90,10 +90,6 @@
 					"description": "Datos de las partes que intervienen en la factura.",
 					"$ref": "#/definitions/Parties"
 				},
-				"Legislacion": {
-					"description": "Información relativa a la legislación aplicable a la operación.",
-					"type": "object"
-				},
 				"Invoice": {
 					"type": "array",
 					"items": {
@@ -137,7 +133,7 @@
 					"$ref": "#/definitions/TaxIdentification"
 				},
 				"PartyIdentification": {
-					"description": "Identificación adicional de la parte.",
+					"description": "BT-30 / BT-47 / Identificación adicional de la parte.",
 					"type": "string"
 				},
 				"LegalEntity": {
@@ -186,7 +182,7 @@
 					"type": "string"
 				},
 				"RegistrationData": {
-					"description": "Datos de registro de la parte.",
+					"description": "Datos registrales: Inscripcion Registro, Tomo, Folio...",
 					"$ref": "#/definitions/RegistrationData"
 				},
 				"Address": {
@@ -297,7 +293,7 @@
 					"type": "string"
 				},
 				"FirstName": {
-					"description": "Nombre de la parte.",
+					"description": "BT-41 / BT-56 | Nombre de la parte.",
 					"type": "string"
 				}
 			},
