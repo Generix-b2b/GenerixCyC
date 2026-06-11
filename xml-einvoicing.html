@@ -856,7 +856,7 @@
         <button class="tab-button" data-tab="estructura">Estructura</button>
         <button class="tab-button" data-tab="enumeraciones">Enumeraciones</button>
         <button class="tab-button" data-tab="ejemplos">Ejemplos</button>
-        <button class="tab-button" data-tab="validaciones">Validaciones</button>
+        <a class="tab-button" href="response-einvoicing.html#response-xml" style="text-decoration:none;">Validaciones</a>
         <button class="tab-button" data-tab="old-versions">Versiones</button>
       </div>
 
@@ -1858,11 +1858,11 @@
                         <strong>English:</strong> ${desc.eng}
                       </p>
                     </div>
-                    ${buildFieldDescTableXsd(node)}
                     <div class="tech-details">
                       <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
                       ${techRows}
                     </div>
+                    ${buildFieldDescTableXsd(node)}
                   </div>
                 </div>
 
