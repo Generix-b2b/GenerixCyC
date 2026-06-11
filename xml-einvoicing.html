@@ -425,6 +425,17 @@
       margin-top: 40px;
       margin-bottom: -20px;
     }
+     /* ===== Tabla de descripción de campos (pestaña Estructura) ===== */
+    .field-desc-section { 
+      margin-top: 20px; 
+    }
+    .field-desc-table td:first-child,
+    .field-desc-table th:first-child { 
+      text-align: left; 
+    }
+    .field-desc-table td:nth-child(2) {
+      min-width: 220px; 
+    }
 
     .enums-description {
       background: var(--generix-blue-soft);
@@ -1625,6 +1636,113 @@
           return { base: base, facets: facets };
         }
 
+        function getElementsDetailed(node) {
+          const result = [];
+          const els = node.getElementsByTagNameNS(XSD_NS, 'element');
+          for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            const elName = el.getAttribute('name');
+            if (!elName) continue;
+            let doc = '';
+            for (let k = 0; k < el.childNodes.length; k++) {
+              const c = el.childNodes[k];
+              if (c.nodeType === 1 && c.localName === 'annotation') {
+                const d = c.getElementsByTagNameNS(XSD_NS, 'documentation');
+                if (d.length) { doc = d[0].textContent.trim(); break; }
+              }
+            }
+            result.push({
+              name: elName,
+              type: el.getAttribute('type') || '',
+              min: el.getAttribute('minOccurs'),
+              max: el.getAttribute('maxOccurs'),
+              doc: doc
+            });
+          }
+          return result;
+        }
+
+        function isEnumType(name)  { return enumOrder.indexOf(name)  !== -1; }
+        function isBlockType(name) { return blockOrder.indexOf(name) !== -1; }
+
+        // Chip navegable hacia el tipo referenciado (bloque o enum)
+        function buildTypeLink(name, isEnum) {
+          return '<a href="javascript:void(0)" class="tag tag--required-empty" '
+            + 'style="text-decoration:none; cursor:pointer; display:inline-flex; align-items:center; gap:4px;" '
+            + 'title="Ir a la definición de ' + escapeHtml(name) + '" '
+            + 'onclick="goToType(\'' + escapeHtml(name) + '\',' + (isEnum ? 'true' : 'false') + '); return false;">🔗 '
+            + escapeHtml(name) + '</a>';
+        }
+
+        // Activa la pestaña destino (Estructura o Enumeraciones) y hace scroll
+        function goToType(name, isEnum) {
+          const tabName  = isEnum ? 'enumeraciones' : 'estructura';
+          const targetId = (isEnum ? 'enum-' : 'block-') + name;
+          const tabBtn = document.querySelector('.tab-button[data-tab="' + tabName + '"]');
+          if (tabBtn) {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tabBtn.classList.add('active');
+            const tc = document.getElementById(tabName);
+            if (tc) tc.classList.add('active');
+          }
+          document.querySelectorAll('.sidebar-nav-btn').forEach(b => b.classList.remove('active'));
+          const sel = isEnum
+            ? '.sidebar-nav-btn[data-enum="' + name + '"]'
+            : '.sidebar-nav-btn[data-block="' + name + '"]';
+          const navBtn = document.querySelector(sel);
+          if (navBtn) navBtn.classList.add('active');
+          const el = document.getElementById(targetId);
+          if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+
+        // Tabla "Descripción de Campos" para un complexType del XSD
+        function buildFieldDescTableXsd(node) {
+          if (!node || node.localName !== 'complexType') return '';
+          const els = getElementsDetailed(node);
+          if (!els.length) return '';
+          const dash = '<span style="color: var(--gray-300);">—</span>';
+          let rows = '';
+          els.forEach(e => {
+            const required = e.min !== '0';
+            const t = e.type || '';
+            const parts = [];
+            if (t) {
+              if (isEnumType(t))       parts.push(buildTypeLink(t, true));
+              else if (isBlockType(t)) parts.push(buildTypeLink(t, false));
+              else {
+                const tn = getTypeNode(t);
+                if (tn && tn.localName === 'simpleType') {
+                  const f = getSimpleTypeFacets(tn);
+                  const fl = [];
+                  if (f.base) fl.push('base: ' + f.base);
+                  f.facets.forEach(fa => fl.push(fa.name + ': ' + fa.value));
+                  if (fl.length) parts.push(escapeHtml(fl.join(' · ')));
+                }
+              }
+            }
+            const restr = parts.join(' · ') || dash;
+            rows += `
+              <tr>
+                <td><span class="tag tag--required">${escapeHtml(e.name)}</span></td>
+                <td>${e.doc ? escapeHtml(e.doc) : dash}</td>
+                <td>${t ? `<span class="tag tag--type">${escapeHtml(t)}</span>` : dash}</td>
+                <td>${required ? '<span class="tag tag--required">Sí</span>' : '<span style="color: var(--gray-500);">No</span>'}</td>
+                <td>${restr}</td>
+              </tr>`;
+          });
+          return `
+            <div class="field-desc-section">
+              <h4 class="tech-details__title">📝 Descripción de Campos</h4>
+              <table class="enum-desc-table field-desc-table">
+                <thead>
+                  <tr><th>Campo</th><th>Descripción</th><th>Tipo</th><th>Requerido</th><th>Restricciones</th></tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>`;
+        }
+
         // ============ Render: Estructura (tipos) ============
         function renderAllBlocks() {
           const container = document.getElementById('schemaBlocksContainer');
@@ -1740,13 +1858,14 @@
                         <strong>English:</strong> ${desc.eng}
                       </p>
                     </div>
-
+                    ${buildFieldDescTableXsd(node)}
                     <div class="tech-details">
                       <h4 class="tech-details__title">📌 Detalles Técnicos</h4>
                       ${techRows}
                     </div>
                   </div>
                 </div>
+
                 <div class="block-divider"></div>
               </div>
             `;
