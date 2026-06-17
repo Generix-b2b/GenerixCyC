@@ -7,6 +7,7 @@
 			"type": "object",
 			"properties": {
 				"FileHeader": {
+                    "description": "Cabecera del fichero",
 					"type": "object",
 					"properties": {
 						"SchemaVersion": {
@@ -33,6 +34,7 @@
 					]
 				},
 				"Invoices": {
+                    "description": "Lista con todas las facturas recogidas en el fichero.",
 					"type": "array",
 					"items": {
 						"description": "Conjunto de datos de una factura, incluyendo las partes y el detalle del documento.",
@@ -51,6 +53,7 @@
 	],
 	"definitions": {
 		"Batch": {
+            "description": "Grupo con la información total del lote de facturas.",
 			"type": "object",
 			"properties": {
 				"BatchIdentifier": {
@@ -84,6 +87,7 @@
 			"additionalProperties": false
 		},
 		"InvoiceWrapper": {
+            "description": "Objeto factura",
 			"type": "object",
 			"properties": {
 				"Parties": {
@@ -91,6 +95,7 @@
 					"$ref": "#/definitions/Parties"
 				},
 				"Invoice": {
+					"description": "Datos de las fafcturas que .",
 					"type": "array",
 					"items": {
 						"description": "Datos del documento de factura.",
