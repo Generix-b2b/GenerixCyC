@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<InvoiceGNX>
+    <FileHeader>
+        <SchemaVersion>2.0</SchemaVersion>
+        <Modality>I</Modality>
+        <InvoiceIssuerType>TE</InvoiceIssuerType>
+        <Batch>
+            <BatchIdentifier>LOTE1</BatchIdentifier>
+            <InvoicesCount>1</InvoicesCount>
+            <TotalInvoicesAmount>
+                <TotalAmount>1296.49</TotalAmount>
+            </TotalInvoicesAmount>
+            <TotalOutstandingAmount>
+                <TotalAmount>1296.49</TotalAmount>
+            </TotalOutstandingAmount>
+            <TotalExecutableAmount>
+                <TotalAmount>1296.49</TotalAmount>
+            </TotalExecutableAmount>
+            <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+        </Batch>
+    </FileHeader>
+    <Invoices>
+        <Parties>
+            <SellerParty>
+                <TaxIdentification>
+                    <PersonTypeCode>J</PersonTypeCode>
+                    <ResidenceTypeCode>R</ResidenceTypeCode>
+                    <TaxIdentificationNumber>S12345678</TaxIdentificationNumber>
+                </TaxIdentification>
+                <PartyIdentification>S12345678</PartyIdentification>
+                <LegalEntity>
+                    <CorporateName>Seller Party</CorporateName>
+                    <TradeName>Seller Party</TradeName>
+                    <RegistrationData>
+                        <Book>14829/2001-12-26</Book>
+                        <RegisterOfCompaniesLocation>Madrid</RegisterOfCompaniesLocation>
+                        <Sheet>44</Sheet>
+                        <Folio>343</Folio>
+                        <Section>3a</Section>
+                        <Volume>5895</Volume>
+                        <AdditionalRegistrationData>Inscripción mercantil: tomo 5895, folio 343</AdditionalRegistrationData>
+                    </RegistrationData>
+                    <Address>
+                        <Address>Calle Falsa 123</Address>
+                        <AdditionalAddress>Edificio Portal Puerta, 4ºA</AdditionalAddress>
+                        <PostCode>28001</PostCode>
+                        <Town>Madrid</Town>
+                        <Province>Madrid</Province>
+                        <CountryCode>ESP</CountryCode>
+                    </Address>
+                    <ContactDetails>
+                        <Telephone>+34 912345678</Telephone>
+                        <WebAddress>http://www.sellerparty.com/</WebAddress>
+                        <ElectronicMail>contacto@sellerparty.com</ElectronicMail>
+                        <LastName>García</LastName>
+                        <FirstName>Laura</FirstName>
+                    </ContactDetails>
+                </LegalEntity>
+            </SellerParty>
+            <BuyerParty>
+                <TaxIdentification>
+                    <PersonTypeCode>J</PersonTypeCode>
+                    <ResidenceTypeCode>R</ResidenceTypeCode>
+                    <TaxIdentificationNumber>B12345678</TaxIdentificationNumber>
+                </TaxIdentification>
+                <PartyIdentification>B12345678</PartyIdentification>
+                <LegalEntity>
+                    <CorporateName>Buyer Party</CorporateName>
+                    <TradeName>Buyer Trade</TradeName>
+                    <Address>
+                        <Address>Avenida Ejemplo 45</Address>
+                        <AdditionalAddress>Oficina 2</AdditionalAddress>
+                        <PostCode>28002</PostCode>
+                        <Town>Madrid</Town>
+                        <Province>Madrid</Province>
+                        <CountryCode>ESP</CountryCode>
+                    </Address>
+                    <ContactDetails>
+                        <Telephone>+34 913333333</Telephone>
+                        <WebAddress>http://www.buyerparty.com/</WebAddress>
+                        <ElectronicMail>contacto@buyerparty.com</ElectronicMail>
+                        <LastName>Pérez</LastName>
+                        <FirstName>Juan</FirstName>
+                    </ContactDetails>
+                </LegalEntity>
+            </BuyerParty>
+            <ThirdParty>
+                <TaxIdentification>
+                    <PersonTypeCode>J</PersonTypeCode>
+                    <ResidenceTypeCode>R</ResidenceTypeCode>
+                    <TaxIdentificationNumber>T12345678</TaxIdentificationNumber>
+                </TaxIdentification>
+                <LegalEntity>
+                    <CorporateName>Third Party</CorporateName>
+                    <TradeName>Seller Party</TradeName>
+                    <RegistrationData>
+                        <Book>14829/2001-12-26</Book>
+                        <RegisterOfCompaniesLocation>Madrid</RegisterOfCompaniesLocation>
+                        <Sheet>44</Sheet>
+                        <Folio>343</Folio>
+                        <Section>3a</Section>
+                        <Volume>5895</Volume>
+                        <AdditionalRegistrationData>Representante autorizado: D. Ana López</AdditionalRegistrationData>
+                    </RegistrationData>
+                    <Address>
+                        <Address>Plaza de la Constitución 1</Address>
+                        <AdditionalAddress>Local 5</AdditionalAddress>
+                        <PostCode>28003</PostCode>
+                        <Town>Madrid</Town>
+                        <Province>Madrid</Province>
+                        <CountryCode>ESP</CountryCode>
+                    </Address>
+                    <ContactDetails>
+                        <Telephone>+34 914444444</Telephone>
+                        <WebAddress>http://www.thirdparty.com/</WebAddress>
+                        <ElectronicMail>contacto@thirdparty.com</ElectronicMail>
+                        <LastName>López</LastName>
+                        <FirstName>Ana</FirstName>
+                    </ContactDetails>
+                </LegalEntity>
+            </ThirdParty>
+        </Parties>
+        <Invoice>
+            <InvoiceHeader>
+                <InvoiceNumber>INV00000001</InvoiceNumber>
+                <InvoiceDocumentType>FC</InvoiceDocumentType>
+                <InvoiceClass>OO</InvoiceClass>
+                <InvoiceDescription>Factura de venta de servicios</InvoiceDescription>
+                <PreviousInvoiceNumber>INV00000001</PreviousInvoiceNumber>
+                <Corrective>
+                    <InvoiceNumber>INV00000001</InvoiceNumber>
+                    <ReasonCode>12</ReasonCode>
+                    <ReasonDescription>NÃºmero de la factura</ReasonDescription>
+                    <InvoiceIssueDate>2024-10-03T23:59:59</InvoiceIssueDate>
+                    <CorrectionMethod>I</CorrectionMethod>
+                    <CorrectionMethodDescription>Rectificación modelo íntegro</CorrectionMethodDescription>
+                    <CorrectiveAmounts>
+                        <GrossAmount>0</GrossAmount>
+                        <TaxAmount>0</TaxAmount>
+                        <ChargeAmount>0</ChargeAmount>
+                    </CorrectiveAmounts>
+                </Corrective>
+            </InvoiceHeader>
+            <InvoiceIssueData>
+                <IssueDate>2024-10-03T23:59:59</IssueDate>
+                <PreviousInvoiceDate>2024-09-03T23:59:59</PreviousInvoiceDate>
+                <InvoicingPeriod>
+                    <StartDate>2024-10-03T23:59:59</StartDate>
+                    <EndDate>2024-11-03T23:59:59</EndDate>
+                </InvoicingPeriod>
+                <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+                <TaxCurrencyCode>EUR</TaxCurrencyCode>
+                <LanguageName>es</LanguageName>
+            </InvoiceIssueData>
+            <TaxesOutputs>
+                <Tax>
+                    <TaxTypeCode>01</TaxTypeCode>
+                    <TaxRegimeCode>01</TaxRegimeCode>
+                    <TaxOperationType>S1</TaxOperationType>
+                    <TaxExemptionReasonCode></TaxExemptionReasonCode>
+                    <TaxRate>21</TaxRate>
+                    <TaxableBase>
+                        <TotalAmount>1071.48</TotalAmount>
+                        <EquivalentInEuros>1071.48</EquivalentInEuros>
+                    </TaxableBase>
+                    <TaxAmount>
+                        <TotalAmount>224.61</TotalAmount>
+                        <EquivalentInEuros>224.61</EquivalentInEuros>
+                    </TaxAmount>
+                </Tax>
+            </TaxesOutputs>
+            <TaxesWithheld>
+                <Tax>
+                    <TaxTypeCode>05</TaxTypeCode>
+                    <TaxRate>0</TaxRate>
+                    <TaxableBase>
+                        <TotalAmount>1071.48</TotalAmount>
+                        <EquivalentInEuros>1071.48</EquivalentInEuros>
+                    </TaxableBase>
+                    <TaxAmount>
+                        <TotalAmount>0</TotalAmount>
+                        <EquivalentInEuros>0</EquivalentInEuros>
+                    </TaxAmount>
+                </Tax>
+            </TaxesWithheld>
+            <InvoiceTotals>
+                <GeneralDiscounts>
+                    <Discount>
+                        <DiscountReason>Descuento General</DiscountReason>
+                        <DiscountTypeCode>DT01</DiscountTypeCode>
+                        <DiscountRate>10</DiscountRate>
+                        <DiscountAmount>107.15</DiscountAmount>
+                        <DiscountTax>
+                            <TaxTypeCode>S</TaxTypeCode>
+                            <TaxRate>0</TaxRate>
+                        </DiscountTax>
+                    </Discount>
+                </GeneralDiscounts>
+                <GeneralCharges>
+                    <Charge>
+                        <ChargeReason>Cargo General</ChargeReason>
+                        <ChargeTypeCode>CT01</ChargeTypeCode>
+                        <ChargeRate>5</ChargeRate>
+                        <ChargeAmount>53.57</ChargeAmount>
+                        <ChargeTax>
+                            <TaxTypeCode>S</TaxTypeCode>
+                            <TaxRate>0</TaxRate>
+                        </ChargeTax>
+                    </Charge>
+                </GeneralCharges>
+                <TotalGeneralDiscounts>107.15</TotalGeneralDiscounts>
+                <TotalGeneralCharges>53.57</TotalGeneralCharges>
+                <TotalNetAmount>1071.48</TotalNetAmount>
+                <TotalGrossAmount>1296.09</TotalGrossAmount>
+                <TotalTaxOutputs>224.61</TotalTaxOutputs>
+                <TotalTaxesWithheld>0</TotalTaxesWithheld>
+                <InvoiceTotal>1242.51</InvoiceTotal>
+                <TotalPayableAmount>1242.51</TotalPayableAmount>
+                <TotalPayedAmount>0</TotalPayedAmount>
+            </InvoiceTotals>
+            <Items>
+                <InvoiceLine>
+                    <SequenceNumber>1</SequenceNumber>
+                    <ItemCode>12345</ItemCode>
+                    <ItemDescription>Item 1</ItemDescription>
+                    <Quantity>10</Quantity>
+                    <UnitOfMeasure>EA</UnitOfMeasure>
+                    <NotesReferences>
+                        <DeliveryNote>
+                            <DeliveryNoteNumber>1234567</DeliveryNoteNumber>
+                            <DeliveryNoteDate>2024-11-03T23:59:59</DeliveryNoteDate>
+                        </DeliveryNote>
+                        <Order>
+                            <OrderNumber>1234567</OrderNumber>
+                            <OrderDate>2024-11-03T23:59:59</OrderDate>
+                        </Order>
+                        <CadastralReference>
+                            <CadastralReferenceNumber></CadastralReferenceNumber>
+                            <CadastralReferenceSituation></CadastralReferenceSituation>
+                        </CadastralReference>
+                    </NotesReferences>
+                    <LineItemPeriod>
+                        <StartDate>2024-11-03T23:59:59</StartDate>
+                        <EndDate>2024-11-10T23:59:59</EndDate>
+                    </LineItemPeriod>
+                    <Discounts>
+                        <Discount>
+                            <DiscountReason>Descuento I1</DiscountReason>
+                            <DiscountRate>10</DiscountRate>
+                            <DiscountAmount>107.15</DiscountAmount>
+                        </Discount>
+                    </Discounts>
+                    <Charges>
+                        <Charge>
+                            <ChargeReason>Cargo I1</ChargeReason>
+                            <ChargeRate>25</ChargeRate>
+                            <ChargeAmount>250</ChargeAmount>
+                        </Charge>
+                    </Charges>
+                    <TaxesOutputs>
+                        <Tax>
+                            <TaxTypeCode>01</TaxTypeCode>
+                            <TaxRegimeCode>01</TaxRegimeCode>
+                            <TaxRate>21</TaxRate>
+                            <TaxableBase>
+                                <TotalAmount>1071.48</TotalAmount>
+                                <EquivalentInEuros>1071.48</EquivalentInEuros>
+                            </TaxableBase>
+                            <TaxAmount>
+                                <TotalAmount>224.61</TotalAmount>
+                                <EquivalentInEuros>224.61</EquivalentInEuros>
+                            </TaxAmount>
+                        </Tax>
+                    </TaxesOutputs>
+                    <NetUnitPrice>107.148</NetUnitPrice>
+                    <NetPrice>1071.48</NetPrice>
+                    <TotalCost>1071.48</TotalCost>
+                    <GrossAmount>1296.09</GrossAmount>
+                </InvoiceLine>
+            </Items>
+            <PaymentDetails>
+                <Installment>
+                    <InstallmentDueDate>2024-11-03T23:59:59</InstallmentDueDate>
+                    <InstallmentAmount>1242.51</InstallmentAmount>
+                    <PaymentMeans>04</PaymentMeans>
+                    <Account>
+                        <IBAN>ES9121000418450200051332</IBAN>
+                        <AccountNumber>21000418450200051332</AccountNumber>
+                        <BankCode>2100</BankCode>
+                        <BIC>CAIXESBBXXX</BIC>
+                    </Account>
+                    <CollectionAdditionalInformation>Lorem Ipsum</CollectionAdditionalInformation>
+                    <PaymentReconciliationReference>Lorem Ipsum</PaymentReconciliationReference>
+                </Installment>
+            </PaymentDetails>
+            <LegalLiterals>
+                <LegalReference>Lorem Ipsum</LegalReference>
+            </LegalLiterals>
+            <AdditionalData>
+                <RelatedDocuments>
+                    <Attachment>
+                        <AttachmentCompressionAlgorithm>NONE</AttachmentCompressionAlgorithm>
+                        <AttachmentFormat>pdf</AttachmentFormat>
+                        <AttachmentEncoding>BASE64</AttachmentEncoding>
+                        <AttachmentDescription>PDF FACTURA</AttachmentDescription>
+                        <AttachmentData>JVBERi0xLjQKJcfs... (base64 sample)</AttachmentData>
+                    </Attachment>
+                    <QRAttachment>
+                        <URL>https://example.com/qr/INV00000001.png</URL>
+                        <HASHCode>ABCDEF1234567890</HASHCode>
+                        <PrevoiusHASHCode>0000000000000000</PrevoiusHASHCode>
+                        <eSignature>MIICXQIBAAKBgQC...</eSignature>
+                        <PlaceholderOthers>N/A</PlaceholderOthers>
+                    </QRAttachment>
+                </RelatedDocuments>
+            </AdditionalData>
+        </Invoice>
+    </Invoices>
+</InvoiceGNX>
