@@ -157,7 +157,6 @@
                     <TaxTypeCode>01</TaxTypeCode>
                     <TaxRegimeCode>01</TaxRegimeCode>
                     <TaxOperationType>S1</TaxOperationType>
-                    <TaxExemptionReasonCode></TaxExemptionReasonCode>
                     <TaxRate>21</TaxRate>
                     <TaxableBase>
                         <TotalAmount>1071.48</TotalAmount>
@@ -234,10 +233,6 @@
                             <OrderNumber>1234567</OrderNumber>
                             <OrderDate>2024-11-03T23:59:59</OrderDate>
                         </Order>
-                        <CadastralReference>
-                            <CadastralReferenceNumber></CadastralReferenceNumber>
-                            <CadastralReferenceSituation></CadastralReferenceSituation>
-                        </CadastralReference>
                     </NotesReferences>
                     <LineItemPeriod>
                         <StartDate>2024-11-03T23:59:59</StartDate>
