@@ -8,7 +8,7 @@ const errorList = document.getElementById("errorList");
 const viewer = document.getElementById("jsonViewer");
 
 // MISMA ruta que ya usa el HTML para mostrar el esquema de respuesta
-const SCHEMA_URL = "E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json";
+const SCHEMA_URL = "E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json";
 
 dropzone.onclick = () => input.click();
 
