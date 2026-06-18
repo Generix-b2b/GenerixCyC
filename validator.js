@@ -7,7 +7,8 @@ const result = document.getElementById("result");
 const errorList = document.getElementById("errorList");
 const viewer = document.getElementById("jsonViewer");
 
-const SCHEMA_URL = "/Standard/Invoice/Json/GNX_Schema_Json.json";
+// MISMA ruta que ya usa el HTML para mostrar el esquema de respuesta
+const SCHEMA_URL = "E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json";
 
 dropzone.onclick = () => input.click();
 
@@ -25,6 +26,7 @@ dropzone.ondrop = e => {
 input.onchange = () => handleFile(input.files[0]);
 
 async function handleFile(file) {
+  if (!file) return;
   const text = await file.text();
   processJSON(text);
 }
@@ -33,19 +35,42 @@ async function processJSON(text) {
 
   let data;
 
+  // 1) ¿El JSON es válido sintácticamente?
   try {
     data = JSON.parse(text);
   } catch {
-    result.innerHTML = "❌ JSON inválido";
+    result.innerHTML = "❌ JSON inválido (error de sintaxis)";
+    errorList.innerHTML = "";
+    viewer.innerHTML = "";
     return;
   }
 
-  const schema = await fetch(SCHEMA_URL).then(r => r.json());
+  // 2) Cargar el esquema CON control de errores (antes fallaba en silencio)
+  let schema;
+  try {
+    const res = await fetch(SCHEMA_URL);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    schema = await res.json();
+  } catch (e) {
+    result.innerHTML = "⚠️ No se pudo cargar el esquema de validación";
+    errorList.innerHTML = `<div>➡ ${SCHEMA_URL} → ${e.message}</div>`;
+    viewer.innerHTML = "";
+    return;
+  }
 
-  const ajv = new Ajv({ allErrors: true });
-  addFormats(ajv);
+  // 3) Compilar el esquema CON control de errores
+  let validate;
+  try {
+    const ajv = new Ajv({ allErrors: true, strict: false });
+    addFormats(ajv);
+    validate = ajv.compile(schema);
+  } catch (e) {
+    result.innerHTML = "⚠️ El esquema no se pudo compilar";
+    errorList.innerHTML = `<div>➡ ${e.message}</div>`;
+    viewer.innerHTML = "";
+    return;
+  }
 
-  const validate = ajv.compile(schema);
   const valid = validate(data);
 
   const pretty = JSON.stringify(data, null, 2);
@@ -59,7 +84,7 @@ async function processJSON(text) {
     result.innerHTML = "❌ JSON inválido";
 
     errorList.innerHTML = validate.errors.map(e =>
-      `<div>➡ ${e.instancePath} → ${e.message}</div>`
+      `<div>➡ ${e.instancePath || "(raíz)"} → ${e.message}</div>`
     ).join("");
   }
 }
@@ -68,10 +93,13 @@ function renderViewer(text, errors) {
 
   const lines = text.split("\n");
 
-  const errorLines = (errors || []).map(e => {
-    const key = e.instancePath.split("/").pop();
-    return lines.findIndex(l => l.includes(key)) + 1;
-  });
+  const errorLines = (errors || [])
+    .map(e => {
+      const key = e.instancePath.split("/").pop();
+      if (!key) return -1;                      // evita resaltar la línea 1 con errores de raíz
+      return lines.findIndex(l => l.includes(`"${key}"`)) + 1;
+    })
+    .filter(n => n > 0);
 
   viewer.innerHTML = lines.map((l, i) => {
     const isError = errorLines.includes(i + 1);
@@ -102,4 +130,3 @@ window.downloadExample = function () {
   a.download = "example.json";
   a.click();
 };
-``
