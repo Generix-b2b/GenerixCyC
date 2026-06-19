@@ -1224,6 +1224,32 @@
 					"04"
 				]
 			},
+            "DiscountTypeCodeEnum": {
+				"type": "string",
+				"enum": [
+					"S",
+					"Z",
+					"E",
+					"AE",
+					"O",
+					"G",
+					"L",
+					"M"
+				]
+            },
+            "ChargeTypeCodeEnum": {
+				"type": "string",
+				"enum": [
+					"S",
+					"Z",
+					"E",
+					"AE",
+					"O",
+					"G",
+					"L",
+					"M"
+				]
+            },
 			"AttachmentFormatEnum": {
 				"type": "string",
 				"enum": [
