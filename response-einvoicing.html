@@ -773,17 +773,23 @@
     }
 
     /* Validator */
-    #dropzone {
-      border: 2px dashed #888;
-      padding: 40px;
-      border-radius: 10px;
-      background: #f9f9f9;
-      text-align: center;
-    }
-    
-    #dropzone.dragover {
-      background: #e0f7ff;
-    }
+#dropzone {
+  border: 2px dashed #888;
+  padding: 40px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#dropzone:hover {
+  background: #eee;             /* 👈 fondo ligeramente más oscuro */
+}
+
+#dropzone.dragover {
+  background: #e0f7ff;
+}
     
     .json-viewer {
       margin-top: 20px;
