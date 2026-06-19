@@ -773,23 +773,23 @@
     }
 
     /* Validator */
-#dropzone {
-  border: 2px dashed #888;
-  padding: 40px;
-  border-radius: 10px;
-  background: #f9f9f9;
-  text-align: center;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+    #dropzone {
+      border: 2px dashed #888;
+      padding: 40px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-#dropzone:hover {
-  background: #eee;             /* 👈 fondo ligeramente más oscuro */
-}
+    #dropzone:hover {
+      background: #eee;
+    }
 
-#dropzone.dragover {
-  background: #e0f7ff;
-}
+    #dropzone.dragover {
+      background: #e0f7ff;
+    }
     
     .json-viewer {
       margin-top: 20px;
@@ -895,12 +895,31 @@
     <!-- ============ TAB NAVIGATION ============ -->
     <div class="tab-container">
       <div class="tab-navigation">
-        <button class="tab-button active" data-tab="response-json">JSON de Respuesta</button>
+        <button class="tab-button active" data-tab="validacion-invoice">Validación de Invoice</button>
+        <button class="tab-button" data-tab="response-json">JSON de Respuesta</button>
         <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
       </div>
 
+      <!-- ============ TAB: VALIDACIÓN DE INVOICE ============ -->
+      <div id="validacion-invoice" class="tab-content active">
+        <div class="content-section">
+          <h2>Validación de Invoice</h2>
+          <p>Arrastra o selecciona tu archivo JSON de factura para validarlo contra el esquema.</p>
+
+          <div id="dropzone">
+            Arrastra tu JSON o haz click
+            <input type="file" id="fileInput" hidden>
+          </div>
+
+          <div id="result"></div>
+          <div id="errorList"></div>
+
+          <div id="jsonViewer" class="json-viewer"></div>
+        </div>
+      </div>
+
       <!-- ============ TAB 1: ESQUEMA JSON ============ -->
-      <div id="response-json" class="tab-content active">
+      <div id="response-json" class="tab-content">
         <div class="content-section">
           <h2>Esquema y Ejemplo JSON de Respuesta</h2>
           <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
@@ -932,16 +951,6 @@
             <div id="ejemploJsonContainer"></div>
             <div id="esquemaJsonContainer"></div>
           </div>
-
-          <div id="dropzone">
-            Arrastra tu JSON o haz click
-            <input type="file" id="fileInput" hidden>
-          </div>
-        
-          <div id="result"></div>
-          <div id="errorList"></div>
-        
-          <div id="jsonViewer" class="json-viewer"></div>
         </div>
       </div>
 
@@ -1125,18 +1134,6 @@
     </script>
 
     <script type="module" src="validator.js"></script>
-
-    <script>
-      document.querySelectorAll(".tab-button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
-          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-        
-          btn.classList.add("active");
-          document.getElementById(btn.dataset.tab).classList.add("active");
-        });
-      });
-    </script>
 
   </body>
 </html>
