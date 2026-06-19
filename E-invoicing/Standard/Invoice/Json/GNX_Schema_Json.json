@@ -805,7 +805,7 @@
 											},
 											"CadastralReferenceSituation": {
 												"description": "BT-ES-43 | Identificador que especifica la situación del inmueble.",
-												"$ref": "#/definitions/CadastralReferenceEnum"
+												"$ref": "#/definitions/Enums/CadastralReferenceEnum"
 											}
 										},
 										"required": [
