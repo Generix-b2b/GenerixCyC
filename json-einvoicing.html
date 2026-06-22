@@ -915,9 +915,9 @@
               <p>Explora la estructura completa del esquema JSON para e-Invoicing.
                 Cada bloque se muestra a continuación con su código y descripción.</p>
               <p>
-                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Schema_Json.json" target="_blank"
                 class="download-link">
-                📥 Ver GNX_Schema_Json.json completo</a>
+                📥 Ver GNX_Invoice_Schema_Json.json completo</a>
                 </p>              
               <div id="schemaBlocksContainer"></div>
             </div>
@@ -944,9 +944,9 @@
               <p>Listas cerradas de valores admitidos en el schema JSON e-Invoicing. Cada enumeración se carga dinámicamente desde
                 <code>definitions.Enums</code> del schema y muestra su tipo, descripción y los valores válidos.</p>
               <p>
-                <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+                <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Schema_Json.json" target="_blank"
                 class="download-link">
-                📥 Ver GNX_Schema_Json.json completo</a>
+                📥 Ver GNX_Invoice_Schema_Json.json completo</a>
               </p>
               <div id="enumsContainer"></div>
             </div>
@@ -1049,9 +1049,9 @@
           <ul>
             <li>
               Versión 2.0 - Versión actual, cumplimiento normativo C&C<br/>
-              <a href="E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json" target="_blank"
+              <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Schema_Json.json" target="_blank"
                 class="download-link">
-                📥 Schema - GNX_Schema_Json.json
+                📥 Schema - GNX_Invoice_Schema_Json.json
               </a><br/>
               <a href="E-invoicing/Standard/Invoice/Json/GNX_Invoice_Json.json" target="_blank"
                 class="download-link">
@@ -1060,9 +1060,9 @@
             </li>
             <li>
               Versión 1.0 - En Desuso, basado en la version 3.2.2 de FACE <br/>
-              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Schema_Json_v1.0.json" target="_blank"
+              <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Schema_Json_v1.0.json" target="_blank"
                 class="download-link">
-                📥 Schema - GNX_Schema_Json_v1.0.json
+                📥 Schema - GNX_Invoice_Schema_Json_v1.0.json
               </a><br/>
               <a href="E-invoicing/Standard/Invoice/Json/OldVersions/GNX_Invoice_Json_v1.0.json" target="_blank"
                 class="download-link">
@@ -1099,7 +1099,7 @@
     </footer>
 
     <!-- ============ SCRIPT ============ -->
-    <!-- GNX_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
+    <!-- GNX_Invoice_Schema_Json.json -- schemaBlocksContainer / enumsContainer -->
     <script>
         let schemaData = null;
         let navObserver = null;
@@ -1233,7 +1233,7 @@
         ];
 
         // Cargar el schema JSON
-        fetch('E-invoicing/Standard/Invoice/Json/GNX_Schema_Json.json')
+        fetch('E-invoicing/Standard/Invoice/Json/GNX_Invoice_Schema_Json.json')
           .then(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
@@ -1248,11 +1248,11 @@
           .catch(error => {
             console.error('Error cargando el schema:', error);
             document.getElementById('schemaBlocksContainer').innerHTML = 
-              '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
+              '<p style="color: red;">Error al cargar GNX_Invoice_Schema_Json.json: ' + error.message + '</p>';
             const enumsEl = document.getElementById('enumsContainer');
             if (enumsEl) {
               enumsEl.innerHTML =
-                '<p style="color: red;">Error al cargar GNX_Schema_Json.json: ' + error.message + '</p>';
+                '<p style="color: red;">Error al cargar GNX_Invoice_Schema_Json.json: ' + error.message + '</p>';
             }
           });
 
