@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Response · Validación de Facturas · Generix Developer Documentation</title>
-    <link rel="icon" href="Assets/logo-black.png" type="image/png">
-    <style>
-    /* ============ COLORES OFICIALES GENERIX ============ */
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Response · Validación de Facturas · Generix Developer Documentation</title>
+  <link rel="icon" href="Assets/logo-black.png" type="image/png">
+  <style>
     :root {
       --generix-dark: #002333;
       --generix-dark-soft: #0a3447;
@@ -21,13 +20,20 @@
       --gray-500: #6B7E8C;
       --gray-700: #3A4A56;
       --gray-900: #0F1B24;
-      --generix-blue:#00A59A;
-      --generix-blue-soft:#B9FFFA;
+      --generix-blue: #00A59A;
+      --generix-blue-soft: #B9FFFA;
+      --success-bg: #ECFDF3;
+      --success-border: #12B76A;
+      --error-bg: #FEF3F2;
+      --error-border: #F04438;
+      --warning-bg: #FFFAEB;
+      --warning-border: #F79009;
+      --info-bg: #EFF8FF;
+      --info-border: #2E90FA;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
       color: var(--generix-dark);
@@ -36,7 +42,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ============ TOPBAR ============ */
     .topbar {
       background: var(--generix-dark);
       border-bottom: 1px solid var(--generix-dark-soft);
@@ -54,69 +59,23 @@
       align-items: center;
       justify-content: space-between;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    .logo img {
-      height: 50px;
-      width: auto;
-      display: block;
-    }
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .nav a {
-      color: var(--gray-700);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav a:hover { color: var(--generix-orange); }
-    .breadcrumb {
-      color: var(--gray-500);
-      font-size: 0.9rem;
-    }
-    .breadcrumb a {
-      color: var(--generix-orange);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 50px; width: auto; display: block; }
 
-    /* ============ PAGE HEADER ============ */
     .page-header {
       background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
       color: var(--white);
       padding: 60px 32px;
     }
-    .page-header-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-    .page-header-breadcrumb {
-      margin-bottom: 20px;
-    }
-    .page-header-breadcrumb a,
-    .page-header-breadcrumb span {
+    .page-header-inner { max-width: 1240px; margin: 0 auto; }
+    .page-header-breadcrumb { margin-bottom: 20px; }
+    .page-header-breadcrumb a, .page-header-breadcrumb span {
       color: rgba(255,255,255,0.8);
       font-size: 0.9rem;
     }
     .page-header-breadcrumb a {
       color: var(--generix-orange);
       text-decoration: none;
-    }
-    .page-header-breadcrumb a:hover {
-      text-decoration: underline;
-    }
-    .page-header-breadcrumb span { 
-      margin: 0 8px; 
     }
     .page-header h1 {
       font-size: 2.5rem;
@@ -127,36 +86,23 @@
     .page-header p {
       font-size: 1.1rem;
       opacity: 0.9;
-      max-width: 600px;
+      max-width: 720px;
     }
 
-    /* ============ TAB NAVIGATION ============ */
     .tab-container {
       max-width: 1240px;
       margin: 0 auto;
       padding: 0 32px;
     }
     .tab-navigation {
-      position: sticky; 
+      position: sticky;
       top: 87px;
       display: flex;
       border-bottom: 1px solid var(--gray-200);
       margin-bottom: 50px;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
       z-index: 99;
       background: var(--white);
-    }
-    .tab-navigation::-webkit-scrollbar {
-      height: 6px;
-    }
-    .tab-navigation::-webkit-scrollbar-track {
-      background: var(--generix-orange);
-    }
-    .tab-navigation::-webkit-scrollbar-thumb {
-      background: var(--gray-300);
-      border-radius: 3px;
     }
     .tab-button {
       padding: 16px 24px;
@@ -169,7 +115,6 @@
       white-space: nowrap;
       transition: all 0.3s;
       border-bottom: 3px solid transparent;
-      position: relative;
     }
     .tab-button:hover {
       color: var(--generix-orange);
@@ -179,311 +124,11 @@
       color: var(--generix-orange);
       border-bottom-color: var(--generix-orange);
     }
+    .tab-content { display: none; animation: fadeIn 0.3s ease-in; position: relative; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* ============ TAB CONTENT ============ */
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.3s ease-in;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .download-link {
-      color: var(--generix-orange);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* ============ THREE COLUMN LAYOUT ============ */
-    .tab-wrapper {
-      display: grid;
-      grid-template-columns: 0px 1fr 0px;
-      gap: 0;
-      align-items: start;
-    }
-    .sidebar-nav {
-      position: sticky;
-      top: 100px;
-      width: 280px;
-      height: calc(100vh - 115px);
-      overflow-y: auto;
-      background: var(--gray-100);
-      border-radius: 0 6px 6px 0;
-      border-left: 4px solid var(--generix-orange);
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,35,51,0.1);
-      z-index: 40;
-      margin-left: -316px;
-    }
-    .sidebar-nav::-webkit-scrollbar {
-      width: 6px;
-    }
-    .sidebar-nav::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .sidebar-nav::-webkit-scrollbar-thumb {
-      background: var(--gray-300);
-      border-radius: 3px;
-    }
-    .sidebar-nav::-webkit-scrollbar-thumb:hover {
-      background: var(--generix-orange);
-    }
-    .sidebar-nav-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--generix-dark);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .sidebar-nav-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .sidebar-nav-btn {
-      display: block;
-      padding: 10px 12px;
-      background: var(--white);
-      color: var(--generix-dark);
-      border: 1px solid var(--gray-300);
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-      text-align: left;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      white-space: normal;
-      line-height: 1.4;
-    }
-    .sidebar-nav-btn:hover {
-      background: var(--generix-orange);
-      color: var(--white);
-      border-color: var(--generix-orange);
-    }
-    .sidebar-nav-btn.active {
-      background: var(--generix-orange);
-      color: var(--white);
-      border-color: var(--generix-orange);
-    }
-
-
-    .tab-content-middle {
-      padding: 0 32px;
-    }
-    .block-container {
-      margin-bottom: 60px;
-      scroll-margin-top: 150px;
-    }
-    .block-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: start;
-    }
-    /* Panel izquierdo: Código */
-    .code-panel {
-      background: var(--gray-900);
-      border-radius: 8px;
-      overflow-y: auto;
-      box-shadow: 0 4px 16px rgba(0, 35, 51, 0.15);
-      max-height: 750px;
-      min-height: 500px;
-    }
-    .code-panel::-webkit-scrollbar {
-      width: 6px;
-    }
-    .code-panel::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .code-panel::-webkit-scrollbar-thumb {
-      background: var(--gray-300);
-      border-radius: 3px;
-    }
-    .code-panel::-webkit-scrollbar-thumb:hover {
-      background: var(--generix-orange);
-    }
-    .code-panel__header {
-      position: sticky;
-      top: 0.1px;
-      display: flex;
-      z-index: 99;
-      padding: 16px;
-      background: var(--generix-dark);
-      color: var(--white);
-      font-weight: 600;
-      align-items: center;
-      gap: 12px;
-    }
-    .code-panel__icon {
-      font-size: 1.2rem;
-    }
-    .code-panel__pre {
-      margin: 0;
-      padding: 24px;
-      color: #e0e0e0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      overflow-x: auto;
-    }
-    /* Panel derecho: Explicación */
-    .explanation-box {
-      background: var(--generix-orange-soft);
-      border-left: 4px solid var(--generix-orange);
-      padding: 20px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
-    .explanation-box__title {
-      color: var(--generix-orange);
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-    }
-    .explanation-box__text {
-      color: var(--gray-700);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin: 0;
-    }
-    .explanation-box__text--spaced {
-      margin: 16px 0 0 0;
-    }
-    /* Panel derecho: detalles técnicos */
-    .tech-details {
-      background: var(--gray-100);
-      border-left: 4px solid var(--gray-500);
-      padding: 20px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }  
-    .tech-details__title {
-      color: var(--gray-700);
-      margin-bottom: 12px;
-    }   
-    .tech-details__row {
-      color: var(--gray-700);
-      margin: 0 0 8px 0;
-    }   
-    .tech-details__row--last {
-      margin: 0;
-    }  
-    /* Panel derecho: Etiquetas (tags) */
-    .tag {
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-    }   
-    .tag--type {
-      background: var(--generix-dark);
-      color: var(--generix-orange);
-    }   
-    .tag--properties {
-      background: var(--white);
-      padding: 2px 6px;
-      border-radius: 3px;
-    }   
-    .tag--required {
-      background: var(--generix-orange);
-      color: var(--generix-dark);
-      padding: 2px 6px;
-      border-radius: 3px;
-    }   
-    .tag--required-empty {
-      background: var(--white);
-      color: var(--generix-dark);
-      padding: 2px 6px;
-      border-radius: 3px;
-    } 
-    .tag--text {
-      color: var(--gray-700);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin: 0;
-    }  
-    .tech-details__values {
-      margin: 0 0 12px 0;
-    }
-    .tech-details__used-in {
-      display: inline-block; 
-      background: var(--gray-200); 
-      color: var(--generix-dark); 
-      margin: 2px 4px 2px 0; 
-      border: 1px solid var(--gray-300);
-    }
-    /* Separador inferior */
-    .block-divider {
-      border-bottom: 1px solid var(--gray-200);
-      margin-top: 40px;
-      margin-bottom: -20px;
-    }
-
-    .enums-description {
-      background: var(--generix-blue-soft);
-      border-left: 4px solid var(--generix-blue);
-      padding: 20px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
-    .enum-desc-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 6px;
-      overflow: hidden;
-      font-size: 0.9rem;
-      margin-top: 8px;
-    }
-    .enum-desc-table thead {
-      background: var(--generix-dark);
-      color: var(--white);
-    }
-    .enum-desc-table th {
-      padding: 10px 12px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .enum-desc-table td {
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--gray-200);
-      vertical-align: top;
-      color: var(--gray-700);
-      line-height: 1.5;
-    }
-    .enum-desc-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-    .enum-desc-table tbody tr:hover {
-      background: var(--gray-100);
-    }
-    .enum-desc-table td:first-child,
-    .enum-desc-table th:first-child {
-      white-space: nowrap;
-      width: 1%;
-      text-align: center;
-    }
-
-    .sidebar-right {
-      /* Columna derecha en blanco */
-      background-color: transparent;
-    }
-
-    /* ============ CONTENT SECTIONS ============ */
-    .content-section {
-      margin-bottom: 60px;
-    }
+    .content-section { margin-bottom: 60px; }
     .content-section h2 {
       font-size: 1.8rem;
       color: var(--generix-dark);
@@ -502,81 +147,13 @@
       line-height: 1.8;
       margin-bottom: 16px;
     }
-    .content-section ul {
-      margin: 16px 0 16px 24px;
-      color: var(--gray-700);
-    }
-    .content-section li {
-      margin-bottom: 12px;
-      line-height: 1.8;
+
+    .download-link {
+      color: var(--generix-orange);
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    /* ============ CODE BLOCK ============ */
-    .tab-content {
-      position: relative;
-    }
-    .code-block {
-      background: var(--gray-900);
-      color: #e0e0e0;
-      padding: 20px;
-      border-radius: 8px;
-      overflow-x: auto;
-      margin: 20px 0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      border-left: 4px solid var(--generix-orange);
-    }
-    .code-block code {
-      color: inherit;
-    }
-
-    /* ============ HIGHLIGHT BOX ============ */
-    .highlight-box {
-      background: var(--generix-orange-soft);
-      border-left: 4px solid var(--generix-orange);
-      padding: 20px;
-      border-radius: 6px;
-      margin: 24px 0;
-    }
-    .highlight-box strong {
-      color: var(--generix-dark);
-    }
-
-    /* ============ TABLE ============ */
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 24px 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    thead {
-      background: var(--generix-dark);
-      color: var(--white);
-    }
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--gray-200);
-    }
-    th {
-      font-weight: 600;
-      border-bottom-color: var(--gray-300);
-    }
-    tbody tr:hover {
-      background: var(--gray-50);
-    }
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* ============ CARD GRID ============ */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -599,125 +176,48 @@
       margin-bottom: 12px;
       font-size: 1.1rem;
     }
-    .info-card p {
-      margin: 0;
-      font-size: 0.95rem;
-    }
+    .info-card p { margin: 0; font-size: 0.95rem; }
 
-    /* ============ FOOTER ============ */
-    footer {
-      background: var(--generix-dark);
-      color: var(--white);
-      padding: 50px 32px;
-      margin-top: 80px;
-    }
-    .footer-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 50px;
-      margin-bottom: 30px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .footer-section h4 {
-      color: var(--white);
-      margin-bottom: 16px;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-    .footer-section a {
-      display: block;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      transition: color 0.2s;
-    }
-    .footer-section a:hover {
-      color: var(--generix-orange);
-    }
-    .footer-bottom {
-      text-align: center;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.85rem;
-    }
-
-    /* ============ CODE-EXPLANATION LAYOUT ============ */
-    .code-explanation-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin: 40px 0;
-      align-items: start;
-    }
-    .code-panel {
-      background: var(--gray-900);
-      border-radius: 8px;
-      overflow-y: auto;
-      box-shadow: 0 4px 16px rgba(0,35,51,0.15);
-      position: sticky;
-      top: 100px;
-    }
-    .code-panel pre {
-      margin: 0;
-      padding: 24px;
-      overflow-x: auto;
-      color: #e0e0e0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-    }
-    .code-panel code {
-      color: inherit;
-    }
-    .explanation-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-    .explanation-block {
-      background: var(--gray-50);
+    .highlight-box {
+      background: var(--generix-orange-soft);
       border-left: 4px solid var(--generix-orange);
       padding: 20px;
       border-radius: 6px;
-      transition: all 0.3s;
+      margin: 24px 0;
     }
-    .explanation-block:hover {
-      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
-      transform: translateX(4px);
+    .highlight-box strong { color: var(--generix-dark); }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 6px 20px rgba(0,35,51,0.06);
     }
-    .explanation-block h4 {
-      color: var(--generix-orange);
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
     }
-    .explanation-block .code-ref {
+    thead {
       background: var(--generix-dark);
-      color: var(--generix-orange);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      font-weight: 600;
+      color: var(--white);
     }
-    .explanation-block p {
-      color: var(--gray-700);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin: 8px 0 0 0;
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
     }
-    /* ============ FOOTER STYLES ============ */
+    tbody tr:hover { background: var(--gray-50); }
+    tbody tr:last-child td { border-bottom: none; }
+
     footer {
       background: var(--generix-dark);
       color: var(--white);
       padding: 60px 32px 30px;
+      margin-top: 80px;
       position: relative;
     }
     footer::before {
@@ -727,29 +227,16 @@
       height: 3px;
       background: linear-gradient(90deg, var(--generix-orange) 0%, transparent 100%);
     }
-    .footer-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
+    .footer-inner { max-width: 1240px; margin: 0 auto; }
     .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .footer-brand h3 {
-      color: var(--white);
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-    .footer-brand p {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.95rem;
-      max-width: 380px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     .footer-brand .tagline {
       color: var(--generix-orange);
@@ -758,6 +245,11 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 8px;
+    }
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      max-width: 380px;
     }
     .footer-bottom {
       display: flex;
@@ -768,372 +260,622 @@
       color: rgba(255,255,255,0.6);
       font-size: 0.85rem;
     }
-    footer .accent { 
-      color: var(--generix-orange); 
-    }
+    footer .accent { color: var(--generix-orange); }
 
-    /* Validator */
+    /* Validator visual layer */
     #dropzone {
-      border: 2px dashed #888;
-      padding: 40px;
-      border-radius: 10px;
-      background: #f9f9f9;
+      border: 2px dashed var(--gray-300);
+      padding: 48px 32px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fcfcfd 0%, #f7f9fb 100%);
       text-align: center;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.25s ease;
+      margin-bottom: 24px;
     }
-
     #dropzone:hover {
-      background: #eee;
+      background: #f3f6f9;
+      border-color: var(--generix-orange);
+      transform: translateY(-1px);
+    }
+    #dropzone.dragover {
+      background: #eefaf8;
+      border-color: var(--generix-blue);
     }
 
-    #dropzone.dragover {
-      background: #e0f7ff;
+    .validator-layout {
+      display: grid;
+      gap: 24px;
+      margin-top: 24px;
     }
-    
-    .json-viewer {
-      margin-top: 20px;
-      background: #111;
-      color: #eee;
-      font-family: monospace;
-      max-height: 400px;
+
+    .validator-status-card {
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid transparent;
+      box-shadow: 0 6px 16px rgba(15,27,36,0.05);
+    }
+    .validator-status-card--success {
+      background: var(--success-bg);
+      border-color: rgba(18,183,106,0.25);
+    }
+    .validator-status-card--error {
+      background: var(--error-bg);
+      border-color: rgba(240,68,56,0.22);
+    }
+    .validator-status-card--warning {
+      background: var(--warning-bg);
+      border-color: rgba(247,144,9,0.22);
+    }
+    .validator-status-card--info {
+      background: var(--info-bg);
+      border-color: rgba(46,144,250,0.22);
+    }
+    .validator-status-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .validator-status-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--generix-dark);
+    }
+    .validator-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.75);
+      color: var(--generix-dark);
+    }
+    .validator-status-text {
+      color: var(--gray-700);
+      font-size: 0.96rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .validator-summary-empty {
+      display: none;
+    }
+
+    .validator-code-shell {
+      margin-top: 0;
+      scroll-margin-top: 100px;
+    }
+    .validator-code-panel {
+      background: var(--gray-900);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,35,51,0.16);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .validator-code-header {
+      padding: 16px 20px;
+      background: var(--generix-dark);
+      color: var(--white);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .validator-code-header small {
+      color: rgba(255,255,255,0.72);
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+    .validator-code-body {
+      max-height: 760px;
       overflow: auto;
     }
-    
-    .json-line {
-      display: flex;
-    }
-    
-    .json-line-number {
-      width: 40px;
-      color: gray;
-    }
-    
-    .json-line.error {
-      background: rgba(255,0,0,0.2);
-    }
-    
-    #errorList {
-      margin-top: 20px;
-    }
-    
-    .download-btn {
-      margin-top: 20px;
-      padding: 10px;
-      background: orange;
-      color: white;
+    .validator-code-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
       border: none;
-      cursor: pointer;
+    }
+    .validator-code-table tbody tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .validator-code-table td {
+      padding: 0;
+      border-bottom: none;
+      vertical-align: top;
+    }
+    .validator-line-number {
+      width: 72px;
+      min-width: 72px;
+      text-align: right;
+      padding: 0.68rem 1rem 0.68rem 0.75rem !important;
+      color: #8ca0af;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      user-select: none;
+      background: rgba(255,255,255,0.02);
+    }
+    .validator-line-code {
+      padding: 0.68rem 1rem !important;
+      color: #e6edf3;
+      white-space: pre;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .validator-line-is-error .validator-line-number,
+    .validator-line-is-error .validator-line-code {
+      background: rgba(240,68,56,0.12);
+    }
+    .validator-line-is-error .validator-line-code {
+      border-left: 3px solid var(--error-border);
+      padding-left: calc(1rem - 3px) !important;
     }
 
-    /* ============ RESPONSIVE ============ */
+    #validationSummary,
+    #jsonViewerContainer {
+      min-height: 0;
+    }
+
+    .legacy-validator-bridge {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      overflow: hidden !important;
+    }
+
     @media (max-width: 1300px) {
       .page-header { padding: 40px 24px; }
-      .page-header h1 { font-size: 1.8rem; }
+      .page-header h1 { font-size: 1.9rem; }
       .tab-container { padding: 0 24px; }
-      .tab-button { padding: 12px 16px; font-size: 0.9rem; }
-      .content-section h2 { font-size: 1.5rem; }
-      .footer-top { flex-direction: column; gap: 30px; }
-      .code-explanation-wrapper {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .code-panel {
-        position: static;
-      }
-      .code-panel pre {
-        font-size: 0.75rem;
-        padding: 16px;
-      }
-      #schemaBlocksContainer > div > div {
-        grid-template-columns: 1fr !important;
-      }
+      footer { padding: 40px 24px 30px; }
+      .footer-top { flex-direction: column; }
+    }
 
-      footer {
-        padding: 40px 24px 30px;
-      }
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-      }
-      .footer-bottom {
-        justify-content: center;
-        text-align: center;
-        flex-direction: column;
-      }
+    @media (max-width: 768px) {
+      .tab-button { padding: 12px 16px; font-size: 0.92rem; }
+      .content-section h2 { font-size: 1.45rem; }
+      #dropzone { padding: 34px 20px; }
+      .validator-line-number { width: 58px; min-width: 58px; }
+      .validator-code-header { align-items: flex-start; flex-direction: column; }
     }
   </style>
-  </head>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="logo" aria-label="Generix">
+        <img src="Assets/generix.svg" alt="Generix">
+      </a>
+    </div>
+  </header>
 
-  <body>
-
-    <!-- ============ TOPBAR ============ -->
-    <header class="topbar">
-      <div class="topbar-inner">
-        <a href="index.html" class="logo" aria-label="Generix">
-          <img src="Assets/generix.svg" alt="Generix">
-        </a>
+  <section class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-breadcrumb">
+        <a href="index.html">Documentación</a>
+        <span>/</span>
+        <span>Response · Validación de Facturas</span>
       </div>
-    </header>
+      <h1>Response · Validación de Facturas</h1>
+      <p>Estructura de las respuestas de validación de facturas electrónicas, en formato JSON y XML: esquema y ejemplo de cada uno.</p>
+    </div>
+  </section>
 
-    <!-- ============ PAGE HEADER ============ -->
-    <section class="page-header">
-      <div class="page-header-inner">
-        <div class="page-header-breadcrumb">
-          <a href="index.html">Documentación</a>
-          <span>/</span>
-          <span>Response · Validación de Facturas</span>
+  <div class="tab-container">
+    <div class="tab-navigation">
+      <button class="tab-button active" data-tab="validacion-invoice">Validación de Invoice</button>
+      <button class="tab-button" data-tab="response-json">JSON de Respuesta</button>
+      <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
+    </div>
+
+    <div id="validacion-invoice" class="tab-content active">
+      <div class="content-section">
+        <h2>Validación de Invoice</h2>
+        <p>Arrastra o selecciona tu archivo JSON de factura para validarlo contra el esquema.</p>
+
+        <div id="dropzone">
+          Arrastra tu JSON o haz click
+          <input type="file" id="fileInput" hidden>
         </div>
-        <h1>Response · Validación de Facturas</h1>
-        <p>Estructura de las respuestas de validación de facturas electrónicas,
-          en formato JSON y XML: esquema y ejemplo de cada uno.</p>
-      </div>
-    </section>
 
-    <!-- ============ TAB NAVIGATION ============ -->
-    <div class="tab-container">
-      <div class="tab-navigation">
-        <button class="tab-button active" data-tab="validacion-invoice">Validación de Invoice</button>
-        <button class="tab-button" data-tab="response-json">JSON de Respuesta</button>
-        <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
-      </div>
+        <div class="validator-layout">
+          <div id="validationSummary" class="validator-summary-empty"></div>
+          <div id="jsonViewerContainer"></div>
+        </div>
 
-      <!-- ============ TAB: VALIDACIÓN DE INVOICE ============ -->
-      <div id="validacion-invoice" class="tab-content active">
-        <div class="content-section">
-          <h2>Validación de Invoice</h2>
-          <p>Arrastra o selecciona tu archivo JSON de factura para validarlo contra el esquema.</p>
-
-          <div id="dropzone">
-            Arrastra tu JSON o haz click
-            <input type="file" id="fileInput" hidden>
-          </div>
-
+        <!-- Compatibilidad exacta con el validator.js actual -->
+        <div class="legacy-validator-bridge" aria-hidden="true">
           <div id="result"></div>
           <div id="errorList"></div>
-
           <div id="jsonViewer" class="json-viewer"></div>
         </div>
       </div>
-
-      <!-- ============ TAB 1: ESQUEMA JSON ============ -->
-      <div id="response-json" class="tab-content">
-        <div class="content-section">
-          <h2>Esquema y Ejemplo JSON de Respuesta</h2>
-          <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
-          <h3>Reglas de Validación</h3>
-          <div class="card-grid"> 
-            <div class="info-card">
-              <h4>Estructura JSON</h4>
-              <p>
-                El JSON debe ser válido y bien formado. <br/>
-                Se rechazarán documentos con errores de sintaxis.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Campos Requeridos</h4>
-              <p>
-                Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Tipos de Datos</h4>
-              <p>
-                Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array, Enums).
-              </p>
-            </div>
-          </div>
-          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
-            <div id="ejemploJsonContainer"></div>
-            <div id="esquemaJsonContainer"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ TAB 3: ESQUEMA XML ============ -->
-      <div id="response-xml" class="tab-content">
-        <div class="content-section">
-          <h2>Esquema y Ejemplo XML de Respuesta</h2>
-          <p>Definición del esquema XML que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
-          <h3>Reglas de Validación</h3>
-          <div class="card-grid"> 
-            <div class="info-card">
-              <h4>Estructura XML</h4>
-              <p>
-                El XML debe ser válido y bien formado. <br/>
-                Se rechazarán documentos con errores de sintaxis.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Campos Requeridos</h4>
-              <p>
-                Todos los campos marcados como obligatorios deben estar
-                presentes y no vacíos.
-              </p>
-            </div>
-            <div class="info-card">
-              <h4>Tipos de Datos</h4>
-              <p>
-                Cada campo debe cumplir con el tipo especificado (String,
-                Integer, Decimal, Date, Object, Array, Enums).
-              </p>
-            </div>
-          </div>
-          <div style="display: flex; gap: 20px; grid-template-columns: 1fr 1fr;">
-            <div id="ejemploXmlContainer"></div>
-            <div id="esquemaXmlContainer"></div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- ============ FOOTER ============ -->
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-top">
-          <div class="footer-brand footer-logo">
-            <img src="Assets/generix.svg" alt="Generix">
-            <div class="tagline">Connecting Businesses Together</div>
-            <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+    <div id="response-json" class="tab-content">
+      <div class="content-section">
+        <h2>Esquema y Ejemplo JSON de Respuesta</h2>
+        <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
+
+        <h3>Reglas de Validación</h3>
+        <div class="card-grid">
+          <div class="info-card">
+            <h4>Estructura JSON</h4>
+            <p>El JSON debe ser válido y bien formado. Se rechazarán documentos con errores de sintaxis.</p>
           </div>
-          <div>
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
-              <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
-              EDI · API · Peppol · Compliance
-            </p>
+          <div class="info-card">
+            <h4>Campos Requeridos</h4>
+            <p>Todos los campos marcados como obligatorios deben estar presentes y no vacíos.</p>
+          </div>
+          <div class="info-card">
+            <h4>Tipos de Datos</h4>
+            <p>Cada campo debe cumplir con el tipo especificado (String, Integer, Decimal, Date, Object, Array, Enums).</p>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
-          <p>Especificaciones técnicas e integración B2B</p>
+
+        <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
+          <div id="ejemploJsonContainer" style="flex:1 1 520px;"></div>
+          <div id="esquemaJsonContainer" style="flex:1 1 520px;"></div>
         </div>
       </div>
-    </footer>
+    </div>
 
-    <!-- ============ SCRIPT ============ -->
-    <script>
-      function escapeHtml(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return String(text).replace(/[&<>"']/g, m => map[m]);
-      }
+    <div id="response-xml" class="tab-content">
+      <div class="content-section">
+        <h2>Esquema y Ejemplo XML de Respuesta</h2>
+        <p>Definición del esquema XML que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
 
-      // Panel de código oscuro reutilizable
-      function renderCodePanel(containerId, title, codeText, url, fileName) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = `
-          <p>
-            <a href="${url}" target="_blank"
-              class="download-link">
-              📥 ${fileName}
-            </a>
+        <h3>Reglas de Validación</h3>
+        <div class="card-grid">
+          <div class="info-card">
+            <h4>Estructura XML</h4>
+            <p>El XML debe ser válido y bien formado. Se rechazarán documentos con errores de sintaxis.</p>
+          </div>
+          <div class="info-card">
+            <h4>Campos Requeridos</h4>
+            <p>Todos los campos marcados como obligatorios deben estar presentes y no vacíos.</p>
+          </div>
+          <div class="info-card">
+            <h4>Tipos de Datos</h4>
+            <p>Cada campo debe cumplir con el tipo especificado (String, Integer, Decimal, Date, Object, Array, Enums).</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
+          <div id="ejemploXmlContainer" style="flex:1 1 520px;"></div>
+          <div id="esquemaXmlContainer" style="flex:1 1 520px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand footer-logo">
+          <img src="Assets/generix.svg" alt="Generix">
+          <div class="tagline">Connecting Businesses Together</div>
+          <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
+        </div>
+        <div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
+            <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
+            EDI · API · Peppol · Compliance
           </p>
-          <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
-            <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
-              <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
-                <span style="font-size: 1.1rem;">${title}</span>
-              </div>
-              <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code>${escapeHtml(codeText)}</code></pre>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
+        <p>Especificaciones técnicas e integración B2B</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function renderCodePanel(containerId, title, codeText, url, fileName) {
+      const container = document.getElementById(containerId);
+      const linkHtml = url
+        ? `<p><a href="${url}" target="_blank" class="download-link">📥 ${fileName}</a></p>`
+        : '';
+
+      container.innerHTML = `
+        ${linkHtml}
+        <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
+          <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
+            <div style="padding: 16px; background: var(--generix-dark); color: var(--white); font-weight: 600; display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+              <span style="font-size: 1.1rem;">${title}</span>
             </div>
-          </div>`;
+            <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code>${escapeHtml(codeText)}</code></pre>
+          </div>
+        </div>`;
+    }
+
+    function renderPending(containerId, fileName, url) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = `
+        <div class="highlight-box">
+          <strong>En preparación</strong>
+          <br>El fichero <code>${escapeHtml(fileName)}</code> todavía no está disponible.
+          <br>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
+          <a href="${url}" target="_blank" class="download-link">Revisar en GitHub</a>
+        </div>`;
+    }
+
+    async function loadJson(url, containerId, title, fileName) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
+      } catch (e) {
+        renderPending(containerId, fileName, 'https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json');
+      }
+    }
+
+    async function loadText(url, containerId, title, fileName) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+        if (!text.trim()) throw new Error('empty');
+        renderCodePanel(containerId, title, text, url, fileName);
+      } catch (e) {
+        renderPending(containerId, fileName, 'https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml');
+      }
+    }
+
+    function loadAll() {
+      loadJson('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json', 'esquemaJsonContainer', '📋 Esquema JSON de Respuesta', 'GNX_Response_Schema_Json.json');
+      loadJson('E-invoicing/Standard/Response/Json/GNX_Response_Json.json', 'ejemploJsonContainer', '📋 Ejemplo JSON de Respuesta', 'GNX_Response_Json.json');
+      loadText('E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd', 'esquemaXmlContainer', '📋 Esquema XML de Respuesta (XSD)', 'GNX_Response_Schema_xml.xsd');
+      loadText('E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml', 'ejemploXmlContainer', '📋 Ejemplo XML de Respuesta', 'GNX_Response_xml.xml');
+    }
+
+    function getStatusMeta(rawMessage) {
+      const message = (rawMessage || '').trim();
+
+      if (!message) {
+        return {
+          kind: 'info',
+          badge: 'Sin estado',
+          title: 'Esperando validación',
+          text: 'Sube un fichero para lanzar la validación.'
+        };
       }
 
-      // Aviso honesto cuando el fichero aún no está disponible
-      function renderPending(containerId, fileName, url) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = `
-          <div class="highlight-box">
-            <strong>En preparación</strong>
-            <br/>El fichero <code>${escapeHtml(fileName)}</code> todavía no está disponible.
-            <br/>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
-            <a href="${url}" target="_blank"
-              class="download-link">
-              Revisar en GitHub
-            </a>
-          </div>`;
+      if (message.includes('✅')) {
+        return {
+          kind: 'success',
+          badge: 'Válido',
+          title: 'Validación completada correctamente',
+          text: message.replace('✅', '').trim() || 'El fichero cumple con el esquema.'
+        };
       }
-
-      // Carga un fichero JSON y lo muestra formateado; si falla, muestra el aviso
-      async function loadJson(url, containerId, title, fileName) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const data = await res.json();
-          renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
-        } catch (e) {
-          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json");
-        }
+      if (message.includes('❌')) {
+        return {
+          kind: 'error',
+          badge: 'Inválido',
+          title: 'La validación detectó errores',
+          text: message.replace('❌', '').trim() || 'El fichero no cumple con el esquema.'
+        };
       }
-
-      // Carga un fichero de texto (XML/XSD) y lo muestra tal cual; si falla, muestra el aviso
-      async function loadText(url, containerId, title, fileName) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const text = await res.text();
-          if (!text.trim()) throw new Error('empty');
-          renderCodePanel(containerId, title, text, url, fileName);
-        } catch (e) {
-          renderPending(containerId, fileName, "https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml");
-        }
+      if (message.includes('⚠️')) {
+        return {
+          kind: 'warning',
+          badge: 'Atención',
+          title: 'No se pudo completar la validación',
+          text: message.replace('⚠️', '').trim()
+        };
       }
-
-      function loadAll() {
-        loadJson(
-          'E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json',
-          'esquemaJsonContainer', '📋 Esquema JSON de Respuesta', 'GNX_Response_Schema_Json.json');
-        loadJson(
-          'E-invoicing/Standard/Response/Json/GNX_Response_Json.json',
-          'ejemploJsonContainer', '📋 Ejemplo JSON de Respuesta', 'GNX_Response_Json.json');
-        loadText(
-          'E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd',
-          'esquemaXmlContainer', '📋 Esquema XML de Respuesta (XSD)', 'GNX_Response_Schema_xml.xsd');
-        loadText(
-          'E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml',
-          'ejemploXmlContainer', '📋 Ejemplo XML de Respuesta', 'GNX_Response_xml.xml');
+      if (message.includes('⏳')) {
+        return {
+          kind: 'info',
+          badge: 'Procesando',
+          title: 'Validación en curso',
+          text: message.replace('⏳', '').trim()
+        };
       }
+      return {
+        kind: 'info',
+        badge: 'Información',
+        title: 'Estado del validador',
+        text: message.replace('ℹ️', '').trim() || message
+      };
+    }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAll);
-      } else {
-        loadAll();
-      }
-    </script>
-
-    <!-- Cambio de pestañas -->
-    <script>
-      document.querySelectorAll('.tab-button').forEach(button => {
-        button.addEventListener('click', () => {
-          const tabName = button.getAttribute('data-tab');
-          document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-          button.classList.add('active');
-          document.getElementById(tabName).classList.add('active');
-        });
+    function extractValidationErrors(rawErrorText) {
+      const text = (rawErrorText || '').replace(/\u00a0/g, ' ');
+      const chunks = text.split('➡').map(item => item.trim()).filter(Boolean);
+      return chunks.map((item, idx) => {
+        const arrowParts = item.split('→');
+        const path = (arrowParts[0] || '(raíz)').trim();
+        const message = (arrowParts.slice(1).join('→') || 'Error de validación').trim();
+        return {
+          index: idx + 1,
+          path,
+          message
+        };
       });
+    }
 
-      // Abrir la pestaña indicada en la URL (#response-json / #response-xml)
-      function activarPestanaDesdeHash() {
-        const hash = (location.hash || '').replace('#', '');
-        if (!hash) return;
-        const btn = document.querySelector('.tab-button[data-tab="' + hash + '"]');
-        const content = document.getElementById(hash);
-        if (!btn || !content) return;
-        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        btn.classList.add('active');
-        content.classList.add('active');
+    function renderValidationSummary(message, rawErrorText) {
+      const target = document.getElementById('validationSummary');
+      const errors = extractValidationErrors(rawErrorText);
+      const meta = getStatusMeta(message);
+
+      let tableHtml = '';
+      if (errors.length) {
+        tableHtml = `
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Campo</th>
+                  <th>Error</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${errors.map(err => `
+                  <tr>
+                    <td>${err.index}</td>
+                    <td><code>${escapeHtml(err.path)}</code></td>
+                    <td>${escapeHtml(err.message)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>`;
       }
-      activarPestanaDesdeHash();
-      window.addEventListener('hashchange', activarPestanaDesdeHash);
-      
-    </script>
 
-    <script type="module" src="validator.js"></script>
+      target.classList.remove('validator-summary-empty');
+      target.innerHTML = `
+        <div class="validator-status-card validator-status-card--${meta.kind}">
+          <div class="validator-status-head">
+            <div class="validator-status-title">${escapeHtml(meta.title)}</div>
+            <div class="validator-status-badge">${escapeHtml(meta.badge)}</div>
+          </div>
+          <p class="validator-status-text">${escapeHtml(meta.text)}</p>
+        </div>
+        ${tableHtml}`;
+    }
 
-  </body>
+    function getErrorLineNumbers(lines, errors) {
+      const errorLines = new Set();
+      errors.forEach(err => {
+        const cleanPath = (err.path || '').replace(/^\//, '');
+        const key = cleanPath.split('/').filter(Boolean).pop();
+        if (!key || key === '(raíz)') return;
+
+        const index = lines.findIndex(line => {
+          return line.includes(`"${key}"`) || line.includes(`${key}:`);
+        });
+        if (index >= 0) errorLines.add(index + 1);
+      });
+      return errorLines;
+    }
+
+    function renderJsonViewer(rawViewerText, rawErrorText) {
+      const container = document.getElementById('jsonViewerContainer');
+      const text = (rawViewerText || '').replace(/\u00a0/g, ' ').trim();
+
+      if (!text) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let lines = text.split(/\r?\n/).map(l => l.replace(/\s+$/g, ''));
+      if (!lines.length) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const errors = extractValidationErrors(rawErrorText);
+      const errorLines = getErrorLineNumbers(lines, errors);
+
+      const rows = lines.map((line, idx) => {
+        const lineNo = idx + 1;
+        const isError = errorLines.has(lineNo);
+        return `
+          <tr class="${isError ? 'validator-line-is-error' : ''}">
+            <td class="validator-line-number">${lineNo}</td>
+            <td class="validator-line-code">${escapeHtml(line)}</td>
+          </tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="validator-code-shell">
+          <div class="validator-code-panel">
+            <div class="validator-code-header">
+              <span>📄 JSON validado</span>
+              <small>${errors.length ? 'Las líneas relacionadas con errores se resaltan en rojo.' : 'Vista formateada con estilo alineado a la documentación.'}</small>
+            </div>
+            <div class="validator-code-body">
+              <table class="validator-code-table" aria-label="JSON validado">
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function syncLegacyValidatorOutput() {
+      const resultNode = document.getElementById('result');
+      const errorNode = document.getElementById('errorList');
+      const viewerNode = document.getElementById('jsonViewer');
+      renderValidationSummary(resultNode?.textContent || '', errorNode?.textContent || '');
+      renderJsonViewer(viewerNode?.textContent || '', errorNode?.textContent || '');
+    }
+
+    function setupLegacyValidatorBridge() {
+      const ids = ['result', 'errorList', 'jsonViewer'];
+      const observed = ids.map(id => document.getElementById(id)).filter(Boolean);
+      if (!observed.length) return;
+
+      const observer = new MutationObserver(() => syncLegacyValidatorOutput());
+      observed.forEach(node => observer.observe(node, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true
+      }));
+
+      syncLegacyValidatorOutput();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        loadAll();
+        setupLegacyValidatorBridge();
+      });
+    } else {
+      loadAll();
+      setupLegacyValidatorBridge();
+    }
+  </script>
+
+  <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.getAttribute('data-tab');
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+      });
+    });
+
+    function activarPestanaDesdeHash() {
+      const hash = (location.hash || '').replace('#', '');
+      if (!hash) return;
+      const btn = document.querySelector('.tab-button[data-tab="' + hash + '"]');
+      const content = document.getElementById(hash);
+      if (!btn || !content) return;
+      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      content.classList.add('active');
+    }
+
+    activarPestanaDesdeHash();
+    window.addEventListener('hashchange', activarPestanaDesdeHash);
+  </script>
+
+  <script type="module" src="validator.js"></script>
+</body>
 </html>
