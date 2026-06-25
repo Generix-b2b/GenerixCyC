@@ -458,19 +458,28 @@
 				vertical-align: top;
 			}
 			.validator-line-number {
-                width: 60px;
-                min-width: 60px;
-                text-align: right;
-                padding: 0.35rem 0.6rem 0.35rem 0.5rem !important;
-                font-size: 0.78rem;
-                line-height: 1.2;
-                }
-
-                .validator-line-code {
-                padding: 0.35rem 0.6rem !important;
-                font-size: 0.78rem;
-                line-height: 1.2;
-                }
+				width: 72px;
+				min-width: 72px;
+				text-align: right;
+				padding: 0.35rem 0.6rem 0.35rem 0.5rem !important;
+				color: #8ca0af;
+				border-right: 1px solid rgba(255, 255, 255, 0.07);
+				font-family:
+					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+					"Liberation Mono", monospace;
+				user-select: none;
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.validator-line-code {
+				padding: 0.35rem 0.6rem !important;
+				color: #e6edf3;
+				white-space: pre;
+				font-size: 0.88rem;
+				line-height: 1.2;
+				font-family:
+					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+					"Liberation Mono", monospace;
+			}
 			.validator-line-is-error .validator-line-number,
 			.validator-line-is-error .validator-line-code {
 				background: rgba(240, 68, 56, 0.12);
