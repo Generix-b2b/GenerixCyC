@@ -1,599 +1,790 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Response · Validación de Facturas · Generix Developer Documentation</title>
-  <link rel="icon" href="Assets/logo-black.png" type="image/png">
-  <style>
-    :root {
-      --generix-dark: #002333;
-      --generix-dark-soft: #0a3447;
-      --generix-orange: #F28A48;
-      --generix-orange-hover: #e07535;
-      --generix-orange-soft: #FDF0E7;
-      --white: #FFFFFF;
-      --gray-50: #FAFBFC;
-      --gray-100: #F2F5F8;
-      --gray-200: #E1E8EE;
-      --gray-300: #C5D2DC;
-      --gray-500: #6B7E8C;
-      --gray-700: #3A4A56;
-      --gray-900: #0F1B24;
-      --generix-blue: #00A59A;
-      --generix-blue-soft: #B9FFFA;
-      --success-bg: #ECFDF3;
-      --success-border: #12B76A;
-      --error-bg: #FEF3F2;
-      --error-border: #F04438;
-      --warning-bg: #FFFAEB;
-      --warning-border: #F79009;
-      --info-bg: #EFF8FF;
-      --info-border: #2E90FA;
-    }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			Response · Validación de Facturas · Generix Developer Documentation
+		</title>
+		<link rel="icon" href="Assets/logo-black.png" type="image/png" />
+		<style>
+			:root {
+				--generix-dark: #002333;
+				--generix-dark-soft: #0a3447;
+				--generix-orange: #f28a48;
+				--generix-orange-hover: #e07535;
+				--generix-orange-soft: #fdf0e7;
+				--white: #ffffff;
+				--gray-50: #fafbfc;
+				--gray-100: #f2f5f8;
+				--gray-200: #e1e8ee;
+				--gray-300: #c5d2dc;
+				--gray-500: #6b7e8c;
+				--gray-700: #3a4a56;
+				--gray-900: #0f1b24;
+				--generix-blue: #00a59a;
+				--generix-blue-soft: #b9fffa;
+				--success-bg: #ecfdf3;
+				--success-border: #12b76a;
+				--error-bg: #fef3f2;
+				--error-border: #f04438;
+				--warning-bg: #fffaeb;
+				--warning-border: #f79009;
+				--info-bg: #eff8ff;
+				--info-border: #2e90fa;
+			}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
-      color: var(--generix-dark);
-      background: var(--white);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				font-family:
+					-apple-system, BlinkMacSystemFont, "Segoe UI",
+					"Helvetica Neue", Roboto, Arial, sans-serif;
+				color: var(--generix-dark);
+				background: var(--white);
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+			}
 
-    .topbar {
-      background: var(--generix-dark);
-      border-bottom: 1px solid var(--generix-dark-soft);
-      padding: 18px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 1px 3px rgba(0,35,51,0.04);
-    }
-    .topbar-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo { display: flex; align-items: center; text-decoration: none; }
-    .logo img { height: 50px; width: auto; display: block; }
+			.topbar {
+				background: var(--generix-dark);
+				border-bottom: 1px solid var(--generix-dark-soft);
+				padding: 18px 0;
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				box-shadow: 0 1px 3px rgba(0, 35, 51, 0.04);
+			}
+			.topbar-inner {
+				max-width: 1240px;
+				margin: 0 auto;
+				padding: 0 32px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.logo {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+			}
+			.logo img {
+				height: 50px;
+				width: auto;
+				display: block;
+			}
 
-    .page-header {
-      background: linear-gradient(135deg, var(--generix-dark) 0%, var(--generix-dark-soft) 100%);
-      color: var(--white);
-      padding: 60px 32px;
-    }
-    .page-header-inner { max-width: 1240px; margin: 0 auto; }
-    .page-header-breadcrumb { margin-bottom: 20px; }
-    .page-header-breadcrumb a, .page-header-breadcrumb span {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
-    }
-    .page-header-breadcrumb a {
-      color: var(--generix-orange);
-      text-decoration: none;
-    }
-    .page-header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-    .page-header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 720px;
-    }
+			.page-header {
+				background: linear-gradient(
+					135deg,
+					var(--generix-dark) 0%,
+					var(--generix-dark-soft) 100%
+				);
+				color: var(--white);
+				padding: 60px 32px;
+			}
+			.page-header-inner {
+				max-width: 1240px;
+				margin: 0 auto;
+			}
+			.page-header-breadcrumb {
+				margin-bottom: 20px;
+			}
+			.page-header-breadcrumb a,
+			.page-header-breadcrumb span {
+				color: rgba(255, 255, 255, 0.8);
+				font-size: 0.9rem;
+			}
+			.page-header-breadcrumb a {
+				color: var(--generix-orange);
+				text-decoration: none;
+			}
+			.page-header h1 {
+				font-size: 2.5rem;
+				font-weight: 700;
+				margin-bottom: 12px;
+				line-height: 1.2;
+			}
+			.page-header p {
+				font-size: 1.1rem;
+				opacity: 0.9;
+				max-width: 720px;
+			}
 
-    .tab-container {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-    .tab-navigation {
-      position: sticky;
-      top: 87px;
-      display: flex;
-      border-bottom: 1px solid var(--gray-200);
-      margin-bottom: 50px;
-      overflow-x: auto;
-      z-index: 99;
-      background: var(--white);
-    }
-    .tab-button {
-      padding: 16px 24px;
-      border: none;
-      background: transparent;
-      color: var(--gray-700);
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.3s;
-      border-bottom: 3px solid transparent;
-    }
-    .tab-button:hover {
-      color: var(--generix-orange);
-      background: var(--generix-orange-soft);
-    }
-    .tab-button.active {
-      color: var(--generix-orange);
-      border-bottom-color: var(--generix-orange);
-    }
-    .tab-content { display: none; animation: fadeIn 0.3s ease-in; position: relative; }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+			.tab-container {
+				max-width: 1240px;
+				margin: 0 auto;
+				padding: 0 32px;
+			}
+			.tab-navigation {
+				position: sticky;
+				top: 87px;
+				display: flex;
+				border-bottom: 1px solid var(--gray-200);
+				margin-bottom: 50px;
+				overflow-x: auto;
+				z-index: 99;
+				background: var(--white);
+			}
+			.tab-button {
+				padding: 16px 24px;
+				border: none;
+				background: transparent;
+				color: var(--gray-700);
+				font-size: 1rem;
+				font-weight: 500;
+				cursor: pointer;
+				white-space: nowrap;
+				transition: all 0.3s;
+				border-bottom: 3px solid transparent;
+			}
+			.tab-button:hover {
+				color: var(--generix-orange);
+				background: var(--generix-orange-soft);
+			}
+			.tab-button.active {
+				color: var(--generix-orange);
+				border-bottom-color: var(--generix-orange);
+			}
+			.tab-content {
+				display: none;
+				animation: fadeIn 0.3s ease-in;
+				position: relative;
+			}
+			.tab-content.active {
+				display: block;
+			}
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
 
-    .content-section { margin-bottom: 60px; }
-    .content-section h2 {
-      font-size: 1.8rem;
-      color: var(--generix-dark);
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--generix-orange-soft);
-    }
-    .content-section h3 {
-      font-size: 1.3rem;
-      color: var(--generix-dark);
-      margin-top: 32px;
-      margin-bottom: 16px;
-    }
-    .content-section p {
-      color: var(--gray-700);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
+			.content-section {
+				margin-bottom: 60px;
+			}
+			.content-section h2 {
+				font-size: 1.8rem;
+				color: var(--generix-dark);
+				margin-bottom: 24px;
+				padding-bottom: 12px;
+				border-bottom: 2px solid var(--generix-orange-soft);
+			}
+			.content-section h3 {
+				font-size: 1.3rem;
+				color: var(--generix-dark);
+				margin-top: 32px;
+				margin-bottom: 16px;
+			}
+			.content-section p {
+				color: var(--gray-700);
+				line-height: 1.8;
+				margin-bottom: 16px;
+			}
 
-    .download-link {
-      color: var(--generix-orange);
-      text-decoration: none;
-      font-weight: 500;
-    }
+			.download-link {
+				color: var(--generix-orange);
+				text-decoration: none;
+				font-weight: 500;
+			}
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin: 24px 0;
-    }
-    .info-card {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      padding: 24px;
-      transition: all 0.3s;
-    }
-    .info-card:hover {
-      box-shadow: 0 4px 12px rgba(0,35,51,0.1);
-      border-color: var(--generix-orange);
-    }
-    .info-card h4 {
-      color: var(--generix-orange);
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-    }
-    .info-card p { margin: 0; font-size: 0.95rem; }
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 20px;
+				margin: 24px 0;
+			}
+			.info-card {
+				background: var(--gray-50);
+				border: 1px solid var(--gray-200);
+				border-radius: 8px;
+				padding: 24px;
+				transition: all 0.3s;
+			}
+			.info-card:hover {
+				box-shadow: 0 4px 12px rgba(0, 35, 51, 0.1);
+				border-color: var(--generix-orange);
+			}
+			.info-card h4 {
+				color: var(--generix-orange);
+				margin-bottom: 12px;
+				font-size: 1.1rem;
+			}
+			.info-card p {
+				margin: 0;
+				font-size: 0.95rem;
+			}
 
-    .highlight-box {
-      background: var(--generix-orange-soft);
-      border-left: 4px solid var(--generix-orange);
-      padding: 20px;
-      border-radius: 6px;
-      margin: 24px 0;
-    }
-    .highlight-box strong { color: var(--generix-dark); }
+			.highlight-box {
+				background: var(--generix-orange-soft);
+				border-left: 4px solid var(--generix-orange);
+				padding: 20px;
+				border-radius: 6px;
+				margin: 24px 0;
+			}
+			.highlight-box strong {
+				color: var(--generix-dark);
+			}
 
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 24px 0;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      background: var(--white);
-      box-shadow: 0 6px 20px rgba(0,35,51,0.06);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-    }
-    thead {
-      background: var(--generix-dark);
-      color: var(--white);
-    }
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--gray-200);
-      vertical-align: top;
-    }
-    tbody tr:hover { background: var(--gray-50); }
-    tbody tr:last-child td { border-bottom: none; }
+			.table-wrapper {
+				overflow-x: auto;
+				margin: 24px 0;
+				border: 1px solid var(--gray-200);
+				border-radius: 12px;
+				background: var(--white);
+				box-shadow: 0 6px 20px rgba(0, 35, 51, 0.06);
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				background: var(--white);
+			}
+			thead {
+				background: var(--generix-dark);
+				color: var(--white);
+			}
+			th,
+			td {
+				padding: 14px 16px;
+				text-align: left;
+				border-bottom: 1px solid var(--gray-200);
+				vertical-align: top;
+			}
+			tbody tr:hover {
+				background: var(--gray-50);
+			}
+			tbody tr:last-child td {
+				border-bottom: none;
+			}
 
-    footer {
-      background: var(--generix-dark);
-      color: var(--white);
-      padding: 60px 32px 30px;
-      margin-top: 80px;
-      position: relative;
-    }
-    footer::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--generix-orange) 0%, transparent 100%);
-    }
-    .footer-inner { max-width: 1240px; margin: 0 auto; }
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin-bottom: 40px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .footer-brand .tagline {
-      color: var(--generix-orange);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .footer-brand p {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.95rem;
-      max-width: 380px;
-    }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.85rem;
-    }
-    footer .accent { color: var(--generix-orange); }
+			footer {
+				background: var(--generix-dark);
+				color: var(--white);
+				padding: 60px 32px 30px;
+				margin-top: 80px;
+				position: relative;
+			}
+			footer::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: linear-gradient(
+					90deg,
+					var(--generix-orange) 0%,
+					transparent 100%
+				);
+			}
+			.footer-inner {
+				max-width: 1240px;
+				margin: 0 auto;
+			}
+			.footer-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				gap: 30px;
+				margin-bottom: 40px;
+				padding-bottom: 40px;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			.footer-brand .tagline {
+				color: var(--generix-orange);
+				font-size: 0.85rem;
+				font-weight: 600;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				margin-bottom: 8px;
+			}
+			.footer-brand p {
+				color: rgba(255, 255, 255, 0.7);
+				font-size: 0.95rem;
+				max-width: 380px;
+			}
+			.footer-bottom {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 12px;
+				color: rgba(255, 255, 255, 0.6);
+				font-size: 0.85rem;
+			}
+			footer .accent {
+				color: var(--generix-orange);
+			}
 
-    /* Validator visual layer */
-    #dropzone {
-      border: 2px dashed var(--gray-300);
-      padding: 48px 32px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fcfcfd 0%, #f7f9fb 100%);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      margin-bottom: 24px;
-    }
-    #dropzone:hover {
-      background: #f3f6f9;
-      border-color: var(--generix-orange);
-      transform: translateY(-1px);
-    }
-    #dropzone.dragover {
-      background: #eefaf8;
-      border-color: var(--generix-blue);
-    }
+			/* Validator visual layer */
+			#dropzone {
+				border: 2px dashed var(--gray-300);
+				padding: 48px 32px;
+				border-radius: 16px;
+				background: linear-gradient(180deg, #fcfcfd 0%, #f7f9fb 100%);
+				text-align: center;
+				cursor: pointer;
+				transition: all 0.25s ease;
+				margin-bottom: 24px;
+			}
+			#dropzone:hover {
+				background: #f3f6f9;
+				border-color: var(--generix-orange);
+				transform: translateY(-1px);
+			}
+			#dropzone.dragover {
+				background: #eefaf8;
+				border-color: var(--generix-blue);
+			}
 
-    .validator-layout {
-      display: grid;
-      gap: 24px;
-      margin-top: 24px;
-    }
+			.validator-layout {
+				display: grid;
+				gap: 24px;
+				margin-top: 24px;
+			}
 
-    .validator-status-card {
-      border-radius: 14px;
-      padding: 18px 20px;
-      border: 1px solid transparent;
-      box-shadow: 0 6px 16px rgba(15,27,36,0.05);
-    }
-    .validator-status-card--success {
-      background: var(--success-bg);
-      border-color: rgba(18,183,106,0.25);
-    }
-    .validator-status-card--error {
-      background: var(--error-bg);
-      border-color: rgba(240,68,56,0.22);
-    }
-    .validator-status-card--warning {
-      background: var(--warning-bg);
-      border-color: rgba(247,144,9,0.22);
-    }
-    .validator-status-card--info {
-      background: var(--info-bg);
-      border-color: rgba(46,144,250,0.22);
-    }
-    .validator-status-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .validator-status-title {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--generix-dark);
-    }
-    .validator-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.75);
-      color: var(--generix-dark);
-    }
-    .validator-status-text {
-      color: var(--gray-700);
-      font-size: 0.96rem;
-      line-height: 1.7;
-      margin: 0;
-    }
+			.validator-status-card {
+				border-radius: 14px;
+				padding: 18px 20px;
+				border: 1px solid transparent;
+				box-shadow: 0 6px 16px rgba(15, 27, 36, 0.05);
+			}
+			.validator-status-card--success {
+				background: var(--success-bg);
+				border-color: rgba(18, 183, 106, 0.25);
+			}
+			.validator-status-card--error {
+				background: var(--error-bg);
+				border-color: rgba(240, 68, 56, 0.22);
+			}
+			.validator-status-card--warning {
+				background: var(--warning-bg);
+				border-color: rgba(247, 144, 9, 0.22);
+			}
+			.validator-status-card--info {
+				background: var(--info-bg);
+				border-color: rgba(46, 144, 250, 0.22);
+			}
+			.validator-status-head {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+				flex-wrap: wrap;
+				margin-bottom: 8px;
+			}
+			.validator-status-title {
+				font-weight: 700;
+				font-size: 1rem;
+				color: var(--generix-dark);
+			}
+			.validator-status-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 6px 10px;
+				border-radius: 999px;
+				font-size: 0.82rem;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				background: rgba(255, 255, 255, 0.75);
+				color: var(--generix-dark);
+			}
+			.validator-status-text {
+				color: var(--gray-700);
+				font-size: 0.96rem;
+				line-height: 1.7;
+				margin: 0;
+			}
 
-    .validator-summary-empty {
-      display: none;
-    }
+			.validator-summary-empty {
+				display: none;
+			}
 
-    .validator-code-shell {
-      margin-top: 0;
-      scroll-margin-top: 100px;
-    }
-    .validator-code-panel {
-      background: var(--gray-900);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,35,51,0.16);
-      border: 1px solid rgba(255,255,255,0.04);
-    }
-    .validator-code-header {
-      padding: 16px 20px;
-      background: var(--generix-dark);
-      color: var(--white);
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .validator-code-header small {
-      color: rgba(255,255,255,0.72);
-      font-weight: 500;
-      font-size: 0.82rem;
-    }
-    .validator-code-body {
-      max-height: 760px;
-      overflow: auto;
-    }
-    .validator-code-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: transparent;
-      border: none;
-    }
-    .validator-code-table tbody tr:hover {
-      background: rgba(255,255,255,0.02);
-    }
-    .validator-code-table td {
-      padding: 0;
-      border-bottom: none;
-      vertical-align: top;
-    }
-    .validator-line-number {
-      width: 72px;
-      min-width: 72px;
-      text-align: right;
-      padding: 0.68rem 1rem 0.68rem 0.75rem !important;
-      color: #8ca0af;
-      border-right: 1px solid rgba(255,255,255,0.07);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      user-select: none;
-      background: rgba(255,255,255,0.02);
-    }
-    .validator-line-code {
-      padding: 0.68rem 1rem !important;
-      color: #e6edf3;
-      white-space: pre;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    }
-    .validator-line-is-error .validator-line-number,
-    .validator-line-is-error .validator-line-code {
-      background: rgba(240,68,56,0.12);
-    }
-    .validator-line-is-error .validator-line-code {
-      border-left: 3px solid var(--error-border);
-      padding-left: calc(1rem - 3px) !important;
-    }
+			.validator-code-shell {
+				margin-top: 0;
+				scroll-margin-top: 100px;
+			}
+			.validator-code-panel {
+				background: var(--gray-900);
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 10px 30px rgba(0, 35, 51, 0.16);
+				border: 1px solid rgba(255, 255, 255, 0.04);
+			}
+			.validator-code-header {
+				padding: 16px 20px;
+				background: var(--generix-dark);
+				color: var(--white);
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 12px;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			}
+			.validator-code-header small {
+				color: rgba(255, 255, 255, 0.72);
+				font-weight: 500;
+				font-size: 0.82rem;
+			}
+			.validator-code-body {
+				max-height: 760px;
+				overflow: auto;
+			}
+			.validator-code-table {
+				width: 100%;
+				border-collapse: collapse;
+				background: transparent;
+				border: none;
+			}
+			.validator-code-table tbody tr:hover {
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.validator-code-table td {
+				padding: 0;
+				border-bottom: none;
+				vertical-align: top;
+			}
+			.validator-line-number {
+				width: 72px;
+				min-width: 72px;
+				text-align: right;
+				padding: 0.68rem 1rem 0.68rem 0.75rem !important;
+				color: #8ca0af;
+				border-right: 1px solid rgba(255, 255, 255, 0.07);
+				font-family:
+					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+					"Liberation Mono", monospace;
+				user-select: none;
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.validator-line-code {
+				padding: 0.68rem 1rem !important;
+				color: #e6edf3;
+				white-space: pre;
+				font-size: 0.88rem;
+				line-height: 1.55;
+				font-family:
+					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+					"Liberation Mono", monospace;
+			}
+			.validator-line-is-error .validator-line-number,
+			.validator-line-is-error .validator-line-code {
+				background: rgba(240, 68, 56, 0.12);
+			}
+			.validator-line-is-error .validator-line-code {
+				border-left: 3px solid var(--error-border);
+				padding-left: calc(1rem - 3px) !important;
+			}
 
-    #validationSummary,
-    #jsonViewerContainer {
-      min-height: 0;
-    }
+			#validationSummary,
+			#jsonViewerContainer {
+				min-height: 0;
+			}
 
-    .legacy-validator-bridge {
-      display: none !important;
-      visibility: hidden !important;
-      height: 0 !important;
-      overflow: hidden !important;
-    }
+			.legacy-validator-bridge {
+				display: none !important;
+				visibility: hidden !important;
+				height: 0 !important;
+				overflow: hidden !important;
+			}
 
-    @media (max-width: 1300px) {
-      .page-header { padding: 40px 24px; }
-      .page-header h1 { font-size: 1.9rem; }
-      .tab-container { padding: 0 24px; }
-      footer { padding: 40px 24px 30px; }
-      .footer-top { flex-direction: column; }
-    }
+			@media (max-width: 1300px) {
+				.page-header {
+					padding: 40px 24px;
+				}
+				.page-header h1 {
+					font-size: 1.9rem;
+				}
+				.tab-container {
+					padding: 0 24px;
+				}
+				footer {
+					padding: 40px 24px 30px;
+				}
+				.footer-top {
+					flex-direction: column;
+				}
+			}
 
-    @media (max-width: 768px) {
-      .tab-button { padding: 12px 16px; font-size: 0.92rem; }
-      .content-section h2 { font-size: 1.45rem; }
-      #dropzone { padding: 34px 20px; }
-      .validator-line-number { width: 58px; min-width: 58px; }
-      .validator-code-header { align-items: flex-start; flex-direction: column; }
-    }
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a href="index.html" class="logo" aria-label="Generix">
-        <img src="Assets/generix.svg" alt="Generix">
-      </a>
-    </div>
-  </header>
+			@media (max-width: 768px) {
+				.tab-button {
+					padding: 12px 16px;
+					font-size: 0.92rem;
+				}
+				.content-section h2 {
+					font-size: 1.45rem;
+				}
+				#dropzone {
+					padding: 34px 20px;
+				}
+				.validator-line-number {
+					width: 58px;
+					min-width: 58px;
+				}
+				.validator-code-header {
+					align-items: flex-start;
+					flex-direction: column;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="topbar">
+			<div class="topbar-inner">
+				<a href="index.html" class="logo" aria-label="Generix">
+					<img src="Assets/generix.svg" alt="Generix" />
+				</a>
+			</div>
+		</header>
 
-  <section class="page-header">
-    <div class="page-header-inner">
-      <div class="page-header-breadcrumb">
-        <a href="index.html">Documentación</a>
-        <span>/</span>
-        <span>Response · Validación de Facturas</span>
-      </div>
-      <h1>Response · Validación de Facturas</h1>
-      <p>Estructura de las respuestas de validación de facturas electrónicas, en formato JSON y XML: esquema y ejemplo de cada uno.</p>
-    </div>
-  </section>
+		<section class="page-header">
+			<div class="page-header-inner">
+				<div class="page-header-breadcrumb">
+					<a href="index.html">Documentación</a>
+					<span>/</span>
+					<span>Response · Validación de Facturas</span>
+				</div>
+				<h1>Response · Validación de Facturas</h1>
+				<p>
+					Estructura de las respuestas de validación de facturas
+					electrónicas, en formato JSON y XML: esquema y ejemplo de
+					cada uno.
+				</p>
+			</div>
+		</section>
 
-  <div class="tab-container">
-    <div class="tab-navigation">
-      <button class="tab-button active" data-tab="validacion-invoice">Validación de Invoice</button>
-      <button class="tab-button" data-tab="response-json">JSON de Respuesta</button>
-      <button class="tab-button" data-tab="response-xml">XML de Respuesta</button>
-    </div>
+		<div class="tab-container">
+			<div class="tab-navigation">
+				<button class="tab-button active" data-tab="validacion-invoice">
+					Validación de Invoice
+				</button>
+				<button class="tab-button" data-tab="response-json">
+					JSON de Respuesta
+				</button>
+				<button class="tab-button" data-tab="response-xml">
+					XML de Respuesta
+				</button>
+			</div>
 
-    <div id="validacion-invoice" class="tab-content active">
-      <div class="content-section">
-        <h2>Validación de Invoice</h2>
-        <p>Arrastra o selecciona tu archivo JSON de factura para validarlo contra el esquema.</p>
+			<div id="validacion-invoice" class="tab-content active">
+				<div class="content-section">
+					<h2>Validación de Invoice</h2>
+					<p>
+						Arrastra o selecciona tu archivo JSON de factura para
+						validarlo contra el esquema.
+					</p>
 
-        <div id="dropzone">
-          Arrastra tu JSON o haz click
-          <input type="file" id="fileInput" hidden>
-        </div>
+					<div id="dropzone">
+						Arrastra tu JSON o haz click
+						<input type="file" id="fileInput" hidden />
+					</div>
 
-        <div class="validator-layout">
-          <div id="validationSummary" class="validator-summary-empty"></div>
-          <div id="jsonViewerContainer"></div>
-        </div>
+					<div class="validator-layout">
+						<div
+							id="validationSummary"
+							class="validator-summary-empty"
+						></div>
+						<div id="jsonViewerContainer"></div>
+					</div>
 
-        <!-- Compatibilidad exacta con el validator.js actual -->
-        <div class="legacy-validator-bridge" aria-hidden="true">
-          <div id="result"></div>
-          <div id="errorList"></div>
-          <div id="jsonViewer" class="json-viewer"></div>
-        </div>
-      </div>
-    </div>
+					<!-- Compatibilidad exacta con el validator.js actual -->
+					<div class="legacy-validator-bridge" aria-hidden="true">
+						<div id="result"></div>
+						<div id="errorList"></div>
+						<div id="jsonViewer" class="json-viewer"></div>
+					</div>
+				</div>
+			</div>
 
-    <div id="response-json" class="tab-content">
-      <div class="content-section">
-        <h2>Esquema y Ejemplo JSON de Respuesta</h2>
-        <p>Definición del esquema JSON que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
+			<div id="response-json" class="tab-content">
+				<div class="content-section">
+					<h2>Esquema y Ejemplo JSON de Respuesta</h2>
+					<p>
+						Definición del esquema JSON que describe la estructura
+						de las respuestas de validación de facturas, siguiendo
+						las reglas de validación establecidas.
+					</p>
 
-        <h3>Reglas de Validación</h3>
-        <div class="card-grid">
-          <div class="info-card">
-            <h4>Estructura JSON</h4>
-            <p>El JSON debe ser válido y bien formado. Se rechazarán documentos con errores de sintaxis.</p>
-          </div>
-          <div class="info-card">
-            <h4>Campos Requeridos</h4>
-            <p>Todos los campos marcados como obligatorios deben estar presentes y no vacíos.</p>
-          </div>
-          <div class="info-card">
-            <h4>Tipos de Datos</h4>
-            <p>Cada campo debe cumplir con el tipo especificado (String, Integer, Decimal, Date, Object, Array, Enums).</p>
-          </div>
-        </div>
+					<h3>Reglas de Validación</h3>
+					<div class="card-grid">
+						<div class="info-card">
+							<h4>Estructura JSON</h4>
+							<p>
+								El JSON debe ser válido y bien formado. Se
+								rechazarán documentos con errores de sintaxis.
+							</p>
+						</div>
+						<div class="info-card">
+							<h4>Campos Requeridos</h4>
+							<p>
+								Todos los campos marcados como obligatorios
+								deben estar presentes y no vacíos.
+							</p>
+						</div>
+						<div class="info-card">
+							<h4>Tipos de Datos</h4>
+							<p>
+								Cada campo debe cumplir con el tipo especificado
+								(String, Integer, Decimal, Date, Object, Array,
+								Enums).
+							</p>
+						</div>
+					</div>
 
-        <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
-          <div id="ejemploJsonContainer" style="flex:1 1 520px;"></div>
-          <div id="esquemaJsonContainer" style="flex:1 1 520px;"></div>
-        </div>
-      </div>
-    </div>
+					<div
+						style="
+							display: flex;
+							gap: 20px;
+							flex-wrap: wrap;
+							align-items: flex-start;
+						"
+					>
+						<div
+							id="ejemploJsonContainer"
+							style="flex: 1 1 520px"
+						></div>
+						<div
+							id="esquemaJsonContainer"
+							style="flex: 1 1 520px"
+						></div>
+					</div>
+				</div>
+			</div>
 
-    <div id="response-xml" class="tab-content">
-      <div class="content-section">
-        <h2>Esquema y Ejemplo XML de Respuesta</h2>
-        <p>Definición del esquema XML que describe la estructura de las respuestas de validación de facturas, siguiendo las reglas de validación establecidas.</p>
+			<div id="response-xml" class="tab-content">
+				<div class="content-section">
+					<h2>Esquema y Ejemplo XML de Respuesta</h2>
+					<p>
+						Definición del esquema XML que describe la estructura de
+						las respuestas de validación de facturas, siguiendo las
+						reglas de validación establecidas.
+					</p>
 
-        <h3>Reglas de Validación</h3>
-        <div class="card-grid">
-          <div class="info-card">
-            <h4>Estructura XML</h4>
-            <p>El XML debe ser válido y bien formado. Se rechazarán documentos con errores de sintaxis.</p>
-          </div>
-          <div class="info-card">
-            <h4>Campos Requeridos</h4>
-            <p>Todos los campos marcados como obligatorios deben estar presentes y no vacíos.</p>
-          </div>
-          <div class="info-card">
-            <h4>Tipos de Datos</h4>
-            <p>Cada campo debe cumplir con el tipo especificado (String, Integer, Decimal, Date, Object, Array, Enums).</p>
-          </div>
-        </div>
+					<h3>Reglas de Validación</h3>
+					<div class="card-grid">
+						<div class="info-card">
+							<h4>Estructura XML</h4>
+							<p>
+								El XML debe ser válido y bien formado. Se
+								rechazarán documentos con errores de sintaxis.
+							</p>
+						</div>
+						<div class="info-card">
+							<h4>Campos Requeridos</h4>
+							<p>
+								Todos los campos marcados como obligatorios
+								deben estar presentes y no vacíos.
+							</p>
+						</div>
+						<div class="info-card">
+							<h4>Tipos de Datos</h4>
+							<p>
+								Cada campo debe cumplir con el tipo especificado
+								(String, Integer, Decimal, Date, Object, Array,
+								Enums).
+							</p>
+						</div>
+					</div>
 
-        <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
-          <div id="ejemploXmlContainer" style="flex:1 1 520px;"></div>
-          <div id="esquemaXmlContainer" style="flex:1 1 520px;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+					<div
+						style="
+							display: flex;
+							gap: 20px;
+							flex-wrap: wrap;
+							align-items: flex-start;
+						"
+					>
+						<div
+							id="ejemploXmlContainer"
+							style="flex: 1 1 520px"
+						></div>
+						<div
+							id="esquemaXmlContainer"
+							style="flex: 1 1 520px"
+						></div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand footer-logo">
-          <img src="Assets/generix.svg" alt="Generix">
-          <div class="tagline">Connecting Businesses Together</div>
-          <p>Documentación técnica de facturación electrónica · estándares Generix, especificaciones de formato e integración B2B.</p>
-        </div>
-        <div>
-          <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">
-            <strong style="color: var(--white);">Invoice Management</strong> · B2B Integration<br>
-            EDI · API · Peppol · Compliance
-          </p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© <span class="accent">Generix</span> · Developer Documentation Portal · E-Invoicing</p>
-        <p>Especificaciones técnicas e integración B2B</p>
-      </div>
-    </div>
-  </footer>
+		<footer>
+			<div class="footer-inner">
+				<div class="footer-top">
+					<div class="footer-brand footer-logo">
+						<img src="Assets/generix.svg" alt="Generix" />
+						<div class="tagline">
+							Connecting Businesses Together
+						</div>
+						<p>
+							Documentación técnica de facturación electrónica ·
+							estándares Generix, especificaciones de formato e
+							integración B2B.
+						</p>
+					</div>
+					<div>
+						<p
+							style="
+								color: rgba(255, 255, 255, 0.7);
+								font-size: 0.9rem;
+								margin-bottom: 6px;
+							"
+						>
+							<strong style="color: var(--white)"
+								>Invoice Management</strong
+							>
+							· B2B Integration<br />
+							EDI · API · Peppol · Compliance
+						</p>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p>
+						© <span class="accent">Generix</span> · Developer
+						Documentation Portal · E-Invoicing
+					</p>
+					<p>Especificaciones técnicas e integración B2B</p>
+				</div>
+			</div>
+		</footer>
 
-  <script>
-    function escapeHtml(text) {
-      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-      return String(text).replace(/[&<>"']/g, m => map[m]);
-    }
+		<script>
+			function escapeHtml(text) {
+				const map = {
+					"&": "&amp;",
+					"<": "&lt;",
+					">": "&gt;",
+					'"': "&quot;",
+					"'": "&#039;",
+				};
+				return String(text).replace(/[&<>"']/g, (m) => map[m]);
+			}
 
-    function renderCodePanel(containerId, title, codeText, url, fileName) {
-      const container = document.getElementById(containerId);
-      const linkHtml = url
-        ? `<p><a href="${url}" target="_blank" class="download-link">📥 ${fileName}</a></p>`
-        : '';
+			function renderCodePanel(
+				containerId,
+				title,
+				codeText,
+				url,
+				fileName,
+			) {
+				const container = document.getElementById(containerId);
+				const linkHtml = url
+					? `<p><a href="${url}" target="_blank" class="download-link">📥 ${fileName}</a></p>`
+					: "";
 
-      container.innerHTML = `
+				container.innerHTML = `
         ${linkHtml}
         <div style="margin-bottom: 40px; scroll-margin-top: 100px;">
           <div style="background: var(--gray-900); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,35,51,0.15);">
@@ -603,124 +794,167 @@
             <pre style="margin: 0; padding: 24px; color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; max-height: 800px; overflow-y: auto;"><code>${escapeHtml(codeText)}</code></pre>
           </div>
         </div>`;
-    }
+			}
 
-    function renderPending(containerId, fileName, url) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = `
+			function renderPending(containerId, fileName, url) {
+				const container = document.getElementById(containerId);
+				container.innerHTML = `
         <div class="highlight-box">
           <strong>En preparación</strong>
           <br>El fichero <code>${escapeHtml(fileName)}</code> todavía no está disponible.
           <br>En cuanto se publique en la documentación, su contenido aparecerá aquí automáticamente.
           <a href="${url}" target="_blank" class="download-link">Revisar en GitHub</a>
         </div>`;
-    }
+			}
 
-    async function loadJson(url, containerId, title, fileName) {
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        renderCodePanel(containerId, title, JSON.stringify(data, null, 2), url, fileName);
-      } catch (e) {
-        renderPending(containerId, fileName, 'https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json');
-      }
-    }
+			async function loadJson(url, containerId, title, fileName) {
+				try {
+					const res = await fetch(url);
+					if (!res.ok) throw new Error("HTTP " + res.status);
+					const data = await res.json();
+					renderCodePanel(
+						containerId,
+						title,
+						JSON.stringify(data, null, 2),
+						url,
+						fileName,
+					);
+				} catch (e) {
+					renderPending(
+						containerId,
+						fileName,
+						"https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Json",
+					);
+				}
+			}
 
-    async function loadText(url, containerId, title, fileName) {
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const text = await res.text();
-        if (!text.trim()) throw new Error('empty');
-        renderCodePanel(containerId, title, text, url, fileName);
-      } catch (e) {
-        renderPending(containerId, fileName, 'https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml');
-      }
-    }
+			async function loadText(url, containerId, title, fileName) {
+				try {
+					const res = await fetch(url);
+					if (!res.ok) throw new Error("HTTP " + res.status);
+					const text = await res.text();
+					if (!text.trim()) throw new Error("empty");
+					renderCodePanel(containerId, title, text, url, fileName);
+				} catch (e) {
+					renderPending(
+						containerId,
+						fileName,
+						"https://github.com/Generix-b2b/GenerixCyC/tree/main/E-invoicing/Standard/Response/Xml",
+					);
+				}
+			}
 
-    function loadAll() {
-      loadJson('E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json', 'esquemaJsonContainer', '📋 Esquema JSON de Respuesta', 'GNX_Response_Schema_Json.json');
-      loadJson('E-invoicing/Standard/Response/Json/GNX_Response_Json.json', 'ejemploJsonContainer', '📋 Ejemplo JSON de Respuesta', 'GNX_Response_Json.json');
-      loadText('E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd', 'esquemaXmlContainer', '📋 Esquema XML de Respuesta (XSD)', 'GNX_Response_Schema_xml.xsd');
-      loadText('E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml', 'ejemploXmlContainer', '📋 Ejemplo XML de Respuesta', 'GNX_Response_xml.xml');
-    }
+			function loadAll() {
+				loadJson(
+					"E-invoicing/Standard/Response/Json/GNX_Response_Schema_Json.json",
+					"esquemaJsonContainer",
+					"📋 Esquema JSON de Respuesta",
+					"GNX_Response_Schema_Json.json",
+				);
+				loadJson(
+					"E-invoicing/Standard/Response/Json/GNX_Response_Json.json",
+					"ejemploJsonContainer",
+					"📋 Ejemplo JSON de Respuesta",
+					"GNX_Response_Json.json",
+				);
+				loadText(
+					"E-invoicing/Standard/Response/Xml/GNX_Response_Schema_xml.xsd",
+					"esquemaXmlContainer",
+					"📋 Esquema XML de Respuesta (XSD)",
+					"GNX_Response_Schema_xml.xsd",
+				);
+				loadText(
+					"E-invoicing/Standard/Response/Xml/GNX_Response_xml.xml",
+					"ejemploXmlContainer",
+					"📋 Ejemplo XML de Respuesta",
+					"GNX_Response_xml.xml",
+				);
+			}
 
-    function getStatusMeta(rawMessage) {
-      const message = (rawMessage || '').trim();
+			function getStatusMeta(rawMessage) {
+				const message = (rawMessage || "").trim();
 
-      if (!message) {
-        return {
-          kind: 'info',
-          badge: 'Sin estado',
-          title: 'Esperando validación',
-          text: 'Sube un fichero para lanzar la validación.'
-        };
-      }
+				if (!message) {
+					return {
+						kind: "info",
+						badge: "Sin estado",
+						title: "Esperando validación",
+						text: "Sube un fichero para lanzar la validación.",
+					};
+				}
 
-      if (message.includes('✅')) {
-        return {
-          kind: 'success',
-          badge: 'Válido',
-          title: 'Validación completada correctamente',
-          text: message.replace('✅', '').trim() || 'El fichero cumple con el esquema.'
-        };
-      }
-      if (message.includes('❌')) {
-        return {
-          kind: 'error',
-          badge: 'Inválido',
-          title: 'La validación detectó errores',
-          text: message.replace('❌', '').trim() || 'El fichero no cumple con el esquema.'
-        };
-      }
-      if (message.includes('⚠️')) {
-        return {
-          kind: 'warning',
-          badge: 'Atención',
-          title: 'No se pudo completar la validación',
-          text: message.replace('⚠️', '').trim()
-        };
-      }
-      if (message.includes('⏳')) {
-        return {
-          kind: 'info',
-          badge: 'Procesando',
-          title: 'Validación en curso',
-          text: message.replace('⏳', '').trim()
-        };
-      }
-      return {
-        kind: 'info',
-        badge: 'Información',
-        title: 'Estado del validador',
-        text: message.replace('ℹ️', '').trim() || message
-      };
-    }
+				if (message.includes("✅")) {
+					return {
+						kind: "success",
+						badge: "Válido",
+						title: "Validación completada correctamente",
+						text:
+							message.replace("✅", "").trim() ||
+							"El fichero cumple con el esquema.",
+					};
+				}
+				if (message.includes("❌")) {
+					return {
+						kind: "error",
+						badge: "Inválido",
+						title: "La validación detectó errores",
+						text:
+							message.replace("❌", "").trim() ||
+							"El fichero no cumple con el esquema.",
+					};
+				}
+				if (message.includes("⚠️")) {
+					return {
+						kind: "warning",
+						badge: "Atención",
+						title: "No se pudo completar la validación",
+						text: message.replace("⚠️", "").trim(),
+					};
+				}
+				if (message.includes("⏳")) {
+					return {
+						kind: "info",
+						badge: "Procesando",
+						title: "Validación en curso",
+						text: message.replace("⏳", "").trim(),
+					};
+				}
+				return {
+					kind: "info",
+					badge: "Información",
+					title: "Estado del validador",
+					text: message.replace("ℹ️", "").trim() || message,
+				};
+			}
 
-    function extractValidationErrors(rawErrorText) {
-      const text = (rawErrorText || '').replace(/\u00a0/g, ' ');
-      const chunks = text.split('➡').map(item => item.trim()).filter(Boolean);
-      return chunks.map((item, idx) => {
-        const arrowParts = item.split('→');
-        const path = (arrowParts[0] || '(raíz)').trim();
-        const message = (arrowParts.slice(1).join('→') || 'Error de validación').trim();
-        return {
-          index: idx + 1,
-          path,
-          message
-        };
-      });
-    }
+			function extractValidationErrors(rawErrorText) {
+				const text = (rawErrorText || "").replace(/\u00a0/g, " ");
+				const chunks = text
+					.split("➡")
+					.map((item) => item.trim())
+					.filter(Boolean);
+				return chunks.map((item, idx) => {
+					const arrowParts = item.split("→");
+					const path = (arrowParts[0] || "(raíz)").trim();
+					const message = (
+						arrowParts.slice(1).join("→") || "Error de validación"
+					).trim();
+					return {
+						index: idx + 1,
+						path,
+						message,
+					};
+				});
+			}
 
-    function renderValidationSummary(message, rawErrorText) {
-      const target = document.getElementById('validationSummary');
-      const errors = extractValidationErrors(rawErrorText);
-      const meta = getStatusMeta(message);
+			function renderValidationSummary(message, rawErrorText) {
+				const target = document.getElementById("validationSummary");
+				const errors = extractValidationErrors(rawErrorText);
+				const meta = getStatusMeta(message);
 
-      let tableHtml = '';
-      if (errors.length) {
-        tableHtml = `
+				let tableHtml = "";
+				if (errors.length) {
+					tableHtml = `
           <div class="table-wrapper">
             <table>
               <thead>
@@ -731,20 +965,24 @@
                 </tr>
               </thead>
               <tbody>
-                ${errors.map(err => `
+                ${errors
+					.map(
+						(err) => `
                   <tr>
                     <td>${err.index}</td>
                     <td><code>${escapeHtml(err.path)}</code></td>
                     <td>${escapeHtml(err.message)}</td>
                   </tr>
-                `).join('')}
+                `,
+					)
+					.join("")}
               </tbody>
             </table>
           </div>`;
-      }
+				}
 
-      target.classList.remove('validator-summary-empty');
-      target.innerHTML = `
+				target.classList.remove("validator-summary-empty");
+				target.innerHTML = `
         <div class="validator-status-card validator-status-card--${meta.kind}">
           <div class="validator-status-head">
             <div class="validator-status-title">${escapeHtml(meta.title)}</div>
@@ -753,129 +991,162 @@
           <p class="validator-status-text">${escapeHtml(meta.text)}</p>
         </div>
         ${tableHtml}`;
-    }
+			}
 
-    function getErrorLineNumbers(lines, errors) {
-      const errorLines = new Set();
-      errors.forEach(err => {
-        const cleanPath = (err.path || '').replace(/^\//, '');
-        const key = cleanPath.split('/').filter(Boolean).pop();
-        if (!key || key === '(raíz)') return;
+			function getErrorLineNumbers(lines, errors) {
+				const errorLines = new Set();
+				errors.forEach((err) => {
+					const cleanPath = (err.path || "").replace(/^\//, "");
+					const key = cleanPath.split("/").filter(Boolean).pop();
+					if (!key || key === "(raíz)") return;
 
-        const index = lines.findIndex(line => {
-          return line.includes(`"${key}"`) || line.includes(`${key}:`);
-        });
-        if (index >= 0) errorLines.add(index + 1);
-      });
-      return errorLines;
-    }
+					const index = lines.findIndex((line) => {
+						return (
+							line.includes(`"${key}"`) ||
+							line.includes(`${key}:`)
+						);
+					});
+					if (index >= 0) errorLines.add(index + 1);
+				});
+				return errorLines;
+			}
 
-    function renderJsonViewer(rawViewerText, rawErrorText) {
-      const container = document.getElementById('jsonViewerContainer');
-      const text = (rawViewerText || '').replace(/\u00a0/g, ' ').trim();
+			function renderJsonViewer(rawViewerText, rawErrorText) {
+                const container = document.getElementById('jsonViewerContainer');
+                const text = (rawViewerText || '').replace(/\u00a0/g, ' ').trim();
 
-      if (!text) {
-        container.innerHTML = '';
-        return;
-      }
+                if (!text) {
+                    container.innerHTML = '';
+                    return;
+                }
 
-      let lines = text.split(/\r?\n/).map(l => l.replace(/\s+$/g, ''));
-      if (!lines.length) {
-        container.innerHTML = '';
-        return;
-      }
+                let formatted;
+                try {
+                    formatted = JSON.stringify(JSON.parse(text), null, 2);
+                } catch {
+                    formatted = text;
+                }
 
-      const errors = extractValidationErrors(rawErrorText);
-      const errorLines = getErrorLineNumbers(lines, errors);
+                const lines = formatted.split('\n');
 
-      const rows = lines.map((line, idx) => {
-        const lineNo = idx + 1;
-        const isError = errorLines.has(lineNo);
-        return `
-          <tr class="${isError ? 'validator-line-is-error' : ''}">
-            <td class="validator-line-number">${lineNo}</td>
-            <td class="validator-line-code">${escapeHtml(line)}</td>
-          </tr>`;
-      }).join('');
+                const errors = extractValidationErrors(rawErrorText);
+                const errorLines = getErrorLineNumbers(lines, errors);
 
-      container.innerHTML = `
-        <div class="validator-code-shell">
-          <div class="validator-code-panel">
-            <div class="validator-code-header">
-              <span>📄 JSON validado</span>
-              <small>${errors.length ? 'Las líneas relacionadas con errores se resaltan en rojo.' : 'Vista formateada con estilo alineado a la documentación.'}</small>
-            </div>
-            <div class="validator-code-body">
-              <table class="validator-code-table" aria-label="JSON validado">
-                <tbody>${rows}</tbody>
-              </table>
-            </div>
-          </div>
-        </div>`;
-    }
+                const rows = lines.map((line, idx) => {
+                    const lineNo = idx + 1;
+                    const isError = errorLines.has(lineNo);
+                    return `
+                    <tr class="${isError ? 'validator-line-is-error' : ''}">
+                        <td class="validator-line-number">${lineNo}</td>
+                        <td class="validator-line-code">${escapeHtml(line)}</td>
+                    </tr>`;
+                }).join('');
 
-    function syncLegacyValidatorOutput() {
-      const resultNode = document.getElementById('result');
-      const errorNode = document.getElementById('errorList');
-      const viewerNode = document.getElementById('jsonViewer');
-      renderValidationSummary(resultNode?.textContent || '', errorNode?.textContent || '');
-      renderJsonViewer(viewerNode?.textContent || '', errorNode?.textContent || '');
-    }
+                container.innerHTML = `
+                <div class="validator-code-shell">
+                <div class="validator-code-panel">
+                    <div class="validator-code-header">
+                    <span>📄 JSON validado</span>
+                    <small>
+                        ${errors.length ? 'Las líneas relacionadas con errores se resaltan en rojo.' : ''}
+                    </small>
+                    </div>
+                    <div class="validator-code-body">
+                    <table class="validator-code-table">
+                        <tbody>${rows}</tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>`;
+            }
 
-    function setupLegacyValidatorBridge() {
-      const ids = ['result', 'errorList', 'jsonViewer'];
-      const observed = ids.map(id => document.getElementById(id)).filter(Boolean);
-      if (!observed.length) return;
 
-      const observer = new MutationObserver(() => syncLegacyValidatorOutput());
-      observed.forEach(node => observer.observe(node, {
-        childList: true,
-        subtree: true,
-        characterData: true,
-        attributes: true
-      }));
+			function syncLegacyValidatorOutput() {
+				const resultNode = document.getElementById("result");
+				const errorNode = document.getElementById("errorList");
+				const viewerNode = document.getElementById("jsonViewer");
+				renderValidationSummary(
+					resultNode?.textContent || "",
+					errorNode?.textContent || "",
+				);
+				renderJsonViewer(
+					viewerNode?.textContent || "",
+					errorNode?.textContent || "",
+				);
+			}
 
-      syncLegacyValidatorOutput();
-    }
+			function setupLegacyValidatorBridge() {
+				const ids = ["result", "errorList", "jsonViewer"];
+				const observed = ids
+					.map((id) => document.getElementById(id))
+					.filter(Boolean);
+				if (!observed.length) return;
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        loadAll();
-        setupLegacyValidatorBridge();
-      });
-    } else {
-      loadAll();
-      setupLegacyValidatorBridge();
-    }
-  </script>
+				const observer = new MutationObserver(() =>
+					syncLegacyValidatorOutput(),
+				);
+				observed.forEach((node) =>
+					observer.observe(node, {
+						childList: true,
+						subtree: true,
+						characterData: true,
+						attributes: true,
+					}),
+				);
 
-  <script>
-    document.querySelectorAll('.tab-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const tabName = button.getAttribute('data-tab');
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        button.classList.add('active');
-        document.getElementById(tabName).classList.add('active');
-      });
-    });
+				syncLegacyValidatorOutput();
+			}
 
-    function activarPestanaDesdeHash() {
-      const hash = (location.hash || '').replace('#', '');
-      if (!hash) return;
-      const btn = document.querySelector('.tab-button[data-tab="' + hash + '"]');
-      const content = document.getElementById(hash);
-      if (!btn || !content) return;
-      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      content.classList.add('active');
-    }
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", () => {
+					loadAll();
+					setupLegacyValidatorBridge();
+				});
+			} else {
+				loadAll();
+				setupLegacyValidatorBridge();
+			}
+		</script>
 
-    activarPestanaDesdeHash();
-    window.addEventListener('hashchange', activarPestanaDesdeHash);
-  </script>
+		<script>
+			document.querySelectorAll(".tab-button").forEach((button) => {
+				button.addEventListener("click", () => {
+					const tabName = button.getAttribute("data-tab");
+					document
+						.querySelectorAll(".tab-button")
+						.forEach((btn) => btn.classList.remove("active"));
+					document
+						.querySelectorAll(".tab-content")
+						.forEach((content) =>
+							content.classList.remove("active"),
+						);
+					button.classList.add("active");
+					document.getElementById(tabName).classList.add("active");
+				});
+			});
 
-  <script type="module" src="validator.js"></script>
-</body>
+			function activarPestanaDesdeHash() {
+				const hash = (location.hash || "").replace("#", "");
+				if (!hash) return;
+				const btn = document.querySelector(
+					'.tab-button[data-tab="' + hash + '"]',
+				);
+				const content = document.getElementById(hash);
+				if (!btn || !content) return;
+				document
+					.querySelectorAll(".tab-button")
+					.forEach((b) => b.classList.remove("active"));
+				document
+					.querySelectorAll(".tab-content")
+					.forEach((c) => c.classList.remove("active"));
+				btn.classList.add("active");
+				content.classList.add("active");
+			}
+
+			activarPestanaDesdeHash();
+			window.addEventListener("hashchange", activarPestanaDesdeHash);
+		</script>
+
+		<script type="module" src="validator.js"></script>
+	</body>
 </html>
