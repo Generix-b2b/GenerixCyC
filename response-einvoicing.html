@@ -441,7 +441,7 @@
 			}
 			.validator-code-body {
 				display: grid;
-				grid-template-columns: minmax(0, 1fr) 18px;
+				grid-template-columns: minmax(0, 1fr) 132px;
 				max-height: 760px;
 				overflow: hidden;
 			}
@@ -503,37 +503,79 @@
 			.validator-code-minimap {
 				position: relative;
 				min-height: 100%;
-				background: rgba(255, 255, 255, 0.035);
-				border-left: 1px solid rgba(255, 255, 255, 0.07);
+				background: #2b3036;
+				border-left: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: inset 8px 0 14px rgba(0, 0, 0, 0.18);
 				cursor: pointer;
 				user-select: none;
 				overflow: hidden;
 			}
-			.validator-minimap-line {
+			.validator-code-minimap::before {
+				content: "";
 				position: absolute;
-				left: 4px;
-				right: 4px;
-				height: 2px;
-				border-radius: 999px;
-				background: rgba(140, 160, 175, 0.45);
+				inset: 0;
+				background: linear-gradient(
+					90deg,
+					rgba(255, 255, 255, 0.035),
+					rgba(255, 255, 255, 0.075)
+				);
+				pointer-events: none;
 			}
-			.validator-minimap-line.is-error {
-				left: 3px;
-				right: 3px;
+			.validator-minimap-code-line {
+				position: absolute;
+				left: 8px;
+				right: 8px;
 				height: 3px;
+				display: flex;
+				align-items: center;
+				gap: 2px;
+				opacity: 0.82;
+			}
+			.validator-minimap-code-line.is-error {
+				opacity: 1;
+				background: rgba(240, 68, 56, 0.13);
+				box-shadow: 0 0 0 1px rgba(240, 68, 56, 0.16);
+			}
+			.validator-minimap-token {
+				display: inline-block;
+				height: 2px;
+				min-width: 3px;
+				border-radius: 999px;
+				background: rgba(160, 174, 187, 0.65);
+			}
+			.validator-minimap-token--key {
+				background: rgba(86, 156, 214, 0.95);
+			}
+			.validator-minimap-token--string {
+				background: rgba(206, 145, 120, 0.9);
+			}
+			.validator-minimap-token--number {
+				background: rgba(181, 206, 168, 0.9);
+			}
+			.validator-minimap-token--boolean {
+				background: rgba(197, 134, 192, 0.9);
+			}
+			.validator-minimap-token--punctuation {
+				background: rgba(212, 212, 212, 0.55);
+			}
+			.validator-minimap-token--error {
 				background: var(--error-border);
-				box-shadow: 0 0 8px rgba(240, 68, 56, 0.55);
+				box-shadow: 0 0 6px rgba(240, 68, 56, 0.75);
 			}
 			.validator-minimap-viewport {
 				position: absolute;
-				left: 2px;
-				right: 2px;
+				left: 0;
+				right: 0;
 				top: 0;
-				min-height: 20px;
-				border: 1px solid rgba(255, 255, 255, 0.35);
-				background: rgba(255, 255, 255, 0.08);
-				border-radius: 4px;
+				min-height: 28px;
+				border-top: 1px solid rgba(255, 255, 255, 0.55);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+				background: rgba(255, 255, 255, 0.18);
+				box-shadow:
+					inset 0 0 0 1px rgba(255, 255, 255, 0.13),
+					0 0 18px rgba(255, 255, 255, 0.08);
 				pointer-events: none;
+				z-index: 2;
 			}
 
 			#validationSummary,
@@ -576,6 +618,9 @@
 				}
 				#dropzone {
 					padding: 34px 20px;
+				}
+				.validator-code-body {
+					grid-template-columns: minmax(0, 1fr) 82px;
 				}
 				.validator-line {
 					grid-template-columns: 58px 1fr;
@@ -1080,7 +1125,32 @@
 				const lines = formatted.split("\n");
 				const errors = extractValidationErrors(rawErrorText);
 				const errorLines = getErrorLineNumbers(lines, errors);
-				const minimapLineHeight = Math.max(2, Math.min(6, 100 / Math.max(lines.length, 1)));
+
+				function getMiniTokenType(token, nextToken) {
+					if (/^".*"$/.test(token) && nextToken === ":") return "key";
+					if (/^".*"$/.test(token)) return "string";
+					if (/^-?\d+(\.\d+)?$/.test(token)) return "number";
+					if (/^(true|false|null)$/.test(token)) return "boolean";
+					if (/^[{}\[\],:]$/.test(token)) return "punctuation";
+					return "default";
+				}
+
+				function renderMinimapLine(line, isError) {
+					const leadingSpaces = (line.match(/^\s*/) || [""])[0].length;
+					const indent = Math.min(34, leadingSpaces * 2.3);
+					const tokens = line.trim().match(/"(?:\\.|[^"\\])*"|-?\d+(?:\.\d+)?|true|false|null|[{}\[\],:]/g) || [];
+
+					if (!tokens.length) {
+						return `<span class="validator-minimap-token" style="margin-left: ${indent}px; width: 8px;"></span>`;
+					}
+
+					return tokens.slice(0, 14).map((token, index) => {
+						const type = isError ? "error" : getMiniTokenType(token, tokens[index + 1]);
+						const width = Math.max(4, Math.min(32, token.length * 2.1));
+						const margin = index === 0 ? indent : 0;
+						return `<span class="validator-minimap-token validator-minimap-token--${type}" style="margin-left: ${margin}px; width: ${width}px;"></span>`;
+					}).join("");
+				}
 
 				const rows = lines.map((line, idx) => {
 					const lineNo = idx + 1;
@@ -1092,11 +1162,12 @@
 					</div>`;
 				}).join("");
 
-				const minimapMarkers = lines.map((_, idx) => {
+				const minimapLineHeight = Math.max(2.2, Math.min(4.5, 210 / Math.max(lines.length, 1)));
+				const minimapMarkers = lines.map((line, idx) => {
 					const lineNo = idx + 1;
 					const isError = errorLines.has(lineNo);
-					const top = lines.length <= 1 ? 0 : (idx / (lines.length - 1)) * 100;
-					return `<span class="validator-minimap-line ${isError ? "is-error" : ""}" data-line="${lineNo}" style="top: ${top}%; height: ${minimapLineHeight}px;"></span>`;
+					const top = lines.length <= 1 ? 0 : (idx / (lines.length - 1)) * 98;
+					return `<div class="validator-minimap-code-line ${isError ? "is-error" : ""}" data-line="${lineNo}" style="top: ${top}%; height: ${minimapLineHeight}px;">${renderMinimapLine(line, isError)}</div>`;
 				}).join("");
 
 				container.innerHTML = `
@@ -1128,7 +1199,7 @@
 					const scrollHeight = scrollArea.scrollHeight;
 					const clientHeight = scrollArea.clientHeight;
 					const maxScroll = Math.max(scrollHeight - clientHeight, 1);
-					const viewportHeight = Math.max((clientHeight / scrollHeight) * 100, 8);
+					const viewportHeight = Math.max((clientHeight / scrollHeight) * 100, 9);
 					const viewportTop = (scrollArea.scrollTop / maxScroll) * (100 - viewportHeight);
 
 					viewport.style.height = `${Math.min(viewportHeight, 100)}%`;
