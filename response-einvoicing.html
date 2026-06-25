@@ -440,53 +440,100 @@
 				font-size: 0.82rem;
 			}
 			.validator-code-body {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) 18px;
+				max-height: 760px;
+				overflow: hidden;
+			}
+			.validator-code-scroll {
 				max-height: 760px;
 				overflow: auto;
+				min-width: 0;
 			}
-			.validator-code-table {
-				width: 100%;
-				border-collapse: collapse;
-				background: transparent;
-				border: none;
+			.validator-code-content {
+				min-width: max-content;
 			}
-			.validator-code-table tbody tr:hover {
+			.validator-line {
+				display: grid;
+				grid-template-columns: 72px 1fr;
+				align-items: stretch;
+				min-height: 24px;
+			}
+			.validator-line:hover {
 				background: rgba(255, 255, 255, 0.02);
 			}
-			.validator-code-table td {
-				padding: 0;
-				border-bottom: none;
-				vertical-align: top;
-			}
 			.validator-line-number {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
 				width: 72px;
 				min-width: 72px;
-				text-align: right;
-				padding: 0.35rem 0.6rem 0.35rem 0.5rem !important;
+				padding: 0 0.6rem 0 0.5rem;
 				color: #8ca0af;
 				border-right: 1px solid rgba(255, 255, 255, 0.07);
 				font-family:
 					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 					"Liberation Mono", monospace;
+				font-size: 0.88rem;
+				line-height: 1;
 				user-select: none;
 				background: rgba(255, 255, 255, 0.02);
 			}
 			.validator-line-code {
-				padding: 0.35rem 0.6rem !important;
+				display: flex;
+				align-items: center;
+				min-width: max-content;
+				padding: 0 0.6rem;
 				color: #e6edf3;
 				white-space: pre;
 				font-size: 0.88rem;
-				line-height: 1.2;
+				line-height: 1.4;
 				font-family:
 					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 					"Liberation Mono", monospace;
 			}
-			.validator-line-is-error .validator-line-number,
-			.validator-line-is-error .validator-line-code {
+			.validator-line.is-error .validator-line-number,
+			.validator-line.is-error .validator-line-code {
 				background: rgba(240, 68, 56, 0.12);
 			}
-			.validator-line-is-error .validator-line-code {
+			.validator-line.is-error .validator-line-code {
 				border-left: 3px solid var(--error-border);
-				padding-left: calc(1rem - 3px) !important;
+				padding-left: calc(0.6rem - 3px);
+			}
+			.validator-code-minimap {
+				position: relative;
+				min-height: 100%;
+				background: rgba(255, 255, 255, 0.035);
+				border-left: 1px solid rgba(255, 255, 255, 0.07);
+				cursor: pointer;
+				user-select: none;
+				overflow: hidden;
+			}
+			.validator-minimap-line {
+				position: absolute;
+				left: 4px;
+				right: 4px;
+				height: 2px;
+				border-radius: 999px;
+				background: rgba(140, 160, 175, 0.45);
+			}
+			.validator-minimap-line.is-error {
+				left: 3px;
+				right: 3px;
+				height: 3px;
+				background: var(--error-border);
+				box-shadow: 0 0 8px rgba(240, 68, 56, 0.55);
+			}
+			.validator-minimap-viewport {
+				position: absolute;
+				left: 2px;
+				right: 2px;
+				top: 0;
+				min-height: 20px;
+				border: 1px solid rgba(255, 255, 255, 0.35);
+				background: rgba(255, 255, 255, 0.08);
+				border-radius: 4px;
+				pointer-events: none;
 			}
 
 			#validationSummary,
@@ -529,6 +576,9 @@
 				}
 				#dropzone {
 					padding: 34px 20px;
+				}
+				.validator-line {
+					grid-template-columns: 58px 1fr;
 				}
 				.validator-line-number {
 					width: 58px;
@@ -1012,55 +1062,89 @@
 			}
 
 			function renderJsonViewer(rawViewerText, rawErrorText) {
-                const container = document.getElementById('jsonViewerContainer');
-                const text = (rawViewerText || '').replace(/\u00a0/g, ' ').trim();
+				const container = document.getElementById("jsonViewerContainer");
+				const text = (rawViewerText || "").replace(/\u00a0/g, " ").trim();
 
-                if (!text) {
-                    container.innerHTML = '';
-                    return;
-                }
+				if (!text) {
+					container.innerHTML = "";
+					return;
+				}
 
-                let formatted;
-                try {
-                    formatted = JSON.stringify(JSON.parse(text), null, 2);
-                } catch {
-                    formatted = text;
-                }
+				let formatted;
+				try {
+					formatted = JSON.stringify(JSON.parse(text), null, 2);
+				} catch {
+					formatted = text;
+				}
 
-                const lines = formatted.split('\n');
+				const lines = formatted.split("\n");
+				const errors = extractValidationErrors(rawErrorText);
+				const errorLines = getErrorLineNumbers(lines, errors);
+				const minimapLineHeight = Math.max(2, Math.min(6, 100 / Math.max(lines.length, 1)));
 
-                const errors = extractValidationErrors(rawErrorText);
-                const errorLines = getErrorLineNumbers(lines, errors);
+				const rows = lines.map((line, idx) => {
+					const lineNo = idx + 1;
+					const isError = errorLines.has(lineNo);
+					return `
+					<div class="validator-line ${isError ? "is-error" : ""}" data-line="${lineNo}">
+						<div class="validator-line-number">${lineNo}</div>
+						<div class="validator-line-code">${escapeHtml(line)}</div>
+					</div>`;
+				}).join("");
 
-                const rows = lines.map((line, idx) => {
-                    const lineNo = idx + 1;
-                    const isError = errorLines.has(lineNo);
-                    return `
-                    <tr class="${isError ? 'validator-line-is-error' : ''}">
-                        <td class="validator-line-number">${lineNo}</td>
-                        <td class="validator-line-code">${escapeHtml(line)}</td>
-                    </tr>`;
-                }).join('');
+				const minimapMarkers = lines.map((_, idx) => {
+					const lineNo = idx + 1;
+					const isError = errorLines.has(lineNo);
+					const top = lines.length <= 1 ? 0 : (idx / (lines.length - 1)) * 100;
+					return `<span class="validator-minimap-line ${isError ? "is-error" : ""}" data-line="${lineNo}" style="top: ${top}%; height: ${minimapLineHeight}px;"></span>`;
+				}).join("");
 
-                container.innerHTML = `
-                <div class="validator-code-shell">
-                <div class="validator-code-panel">
-                    <div class="validator-code-header">
-                    <span>📄 JSON validado</span>
-                    <small>
-                        ${errors.length ? 'Las líneas relacionadas con errores se resaltan en rojo.' : ''}
-                    </small>
-                    </div>
-                    <div class="validator-code-body">
-                    <table class="validator-code-table">
-                        <tbody>${rows}</tbody>
-                    </table>
-                    </div>
-                </div>
-                </div>`;
-            }
+				container.innerHTML = `
+				<div class="validator-code-shell">
+					<div class="validator-code-panel">
+						<div class="validator-code-header">
+							<span>📄 JSON validado</span>
+							<small>
+								${errors.length ? "Las líneas relacionadas con errores se resaltan en rojo." : ""}
+							</small>
+						</div>
+						<div class="validator-code-body">
+							<div class="validator-code-scroll">
+								<div class="validator-code-content">${rows}</div>
+							</div>
+							<div class="validator-code-minimap" aria-label="Minimapa del JSON">
+								${minimapMarkers}
+								<div class="validator-minimap-viewport"></div>
+							</div>
+						</div>
+					</div>
+				</div>`;
 
+				const scrollArea = container.querySelector(".validator-code-scroll");
+				const minimap = container.querySelector(".validator-code-minimap");
+				const viewport = container.querySelector(".validator-minimap-viewport");
 
+				function syncMinimapViewport() {
+					const scrollHeight = scrollArea.scrollHeight;
+					const clientHeight = scrollArea.clientHeight;
+					const maxScroll = Math.max(scrollHeight - clientHeight, 1);
+					const viewportHeight = Math.max((clientHeight / scrollHeight) * 100, 8);
+					const viewportTop = (scrollArea.scrollTop / maxScroll) * (100 - viewportHeight);
+
+					viewport.style.height = `${Math.min(viewportHeight, 100)}%`;
+					viewport.style.top = `${Math.max(0, viewportTop)}%`;
+				}
+
+				function scrollToMinimapPosition(event) {
+					const rect = minimap.getBoundingClientRect();
+					const ratio = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+					scrollArea.scrollTop = ratio * (scrollArea.scrollHeight - scrollArea.clientHeight);
+				}
+
+				scrollArea.addEventListener("scroll", syncMinimapViewport, { passive: true });
+				minimap.addEventListener("click", scrollToMinimapPosition);
+				requestAnimationFrame(syncMinimapViewport);
+			}
 			function syncLegacyValidatorOutput() {
 				const resultNode = document.getElementById("result");
 				const errorNode = document.getElementById("errorList");

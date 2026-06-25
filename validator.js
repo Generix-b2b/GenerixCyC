@@ -80,6 +80,6 @@ async function processJSON(text) {
     result.innerHTML = "❌ JSON inválido";
     errorList.innerHTML = validate.errors.map(e =>
       `➡ ${e.instancePath || "(raíz)"} → ${e.message}`
-    ).join("");
+    ).join("\n");
   }
 }
