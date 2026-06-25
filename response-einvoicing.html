@@ -461,7 +461,7 @@
 			.validator-line {
 				display: grid;
 				grid-template-columns: 72px 1fr;
-				align-items: stretch;
+				align-items: center;
 				min-height: 24px;
 			}
 			.validator-line:hover {
@@ -473,6 +473,7 @@
 				justify-content: flex-end;
 				width: 72px;
 				min-width: 72px;
+				min-height: 24px;
 				padding: 0 0.6rem 0 0.5rem;
 				color: #8ca0af;
 				border-right: 1px solid rgba(255, 255, 255, 0.07);
@@ -485,14 +486,14 @@
 				background: rgba(255, 255, 255, 0.02);
 			}
 			.validator-line-code {
-				display: flex;
-				align-items: center;
+				display: block;
 				min-width: max-content;
+				min-height: 24px;
 				padding: 0 0.6rem;
 				color: #e6edf3;
 				white-space: pre;
 				font-size: 0.88rem;
-				line-height: 1.4;
+				line-height: 24px;
 				font-family:
 					ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 					"Liberation Mono", monospace;
@@ -518,6 +519,34 @@
 			.validator-line.is-error .validator-line-code {
 				border-left: 3px solid var(--error-border);
 				padding-left: calc(0.6rem - 3px);
+			}
+			.validator-line.is-focused {
+				animation: validatorLinePulse 1.3s ease-out 1;
+			}
+			.validator-line.is-focused .validator-line-code {
+				box-shadow: inset 0 0 0 1px rgba(242, 138, 72, 0.85);
+				background: rgba(242, 138, 72, 0.16);
+			}
+			@keyframes validatorLinePulse {
+				0% {
+					background: rgba(242, 138, 72, 0.34);
+				}
+				100% {
+					background: transparent;
+				}
+			}
+			.validator-error-row {
+				cursor: pointer;
+				transition: background 0.16s ease, transform 0.16s ease;
+			}
+			.validator-error-row:hover {
+				background: var(--generix-orange-soft);
+				transform: translateX(2px);
+			}
+			.validator-error-row td:first-child::after {
+				content: " ↴";
+				color: var(--generix-orange);
+				font-weight: 700;
 			}
 			.validator-code-minimap {
 				position: relative;
@@ -593,11 +622,15 @@
 					inset 0 0 0 1px rgba(255, 255, 255, 0.18),
 					0 0 18px rgba(255, 255, 255, 0.1);
 				backdrop-filter: blur(1px);
-				cursor: ns-resize;
+				cursor: grab;
 				pointer-events: auto;
 				z-index: 2;
 			}
-
+            .validator-minimap-viewport:hover {
+                background: rgba(255, 255, 255, 0.38);
+                border-top: 1px solid rgba(255,255,255,1);
+                border-bottom: 1px solid rgba(255,255,255,1);
+            }
 			#validationSummary,
 			#jsonViewerContainer {
 				min-height: 0;
@@ -1066,48 +1099,47 @@
 				const target = document.getElementById("validationSummary");
 				const errors = extractValidationErrors(rawErrorText);
 				const meta = getStatusMeta(message);
-
 				let tableHtml = "";
+
 				if (errors.length) {
 					tableHtml = `
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Campo</th>
-                  <th>Error</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${errors
-					.map(
-						(err) => `
-                  <tr>
-                    <td>${err.index}</td>
-                    <td><code>${escapeHtml(err.path)}</code></td>
-                    <td>${escapeHtml(err.message)}</td>
-                  </tr>
-                `,
-					)
-					.join("")}
-              </tbody>
-            </table>
-          </div>`;
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Campo</th>
+									<th>Error</th>
+								</tr>
+							</thead>
+							<tbody>
+								${errors
+									.map(
+										(err, idx) => `
+										<tr class="validator-error-row" data-error-index="${idx}" title="Ir a la línea relacionada en el JSON">
+											<td>${err.index}</td>
+											<td><code>${escapeHtml(err.path)}</code></td>
+											<td>${escapeHtml(err.message)}</td>
+										</tr>
+									`,
+									)
+									.join("")}
+							</tbody>
+						</table>
+					</div>`;
 				}
 
 				target.classList.remove("validator-summary-empty");
 				target.innerHTML = `
-        <div class="validator-status-card validator-status-card--${meta.kind}">
-          <div class="validator-status-head">
-            <div class="validator-status-title">${escapeHtml(meta.title)}</div>
-            <div class="validator-status-badge">${escapeHtml(meta.badge)}</div>
-          </div>
-          <p class="validator-status-text">${escapeHtml(meta.text)}</p>
-        </div>
-        ${tableHtml}`;
+				<div class="validator-status-card validator-status-card--${meta.kind}">
+					<div class="validator-status-head">
+						<div class="validator-status-title">${escapeHtml(meta.title)}</div>
+						<div class="validator-status-badge">${escapeHtml(meta.badge)}</div>
+					</div>
+					<p class="validator-status-text">${escapeHtml(meta.text)}</p>
+				</div>
+				${tableHtml}`;
 			}
-
 			function getErrorLineNumbers(lines, errors) {
 				const errorLines = new Set();
 				errors.forEach((err) => {
@@ -1144,7 +1176,21 @@
 
 				const lines = formatted.split("\n");
 				const errors = extractValidationErrors(rawErrorText);
-				const errorLines = getErrorLineNumbers(lines, errors);
+
+				function getLineNumberForError(err) {
+					const cleanPath = (err.path || "").replace(/^\//, "");
+					const key = cleanPath.split("/").filter(Boolean).pop();
+					if (!key || key === "(raíz)") return 1;
+
+					const index = lines.findIndex((line) => {
+						return line.includes(`"${key}"`) || line.includes(`${key}:`);
+					});
+
+					return index >= 0 ? index + 1 : 1;
+				}
+
+				const errorLineMap = errors.map((err) => getLineNumberForError(err));
+				const errorLines = new Set(errorLineMap);
 
 				function getJsonTokenType(token, nextToken) {
 					if (/^".*"$/.test(token) && nextToken === ":") return "key";
@@ -1259,6 +1305,34 @@
 					const ratio = viewportTopPx / maxViewportTop;
 					scrollArea.scrollTop = ratio * (scrollArea.scrollHeight - scrollArea.clientHeight);
 				}
+
+				function focusCodeLine(lineNo) {
+					const targetLine = container.querySelector(`.validator-line[data-line="${lineNo}"]`);
+					if (!targetLine) return;
+
+					const targetTop = targetLine.offsetTop;
+					scrollArea.scrollTop = Math.max(0, targetTop - scrollArea.clientHeight * 0.35);
+
+					container.querySelectorAll(".validator-line.is-focused").forEach((line) => {
+						line.classList.remove("is-focused");
+					});
+
+					void targetLine.offsetWidth;
+					targetLine.classList.add("is-focused");
+				}
+
+				document.querySelectorAll(".validator-error-row").forEach((row) => {
+					row.addEventListener("click", () => {
+						const errorIndex = Number(row.dataset.errorIndex);
+						const lineNo = errorLineMap[errorIndex];
+						if (lineNo) focusCodeLine(lineNo);
+					});
+				});
+
+				minimap.addEventListener("wheel", (event) => {
+					event.preventDefault();
+					scrollArea.scrollTop += event.deltaY * 1.2;
+				}, { passive: false });
 
 				minimap.addEventListener("pointerdown", (event) => {
 					const viewportRect = viewport.getBoundingClientRect();
