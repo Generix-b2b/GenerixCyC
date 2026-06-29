@@ -558,6 +558,14 @@
 				user-select: none;
 				overflow: hidden;
 			}
+			.validator-code-minimap-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				will-change: transform;
+				pointer-events: none;
+			}
 			.validator-code-minimap::before {
 				content: "";
 				position: absolute;
@@ -1251,12 +1259,15 @@
 					</div>`;
 				}).join("");
 
-				const minimapLineHeight = Math.max(2.2, Math.min(4.5, 210 / Math.max(lines.length, 1)));
+				// ponytail: escala fija estilo minimapa IDE para evitar comprimir todo el fichero en la altura visible.
+				// Si el JSON creciera muchísimo, el siguiente paso sería virtualizar las marcas en vez de pintarlas todas.
+				const minimapLineHeight = 3;
+				const minimapContentHeight = Math.max(lines.length * minimapLineHeight, minimapLineHeight);
 				const minimapMarkers = lines.map((line, idx) => {
 					const lineNo = idx + 1;
 					const isError = errorLines.has(lineNo);
-					const top = lines.length <= 1 ? 0 : (idx / (lines.length - 1)) * 98;
-					return `<div class="validator-minimap-code-line ${isError ? "is-error" : ""}" data-line="${lineNo}" style="top: ${top}%; height: ${minimapLineHeight}px;">${renderMinimapLine(line, isError)}</div>`;
+					const top = idx * minimapLineHeight;
+					return `<div class="validator-minimap-code-line ${isError ? "is-error" : ""}" data-line="${lineNo}" style="top: ${top}px; height: ${minimapLineHeight}px;">${renderMinimapLine(line, isError)}</div>`;
 				}).join("");
 
 				container.innerHTML = `
@@ -1270,7 +1281,7 @@
 								<div class="validator-code-content">${rows}</div>
 							</div>
 							<div class="validator-code-minimap" aria-label="Minimapa del JSON">
-								${minimapMarkers}
+								<div class="validator-code-minimap-content" style="height: ${minimapContentHeight}px;">${minimapMarkers}</div>
 								<div class="validator-minimap-viewport"></div>
 							</div>
 						</div>
@@ -1279,6 +1290,7 @@
 
 				const scrollArea = container.querySelector(".validator-code-scroll");
 				const minimap = container.querySelector(".validator-code-minimap");
+				const minimapContent = container.querySelector(".validator-code-minimap-content");
 				const viewport = container.querySelector(".validator-minimap-viewport");
 				let isDraggingViewport = false;
 				let viewportDragOffset = 0;
@@ -1287,11 +1299,18 @@
 					const scrollHeight = scrollArea.scrollHeight;
 					const clientHeight = scrollArea.clientHeight;
 					const maxScroll = Math.max(scrollHeight - clientHeight, 1);
-					const viewportHeight = Math.max((clientHeight / scrollHeight) * 100, 9);
-					const viewportTop = (scrollArea.scrollTop / maxScroll) * (100 - viewportHeight);
+					const scrollRatio = scrollArea.scrollTop / maxScroll;
+					const minimapHeight = minimap.clientHeight;
+					const contentHeight = minimapContent.offsetHeight;
+					const maxContentOffset = Math.max(contentHeight - minimapHeight, 0);
+					const contentOffset = scrollRatio * maxContentOffset;
+					const viewportHeightPx = Math.min(minimapHeight, Math.max((clientHeight / scrollHeight) * minimapHeight, 28));
+					const maxViewportTop = Math.max(minimapHeight - viewportHeightPx, 0);
+					const viewportTopPx = scrollRatio * maxViewportTop;
 
-					viewport.style.height = `${Math.min(viewportHeight, 100)}%`;
-					viewport.style.top = `${Math.max(0, viewportTop)}%`;
+					minimapContent.style.transform = `translateY(${-contentOffset}px)`;
+					viewport.style.height = `${viewportHeightPx}px`;
+					viewport.style.top = `${viewportTopPx}px`;
 				}
 
 				function setScrollFromMinimap(clientY, offsetPx = 0) {
@@ -1323,9 +1342,8 @@
 						const errorIndex = Number(row.dataset.errorIndex);
 						const lineNo = errorLineMap[errorIndex];
 						const shell = container.querySelector(".validator-code-shell");
-                        if (shell) shell.scrollIntoView({ behavior: "smooth", block: "center" });
-
-                        if (lineNo) focusCodeLine(lineNo);
+						if (shell) shell.scrollIntoView({ behavior: "smooth", block: "center" });
+						if (lineNo) focusCodeLine(lineNo);
 					});
 				});
 
