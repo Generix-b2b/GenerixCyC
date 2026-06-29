@@ -1185,14 +1185,95 @@
 				const lines = formatted.split("\n");
 				const errors = extractValidationErrors(rawErrorText);
 
-				function getLineNumberForError(err) {
-					const cleanPath = (err.path || "").replace(/^\//, "");
-					const key = cleanPath.split("/").filter(Boolean).pop();
-					if (!key || key === "(raíz)") return 1;
+				function computeLinePaths(srcLines) {
+					const linePathList = new Array(srcLines.length).fill(null);
+					const stack = [];
 
-					const index = lines.findIndex((line) => {
-						return line.includes(`"${key}"`) || line.includes(`${key}:`);
-					});
+					for (let i = 0; i < srcLines.length; i++) {
+						const trimmed = srcLines[i].trim();
+						if (!trimmed) continue;
+
+						const firstChar = trimmed[0];
+						if (firstChar === "}" || firstChar === "]") {
+							stack.pop();
+							continue;
+						}
+
+						const parent = stack[stack.length - 1];
+						const parentPath = parent ? parent.childPath : [];
+						const keyMatch = trimmed.match(/^"((?:\\.|[^"\\])*)"\s*:/);
+
+						let segment = null;
+						if (keyMatch) {
+							segment = keyMatch[1];
+						} else if (parent && parent.type === "array") {
+							segment = String(parent.index);
+							parent.index += 1;
+						}
+
+						const linePath =
+							segment === null
+								? parentPath.slice()
+								: [...parentPath, segment];
+						linePathList[i] = linePath;
+
+						const lastChar = trimmed[trimmed.length - 1];
+						if (lastChar === "{" || lastChar === "[") {
+							stack.push({
+								type: lastChar === "{" ? "object" : "array",
+								index: 0,
+								childPath: linePath,
+							});
+						}
+					}
+					return linePathList;
+				}
+
+				const linePaths = computeLinePaths(lines);
+
+				function normalizeErrorPath(rawPath) {
+					return (rawPath || "")
+						.replace(/\[(\d+)\]/g, "/$1")
+						.replace(/\./g, "/")
+						.split("/")
+						.map((segment) => segment.trim())
+						.filter((segment) => segment && segment !== "(raíz)");
+				}
+
+				function getLineNumberForError(err) {
+					const segments = normalizeErrorPath(err.path);
+					if (!segments.length) return 1;
+
+					// 1) Coincidencia exacta de la ruta completa.
+					let index = linePaths.findIndex(
+						(path) =>
+							path &&
+							path.length === segments.length &&
+							path.every((seg, k) => seg === segments[k]),
+					);
+
+					// 2) Coincidencia por sufijo (ruta del error parcial).
+					if (index < 0) {
+						index = linePaths.findIndex(
+							(path) =>
+								path &&
+								path.length >= segments.length &&
+								segments.every(
+									(seg, k) =>
+										path[path.length - segments.length + k] === seg,
+								),
+						);
+					}
+
+					// 3) Ultimo recurso: primera linea con la ultima clave.
+					if (index < 0) {
+						const key = segments[segments.length - 1];
+						index = lines.findIndex(
+							(line) =>
+								line.includes(`"${key}"`) ||
+								line.includes(`${key}:`),
+						);
+					}
 
 					return index >= 0 ? index + 1 : 1;
 				}
