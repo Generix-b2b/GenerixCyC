@@ -1322,7 +1322,10 @@
 					row.addEventListener("click", () => {
 						const errorIndex = Number(row.dataset.errorIndex);
 						const lineNo = errorLineMap[errorIndex];
-						if (lineNo) focusCodeLine(lineNo);
+						const shell = container.querySelector(".validator-code-shell");
+                        if (shell) shell.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                        if (lineNo) focusCodeLine(lineNo);
 					});
 				});
 
