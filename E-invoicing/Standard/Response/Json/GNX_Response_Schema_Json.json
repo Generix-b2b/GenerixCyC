@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InvoiceValidationResponse",
+  "type": "object",
+  "properties": {
+    "documentType": {
+      "description": "Tipo de documento validado.",
+      "type": "string"
+    },
+    "response": {
+      "description": "Resultado de la validación del documento.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ValidationResult"
+      }
+    }
+  },
+  "required": [
+    "documentType",
+    "response"
+  ],
+  "definitions": {
+    "ValidationResult": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "Identificador único del documento validado.",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Fecha y hora de la validación con formato yyyyMMddHHmmss.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Estado del proceso de validación.",
+          "type": "string",
+          "enum": [
+            "OK",
+            "WARNING",
+            "ERROR"
+          ]
+        },
+        "errors": {
+          "description": "Listado de incidencias detectadas durante la validación.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ValidationError"
+          }
+        }
+      },
+      "required": [
+        "uuid",
+        "timestamp",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "ValidationError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "Código o campo funcional que ha producido el error.",
+          "type": "string"
+        },
+        "receivedvalue": {
+          "description": "Valor recibido en el documento.",
+          "type": "string"
+        },
+        "expectedvalue": {
+          "description": "Valor o conjunto de valores esperados.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Descripción detallada del error de validación.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "error",
+        "message"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

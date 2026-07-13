@@ -1,25 +1,24 @@
 {
-    "documentType": "INVOICE",
-    "response": [
-      {
-        "uuid": "ISD35112053",
-        "timestamp": "20250124091622",
-        "status": "ERROR",
-        "errors": [
-          {
-            "error": "BT-69 CountryCode",
-            "receivedvalue": "URN",
-            "expectedvalue": "ESP,ESC",
-            "message": ": Valor no permitido = URN"
-          },
-          {
-            "error": "BT-129 Quantity",
-            "receivedvalue": "",
-            "expectedvalue": "",
-            "message": "Valor BT-129 Quantity Obligatorio."
-          }
-        ]
-      }
-    ]
-  }
-  
+	"documentType": "INVOICE",
+	"response": [
+		{
+			"uuid": "ISD35112053",
+			"timestamp": "20250124091622",
+			"status": "ERROR",
+			"errors": [
+				{
+					"error": "BT-69 CountryCode",
+					"receivedvalue": "URN",
+					"expectedvalue": "ESP,ESC",
+					"message": ": Valor no permitido = URN"
+				},
+				{
+					"error": "BT-129 Quantity",
+					"receivedvalue": "",
+					"expectedvalue": "",
+					"message": "Valor BT-129 Quantity Obligatorio."
+				}
+			]
+		}
+	]
+}
