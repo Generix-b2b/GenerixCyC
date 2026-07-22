@@ -527,6 +527,14 @@
 				box-shadow: inset 0 0 0 1px rgba(242, 138, 72, 0.85);
 				background: rgba(242, 138, 72, 0.16);
 			}
+            .validator-line.is-focused .validator-line-number,
+            .validator-line.is-focused .validator-line-code {
+                background: rgba(242, 138, 72, 0.25);
+            }
+
+            .validator-line.is-focused .validator-line-code {
+                border-left: 4px solid #f28a48;
+            }
 			@keyframes validatorLinePulse {
 				0% {
 					background: rgba(242, 138, 72, 0.34);
@@ -1437,28 +1445,46 @@
                 }
 
 				function focusCodeLine(lineNo) {
-					const targetLine = container.querySelector(`.validator-line[data-line="${lineNo}"]`);
-					if (!targetLine) return;
+                    const targetLine = container.querySelector(
+                        `.validator-line[data-line="${lineNo}"]`
+                    );
 
-					const targetTop = targetLine.offsetTop;
-					scrollArea.scrollTop = Math.max(0, targetTop - scrollArea.clientHeight * 0.35);
+                    if (!targetLine) return;
 
-					container.querySelectorAll(".validator-line.is-focused").forEach((line) => {
-						line.classList.remove("is-focused");
-					});
+                    const targetTop = targetLine.offsetTop;
 
-					void targetLine.offsetWidth;
-					targetLine.classList.add("is-focused");
-				}
+                    // centra el error en la ventana de código
+                    scrollArea.scrollTo({
+                        top: Math.max(
+                            0,
+                            targetTop - scrollArea.clientHeight / 2
+                        ),
+                        behavior: "smooth"
+                    });
+
+                    document
+                        .querySelectorAll(".validator-line.is-focused")
+                        .forEach(line => line.classList.remove("is-focused"));
+
+                    targetLine.classList.add("is-focused");
+
+                    // quitar el foco anterior después
+                    clearTimeout(targetLine._focusTimeout);
+
+                    targetLine._focusTimeout = setTimeout(() => {
+                        targetLine.classList.remove("is-focused");
+                    }, 3000);
+                }
 
 				document.querySelectorAll(".validator-error-row").forEach((row) => {
 					row.addEventListener("click", () => {
-						const errorIndex = Number(row.dataset.errorIndex);
-						const lineNo = errorLineMap[errorIndex];
-						const shell = container.querySelector(".validator-code-shell");
-						if (shell) shell.scrollIntoView({ behavior: "smooth", block: "center" });
-						if (lineNo) focusCodeLine(lineNo);
-					});
+                        const errorIndex = Number(row.dataset.errorIndex);
+                        const lineNo = errorLineMap[errorIndex];
+
+                        if (!lineNo) return;
+
+                        focusCodeLine(lineNo);
+                    });
 				});
 
 				minimap.addEventListener("wheel", (event) => {
