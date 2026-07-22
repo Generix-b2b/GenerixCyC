@@ -1376,32 +1376,65 @@
 				let isDraggingViewport = false;
 				let viewportDragOffset = 0;
 
-				function syncMinimapViewport() {
-					const scrollHeight = scrollArea.scrollHeight;
-					const clientHeight = scrollArea.clientHeight;
-					const maxScroll = Math.max(scrollHeight - clientHeight, 1);
-					const scrollRatio = scrollArea.scrollTop / maxScroll;
-					const minimapHeight = minimap.clientHeight;
-					const contentHeight = minimapContent.offsetHeight;
-					const maxContentOffset = Math.max(contentHeight - minimapHeight, 0);
-					const contentOffset = scrollRatio * maxContentOffset;
-					const viewportHeightPx = Math.min(minimapHeight, Math.max((clientHeight / scrollHeight) * minimapHeight, 28));
-					const maxViewportTop = Math.max(minimapHeight - viewportHeightPx, 0);
-					const viewportTopPx = scrollRatio * maxViewportTop;
+                function syncMinimapViewport() {
+                    const scrollHeight = scrollArea.scrollHeight;
+                    const clientHeight = scrollArea.clientHeight;
 
-					minimapContent.style.transform = `translateY(${-contentOffset}px)`;
-					viewport.style.height = `${viewportHeightPx}px`;
-					viewport.style.top = `${viewportTopPx}px`;
-				}
+                    const contentHeight = minimapContent.offsetHeight;
 
-				function setScrollFromMinimap(clientY, offsetPx = 0) {
-					const rect = minimap.getBoundingClientRect();
-					const viewportHeightPx = viewport.getBoundingClientRect().height;
-					const maxViewportTop = Math.max(rect.height - viewportHeightPx, 1);
-					const viewportTopPx = Math.max(0, Math.min(maxViewportTop, clientY - rect.top - offsetPx));
-					const ratio = viewportTopPx / maxViewportTop;
-					scrollArea.scrollTop = ratio * (scrollArea.scrollHeight - scrollArea.clientHeight);
-				}
+                    const visibleRatio = clientHeight / scrollHeight;
+
+                    const viewportHeightPx = Math.max(
+                        28,
+                        visibleRatio * contentHeight
+                    );
+
+                    const maxScroll = Math.max(scrollHeight - clientHeight, 1);
+                    const scrollRatio = scrollArea.scrollTop / maxScroll;
+
+                    const maxViewportTop = Math.max(
+                        contentHeight - viewportHeightPx,
+                        0
+                    );
+
+                    const viewportTopPx = scrollRatio * maxViewportTop;
+
+                    viewport.style.height = `${viewportHeightPx}px`;
+                    viewport.style.top = `${viewportTopPx}px`;
+                }
+
+                function setScrollFromMinimap(clientY, offsetPx = 0) {
+                    const minimapRect = minimap.getBoundingClientRect();
+
+                    const viewportHeightPx = viewport.offsetHeight;
+
+                    const contentHeight = minimapContent.offsetHeight;
+
+                    const clickY =
+                        clientY -
+                        minimapRect.top -
+                        offsetPx;
+
+                    const viewportTop = Math.max(
+                        0,
+                        Math.min(
+                            contentHeight - viewportHeightPx,
+                            clickY
+                        )
+                    );
+
+                    const ratio =
+                        viewportTop /
+                        Math.max(
+                            contentHeight - viewportHeightPx,
+                            1
+                        );
+
+                    scrollArea.scrollTop =
+                        ratio *
+                        (scrollArea.scrollHeight -
+                            scrollArea.clientHeight);
+                }
 
 				function focusCodeLine(lineNo) {
 					const targetLine = container.querySelector(`.validator-line[data-line="${lineNo}"]`);
@@ -1537,6 +1570,7 @@
 					.querySelectorAll(".tab-button")
 					.forEach((b) => b.classList.remove("active"));
 				document
+                
 					.querySelectorAll(".tab-content")
 					.forEach((c) => c.classList.remove("active"));
 				btn.classList.add("active");
