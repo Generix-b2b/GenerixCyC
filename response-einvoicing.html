@@ -1453,13 +1453,9 @@
 
                     const targetTop = targetLine.offsetTop;
 
-                    // centra el error en la ventana de código
-                    scrollArea.scrollTo({
-                        top: Math.max(
-                            0,
-                            targetTop - scrollArea.clientHeight / 2
-                        ),
-                        behavior: "smooth"
+                    targetLine.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
                     });
 
                     document
