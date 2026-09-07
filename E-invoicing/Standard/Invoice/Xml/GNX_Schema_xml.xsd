@@ -1191,7 +1191,7 @@
             <xs:enumeration value="384"/>
             <xs:enumeration value="388"/>
             <xs:enumeration value="389"/>
-            <xs:enumeration value="481"/>
+            <xs:enumeration value="471"/>
         </xs:restriction>
     </xs:simpleType>
 
