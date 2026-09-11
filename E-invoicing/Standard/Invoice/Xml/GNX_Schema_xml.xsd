@@ -9,17 +9,6 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="InvoicesType">
-        <xs:sequence>
-            <xs:element name="InvoiceWrapper" type="InvoiceWrapperType" maxOccurs="unbounded">
-                <xs:annotation>
-                    <xs:documentation xml:lang="sp">Conjunto de datos de una factura, incluyendo las partes y el detalle del documento.</xs:documentation>
-                    <xs:documentation xml:lang="en">Dataset for a single invoice, including parties and document details.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
     <xs:complexType name="FileHeaderType">
         <xs:sequence>
             <xs:element name="SchemaVersion" type="xs:string">
@@ -44,6 +33,24 @@
                 <xs:annotation>
                     <xs:documentation xml:lang="sp">Lote.</xs:documentation>
                     <xs:documentation xml:lang="en">Batch.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="InvoicesType">
+        <xs:sequence>
+            <xs:element name="Parties" type="PartiesType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="sp">Datos de las partes que intervienen en la factura.</xs:documentation>
+                    <xs:documentation xml:lang="en">Data of the parties involved in the invoice.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Legislacion" type="LegislacionType" minOccurs="0"/>
+            <xs:element name="Invoice" type="InvoiceType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="sp">Datos del documento de factura.</xs:documentation>
+                    <xs:documentation xml:lang="en">Invoice document data.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -118,24 +125,6 @@
             <xs:length value="2"/>
         </xs:restriction>
     </xs:simpleType>
-
-    <xs:complexType name="InvoiceWrapperType">
-        <xs:sequence>
-            <xs:element name="Parties" type="PartiesType">
-                <xs:annotation>
-                    <xs:documentation xml:lang="sp">Datos de las partes que intervienen en la factura.</xs:documentation>
-                    <xs:documentation xml:lang="en">Data of the parties involved in the invoice.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="Legislacion" type="LegislacionType" minOccurs="0"/>
-            <xs:element name="Invoice" type="InvoiceType" maxOccurs="unbounded">
-                <xs:annotation>
-                    <xs:documentation xml:lang="sp">Datos del documento de factura.</xs:documentation>
-                    <xs:documentation xml:lang="en">Invoice document data.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
 
     <xs:complexType name="PartiesType">
         <xs:sequence>
