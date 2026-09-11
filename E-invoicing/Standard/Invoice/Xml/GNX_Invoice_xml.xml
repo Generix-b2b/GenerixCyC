@@ -124,9 +124,6 @@
                 </LegalEntity>
             </ThirdParty>
         </Parties>
-        <Legislacion>
-            <ReferenciaNormativa>Real Decreto 1619/2012</ReferenciaNormativa>
-        </Legislacion>
         <Invoice>
             <InvoiceHeader>
                 <InvoiceNumber>F2026-000001</InvoiceNumber>
