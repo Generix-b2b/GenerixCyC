@@ -1,0 +1,340 @@
+{
+	"InvoiceGNX": {
+		"FileHeader": {
+			"SchemaVersion": "2.0",
+			"Modality": "I",
+			"InvoiceIssuerType": "TE",
+			"Batch": {
+				"BatchIdentifier": "LOTE1",
+				"InvoicesCount": 1,
+				"TotalInvoicesAmount": { "TotalAmount": 1296.49 },
+				"TotalOutstandingAmount": { "TotalAmount": 1296.49 },
+				"TotalExecutableAmount": { "TotalAmount": 1296.49 },
+				"InvoiceCurrencyCode": "EUR"
+			}
+		},
+		"Invoices": [
+			{
+				"Parties": {
+					"SellerParty": {
+						"TaxIdentification": {
+							"PersonTypeCode": "J",
+							"ResidenceTypeCode": "R",
+							"TaxIdentificationNumber": "S12345678"
+						},
+						"PartyIdentification": "S12345678",
+						"LegalEntity": {
+							"CorporateName": "Seller Party",
+							"TradeName": "Seller Party",
+							"RegistrationData": {
+								"Book": "14829/2001-12-26",
+								"RegisterOfCompaniesLocation": "Madrid",
+								"Sheet": "44",
+								"Folio": "343",
+								"Section": "3a",
+								"Volume": "5895",
+								"AdditionalRegistrationData": "Inscripción mercantil: tomo 5895, folio 343"
+							},
+							"Address": {
+								"Address": "Calle Falsa 123",
+								"AdditionalAddress": "Edificio Portal Puerta, 4ºA",
+								"PostCode": "28001",
+								"Town": "Madrid",
+								"Province": "Madrid",
+								"CountryCode": "ESP"
+							},
+							"ContactDetails": {
+								"Telephone": "+34 912345678",
+								"WebAddress": "http://www.sellerparty.com/",
+								"ElectronicMail": "contacto@sellerparty.com",
+								"LastName": "García",
+								"FirstName": "Laura"
+							}
+						}
+					},
+					"BuyerParty": {
+						"TaxIdentification": {
+							"PersonTypeCode": "J",
+							"ResidenceTypeCode": "R",
+							"TaxIdentificationNumber": "B12345678"
+						},
+						"PartyIdentification": "B12345678",
+						"LegalEntity": {
+							"CorporateName": "Buyer Party",
+							"TradeName": "Buyer Trade",
+							"Address": {
+								"Address": "Avenida Ejemplo 45",
+								"AdditionalAddress": "Oficina 2",
+								"PostCode": "28002",
+								"Town": "Madrid",
+								"Province": "Madrid",
+								"CountryCode": "ESP"
+							},
+							"ContactDetails": {
+								"Telephone": "+34 913333333",
+								"WebAddress": "http://www.buyerparty.com/",
+								"ElectronicMail": "contacto@buyerparty.com",
+								"LastName": "Pérez",
+								"FirstName": "Juan"
+							}
+						}
+					},
+					"ThirdParty": {
+						"TaxIdentification": {
+							"PersonTypeCode": "J",
+							"ResidenceTypeCode": "R",
+							"TaxIdentificationNumber": "T12345678"
+						},
+						"LegalEntity": {
+							"CorporateName": "Third Party",
+							"TradeName": "Seller Party",
+							"RegistrationData": {
+								"Book": "14829/2001-12-26",
+								"RegisterOfCompaniesLocation": "Madrid",
+								"Sheet": "44",
+								"Folio": "343",
+								"Section": "3a",
+								"Volume": "5895",
+								"AdditionalRegistrationData": "Representante autorizado: D. Ana López"
+							},
+							"Address": {
+								"Address": "Plaza de la Constitución 1",
+								"AdditionalAddress": "Local 5",
+								"PostCode": "28003",
+								"Town": "Madrid",
+								"Province": "Madrid",
+								"CountryCode": "ESP"
+							},
+							"ContactDetails": {
+								"Telephone": "+34 914444444",
+								"WebAddress": "http://www.thirdparty.com/",
+								"ElectronicMail": "contacto@thirdparty.com",
+								"LastName": "López",
+								"FirstName": "Ana"
+							}
+						}
+					}
+				},
+				"Invoice": [
+					{
+						"InvoiceHeader": {
+							"InvoiceNumber": "INV00000001",
+							"InvoiceDocumentType": "FC",
+							"InvoiceClass": "OO",
+							"InvoiceDescription": "Factura de venta de servicios",
+                            "PreviousInvoiceNumber": "INV00000001",
+							"Corrective": {
+								"InvoiceNumber": "INV00000001",
+								"ReasonCode": "12",
+								"ReasonDescription": "NÃºmero de la factura",
+								"InvoiceIssueDate": "2024-10-03T23:59:59",
+								"CorrectionMethod": "I",
+								"CorrectionMethodDescription": "Rectificación modelo íntegro",
+								"CorrectiveAmounts": {
+									"GrossAmount": 0.0,
+									"TaxAmount": 0.0,
+									"ChargeAmount": 0.0
+								}
+							}
+						},
+						"InvoiceIssueData": {
+							"IssueDate": "2024-10-03T23:59:59",
+							"PreviousInvoiceDate": "2024-09-03T23:59:59",
+							"InvoicingPeriod": {
+								"StartDate": "2024-10-03T23:59:59",
+								"EndDate": "2024-11-03T23:59:59"
+							},
+							"InvoiceCurrencyCode": "EUR",
+							"TaxCurrencyCode": "EUR",
+							"LanguageName": "es"
+						},
+						"TaxesOutputs": [
+							{
+								"Tax": {
+									"TaxTypeCode": "01",
+                                    "TaxRegimeCode": "01",
+                                    "TaxOperationType": "S1",
+									"TaxExemptionReasonCode": "",
+									"TaxRate": 21.0,
+									"TaxableBase": {
+										"TotalAmount": 1071.48,
+										"EquivalentInEuros": 1071.48
+									},
+									"TaxAmount": {
+										"TotalAmount": 224.61,
+										"EquivalentInEuros": 224.61
+									}
+								}
+							}
+						],
+						"TaxesWithheld": [
+							{
+								"Tax": {
+									"TaxTypeCode": "05",
+									"TaxRate": 0.0,
+									"TaxableBase": {
+										"TotalAmount": 1071.48,
+										"EquivalentInEuros": 1071.48
+									},
+									"TaxAmount": {
+										"TotalAmount": 0.0,
+										"EquivalentInEuros": 0.0
+									}
+								}
+							}
+						],
+						"InvoiceTotals": {
+							"GeneralDiscounts": [
+								{
+									"Discount": {
+										"DiscountReason": "Descuento General",
+										"DiscountTypeCode": "DT01",
+										"DiscountRate": 10.0,
+										"DiscountAmount": 107.15,
+										"DiscountTax": {
+											"TaxTypeCode": "S",
+											"TaxRate": 0.0
+										}
+									}
+								}
+							],
+							"GeneralCharges": [
+								{
+									"Charge": {
+										"ChargeReason": "Cargo General",
+										"ChargeTypeCode": "CT01",
+										"ChargeRate": 5.0,
+										"ChargeAmount": 53.57,
+										"ChargeTax": {
+											"TaxTypeCode": "S",
+											"TaxRate": 0.0
+										}
+									}
+								}
+							],
+							"TotalGeneralDiscounts": 107.15,
+							"TotalGeneralCharges": 53.57,
+							"TotalNetAmount": 1071.48,
+							"TotalGrossAmount": 1296.09,
+							"TotalTaxOutputs": 224.61,
+							"TotalTaxesWithheld": 0.0,
+							"InvoiceTotal": 1242.51,
+							"TotalPayableAmount": 1242.51,
+							"TotalPayedAmount": 0.0
+						},
+						"Items": [
+							{
+								"InvoiceLine": {
+									"SequenceNumber": 1,
+									"ItemCode": "12345",
+									"ItemDescription": "Item 1",
+									"Quantity": 10,
+									"UnitOfMeasure": "EA",
+									"NotesReferences": [
+										{
+											"DeliveryNote": {
+												"DeliveryNoteNumber": "1234567",
+												"DeliveryNoteDate": "2024-11-03T23:59:59"
+											},
+											"Order": {
+												"OrderNumber": "1234567",
+												"OrderDate": "2024-11-03T23:59:59"
+											},
+											"CadastralReference": {
+												"CadastralReferenceNumber": "",
+												"CadastralReferenceSituation": ""
+											}
+										}
+									],
+									"LineItemPeriod": {
+										"StartDate": "2024-11-03T23:59:59",
+										"EndDate": "2024-11-10T23:59:59"
+									},
+									"Discounts": [
+										{
+											"Discount": {
+												"DiscountReason": "Descuento I1",
+												"DiscountRate": 10.0,
+												"DiscountAmount": 107.15
+											}
+										}
+									],
+									"Charges": [
+										{
+											"Charge": {
+												"ChargeReason": "Cargo I1",
+												"ChargeRate": 25.0,
+												"ChargeAmount": 250.0
+											}
+										}
+									],
+									"TaxesOutputs": [
+										{
+											"Tax": {
+												"TaxTypeCode": "01",
+												"TaxRegimeCode": "01",
+												"TaxRate": 21.0,
+												"TaxableBase": {
+													"TotalAmount": 1071.48,
+													"EquivalentInEuros": 1071.48
+												},
+												"TaxAmount": {
+													"TotalAmount": 224.61,
+													"EquivalentInEuros": 224.61
+												}
+											}
+										}
+									],
+									"NetUnitPrice": 107.148,
+									"NetPrice": 1071.48,
+									"TotalCost": 1071.48,
+									"GrossAmount": 1296.09
+								}
+							}
+						],
+						"PaymentDetails": [
+							{
+								"Installment": {
+									"InstallmentDueDate": "2024-11-03T23:59:59",
+									"InstallmentAmount": 1242.51,
+									"PaymentMeans": "04",
+									"Account": {
+										"IBAN": "ES9121000418450200051332",
+										"AccountNumber": "21000418450200051332",
+										"BankCode": "2100",
+										"BIC": "CAIXESBBXXX"
+									},
+									"CollectionAdditionalInformation": "Lorem Ipsum",
+									"PaymentReconciliationReference": "Lorem Ipsum"
+								}
+							}
+						],
+						"LegalLiterals": {
+							"LegalReference": "Lorem Ipsum"
+						},
+						"AdditionalData": {
+							"RelatedDocuments": [
+								{
+									"Attachment": {
+										"AttachmentCompressionAlgorithm": "NONE",
+										"AttachmentFormat": "pdf",
+										"AttachmentEncoding": "BASE64",
+										"AttachmentDescription": "PDF FACTURA",
+										"AttachmentData": "JVBERi0xLjQKJcfs... (base64 sample)"
+									},
+                                    "QRAttachment": {
+										"URL": "https://example.com/qr/INV00000001.png",
+										"HASHCode": "ABCDEF1234567890",
+										"PrevoiusHASHCode": "0000000000000000",
+										"eSignature": "MIICXQIBAAKBgQC...",
+										"PlaceholderOthers": "N/A"
+                                    }
+								}
+							]
+						}
+					}
+				]
+			}
+		]
+	}
+}
