@@ -1,436 +1,436 @@
 {
-  "InvoiceGNX": {
-    "FileHeader": {
-      "SchemaVersion": "3.0",
-      "Modality": "I",
-      "InvoiceIssuerType": "EM",
-      "Batch": {
-        "BatchIdentifier": "BATCH-2026-0001",
-        "InvoicesCount": 1,
-        "TotalInvoicesAmount": {
-          "TotalAmount": 210.0,
-          "EquivalentInEuros": 210.0
-        },
-        "TotalOutstandingAmount": {
-          "TotalAmount": 210.0,
-          "EquivalentInEuros": 210.0
-        },
-        "TotalExecutableAmount": {
-          "TotalAmount": 210.0,
-          "EquivalentInEuros": 210.0
-        },
-        "InvoiceCurrencyCode": "EUR"
-      }
-    },
-    "Invoices": [
-      {
-        "Parties": {
-          "SellerParty": {
-            "TaxIdentification": {
-              "PersonTypeCode": "J",
-              "ResidenceTypeCode": "R",
-              "TaxIdentificationNumber": "B12345678"
-            },
-            "PartyIdentification": "PARTY-001",
-            "LegalEntity": {
-              "CorporateName": "Proveedor Ejemplo S.L.",
-              "TradeName": "Ejemplo Comercial",
-              "RegistrationData": {
-                "Book": "123",
-                "RegisterOfCompaniesLocation": "Madrid",
-                "Sheet": "M-123456",
-                "Folio": "45",
-                "Section": "8",
-                "Volume": "9876",
-                "AdditionalRegistrationData": "Registro Mercantil de Madrid"
-              },
-              "Address": {
-                "Address": "Calle Mayor 1",
-                "AdditionalAddress": "Planta 2",
-                "PostCode": "28013",
-                "Town": "Madrid",
-                "Province": "Madrid",
-                "CountryCode": "ESP"
-              },
-              "ContactDetails": {
-                "Telephone": "+34910000000",
-                "WebAddress": "https://example.com",
-                "ElectronicMail": "facturacion@example.com",
-                "LastName": "García",
-                "FirstName": "Ana"
-              }
+    "InvoiceGNX": {
+        "FileHeader": {
+            "SchemaVersion": "3.0",
+            "Modality": "I",
+            "InvoiceIssuerType": "EM",
+            "Batch": {
+                "BatchIdentifier": "B12345678INV-2026-0001",
+                "InvoicesCount": 1,
+                "TotalInvoicesAmount": {
+                    "TotalAmount": 1224.14,
+                    "EquivalentInEuros": 1224.14
+                },
+                "TotalOutstandingAmount": {
+                    "TotalAmount": 1224.14,
+                    "EquivalentInEuros": 1224.14
+                },
+                "TotalExecutableAmount": {
+                    "TotalAmount": 1224.14,
+                    "EquivalentInEuros": 1224.14
+                },
+                "InvoiceCurrencyCode": "EUR"
             }
-          },
-          "BuyerParty": {
-            "TaxIdentification": {
-              "PersonTypeCode": "J",
-              "ResidenceTypeCode": "R",
-              "TaxIdentificationNumber": "A87654321"
-            },
-            "PartyIdentification": "PARTY-001",
-            "LegalEntity": {
-              "CorporateName": "Cliente Ejemplo S.A.",
-              "TradeName": "Ejemplo Comercial",
-              "RegistrationData": {
-                "Book": "123",
-                "RegisterOfCompaniesLocation": "Madrid",
-                "Sheet": "M-123456",
-                "Folio": "45",
-                "Section": "8",
-                "Volume": "9876",
-                "AdditionalRegistrationData": "Registro Mercantil de Madrid"
-              },
-              "Address": {
-                "Address": "Calle Mayor 1",
-                "AdditionalAddress": "Planta 2",
-                "PostCode": "28013",
-                "Town": "Madrid",
-                "Province": "Madrid",
-                "CountryCode": "ESP"
-              },
-              "ContactDetails": {
-                "Telephone": "+34910000000",
-                "WebAddress": "https://example.com",
-                "ElectronicMail": "facturacion@example.com",
-                "LastName": "García",
-                "FirstName": "Ana"
-              }
-            }
-          },
-          "ThirdParty": {
-            "TaxIdentification": {
-              "PersonTypeCode": "J",
-              "ResidenceTypeCode": "R",
-              "TaxIdentificationNumber": "B99887766"
-            },
-            "PartyIdentification": "PARTY-001",
-            "LegalEntity": {
-              "CorporateName": "Intermediario Ejemplo S.L.",
-              "TradeName": "Ejemplo Comercial",
-              "RegistrationData": {
-                "Book": "123",
-                "RegisterOfCompaniesLocation": "Madrid",
-                "Sheet": "M-123456",
-                "Folio": "45",
-                "Section": "8",
-                "Volume": "9876",
-                "AdditionalRegistrationData": "Registro Mercantil de Madrid"
-              },
-              "Address": {
-                "Address": "Calle Mayor 1",
-                "AdditionalAddress": "Planta 2",
-                "PostCode": "28013",
-                "Town": "Madrid",
-                "Province": "Madrid",
-                "CountryCode": "ESP"
-              },
-              "ContactDetails": {
-                "Telephone": "+34910000000",
-                "WebAddress": "https://example.com",
-                "ElectronicMail": "facturacion@example.com",
-                "LastName": "García",
-                "FirstName": "Ana"
-              }
-            }
-          }
         },
-        "Legislation": {
-          "VeriFactu": {
-            "InformaticSistem": {
-              "CorporateName": "Ejemplo Empresa S.L.",
-              "TaxIdentificationType": "NIF",
-              "TaxIdentificationNumber": "B12345678",
-              "InformaticSistemName": "GNX Invoice",
-              "InformaticSistemID": "GNX-INV-01",
-              "InformaticSistemVersion": "3.0.0",
-              "InstallationNumber": "INST-0001",
-              "UseVeriFactu": "S",
-              "UseMultiOTtype": "N",
-              "MultiOT": "N"
-            },
-            "RecordInfo": {
-              "ExternalReference": "EXT-2026-0001",
-              "BillingAgreementRegistrationNumber": "AGR-2026-001",
-              "InformaticSystemAgreementID": "ISA-001"
-            },
-            "PreviousRecord": {
-              "PreviousIssuerTaxIdentificationNumber": "B12345678",
-              "PreviousInvoiceNumber": "INV-2026-0000",
-              "PreviousInvoiceIssueDate": "2026-10-25",
-              "PreviousFingerprint": "ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789"
-            },
-            "InvoiceIndicators": {
-              "SimplifiedInvoice": "N",
-              "InvoiceWithoutRecipient": "N",
-              "MacroData": "N",
-              "Coupon": "N"
-            }
-          }
-        },
-        "Invoice": [
-          {
-            "InvoiceHeader": {
-              "InvoiceNumber": "INV-2026-0001",
-              "InvoiceDocumentType": "FC",
-              "InvoiceClass": "OO",
-              "InvoiceDescription": "Factura de servicios de consultoría",
-              "PreviousInvoiceNumber": "INV-2026-0000",
-              "Corrective": {
-                "InvoiceNumber": "INV-2026-0001",
-                "ReasonCode": "01",
-                "ReasonDescription": "Rectificación del importe facturado",
-                "InvoiceIssueDate": "2026-10-20",
-                "CorrectionMethod": "01",
-                "CorrectionMethodDescription": "Rectificación íntegra",
-                "CorrectiveAmounts": {
-                  "GrossAmount": 1000.0,
-                  "TaxAmount": 210.0,
-                  "ChargeAmount": 0.0
-                }
-              },
-              "Notes": [
-                {
-                  "Note": {
-                    "SubjectCode": "AAI",
-                    "Text": "Factura emitida conforme a las condiciones acordadas"
-                  }
-                }
-              ]
-            },
-            "InvoiceIssueData": {
-              "IssueDate": "2026-10-26",
-              "PreviousInvoiceDate": "2026-10-25",
-              "EffectivePaymentDate": "2026-11-25",
-              "InvoicingPeriod": {
-                "StartDate": "2026-10-01",
-                "EndDate": "2026-10-31"
-              },
-              "InvoiceCurrencyCode": "EUR",
-              "TaxCurrencyCode": "EUR",
-              "ExchangeRate": 1.0,
-              "LanguageName": "es"
-            },
-            "TaxesOutputs": [
-              {
-                "Tax": {
-                  "TaxTypeCode": "VAT",
-                  "TaxRegimeCode": "01",
-                  "TaxOperationType": "S1",
-                  "TaxExemptionReason": "Operación no exenta",
-                  "TaxExemptionReasonCode": "NONE",
-                  "TaxRate": 21.0,
-                  "TaxableBase": {
-                    "TotalAmount": 1000.0,
-                    "EquivalentInEuros": 1000.0
-                  },
-                  "TaxAmount": {
-                    "TotalAmount": 210.0,
-                    "EquivalentInEuros": 210.0
-                  },
-                  "EquivalenceSurchargeRate": 5.2,
-                  "EquivalenceSurchargeAmount": {
-                    "TotalAmount": 52.0,
-                    "EquivalentInEuros": 52.0
-                  }
-                }
-              }
-            ],
-            "TaxesWithheld": [
-              {
-                "Tax": {
-                  "TaxTypeCode": "IRPF",
-                  "TaxRegimeCode": "01",
-                  "TaxOperationType": "S1",
-                  "TaxExemptionReasonCode": "NONE",
-                  "TaxRate": 15.0,
-                  "TaxableBase": {
-                    "TotalAmount": 1000.0,
-                    "EquivalentInEuros": 1000.0
-                  },
-                  "TaxAmount": {
-                    "TotalAmount": 150.0,
-                    "EquivalentInEuros": 150.0
-                  },
-                  "EquivalenceSurchargeRate": 5.2,
-                  "EquivalenceSurchargeAmount": {
-                    "TotalAmount": 52.0,
-                    "EquivalentInEuros": 52.0
-                  }
-                }
-              }
-            ],
-            "InvoiceTotals": {
-              "GeneralDiscounts": [
-                {
-                  "Discount": {
-                    "DiscountReason": "Descuento comercial",
-                    "DiscountTypeCode": "95",
-                    "DiscountRate": 5.0,
-                    "DiscountAmount": 50.0,
-                    "DiscountTax": {
-                      "TaxTypeCode": "VAT",
-                      "TaxRate": 21.0
-                    }
-                  }
-                }
-              ],
-              "GeneralCharges": [
-                {
-                  "Charge": {
-                    "ChargeReason": "Gastos de transporte",
-                    "ChargeTypeCode": "FC",
-                    "ChargeRate": 2.0,
-                    "ChargeAmount": 0.0,
-                    "ChargeTax": {
-                      "TaxTypeCode": "VAT",
-                      "TaxRate": 21.0
-                    }
-                  }
-                }
-              ],
-              "TotalGeneralDiscounts": 50.0,
-              "TotalGeneralCharges": 0.0,
-              "TotalNetAmount": 1000.0,
-              "TotalGrossAmount": 1000.0,
-              "TotalTaxOutputs": 210.0,
-              "TotalTaxOutputsInTaxCurrency": 210.0,
-              "TotalTaxesWithheld": 0.0,
-              "TaxesWithheldDescription": "Sin retenciones",
-              "InvoiceTotal": 1210.0,
-              "PayableRoundingAmount": 0.0,
-              "TotalPayableAmount": 1210.0,
-              "TotalPayedAmount": 0.0
-            },
-            "Items": [
-              {
-                "InvoiceLine": {
-                  "SequenceNumber": 1,
-                  "ItemCode": "SERV-001",
-                  "ItemDescription": "Servicios de consultoría funcional",
-                  "Quantity": 10.0,
-                  "UnitOfMeasure": "HUR",
-                  "NotesReferences": [
-                    {
-                      "DeliveryNote": {
-                        "DeliveryNoteNumber": "ALB-2026-001",
-                        "DeliveryNoteDate": "2026-10-20"
-                      },
-                      "Order": {
-                        "OrderNumber": "PO-2026-001",
-                        "OrderDate": "2026-10-01"
-                      },
-                      "CadastralReference": {
-                        "CadastralReferenceNumber": "1234567VK4713S0001AB",
-                        "CadastralReferenceSituation": "1"
-                      },
-                      "AdditionalLineInformation": "Servicio prestado durante octubre de 2026"
-                    }
-                  ],
-                  "LineItemPeriod": {
-                    "StartDate": "2026-10-01",
-                    "EndDate": "2026-10-31"
-                  },
-                  "Discounts": [
-                    {
-                      "Discount": {
-                        "DiscountTypeCode": "95",
-                        "DiscountReason": "Descuento comercial",
-                        "DiscountRate": 5.0,
-                        "DiscountAmount": 50.0
-                      }
-                    }
-                  ],
-                  "Charges": [
-                    {
-                      "Charge": {
-                        "ChargeTypeCode": "FC",
-                        "ChargeReason": "Gastos de transporte",
-                        "ChargeTaxTypeCode": "VAT",
-                        "ChargeRate": 2.0,
-                        "ChargeAmount": 0.0
-                      }
-                    }
-                  ],
-                  "TaxesOutputs": [
-                    {
-                      "Tax": {
-                        "TaxTypeCode": "VAT",
-                        "TaxRegimeCode": "01",
-                        "TaxOperationType": "S1",
-                        "TaxExemptionReasonCode": "NONE",
-                        "TaxRate": 21.0,
-                        "TaxableBase": {
-                          "TotalAmount": 1000.0,
-                          "EquivalentInEuros": 1000.0
+        "Invoices": [
+            {
+                "Parties": {
+                    "SellerParty": {
+                        "TaxIdentification": {
+                            "PersonTypeCode": "J",
+                            "ResidenceTypeCode": "R",
+                            "TaxIdentificationNumber": "B12345678"
                         },
-                        "TaxAmount": {
-                          "TotalAmount": 210.0,
-                          "EquivalentInEuros": 210.0
-                        },
-                        "EquivalenceSurchargeRate": 5.2,
-                        "EquivalenceSurchargeAmount": {
-                          "TotalAmount": 52.0,
-                          "EquivalentInEuros": 52.0
+                        "PartyIdentification": "SELLER-001",
+                        "LegalEntity": {
+                            "CorporateName": "Proveedor Ejemplo S.L.",
+                            "TradeName": "Proveedor Ejemplo",
+                            "RegistrationData": {
+                                "Book": "0",
+                                "RegisterOfCompaniesLocation": "Madrid",
+                                "Sheet": "M-123456",
+                                "Folio": "45",
+                                "Section": "8",
+                                "Volume": "9876",
+                                "AdditionalRegistrationData": "Inscripción 1ª"
+                            },
+                            "Address": {
+                                "Address": "Calle Mayor 1",
+                                "AdditionalAddress": "Planta 2",
+                                "PostCode": "28013",
+                                "Town": "Madrid",
+                                "Province": "Madrid",
+                                "CountryCode": "ESP"
+                            },
+                            "ContactDetails": {
+                                "Telephone": "+34910000000",
+                                "WebAddress": "https://www.example.com",
+                                "ElectronicMail": "facturacion@proveedor-ejemplo.com",
+                                "LastName": "García",
+                                "FirstName": "Ana"
+                            }
                         }
-                      }
+                    },
+                    "BuyerParty": {
+                        "TaxIdentification": {
+                            "PersonTypeCode": "J",
+                            "ResidenceTypeCode": "R",
+                            "TaxIdentificationNumber": "A87654321"
+                        },
+                        "PartyIdentification": "BUYER-001",
+                        "LegalEntity": {
+                            "CorporateName": "Cliente Ejemplo S.A.",
+                            "TradeName": "Cliente Ejemplo",
+                            "RegistrationData": {
+                                "Book": "0",
+                                "RegisterOfCompaniesLocation": "Madrid",
+                                "Sheet": "M-123456",
+                                "Folio": "45",
+                                "Section": "8",
+                                "Volume": "9876",
+                                "AdditionalRegistrationData": "Inscripción 1ª"
+                            },
+                            "Address": {
+                                "Address": "Avenida Diagonal 100",
+                                "AdditionalAddress": "Planta 2",
+                                "PostCode": "08019",
+                                "Town": "Barcelona",
+                                "Province": "Barcelona",
+                                "CountryCode": "ESP"
+                            },
+                            "ContactDetails": {
+                                "Telephone": "+34910000000",
+                                "WebAddress": "https://www.example.com",
+                                "ElectronicMail": "cuentas@cliente-ejemplo.com",
+                                "LastName": "Martínez",
+                                "FirstName": "Luis"
+                            }
+                        }
+                    },
+                    "ThirdParty": {
+                        "TaxIdentification": {
+                            "PersonTypeCode": "J",
+                            "ResidenceTypeCode": "R",
+                            "TaxIdentificationNumber": "B99887766"
+                        },
+                        "PartyIdentification": "THIRD-001",
+                        "LegalEntity": {
+                            "CorporateName": "Tercero Emisor Ejemplo S.L.",
+                            "TradeName": "Tercero Ejemplo",
+                            "RegistrationData": {
+                                "Book": "0",
+                                "RegisterOfCompaniesLocation": "Madrid",
+                                "Sheet": "M-123456",
+                                "Folio": "45",
+                                "Section": "8",
+                                "Volume": "9876",
+                                "AdditionalRegistrationData": "Inscripción 1ª"
+                            },
+                            "Address": {
+                                "Address": "Calle Colón 10",
+                                "AdditionalAddress": "Planta 2",
+                                "PostCode": "46004",
+                                "Town": "Valencia",
+                                "Province": "Valencia",
+                                "CountryCode": "ESP"
+                            },
+                            "ContactDetails": {
+                                "Telephone": "+34910000000",
+                                "WebAddress": "https://www.example.com",
+                                "ElectronicMail": "emision@tercero-ejemplo.com",
+                                "LastName": "López",
+                                "FirstName": "Marta"
+                            }
+                        }
                     }
-                  ],
-                  "NetUnitPrice": 100.0,
-                  "NetPrice": 1000.0,
-                  "TotalCost": 1000.0,
-                  "GrossAmount": 1000.0
-                }
-              }
-            ],
-            "PaymentDetails": [
-              {
-                "Installment": {
-                  "InstallmentDueDate": "2026-11-25",
-                  "InstallmentAmount": 1210.0,
-                  "PaymentMeans": "30",
-                  "PaymentTermsNote": "Pago mediante transferencia bancaria a 30 días",
-                  "Account": {
-                    "IBAN": "ES9121000418450200051332",
-                    "AccountNumber": "0200051332",
-                    "BankCode": "2100",
-                    "BIC": "CAIXESBBXXX"
-                  },
-                  "CollectionAdditionalInformation": "Indicar el número de factura en la transferencia",
-                  "PaymentReconciliationReference": "INV-2026-0001"
-                }
-              }
-            ],
-            "LegalLiterals": {
-              "LegalReference": "Ley 18/2022, de creación y crecimiento de empresas"
-            },
-            "AdditionalData": {
-              "RelatedDocuments": [
-                {
-                  "Attachment": {
-                    "AttachmentCompressionAlgorithm": "ZIP",
-                    "AttachmentFormat": "PDF",
-                    "AttachmentEncoding": "Base64",
-                    "AttachmentDescription": "Representación visual de la factura",
-                    "AttachmentData": "JVBERi0xLjQKJcTl8uXrCg=="
-                  },
-                  "QRAttachment": {
-                    "DocumentDescription": "Código QR de verificación",
-                    "URL": "https://example.com/verificar/INV-2026-0001",
-                    "HASHCode": "1234567890ABCDEF1234567890ABCDEF",
-                    "PrevoiusHASHCode": "ABCDEF1234567890ABCDEF1234567890",
-                    "eSignature": "SIGNATURE-EXAMPLE-001",
-                    "PlaceholderOthers": "Información adicional del código QR"
-                  },
-                  "BillingAuthorization": {
-                    "Description": "Autorización de facturación por tercero",
-                    "ReferenceNumber": "AUTH-2026-001"
-                  }
-                }
-              ]
+                },
+                "Legislation": {
+                    "VeriFactu": {
+                        "InformaticSistem": {
+                            "CorporateName": "Generix Group España S.L.",
+                            "TaxIdentificationType": "02",
+                            "TaxIdentificationNumber": "B11223344",
+                            "InformaticSistemName": "GNX Invoice",
+                            "InformaticSistemID": "GX",
+                            "InformaticSistemVersion": "3.0.0",
+                            "InstallationNumber": "INST-0001",
+                            "UseVeriFactu": "S",
+                            "UseMultiOTtype": "S",
+                            "MultiOT": "N"
+                        },
+                        "RecordInfo": {
+                            "ExternalReference": "EXT-2026-0001",
+                            "BillingAgreementRegistrationNumber": "AGR-2026-001",
+                            "InformaticSystemAgreementID": "ISA-2026-001"
+                        },
+                        "PreviousRecord": {
+                            "PreviousIssuerTaxIdentificationNumber": "B12345678",
+                            "PreviousInvoiceNumber": "INV-2026-0000",
+                            "PreviousInvoiceIssueDate": "2026-10-25T00:00:00",
+                            "PreviousFingerprint": "3C464DAF61ACB827C65FDA19F352A4E3BDC2C640E9E9FC4CC058073F38F12F60"
+                        },
+                        "InvoiceIndicators": {
+                            "SimplifiedInvoice": "N",
+                            "InvoiceWithoutRecipient": "N",
+                            "MacroData": "N",
+                            "Coupon": "N"
+                        }
+                    }
+                },
+                "Invoice": [
+                    {
+                        "InvoiceHeader": {
+                            "InvoiceNumber": "INV-2026-0001",
+                            "InvoiceDocumentType": "380",
+                            "InvoiceClass": "OO",
+                            "InvoiceDescription": "Servicios de consultoría octubre 2026",
+                            "PreviousInvoiceNumber": "INV-2026-0000",
+                            "Corrective": {
+                                "InvoiceNumber": "INV-2026-0000",
+                                "ReasonCode": "R1",
+                                "ReasonDescription": "Error fundado en derecho",
+                                "InvoiceIssueDate": "2026-10-25T00:00:00",
+                                "CorrectionMethod": "I",
+                                "CorrectionMethodDescription": "Rectificación por diferencias",
+                                "CorrectiveAmounts": {
+                                    "GrossAmount": 970.0,
+                                    "TaxAmount": 203.7,
+                                    "ChargeAmount": 20.0
+                                }
+                            },
+                            "Notes": [
+                                {
+                                    "Note": {
+                                        "SubjectCode": "AAI",
+                                        "Text": "Factura emitida según las condiciones del contrato marco"
+                                    }
+                                }
+                            ]
+                        },
+                        "InvoiceIssueData": {
+                            "IssueDate": "2026-10-26T00:00:00",
+                            "PreviousInvoiceDate": "2026-10-25T00:00:00",
+                            "EffectivePaymentDate": "2026-11-25T00:00:00",
+                            "InvoicingPeriod": {
+                                "StartDate": "2026-10-01T00:00:00",
+                                "EndDate": "2026-10-31T00:00:00"
+                            },
+                            "InvoiceCurrencyCode": "EUR",
+                            "TaxCurrencyCode": "EUR",
+                            "ExchangeRate": 1.0,
+                            "LanguageName": "es"
+                        },
+                        "TaxesOutputs": [
+                            {
+                                "Tax": {
+                                    "TaxTypeCode": "IVA",
+                                    "TaxRegimeCode": "01",
+                                    "TaxOperationType": "S",
+                                    "TaxExemptionReason": "Operación sujeta y no exenta",
+                                    "TaxExemptionReasonCode": "VATEX-EU-79-C",
+                                    "TaxRate": 21.0,
+                                    "TaxableBase": {
+                                        "TotalAmount": 970.0,
+                                        "EquivalentInEuros": 970.0
+                                    },
+                                    "TaxAmount": {
+                                        "TotalAmount": 203.7,
+                                        "EquivalentInEuros": 203.7
+                                    },
+                                    "EquivalenceSurchargeRate": 5.2,
+                                    "EquivalenceSurchargeAmount": {
+                                        "TotalAmount": 50.44,
+                                        "EquivalentInEuros": 50.44
+                                    }
+                                }
+                            }
+                        ],
+                        "TaxesWithheld": [
+                            {
+                                "Tax": {
+                                    "TaxTypeCode": "IRPF",
+                                    "TaxRegimeCode": "01",
+                                    "TaxOperationType": "S",
+                                    "TaxExemptionReasonCode": "VATEX-EU-79-C",
+                                    "TaxRate": 15.0,
+                                    "TaxableBase": {
+                                        "TotalAmount": 970.0,
+                                        "EquivalentInEuros": 970.0
+                                    },
+                                    "TaxAmount": {
+                                        "TotalAmount": 145.5,
+                                        "EquivalentInEuros": 145.5
+                                    },
+                                    "EquivalenceSurchargeRate": 0.0,
+                                    "EquivalenceSurchargeAmount": {
+                                        "TotalAmount": 0.0,
+                                        "EquivalentInEuros": 0.0
+                                    }
+                                }
+                            }
+                        ],
+                        "InvoiceTotals": {
+                            "GeneralDiscounts": [
+                                {
+                                    "Discount": {
+                                        "DiscountReason": "Descuento por pronto pago",
+                                        "DiscountTypeCode": "MINO",
+                                        "DiscountRate": 1.0,
+                                        "DiscountAmount": 10.0,
+                                        "DiscountTax": {
+                                            "TaxTypeCode": "IVA",
+                                            "TaxRate": 21.0
+                                        }
+                                    }
+                                }
+                            ],
+                            "GeneralCharges": [
+                                {
+                                    "Charge": {
+                                        "ChargeReason": "Gastos de gestión",
+                                        "ChargeTypeCode": "SUPL",
+                                        "ChargeRate": 1.0,
+                                        "ChargeAmount": 10.0,
+                                        "ChargeTax": {
+                                            "TaxTypeCode": "IVA",
+                                            "TaxRate": 21.0
+                                        }
+                                    }
+                                }
+                            ],
+                            "TotalGeneralDiscounts": 10.0,
+                            "TotalGeneralCharges": 10.0,
+                            "TotalNetAmount": 970.0,
+                            "TotalGrossAmount": 970.0,
+                            "TotalTaxOutputs": 254.14,
+                            "TotalTaxOutputsInTaxCurrency": 254.14,
+                            "TotalTaxesWithheld": 145.5,
+                            "TaxesWithheldDescription": "Retención IRPF 15%",
+                            "InvoiceTotal": 1224.14,
+                            "PayableRoundingAmount": 0.0,
+                            "TotalPayableAmount": 1078.64,
+                            "TotalPayedAmount": 0.0
+                        },
+                        "Items": [
+                            {
+                                "InvoiceLine": {
+                                    "SequenceNumber": 1,
+                                    "ItemCode": "SERV-001",
+                                    "ItemDescription": "Horas de consultoría funcional",
+                                    "Quantity": 10.0,
+                                    "UnitOfMeasure": "HUR",
+                                    "NotesReferences": [
+                                        {
+                                            "DeliveryNote": {
+                                                "DeliveryNoteNumber": "ALB-2026-001",
+                                                "DeliveryNoteDate": "2026-10-20T00:00:00"
+                                            },
+                                            "Order": {
+                                                "OrderNumber": "PED-2026-001",
+                                                "OrderDate": "2026-10-01T00:00:00"
+                                            },
+                                            "CadastralReference": {
+                                                "CadastralReferenceNumber": "1234567VK4713S0001AB",
+                                                "CadastralReferenceSituation": "01"
+                                            },
+                                            "AdditionalLineInformation": "Servicio prestado en las oficinas del cliente"
+                                        }
+                                    ],
+                                    "LineItemPeriod": {
+                                        "StartDate": "2026-10-01T00:00:00",
+                                        "EndDate": "2026-10-31T00:00:00"
+                                    },
+                                    "Discounts": [
+                                        {
+                                            "Discount": {
+                                                "DiscountTypeCode": "S",
+                                                "DiscountReason": "Descuento comercial",
+                                                "DiscountRate": 5.0,
+                                                "DiscountAmount": 50.0
+                                            }
+                                        }
+                                    ],
+                                    "Charges": [
+                                        {
+                                            "Charge": {
+                                                "ChargeTypeCode": "S",
+                                                "ChargeReason": "Desplazamiento",
+                                                "ChargeTaxTypeCode": "IVA",
+                                                "ChargeRate": 2.0,
+                                                "ChargeAmount": 20.0
+                                            }
+                                        }
+                                    ],
+                                    "TaxesOutputs": [
+                                        {
+                                            "Tax": {
+                                                "TaxTypeCode": "IVA",
+                                                "TaxRegimeCode": "01",
+                                                "TaxOperationType": "S",
+                                                "TaxExemptionReasonCode": "VATEX-EU-79-C",
+                                                "TaxRate": 21.0,
+                                                "TaxableBase": {
+                                                    "TotalAmount": 970.0,
+                                                    "EquivalentInEuros": 970.0
+                                                },
+                                                "TaxAmount": {
+                                                    "TotalAmount": 203.7,
+                                                    "EquivalentInEuros": 203.7
+                                                },
+                                                "EquivalenceSurchargeRate": 5.2,
+                                                "EquivalenceSurchargeAmount": {
+                                                    "TotalAmount": 50.44,
+                                                    "EquivalentInEuros": 50.44
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "NetUnitPrice": 100.0,
+                                    "NetPrice": 970.0,
+                                    "TotalCost": 970.0,
+                                    "GrossAmount": 1000.0
+                                }
+                            }
+                        ],
+                        "PaymentDetails": [
+                            {
+                                "Installment": {
+                                    "InstallmentDueDate": "2026-11-25T00:00:00",
+                                    "InstallmentAmount": 1078.64,
+                                    "PaymentMeans": "04",
+                                    "PaymentTermsNote": "Transferencia bancaria a 30 días fecha factura",
+                                    "Account": {
+                                        "IBAN": "ES9121000418450200051332",
+                                        "AccountNumber": "0200051332",
+                                        "BankCode": "2100",
+                                        "BIC": "CAIXESBBXXX"
+                                    },
+                                    "CollectionAdditionalInformation": "Indicar el número de factura en el concepto",
+                                    "PaymentReconciliationReference": "INV-2026-0001"
+                                }
+                            }
+                        ],
+                        "LegalLiterals": {
+                            "LegalReference": "Operación sujeta a recargo de equivalencia"
+                        },
+                        "AdditionalData": {
+                            "RelatedDocuments": [
+                                {
+                                    "Attachment": {
+                                        "AttachmentCompressionAlgorithm": "NONE",
+                                        "AttachmentFormat": "pdf",
+                                        "AttachmentEncoding": "BASE64",
+                                        "AttachmentDescription": "Representación PDF de la factura",
+                                        "AttachmentData": "JVBERi0xLjQKJcTl8uXrCg=="
+                                    },
+                                    "QRAttachment": {
+                                        "DocumentDescription": "QR de verificación VERI*FACTU",
+                                        "URL": "https://prewww2.aeat.es/wlpl/TIKE-CONT/ValidarQR?nif=B12345678&numserie=INV-2026-0001&fecha=26-10-2026&importe=1224.14",
+                                        "HASHCode": "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
+                                        "PrevoiusHASHCode": "3C464DAF61ACB827C65FDA19F352A4E3BDC2C640E9E9FC4CC058073F38F12F60",
+                                        "eSignature": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA",
+                                        "PlaceholderOthers": "N/A"
+                                    },
+                                    "BillingAuthorization": {
+                                        "Description": "Autorización de facturación por destinatario",
+                                        "ReferenceNumber": "AUT-2026-001"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
-          }
         ]
-      }
-    ]
-  }
+    }
 }
